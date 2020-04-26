@@ -1,1 +1,1 @@
-BikeScience is being developed in python.
+BikeScience Web project.
