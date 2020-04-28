@@ -1,14 +1,18 @@
 <template>
   <div id="app">
     <filter-panel></filter-panel>
+    <selectors id="selectors"></selectors>
   </div>
 </template>
 
 <script>
-  import FilterPanel from './components/filters/FilterPanel';
+  import FilterPanelVue from './components/filters/Filters.vue';
+  import SelectorsVue from './components/filters/Selectors.vue';
+
   export default {
     components: {
-      'filter-panel': FilterPanel
+      filterPanel: FilterPanelVue,
+      selectors: SelectorsVue
     }
   }
 </script>
