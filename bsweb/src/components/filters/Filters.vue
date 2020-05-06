@@ -1,6 +1,6 @@
 <template>
-  <div id="filterpanel">
-    <p>Filtros selecionados</p>
+  <div class="container">
+    <p id="title">Filtros</p>
   </div>
 </template>
 
@@ -8,8 +8,7 @@
 </script>
 
 <style scoped>
-  #filterpanel {
-    width: 20%;
-    border-right: 1px solid #ccc;
+  #title {
+    text-align: center;
   }
 </style>

@@ -1,14 +1,44 @@
 <template>
   <div>
-    <select>
-      <option disabled selected>{{ category.category_name }}</option>
-      <option v-for="filter in category.filters" :value="filter.id" :key="filter.id">{{  filter.filter_name }}</option>
-    </select>
+    <multiselect v-model="selectedFilters" 
+                :options="category.filters"
+                :multiple="true"
+                :close-on-select="false"
+                :clear-on-select="false"
+                :preserve-search="true"
+                placeholder=""
+                label="filter_name"
+                :select-label="''"
+                track-by="filter_name"
+                :searchable="false"
+                :show-labels="false"
+                @select="selectFilter"
+                @remove="selectFilter">
+      <template slot="selection" slot-scope="{ values, search, isOpen }">
+        {{ category.category_name }}
+      </template>
+    </multiselect>
   </div>
 </template>
 
 <script>
-export default {
-  props: ['category']
+  import { filterEvents } from '../../main.js';
+  import Multiselect from 'vue-multiselect';
+
+  export default {
+    props: ['category'],
+    components: {
+      Multiselect
+    },
+    data() {
+      return {
+        selectedFilters: []
+      };
+    },
+    methods: {
+      selectFilter(selectedOption) {
+        filterEvents.$emit('filterSelected', selectedOption.id);
+      }
+    }
 }
 </script>

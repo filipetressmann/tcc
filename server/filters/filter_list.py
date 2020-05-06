@@ -1,5 +1,18 @@
 FILTERS = [
   {
+    'category_name': 'Layers',
+    'filters': [
+      {
+        'id': 14,
+        'filter_name': 'Linhas da CPTM'
+      },
+      {
+        'id': 15,
+        'filter_name': 'Linhas do Metrô'
+      }
+    ]
+  },
+  {
     'category_name': 'Filtros temporais',
     'filters': [
       {
