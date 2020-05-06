@@ -1,6 +1,10 @@
 <template>
-  <div>
-    <filter-selector v-for="category in categories" :category="category" :key="category.name"></filter-selector>
+  <div class="columns selectors">
+    <filter-selector v-for="category in categories"
+                    :category="category"
+                    :key="category.name"
+                    class="selector">
+    </filter-selector>
   </div>
 </template>
 
@@ -24,7 +28,6 @@
                 return response.json();
               })
               .then(categories => {
-                console.log(categories);
                 this.categories = categories;
               });
       }
@@ -34,3 +37,16 @@
     }
   }
 </script>
+
+<style scoped>
+  .selectors {
+    padding-top: 2%;
+    padding-bottom: 1%;
+    margin: 0;
+    overflow: visible !important;
+  }
+
+  .selector {
+    padding-right: 0;
+  }
+</style>
