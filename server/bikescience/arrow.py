@@ -78,56 +78,7 @@ def center_y(x1, y1, x2, y2, radius):
     y3 = (y1 + y2) / 2
     return y3 + math.sqrt(radsq - ((q / 2) * (q / 2))) * ((x2-x1) / q)
 
-
-def draw_arrow_folium(folium_map, lat1, lon1, lat2, lon2, color='blue', weight=3, tip=6, text='', radius_fac=1.0):
-    """
-    Draw an arc arrow from two points on a folium map.
-    
-    Parameters:
-       folium_map - the map
-       lat1 - latitude of origin point
-       lon1 - longitude of origin point
-       lat2 - latitude of destination point
-       lon2 - longitude of destination point
-       color - maybe the month income of the arrow? just kidding :)
-       weight - line width
-       tip - arrow head size
-       text - a hover text for mouse pointing
-       radius_fac - The minimum possible radius for the arc is the distance between the points, i.e., 1.0*distance. 
-                    This parameter is that multiplication factor: the bigger the factor, the smoother the arc.
-    
-    The N module variable determine how many segments will make the arc.
-    """
-    global N
-    lat1, lon1, lat2, lon2 = .95*lat1 + .05*lat2, .95*lon1 + .05*lon2, .95*lat2 + .05*lat1, .95*lon2 + .05*lon1
-    
-    dist_x = lon1 - lon2
-    dist_y = lat1 - lat2
-    RADIUS = math.sqrt(dist_x*dist_x + dist_y*dist_y) * radius_fac
-
-    xc = center_x(lon1, lat1, lon2, lat2, RADIUS)
-    yc = center_y(lon1, lat1, lon2, lat2, RADIUS)
-    arc_x, arc_y, start, end = create_arc(N, RADIUS, xc, yc, [lon1, lat1], [lon2, lat2], reverse=False)
-    arc2_x, arc2_y, start2, end2 = create_arc(N, RADIUS, xc, yc, [lon1, lat1], [lon2, lat2], reverse=True)
-
-    if (end2 - start2) < (end - start):
-        arc_x, arc_y = arc2_x, arc2_y
-        start, end = start2, end2
-
-    arc_points = iter(zip(arc_y, arc_x))
-    ant = next(arc_points)
-    for p in arc_points:
-        folium.PolyLine(locations=[ant, p], color=color, weight = weight, popup=text).add_to(folium_map)
-        ant = p
-
-    rotation = math.pi/2 - end + math.pi
-    rotation *= 180 / math.pi  # use degrees
-    polygon = folium.RegularPolygonMarker(location=[lat2, lon2], fill_color=color, number_of_sides=3, radius=tip, 
-                            rotation=rotation, popup=text)
-    print(polygon)
-    polygon.add_to(folium_map)
-
-def draw_arrow(lat1, lon1, lat2, lon2, weight=3, radius_fac=2.0):
+def draw_arrow(lat1, lon1, lat2, lon2, text='', weight=3, radius_fac=2.0):
     """
     Draw an arc arrow from two points.
     
@@ -172,3 +123,46 @@ def draw_arrow(lat1, lon1, lat2, lon2, weight=3, radius_fac=2.0):
         coordinates.append([ant, p])
         ant = p
     return coordinates
+
+def draw_arrow_od(lat1, lon1, lat2, lon2, color='blue', weight=3, tip=6, text='', radius_fac=1.0):
+    """
+    Draw an arc arrow from two points on a folium map.
+    
+    Parameters:
+       folium_map - the map
+       lat1 - latitude of origin point
+       lon1 - longitude of origin point
+       lat2 - latitude of destination point
+       lon2 - longitude of destination point
+       color - maybe the month income of the arrow? just kidding :)
+       weight - line width
+       tip - arrow head size
+       text - a hover text for mouse pointing
+       radius_fac - The minimum possible radius for the arc is the distance between the points, i.e., 1.0*distance. 
+                    This parameter is that multiplication factor: the bigger the factor, the smoother the arc.
+    
+    The N module variable determine how many segments will make the arc.
+    """
+
+    if lat1 == lat2 and lon1 == lon2:
+        return LineString([(lat1, lon1), (lat2, lon2)])
+
+    global N
+    lat1, lon1, lat2, lon2 = .95*lat1 + .05*lat2, .95*lon1 + .05*lon2, .95*lat2 + .05*lat1, .95*lon2 + .05*lon1
+    
+    dist_x = lon1 - lon2
+    dist_y = lat1 - lat2
+    RADIUS = math.sqrt(dist_x*dist_x + dist_y*dist_y) * radius_fac
+
+    xc = center_x(lon1, lat1, lon2, lat2, RADIUS)
+    yc = center_y(lon1, lat1, lon2, lat2, RADIUS)
+    arc_x, arc_y, start, end = create_arc(N, RADIUS, xc, yc, [lon1, lat1], [lon2, lat2], reverse=False)
+    arc2_x, arc2_y, start2, end2 = create_arc(N, RADIUS, xc, yc, [lon1, lat1], [lon2, lat2], reverse=True)
+
+    if (end2 - start2) < (end - start):
+        arc_x, arc_y = arc2_x, arc2_y
+        start, end = start2, end2
+
+    arc_points = iter(zip(arc_y, arc_x))
+        
+    return LineString(arc_points)
