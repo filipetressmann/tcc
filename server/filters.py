@@ -1,0 +1,158 @@
+import bikescience.arrow as arrow
+import bikescience.tiers as tiers
+import saopaulo.flow as odflow
+import bikescience.sp_grid as gr
+import saopaulo.stations as st
+import saopaulo.load_trips as odfilters
+import filter_list as filter_list
+import pandas as pd
+import numpy as np
+import math
+
+""" od_trips = pd.read_csv('../data/sao-paulo/od/trips_od17_bikes.csv')
+
+zones = pd.read_csv('../data/sao-paulo/od/zonas_od17.csv') """
+
+"""
+  The purpose of this class is to return coordinates data to be
+  plotted in the web application, given the OD data and parameters for desired filter
+"""
+class ODFilterData:
+  def __init__(self, od_dataset):
+    od_dataset = od_dataset[od_dataset['ZONA_O']!=od_dataset['ZONA_D']]
+    od_dataset.rename(columns={'FE_VIA':'trip counts'},inplace=True)
+    self.od = od_dataset
+    self.grid = gr.create(n=20)
+  
+  def set_zones(self, zone_dataset):
+    self.zones = Zones(zone_dataset)
+  
+  def set_grid(self, n, west=-0.15, east=0.23, north=0.19, south=-0.46):
+    self.grid = gr.create(n, west, east, north, south)
+  
+  def trips_by_age(self, age_range, num_tiers=4):
+    filtered_trips = odfilters.select_age_range(self.od, age_range)
+    print(f'Total de viagens encontradas: {filtered_trips.shape}')
+    tiers_table = self.separate_in_tiers(filtered_trips, num_tiers)
+    print(tiers_table)
+    coords_by_tier = []
+    for index, row in tiers_table.iterrows():
+      filter_tier = filtered_trips[(filtered_trips['trip counts'] >= row['min']) & (filtered_trips['trip counts'] <= row['top'])]
+      coords = self.zones.apply_od_flows(filter_tier)
+      coords_by_tier.append(coords.tolist())
+    return coords_by_tier
+  
+  def separate_in_tiers(self, trips, num_tiers=4):
+    od = odflow.od_countings(trips, self.grid, self.zones.geodataframe(),
+                           station_index='NumeroZona', 
+                           start_station_index='ZONA_O', 
+                           end_station_index='ZONA_D')
+
+    tiers_table, _ = tiers.separate_into_tiers(od.sort_values('trip counts', ascending=False), trips, None, 
+                                               max_tiers=num_tiers)
+    return tiers_table
+
+class Zones:
+  def __init__(self, od_zones):
+    zones = st.stations_geodf(od_zones)
+    self.zones = zones
+  
+  def join_zones_and_data(self, data):
+    data = data.groupby(['ZONA_O', 'ZONA_D', 'NOME_O', 'NOME_D'], as_index=False).agg({'trip counts': 'sum'})
+    zones = self.zones[['NumeroZona','geometry']]
+    data_in_zones = pd.merge(data, zones, left_on='ZONA_O', right_on='NumeroZona', sort=False)
+    data_in_zones.rename(columns={'geometry':'origin'},inplace=True)
+    data_in_zones.drop(['NumeroZona'],inplace=True,axis=1)
+    data_in_zones = pd.merge(data_in_zones, zones, left_on='ZONA_D', right_on='NumeroZona', sort=False)
+    data_in_zones.rename(columns={'geometry':'destination'},inplace=True)
+    data_in_zones.drop(['NumeroZona'],inplace=True,axis=1)
+    return data_in_zones
+
+  def calculate_lat_long(self, data):
+    lat1 = data['origin'].y
+    lon1 = data['origin'].x
+    lat2 = data['destination'].y
+    lon2 = data['destination'].x
+    return lat1, lon1, lat2, lon2
+
+  def remove_zone_roundoff_trips(self, od_df, start_zone_identifier='ZONA_O', end_zone_identifier='ZONA_D'):
+    return od_df[od_df[start_zone_identifier]!=od_df[end_zone_identifier]]
+
+  def apply_od_flows(self, filter_data):
+    print(filter_data.shape)
+    data_in_zones = self.join_zones_and_data(filter_data)
+    data_in_zones = self.remove_zone_roundoff_trips(data_in_zones)
+    amount_of_points = 30
+    flows = []
+    for index, row_data in data_in_zones.iterrows():
+      lat1, lon1, lat2, lon2 = self.calculate_lat_long(row_data)
+      flow = arrow.draw_arrow(lat1, lon1, lat2, lon2)
+      flows.append(flow)
+    return np.array(flows)
+  
+  def geodataframe(self):
+    return self.zones
+
+class Filter:
+  def __init__(self, filter_id, name, ftype, key, has_form):
+    self.id = filter_id
+    self.name = name
+    self.ftype = ftype
+    self.key = key
+    self.has_form = has_form
+  
+  def filter_object(self):
+    return {
+      'id': self.id,
+      'filter_name': self.name,
+      'filter_type': self.ftype,
+      'filter_key': self.key,
+      'has_form': self.has_form
+    }
+
+class Category:
+
+  def __init__(self, name):
+    self.filters = []
+    self.name = name
+  
+  def add_filter(self, filter):
+    self.filters.append(filter.filter_object())
+  
+  def category_object(self):
+    return {
+      'category_name': self.name,
+      'filters': [f for f in self.filters]
+    }
+
+def initialize_filter_list():
+  filter_data = []
+  for category in filter_list.FILTERS:
+    c = Category(category['category_name'])
+    for f in category['filters']:
+      filter_id = f['id']
+      filter_key = f['filter_key']
+      filter_type = f['filter_type']
+      filter_name = f['filter_name']
+      has_form = f['has_form']
+      categoryfilter = Filter(filter_id, filter_name, filter_type, filter_key, has_form)
+      c.add_filter(categoryfilter)
+    filter_data.append(c.category_object())
+  return filter_data
+
+# initialize filtering object
+od_dataset = pd.read_csv('data/trips_od17_bikes_all.csv')
+zones = pd.read_csv('data/zonas_od17.csv')
+odf = ODFilterData(od_dataset)
+odf.set_zones(zones)
+
+# parses request args and returns the filtered data
+def handle_filtering(filter_args):
+  fid = int(filter_args['fid'])
+  if fid == 8:
+    min_age = filter_args['minAge']
+    max_age = filter_args['maxAge']
+    nTiers = filter_args['ntiers']
+    filtered = {'name': 'age',
+                'data': odf.trips_by_age(age_range=[min_age, max_age], num_tiers=nTiers)}
+    return filtered
