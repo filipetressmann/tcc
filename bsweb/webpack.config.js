@@ -41,7 +41,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      'vue$': 'vue/dist/vue.esm.js',
+      leaflet: path.join(__dirname, 'node_modules/leaflet')
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
