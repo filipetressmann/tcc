@@ -11,9 +11,10 @@
   },
   "dependencies": {
     "buefy": "^0.8.17",
-    "tailwindcss": "^1.4.4",
     "vue": "^2.5.11",
-    "vue-resource": "^1.5.1"
+    "vue-resource": "^1.5.1",
+    "vue2-leaflet-polylinedecorator": "^2.0.1",
+    "vuex": "^3.3.0"
   },
   "browserslist": [
     "> 1%",
@@ -24,9 +25,12 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-2": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
+    "eslint": "^7.1.0",
+    "eslint-plugin-vue": "^6.2.2",
     "file-loader": "^1.1.4",
     "postcss-load-config": "^2.1.0",
     "vue-loader": "^13.0.5",
