@@ -32,13 +32,12 @@ class ODFilterData:
   
   def trips_by_age(self, age_range, num_tiers=4):
     filtered_trips = odfilters.select_age_range(self.od, age_range)
-    print(f'Total de viagens encontradas: {filtered_trips.shape}')
+    print(f'Total de viagens filtradas: { filtered_trips.shape }')
     tiers_table = self.separate_in_tiers(filtered_trips, num_tiers)
     print(tiers_table)
     coords_by_tier = []
     for index, row in tiers_table.iterrows():
-      filter_tier = filtered_trips[(filtered_trips['trip counts'] >= row['min']) & (filtered_trips['trip counts'] <= row['top'])]
-      coords = self.zones.apply_od_flows(filter_tier)
+      coords = self.zones.apply_od_flows(filtered_trips, minimum=row['min'], maximum=row['top'])
       coords_by_tier.append(coords.tolist())
     return coords_by_tier
   
@@ -47,7 +46,6 @@ class ODFilterData:
                            station_index='NumeroZona', 
                            start_station_index='ZONA_O', 
                            end_station_index='ZONA_D')
-
     tiers_table, _ = tiers.separate_into_tiers(od.sort_values('trip counts', ascending=False), trips, None, 
                                                max_tiers=num_tiers)
     return tiers_table
@@ -58,15 +56,16 @@ class Zones:
     self.zones = zones
   
   def join_zones_and_data(self, data):
-    data = data.groupby(['ZONA_O', 'ZONA_D', 'NOME_O', 'NOME_D'], as_index=False).agg({'trip counts': 'sum'})
-    zones = self.zones[['NumeroZona','geometry']]
-    data_in_zones = pd.merge(data, zones, left_on='ZONA_O', right_on='NumeroZona', sort=False)
-    data_in_zones.rename(columns={'geometry':'origin'},inplace=True)
-    data_in_zones.drop(['NumeroZona'],inplace=True,axis=1)
-    data_in_zones = pd.merge(data_in_zones, zones, left_on='ZONA_D', right_on='NumeroZona', sort=False)
-    data_in_zones.rename(columns={'geometry':'destination'},inplace=True)
-    data_in_zones.drop(['NumeroZona'],inplace=True,axis=1)
-    return data_in_zones
+    od_df = data.copy()
+    od_df = od_df.groupby(['ZONA_O', 'ZONA_D', 'NOME_O', 'NOME_D'], as_index=False).agg({'trip counts': 'sum'})
+    df_zones = self.zones[['NumeroZona','geometry']]
+    od_df = pd.merge(od_df, df_zones, left_on='ZONA_O', right_on='NumeroZona', sort=False)
+    od_df.rename(columns={'geometry':'origin'},inplace=True)
+    od_df.drop(['NumeroZona'],inplace=True,axis=1)
+    od_df = pd.merge(od_df, df_zones, left_on='ZONA_D', right_on='NumeroZona',sort=False)
+    od_df.rename(columns={'geometry':'destination'},inplace=True)
+    od_df.drop(['NumeroZona'],inplace=True,axis=1)
+    return od_df
 
   def calculate_lat_long(self, data):
     lat1 = data['origin'].y
@@ -78,15 +77,26 @@ class Zones:
   def remove_zone_roundoff_trips(self, od_df, start_zone_identifier='ZONA_O', end_zone_identifier='ZONA_D'):
     return od_df[od_df[start_zone_identifier]!=od_df[end_zone_identifier]]
 
-  def apply_od_flows(self, filter_data):
-    print(filter_data.shape)
+  def apply_od_flows(self, filter_data, minimum, maximum):
     data_in_zones = self.join_zones_and_data(filter_data)
-    data_in_zones = self.remove_zone_roundoff_trips(data_in_zones)
+    no_rounding_trips = self.remove_zone_roundoff_trips(data_in_zones)
+    total_trips = no_rounding_trips['trip counts'].sum()
+    shown_trips = 0
+    # select the tier to filter data
+    no_rounding_trips = no_rounding_trips[((no_rounding_trips['trip counts'] >= minimum) & (no_rounding_trips['trip counts'] <= maximum))]
+
     amount_of_points = 30
     flows = []
-    for index, row_data in data_in_zones.iterrows():
-      lat1, lon1, lat2, lon2 = self.calculate_lat_long(row_data)
-      flow = arrow.draw_arrow(lat1, lon1, lat2, lon2)
+    flows_folium = []
+    for index, row in no_rounding_trips.iterrows():
+      num_trips = row['trip counts']
+      shown_trips += num_trips
+      lat1, lon1, lat2, lon2 = self.calculate_lat_long(row)
+      # weight of flow arrow
+      weight = math.ceil( (num_trips-minimum)/maximum * 10)
+      if weight == 0: weight = 1
+      tooltip_text = f'{num_trips} viagens nesse fluxo.'
+      flow = arrow.draw_arrow(lat1, lon1, lat2, lon2, text=tooltip_text, weight=weight)
       flows.append(flow)
     return np.array(flows)
   
@@ -144,7 +154,8 @@ def initialize_filter_list():
 od_dataset = pd.read_csv('data/trips_od17_bikes_all.csv')
 zones = pd.read_csv('data/zonas_od17.csv')
 odf = ODFilterData(od_dataset)
-odf.set_zones(zones)
+odf.set_grid(20)
+odf.set_zones(zone_dataset=zones)
 
 # parses request args and returns the filtered data
 def handle_filtering(filter_args):
@@ -153,6 +164,7 @@ def handle_filtering(filter_args):
     min_age = filter_args['minAge']
     max_age = filter_args['maxAge']
     nTiers = filter_args['ntiers']
+    print(f'Número de tiers: {nTiers}')
     filtered = {'name': 'age',
                 'data': odf.trips_by_age(age_range=[min_age, max_age], num_tiers=nTiers)}
     return filtered
