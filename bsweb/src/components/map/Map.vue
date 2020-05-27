@@ -58,7 +58,6 @@
     methods: {
       updateZoom(zoom) {
         this.map.zoom = zoom;
-        console.log(zoom);
       }
     },
     computed: {
