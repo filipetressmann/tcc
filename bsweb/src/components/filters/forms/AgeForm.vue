@@ -1,8 +1,5 @@
 <template>
   <div>
-    <p v-if="ageFilter">
-      {{ ageFilter.length }}
-    </p>
     <b-field :label="ageLabel">
       <b-slider
         v-model="ageRange"
@@ -21,17 +18,18 @@
       </b-select>
     </b-field>
     <b-button type="is-info" @click="submitParams" expanded>Filtrar</b-button>
-    <div class="block" v-if="ageFilter">
-      {{ ageFilter.length }}
-      <b-field label="Mostrar tier:"></b-field>
-      <b-checkbox v-for="(tier, index) in ageFilter"
-                  v-model="shownTiers"
-                  :native-value="index"
-                  :key="index"
-                  @input="updateView">
-        {{ index + 1 }} ({{ tier.length }} fluxos) <br> 
-      </b-checkbox>
-    </div>
+    
+    <b-field label="Mostrar tier:" v-if="ageFilter">
+      <div class="block">
+        <b-checkbox v-for="(tier, index) in ageFilter"
+                    v-model="shownTiers"
+                    :native-value="index"
+                    :key="index"
+                    @input="updateView">
+          {{ index + 1 }} ({{ tier.length }} fluxos) <br> 
+        </b-checkbox>
+      </div>
+    </b-field>
   </div>
 </template>
 
