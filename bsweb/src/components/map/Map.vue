@@ -1,105 +1,92 @@
 <template>
   <div id="map">
-    <l-map :zoom="map.zoom" :center="map.center">
-      <l-tile-layer :url="url"></l-tile-layer>
-        <l-geo-json 
-        v-if="map.layers.railways.show"
-        :geojson="map.layers.railways.geodata"
-        :optionsStyle="styleRailway"
-        :options="map.layers.railways.options">
-        </l-geo-json>
+    <l-map :zoom="properties.zoom" :center="properties.center" @update:zoom="updateZoom">
+      <l-tile-layer :url="properties.tile_layer_url"></l-tile-layer>
         <l-geo-json
-        v-if="map.layers.subway.show"
-        :geojson="map.layers.subway.geodata"
-        :optionsStyle="styleMetro"
-        :options="map.layers.railways.options"
+        v-for="data in visibleMapGeoJson"
+        :geojson="mapGeoJson[data].geodata"
+        :optionsStyle="mapGeoJson[data].style"
+        :options="mapGeoJson[data].options"
+        :key="data"
         >
         </l-geo-json>
+          <l-feature-group v-for="{layerName, tiers} in visibleMapPolyline" :key="layerName">
+            <l-polyline
+            v-for="tier in tiers"
+            :lat-lngs="mapPolylines[layerName][tier]"
+            :color="'blue'"
+            :key="tier">
+          </l-polyline>
+          <polyline-decorator
+            v-for="tier in tiers"
+            :paths="mapPolylineDecorators[layerName][tier]"
+            :key="`${layerName}${tier}decorator`"
+            :patterns="[
+                  {offset: '100%', repeat: 0, symbol: symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true}})}
+              ]"
+          >
+          </polyline-decorator>
+        </l-feature-group>
     </l-map>
   </div>
 </template>
 
 <script>
   import L from 'leaflet';
-  import { LMap, LTileLayer, LGeoJson } from 'vue2-leaflet';
-  import { filterEvents } from '../../main.js';
-  import * as style_helpers from './helpers/style_layers.js';
-  import * as map_options from './helpers/option_helpers.js';
+  import { LMap, LTileLayer, LGeoJson, LPolyline, LFeatureGroup } from 'vue2-leaflet';
+  import Vue2LeafletPolylineDecorator from 'vue2-leaflet-polylinedecorator';
 
   export default {
     components: {
       LMap,
       LTileLayer,
-      LGeoJson
+      LGeoJson,
+      LPolyline,
+      'polyline-decorator': Vue2LeafletPolylineDecorator,
+      LFeatureGroup
     },
     data() {
       return{
         map: {
-          zoom: 12,
-          center: [-23.550164466, -46.633664132],
-          layers: {
-            railways: {
-              show: false,
-              geodata: null,
-              options: map_options.rail_options
-            },
-            subway: {
-              show: false,
-              geodata: null,
-              options: map_options.rail_options
-            }
-          }
+          zoom: 11,
+          center: [-23.550164466, -46.633664132]
         },
-        url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png'
+        url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png',
+        symbol: L.Symbol
       };
     },
     methods: {
-      fetchRailwayLayer() {
-        // load CPTM
-        this.$http.get('http://127.0.0.1:5000/load_railway_data')
-        .then(response => {
-          return response.json();
-        })
-          .then(response => {
-            this.map.layers.railways.geodata = JSON.parse(response);
-          });
-      },
-      fetchSubwayLayer() {
-        // load Metro
-        this.$http.get('http://127.0.0.1:5000/load_metro_data')
-        .then(response => {
-          return response.json();
-        })
-          .then(response => {
-            this.map.layers.subway.geodata = JSON.parse(response);
-          });
-      },
-      styleMetro(data) {
-        return style_helpers.styleMetro(data);
-      },
-      styleRailway(data) {
-        return style_helpers.styleRailway(data);
+      updateZoom(zoom) {
+        this.map.zoom = zoom;
+        console.log(zoom);
       }
     },
-    created() {
-      this.fetchRailwayLayer();
-      this.fetchSubwayLayer();
-      let instance = this;
-      filterEvents.$on('filterSelected', (id) => {
-        if (id == 14) {
-          instance.map.layers.railways.show = !instance.map.layers.railways.show;
-        }
-        if (id == 15) {
-          instance.map.layers.subway.show = !instance.map.layers.subway.show
-        }
-      });
+    computed: {
+      visibleMapGeoJson: function() {
+        return this.$store.getters.visibleMapGeoJson
+      },
+      visibleMapPolyline: function() {
+        return this.$store.getters.visibleMapPolyline
+      },
+      mapGeoJson: function() {
+        return this.$store.getters.mapGeoJson
+      },
+      mapPolylines: function() {
+        return this.$store.getters.mapPolylines
+      },
+      mapPolylineDecorators: function() {
+        return this.$store.getters.mapPolylineDecorators
+      },
+      properties: function() {
+        return this.$store.getters.properties
+      }
     }
   }
 </script>
 
 <style scoped>
   #map {
-    width: 100%;
+    width: 85%;
     height: 80vh;
   }
 </style>
