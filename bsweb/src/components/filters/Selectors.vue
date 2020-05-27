@@ -1,8 +1,8 @@
 <template>
-  <div class="columns selectors">
+  <div id="selectors" class="columns">
     <filter-selector v-for="category in categories"
                     :category="category"
-                    :key="category.name"
+                    :key="category.category_name"
                     class="selector">
     </filter-selector>
   </div>
@@ -39,7 +39,7 @@
 </script>
 
 <style scoped>
-  .selectors {
+  #selectors {
     padding-top: 2%;
     padding-bottom: 1%;
     margin: 0;
