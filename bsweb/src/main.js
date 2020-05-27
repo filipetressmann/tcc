@@ -6,13 +6,14 @@ import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 import 'vue-multiselect/dist/vue-multiselect.min.css'
 import './assets/styles/index.css'
+import { store } from './store/store.js';
 
 Vue.use(Buefy);
 Vue.use(VueResource);
-
 export const filterEvents = new Vue();
 
 new Vue({
   el: '#app',
+  store,
   render: h => h(App)
 })
