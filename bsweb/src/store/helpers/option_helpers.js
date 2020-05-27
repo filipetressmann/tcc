@@ -7,7 +7,6 @@ const rail_options = {
         tooltipMsg = "Linha " + feature.properties.lmt_linha + " - " + feature.properties.lmt_nome;
       }
       layer.bindPopup(tooltipMsg);
-      console.log(feature.properties);
     }
   }
 

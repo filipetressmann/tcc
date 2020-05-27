@@ -72,4 +72,8 @@ const styleMetro = function(data) {
   return {color: color};
 }
 
-export { styleRailway, styleMetro };
+const styleBikelane = function(data) {
+  return { color: '#999'}
+}
+
+export { styleRailway, styleMetro, styleBikelane };

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <multiselect v-model="selectedFilters" 
+    <multiselect v-model="activeFilters"
                 :options="category.filters"
                 :multiple="true"
                 :close-on-select="false"
@@ -13,7 +13,7 @@
                 :searchable="false"
                 :show-labels="false"
                 @select="selectFilter"
-                @remove="selectFilter">
+                @remove="deselectFilter">
       <template slot="selection" slot-scope="{ values, search, isOpen }">
         {{ category.category_name }}
       </template>
@@ -23,8 +23,8 @@
 
 <script>
   import { filterEvents } from '../../main.js';
+  import { mapActions } from 'vuex';
   import Multiselect from 'vue-multiselect';
-
   export default {
     props: ['category'],
     components: {
@@ -33,11 +33,36 @@
     data() {
       return {
         selectedFilters: []
-      };
+      }
+    },
+    computed: {
+      activeFilters: {
+          get() {
+            return this.$store.getters.activeFilters;
+          },
+          set(value) {
+            return value;
+          }
+        
+      }
     },
     methods: {
-      selectFilter(selectedOption) {
-        filterEvents.$emit('filterSelected', selectedOption.id);
+      ...mapActions([
+        'addFilter',
+        'removeFilter',
+        'showOnMap',
+        'removeFromMap'
+      ]),
+      selectFilter(filter) {
+        this.showOnMap({
+          type: filter.filter_type,
+          key: filter.filter_key
+        });
+        this.addFilter(filter);
+      },
+      deselectFilter(filter) {
+        this.removeFromMap(filter);
+        this.removeFilter(filter);
       }
     }
 }

@@ -2,7 +2,7 @@ import geopandas as gpd
 from flask_restful import Resource
 from os.path import abspath
 
-data_path = abspath('./') + '/filters/data'
+data_path = abspath('./') + '/data'
 
 # provides CPTM railway layer
 class CPTM(Resource):
@@ -25,3 +25,13 @@ class Metro(Resource):
 
   def get(self):
     return self.load_metro().to_json()
+
+class BikeLane(Resource):
+  def load_bike_lane(self):
+    bikelane = gpd.GeoDataFrame.from_file(data_path + "/shapes//SIRGAS_SHP_redecicloviaria.shp", encoding='latin-1')
+    bikelane.crs = {'init': 'epsg:22523'}
+    bikelane = bikelane.to_crs({'init': 'epsg:4326'})
+    return bikelane
+    
+  def get(self):
+    return self.load_bike_lane().to_json()
