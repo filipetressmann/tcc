@@ -8,19 +8,15 @@ import filter_list as filter_list
 import pandas as pd
 import numpy as np
 import math
-
-""" od_trips = pd.read_csv('../data/sao-paulo/od/trips_od17_bikes.csv')
-
-zones = pd.read_csv('../data/sao-paulo/od/zonas_od17.csv') """
-
 """
-  The purpose of this class is to return coordinates data to be
-  plotted in the web application, given the OD data and parameters for desired filter
+  The purpose of ODFilterData class is to return coordinates data to be
+  plotted in the web application, given the OD data and parameters for a filter.
 """
+pd.options.mode.chained_assignment = 'raise'
 class ODFilterData:
   def __init__(self, od_dataset):
-    od_dataset = od_dataset[od_dataset['ZONA_O']!=od_dataset['ZONA_D']]
-    od_dataset.rename(columns={'FE_VIA':'trip counts'},inplace=True)
+    od_dataset = od_dataset[od_dataset['ZONA_O'] != od_dataset['ZONA_D']]
+    od_dataset.rename(columns={'FE_VIA':'trip counts'})
     self.od = od_dataset
     self.grid = gr.create(n=20)
   
