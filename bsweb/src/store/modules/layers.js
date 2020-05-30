@@ -1,5 +1,3 @@
-import * as style from './../helpers/style_layers';
-import * as options from './../helpers/option_helpers.js';
 import Vue from 'vue'
 const state = {
   data: {}
@@ -35,9 +33,7 @@ const actions = {
           .then(response => {
             const resource = {
               data: {
-                geometry: JSON.parse(response),
-                options: options.rail_options,
-                style: style.styleRailway
+                geometry: JSON.parse(response)
               },
               key: "cptm"
             };
@@ -52,9 +48,7 @@ const actions = {
           .then(response => { 
             const resource = {
               data: {
-                geometry: JSON.parse(response),
-                options: options.rail_options,
-                style: style.styleMetro
+                geometry: JSON.parse(response)
               },
               key: "subway"
             };
