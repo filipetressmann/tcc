@@ -16,7 +16,9 @@ pd.options.mode.chained_assignment = 'raise'
 class ODFilterData:
   def __init__(self, od_dataset):
     od_dataset = od_dataset[od_dataset['ZONA_O'] != od_dataset['ZONA_D']]
-    od_dataset.rename(columns={'FE_VIA':'trip counts'})
+    od_dataset_newcolumn = od_dataset.copy()
+    od_dataset_newcolumn.rename(columns={'FE_VIA':'trip counts'}, inplace=True)
+    od_dataset = od_dataset_newcolumn
     self.od = od_dataset
     self.grid = gr.create(n=20)
   
@@ -34,6 +36,7 @@ class ODFilterData:
     coords_by_tier = []
     for index, row in tiers_table.iterrows():
       coords = self.zones.apply_od_flows(filtered_trips, minimum=row['min'], maximum=row['top'])
+      print(f'n arrows for tier {index}: {len(coords)}')
       coords_by_tier.append(coords.tolist())
     return coords_by_tier
   
