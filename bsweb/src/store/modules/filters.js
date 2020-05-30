@@ -1,5 +1,8 @@
 const state = {
-  activeFilters: []
+  /* Store filters data but not plotting data */
+  activeFilters: [],
+  /* Plotting data is stored on data object */
+  data: {}
 };
 
 const getters = {
@@ -7,11 +10,18 @@ const getters = {
 };
 
 const mutations = {
-  addFilter: (state, filter) => {
+  /* The purpose of the two following mutations is to update the filter list at the DOM */
+  addActiveFilter: (state, filter) => {
     state.activeFilters.push(filter);
   },
-  removeFilter: (state, filter) => {
+  removeActiveFilter: (state, filter) => {
     state.activeFilters = state.activeFilters.filter((activeFilter) => filter.id !== activeFilter.id)
+  },
+  addFilter: (state, resource) => {
+    state.data[resource.type][resource.id] = resource.data;
+  },
+  removeFilter: (state, resource) => {
+    delete state.data[resource.type][resource.id];
   }
 }
 
@@ -28,7 +38,7 @@ const actions = {
       return response.json();
     })
     .then(response => {
-      context.commit('addPolyline', response)
+      return JSON.parse(response);
     });
   }
 };
