@@ -29,15 +29,84 @@
 
 <script>
   import FilterFormField from './FilterFormField'
+  import { mapActions } from 'vuex';
+  import * as style from './../../store/helpers/style_layers';
+  import * as options from './../../store/helpers/option_helpers';
 
   export default {
-    props: ['filter'],
+    props: ["filter"],
     components: {
       FilterFormField
+    },
+    data() {
+      return {
+        resourceInfo: {}
+      }
+    },
+    methods: {
+      ...mapActions([
+        'fetchCPTM',
+        'fetchSubway',
+        'fetchBikelane',
+        'addToMap',
+        'removeFromMap'
+      ]),
+      showCptm() {
+        this.resourceInfo = {
+          category: "layers",
+          type: "geojson",
+          mapkey: "main",
+          key: "cptm",
+          options: {
+            style: style.railway,
+            options: options.railways
+          }
+        }
+        this.addToMap(this.resourceInfo);
+      },
+      showSubway() {
+        this.resourceInfo = {
+          category: "layers",
+          type: "geojson",
+          mapkey: "main",
+          key: "subway",
+          options: {
+            style: style.subway,
+            options: options.railways
+          }
+        }
+        this.addToMap(this.resourceInfo);
+      },
+      showBikelane() {
+        this.resourceInfo = {
+          category: "layers",
+          type: "geojson",
+          mapkey: "main",
+          key: "bikelane",
+          options: {
+            style: style.bikelane
+          }
+        }
+        this.addToMap(this.resourceInfo);
+      },
+      isLayer(resource) {
+        return resource.id == 14 || resource.id == 15 || resource.id == 16;
+      }
+    },
+    created() {
+      const resource = this.filter;
+      if (this.isLayer(resource)) {
+        if (resource.id == 14) {
+          this.showCptm();
+        } else if (resource.id == 15) {
+          this.showSubway();
+        } else if (resource.id == 16) {
+          this.showBikelane();
+        }
+      }
+    },
+    beforeDestroy() {
+      this.removeFromMap(this.resourceInfo);
     }
   }
 </script>
-
-<style scoped>
-
-</style>
