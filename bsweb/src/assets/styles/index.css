@@ -1,3 +1,52 @@
+#header {
+  width: 100%;
+  height: 2vh;
+  background-color: black;
+  display: block;
+}
+
+html{
+  width: 100%;
+  height: 100%;
+  
+}
+
+body{
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  height: 90vh;
+}
+
+#main-column {
+  padding: 0;
+  height: 100%;
+}
+
+#main-content {
+  width: 100%;
+  height: 100%;
+}
+
+#columns-content {
+  height: 100%;
+}
+
+#filter-container {
+  padding-top: 9%;
+  border-right: 1px solid #bbb;
+  overflow: scroll;
+  height: 100%;
+}
+
 .multiselect {
   width: -moz-fit-content;
   width: -webkit-fit-content;
