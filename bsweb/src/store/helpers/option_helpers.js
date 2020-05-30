@@ -1,4 +1,4 @@
-const rail_options = {
+const railways = {
     onEachFeature: function(feature, layer) {
       let tooltipMsg = '';
       if (feature.properties.ltr_numero) {
@@ -10,4 +10,4 @@ const rail_options = {
     }
   }
 
-export { rail_options };
+export { railways };

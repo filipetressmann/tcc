@@ -1,4 +1,4 @@
-const styleRailway = function(data) {
+const railway = function(data) {
   const LINE_7_COLOR = '#b81d64';
   const LINE_8_COLOR = '#a39e8c';
   const LINE_9_COLOR = '#00caaa';
@@ -37,7 +37,7 @@ const styleRailway = function(data) {
   return {color: color};
 }
 
-const styleMetro = function(data) {
+const subway = function(data) {
   const LINE_1_COLOR = '#2a34a3';
   const LINE_2_COLOR = '#008963';
   const LINE_3_COLOR = '#f4000b';
@@ -72,8 +72,8 @@ const styleMetro = function(data) {
   return {color: color};
 }
 
-const styleBikelane = function(data) {
+const bikelane = function(data) {
   return { color: '#999'}
 }
 
-export { styleRailway, styleMetro, styleBikelane };
+export { railway, subway, bikelane };

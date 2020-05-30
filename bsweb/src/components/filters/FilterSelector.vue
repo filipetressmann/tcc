@@ -23,7 +23,7 @@
 
 <script>
   import { filterEvents } from '../../main.js';
-  import { mapActions } from 'vuex';
+  import { mapMutations } from 'vuex';
   import Multiselect from 'vue-multiselect';
   export default {
     props: ['category'],
@@ -47,22 +47,15 @@
       }
     },
     methods: {
-      ...mapActions([
-        'addFilter',
-        'removeFilter',
-        'showOnMap',
-        'removeFromMap'
+      ...mapMutations([
+        'addActiveFilter',
+        'removeActiveFilter'
       ]),
       selectFilter(filter) {
-        this.showOnMap({
-          type: filter.filter_type,
-          key: filter.filter_key
-        });
-        this.addFilter(filter);
+        this.addActiveFilter(filter);
       },
       deselectFilter(filter) {
-        this.removeFromMap(filter);
-        this.removeFilter(filter);
+        this.removeActiveFilter(filter);
       }
     }
 }

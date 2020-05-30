@@ -1,16 +1,20 @@
 <template>
   <div id="map">
-    <l-map :zoom="properties.zoom" :center="properties.center" @update:zoom="updateZoom">
+    <l-map :zoom="properties.zoom" :center="properties.center">
       <l-tile-layer :url="properties.tile_layer_url"></l-tile-layer>
         <l-geo-json
-        v-for="data in visibleMapGeoJson"
-        :geojson="mapGeoJson[data].geodata"
-        :optionsStyle="mapGeoJson[data].style"
-        :options="mapGeoJson[data].options"
-        :key="data"
-        >
-        </l-geo-json>
-          <l-feature-group v-for="{layerName, tiers} in visibleMapPolyline" :key="layerName">
+        v-for="key in Object.keys(layersGeojson)"
+        :geojson="layers[key].geometry"
+        :optionsStyle="layersGeojson[key].style"
+        :options="layersGeojson[key].options"
+        :key="key" />
+        <l-geo-json
+        v-for="key in Object.keys(filtersGeojson)"
+        :geojson="filters[key].geometry"
+        :optionsStyle="filtersGeojson[key].style"
+        :options="filtersGeojson[key].options"
+        :key="key" />
+          <!-- <l-feature-group v-for="{layerName, tiers} in visibleMapPolyline" :key="layerName">
             <l-polyline
             v-for="tier in tiers"
             :lat-lngs="mapPolylines[layerName][tier]"
@@ -26,7 +30,7 @@
               ]"
           >
           </polyline-decorator>
-        </l-feature-group>
+        </l-feature-group> -->
     </l-map>
   </div>
 </template>
@@ -35,8 +39,10 @@
   import L from 'leaflet';
   import { LMap, LTileLayer, LGeoJson, LPolyline, LFeatureGroup } from 'vue2-leaflet';
   import Vue2LeafletPolylineDecorator from 'vue2-leaflet-polylinedecorator';
+  import { mapState, mapActions } from 'vuex';
 
   export default {
+    props: ['mapkey'],
     components: {
       LMap,
       LTileLayer,
@@ -47,39 +53,46 @@
     },
     data() {
       return{
-        map: {
-          zoom: 11,
-          center: [-23.550164466, -46.633664132]
-        },
-        url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png',
         symbol: L.Symbol
       };
     },
     methods: {
-      updateZoom(zoom) {
-        this.map.zoom = zoom;
-      }
+      ...mapActions([
+        'fetchCPTM',
+        'fetchSubway',
+        'fetchBikelane'
+      ])
     },
-    computed: {
-      visibleMapGeoJson: function() {
-        return this.$store.getters.visibleMapGeoJson
-      },
-      visibleMapPolyline: function() {
-        return this.$store.getters.visibleMapPolyline
-      },
-      mapGeoJson: function() {
-        return this.$store.getters.mapGeoJson
-      },
-      mapPolylines: function() {
-        return this.$store.getters.mapPolylines
-      },
-      mapPolylineDecorators: function() {
-        return this.$store.getters.mapPolylineDecorators
-      },
-      properties: function() {
-        return this.$store.getters.properties
+    computed: mapState({
+        properties(state) {
+          return state.map.maps[this.mapkey].properties
+        },
+        layersGeojson(state) {
+          return state.map.maps[this.mapkey].show.layers["geojson"];
+        },
+        layersPolylines(state) {
+          return state.map.maps[this.mapkey].show.layers["polyline"]
+        },
+        layersDecorators(state) {
+          return state.map.maps[this.mapkey].show.layers["decorators"]
+        },
+        filtersGeojson(state) {
+          return state.map.maps[this.mapkey].show.filters["geojson"]
+        },
+        filtersPolylines(state) {
+          return state.map.maps[this.mapkey].show.filters["polyline"]
+        },
+        filtersDecorators(state) {
+          return state.map.maps[this.mapkey].show.filters["decorators"]
+        },
+        filters: state => state.filters.data,
+        layers: state => state.layers.data
+      }),
+      created() {
+        this.fetchCPTM(this.$http);
+        this.fetchSubway(this.$http);
+        this.fetchBikelane(this.$http);
       }
-    }
   }
 </script>
 
