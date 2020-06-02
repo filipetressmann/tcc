@@ -14,23 +14,21 @@
         :optionsStyle="filtersGeojson[key].style"
         :options="filtersGeojson[key].options"
         :key="key" />
-          <!-- <l-feature-group v-for="{layerName, tiers} in visibleMapPolyline" :key="layerName">
-            <l-polyline
-            v-for="tier in tiers"
-            :lat-lngs="mapPolylines[layerName][tier]"
-            :color="'blue'"
-            :key="tier">
-          </l-polyline>
-          <polyline-decorator
-            v-for="tier in tiers"
-            :paths="mapPolylineDecorators[layerName][tier]"
-            :key="`${layerName}${tier}decorator`"
-            :patterns="[
-                  {offset: '100%', repeat: 0, symbol: symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true}})}
-              ]"
-          >
-          </polyline-decorator>
-        </l-feature-group> -->
+        <l-feature-group v-for="key in Object.keys(filtersPolylines)" :key="key">
+          <l-polyline
+          :lat-lngs="filters[key]"
+          :color="'blue'"
+          :key="key">
+        </l-polyline>
+        <polyline-decorator
+          :paths="decorators[key]"
+          :key="`${key}decorator`"
+          :patterns="[
+                {offset: '100%', repeat: 0, symbol: symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true}})}
+            ]"
+        >
+        </polyline-decorator>
+      </l-feature-group>
     </l-map>
   </div>
 </template>
@@ -86,7 +84,8 @@
           return state.map.maps[this.mapkey].show.filters["decorators"]
         },
         filters: state => state.filters.data,
-        layers: state => state.layers.data
+        layers: state => state.layers.data,
+        decorators: state => state.filters.decorators
       }),
       created() {
         this.fetchCPTM(this.$http);
