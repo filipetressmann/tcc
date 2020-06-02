@@ -18,15 +18,14 @@
       </b-select>
     </b-field>
     <b-button type="is-info" @click="submitParams" expanded>Filtrar</b-button>
-    
-    <b-field label="Mostrar tier:" v-if="ageFilter">
+    <b-field label="Mostrar tier:" v-if="ageTiers">
       <div class="block">
-        <b-checkbox v-for="(tier, index) in ageFilter"
-                    v-model="shownTiers"
+        <b-checkbox v-for="(count, index) in ageTiers"
                     :native-value="index"
                     :key="index"
-                    @input="updateView">
-          {{ index + 1 }} ({{ tier.length }} fluxos) <br> 
+                    @input="updateMap"
+                    v-model="shownTiers">
+          {{ index + 1 }} ({{ count }} fluxos)<br />
         </b-checkbox>
       </div>
     </b-field>
@@ -41,6 +40,7 @@
       return {
         ageRange: [10, 90],
         ntiers: 4,
+        tiers: [],
         shownTiers: []
       }
     },
@@ -48,50 +48,46 @@
       ageLabel() {
         return `Idade dos ciclistas (${this.ageRange[0]} a ${this.ageRange[1]} anos) `
       },
-      ...mapGetters([
-        'ageFilter'
-      ]),
-      visibleMapGeoJson: function() {
-        return this.$store.getters.visibleMapGeoJson
-      },
-      visibleMapPolyline: function() {
-        return this.$store.getters.visibleMapPolyline
-      },
-      mapGeoJson: function() {
-        return this.$store.getters.mapGeoJson
-      },
-      mapPolylines: function() {
-        return this.$store.getters.mapPolylines
-      },
-      mapPolylineDecorators: function() {
-        return this.$store.getters.mapPolylineDecorators
-      },
-      properties: function() {
-        return this.$store.getters.properties
+      ageTiers() {
+        return this.$store.state.filters.tiers.age;
       }
     },
     methods: {
       ...mapActions([
         'filterData',
-        'showOnMap'
+        'addToMap',
+        'removeFromMap',
+        'removeAllStartingWith'
       ]),
+      clearPreviousData() {
+        this.removeAllStartingWith("age");
+      },
       submitParams() {
+        this.clearPreviousData();
+        let instance = this;
         let args = {
           fid: this.fid,
           minAge: this.ageRange[0],
           maxAge: this.ageRange[1],
           ntiers: this.ntiers
-        }
+        };
         this.filterData({
         httpResource: this.$http, 
         filter: args
         });
       },
-      updateView() {
-        this.showOnMap({
-          type: 'polyline',
-          key: 'age',
-          tiers: this.shownTiers
+      updateMap() {
+        for (let i = 0; i < this.ntiers; i++) {
+          this.removeFromMap({ mapkey: "main", category: "filters", type: "polyline", key: `age${i}`});
+        }
+        this.shownTiers.map(tier => {
+          const data = {
+          mapkey: "main",
+          category: "filters",
+          type: "polyline",
+          key: `age${tier}`
+        };
+        this.addToMap(data);
         });
       }
     }
