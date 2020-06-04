@@ -16,7 +16,8 @@
     },
     data() {
       return {
-        isOpen: -1
+        isOpen: -1,
+        filters: []
       };
     },
     methods: {

@@ -30,9 +30,7 @@ class ODFilterData:
   
   def trips_by_age(self, age_range, num_tiers=4):
     filtered_trips = odfilters.select_age_range(self.od, age_range)
-    print(f'Total de viagens filtradas: { filtered_trips.shape }')
     tiers_table = self.separate_in_tiers(filtered_trips, num_tiers)
-    print(tiers_table)
     coords_by_tier = []
     for index, row in tiers_table.iterrows():
       coords = self.zones.apply_od_flows(filtered_trips, minimum=row['min'], maximum=row['top'])
@@ -167,3 +165,14 @@ def handle_filtering(filter_args):
     filtered = {'name': 'age',
                 'data': odf.trips_by_age(age_range=[min_age, max_age], num_tiers=nTiers)}
     return filtered
+  if fid == 0:
+    morning = filter_args['morning']
+    afternoon = filter_args['afternoon']
+    evening = filter_args['evening']
+    min_hour = filter_args['minHour'],
+    max_hour = filter_args['maxHour']
+    """ data = odf.trips_by_hour(morning, afternoon, evening, min_hour, max_hour) """
+    filtered = {'name': 'horary',
+                'data': data}
+    return filtered
+    
