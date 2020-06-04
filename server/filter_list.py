@@ -34,7 +34,7 @@ FILTERS = [
       'filter_key': 'horary',
       'filter_type': 'todo',
       'filter_name': 'Horário',
-      'has_form': False
+      'has_form': True
       },
       {
         'id': 1,
