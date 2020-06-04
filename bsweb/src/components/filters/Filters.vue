@@ -1,7 +1,9 @@
 <template>
-  <div class="container" id="filter-container">
-    <p id="title">Filtros</p>
-    <app-filter v-for="filter in activeFilters" :filter="filter" :key="filter.id" />
+  <div>
+    <div v-if="activeFilters.length > 0">
+      <app-filter v-for="filter in activeFilters" :filter="filter" :key="filter.id" />
+    </div>
+      <span v-else>Nenhum filtro adicionado.</span>
   </div>
 </template>
 
@@ -13,12 +15,6 @@
   export default {
     components: {
       'app-filter': Filter
-    },
-    data() {
-      return {
-        isOpen: -1,
-        filters: []
-      };
     },
     methods: {
       ...mapActions([

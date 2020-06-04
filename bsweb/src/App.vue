@@ -4,7 +4,7 @@
   <div id="main-content">
     <div class="columns" id="columns-content">
       <div class="column is-3 left">
-        <filter-panel id="filter-container"></filter-panel>
+        <manage-panel id="filter-container"></manage-panel>
       </div>
       <div id="main-column" class="column is-10">
         <selectors></selectors>
@@ -16,13 +16,13 @@
 </template>
 
 <script>
-  import FilterPanelVue from './components/filters/Filters.vue';
+  import ManagePanelVue from './components/filters/Manage.vue';
   import SelectorsVue from './components/filters/Selectors.vue';
   import MapVue from './components/map/Map.vue';
 
   export default {
     components: {
-      filterPanel: FilterPanelVue,
+      managePanel: ManagePanelVue,
       selectors: SelectorsVue,
       appMap: MapVue
     }
