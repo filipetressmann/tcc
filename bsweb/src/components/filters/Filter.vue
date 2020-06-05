@@ -104,9 +104,6 @@
           this.showBikelane();
         }
       }
-    },
-    beforeDestroy() {
-      this.removeFromMap(this.resourceInfo);
     }
   }
 </script>
