@@ -1,14 +1,25 @@
 import Vue from 'vue'
 const state = {
+  activeLayers: [],
   data: {}
 };
+
+const getters = {
+  activeLayers: (state) => state.activeLayers,
+}
 
 const mutations = {
   addLayer: (state, resource) => {
     Vue.set(state.data, resource.key, resource.data);
   },
   removeLayer: (state, resource) => {
-    delete state.data[resource.key]
+    delete state.data[resource.key];
+  },
+  addActiveLayer: (state, layer) => {
+    state.activeLayers.push(layer);
+  },
+  removeActiveLayer: (state, layer) => {
+    state.activeLayers = state.activeLayers.filter((activeLayer) => layer.id !== activeLayer.id);
   }
 }
 
@@ -23,7 +34,7 @@ const actions = {
     httpResource = args.httpResource;
     url = args.url;
     id = args.id;
-    httpResource.get(url)
+    httpResource.get(url);
   },
   fetchCPTM: (context, httpResource) => {
     httpResource.get('http://127.0.0.1:5000/load_railway_data')
@@ -75,5 +86,6 @@ const actions = {
 export default {
   state,
   mutations,
-  actions
+  actions,
+  getters
 };

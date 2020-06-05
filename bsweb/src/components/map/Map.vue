@@ -24,7 +24,7 @@
           :paths="decorators[key]"
           :key="`${key}decorator`"
           :patterns="[
-                {offset: '100%', repeat: 0, symbol: symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true}})}
+                {offset: '100%', repeat: 0, symbol: symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true, color: 'blue'}})}
             ]"
         >
         </polyline-decorator>

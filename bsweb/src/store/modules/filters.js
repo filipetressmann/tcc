@@ -6,19 +6,15 @@ const state = {
   /* Plotting data is stored on data object */
   data: {},
   decorators: {},
-  tiers: {}
+  tierdata: [],
+  /* Stores active filters' parameters */
+  filters: {}
 };
 
 const getters = {
   activeFilters: (state) => state.activeFilters,
-  ageTierCount(state, ntiers) {
-    var tierCount = []
-    for(let i = 0; i < ntiers; i++) {
-      count = state.data[`age${i}`].length
-      tierCount.push(count);
-    }
-    return tierCount;
-  }
+  params: (state) => state.filters,
+  tierList: (state) => state.tierdata
 };
 
 const mutations = {
@@ -29,24 +25,21 @@ const mutations = {
   removeActiveFilter: (state, filter) => {
     state.activeFilters = state.activeFilters.filter((activeFilter) => filter.id !== activeFilter.id)
   },
-  addFilter: (state, { type, id, data }) => {
+  addFilter: (state, { id, data }) => {
     Vue.set(state.data, id, data);
     let decorators = data.map(arrow => arrow[arrow.length - 1]);
     Vue.set(state.decorators, id, decorators);
   },
-  removeFilter: (state, resource) => {
-    delete state.data[resource.id];
+  updateFilterParams: (state, {id, params} ) => {
+    Vue.set(state.filters, id, params);
   },
-  removeAllStartingWith: (state, key) => {
-    for (const filterKey in state.data) {
-      if(filterKey.startsWith(key)) {
-        delete state.data[filterKey];
-        delete state.decorators[filterKey];
-      }
-    }
+  addTierData: (state, { count }) => {
+    state.tierdata = [...state.tierdata, count]
   },
-  addTierData: (state, { name, data }) => {
-    Vue.set(state.tiers, name, data);
+  resetData: (state) => {
+    state.data = {};
+    state.decorators = {};
+    state.tierdata = [];
   }
 }
 
@@ -57,26 +50,23 @@ const actions = {
   removeFilter: ({ commit }, filter) => {
     commit('removeFilter', filter);
   },
-  removeAllStartingWith: ({ commit }, key) => {
-    commit('removeAllStartingWith', key);
-  },
-  filterData: (context, args) => {
-    args.httpResource.post('http://127.0.0.1:5000/filter_data', args.filter)
+  filterData: ({ commit }, { http, filters }) => {
+    http.post('http://127.0.0.1:5000/filter_data', filters)
     .then(response => {
       return response.json();
     })
     .then(response => {
-      var tiers = [];
-      response.data.map((tier, index) => {
-        var resource = {
-          id: `${response.name}${index}`,
-          data: tier
-        }
-        tiers.push(tier.length);
-        context.commit('addFilter', resource);
-        context.commit('addTierData', {name: response.name, data: tiers});
+      response.map((tier, index) => {
+        commit('addFilter', {id: index, data: tier});
+        commit('addTierData', { count: tier.length });
       });
     });
+  },
+  updateFilterParams: ({ commit }, args) => {
+    commit('updateFilterParams', args);
+  },
+  resetData: ({ commit }) => {
+    commit('resetData');
   }
 };
 

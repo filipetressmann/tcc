@@ -12,8 +12,8 @@
                 track-by="filter_name"
                 :searchable="false"
                 :show-labels="false"
-                @select="selectFilter"
-                @remove="deselectFilter">
+                @select="selectResource"
+                @remove="deselectResource">
       <template slot="selection" slot-scope="{ values, search, isOpen }">
         {{ category.category_name }}
       </template>
@@ -38,24 +38,36 @@
     computed: {
       activeFilters: {
           get() {
-            return this.$store.getters.activeFilters;
+            return [...this.$store.getters.activeFilters, ...this.$store.getters.activeLayers];
           },
           set(value) {
             return value;
           }
-        
       }
     },
     methods: {
       ...mapMutations([
         'addActiveFilter',
-        'removeActiveFilter'
+        'removeActiveFilter',
+        'addActiveLayer',
+        'removeActiveLayer'
       ]),
-      selectFilter(filter) {
-        this.addActiveFilter(filter);
+      selectResource(resource) {
+        let category = this.category.category_name;
+        if (category == 'Layers') {
+          this.addActiveLayer(resource);
+        } else {
+          this.addActiveFilter(resource);
+        }
+        
       },
-      deselectFilter(filter) {
-        this.removeActiveFilter(filter);
+      deselectResource(resource) {
+        let category = this.category.category_name;
+        if (category == 'Layers') {
+          this.removeActiveLayer(resource);
+        } else {
+          this.removeActiveFilter(resource);
+        }
       }
     }
 }

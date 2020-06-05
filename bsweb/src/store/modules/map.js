@@ -36,6 +36,9 @@ const mutations = {
   },
   removeFromMap: (state, { mapkey, category, type, key }) => {
     Vue.delete(state.maps[mapkey].show[category][type], key);
+  },
+  resetMapResource: (state, { mapkey, category, type }) => {
+    Vue.set(state.maps[mapkey].show[category], type, {});
   }
 }
 const actions = {
@@ -44,7 +47,10 @@ const actions = {
   },
   removeFromMap: (context, data) => {
     context.commit('removeFromMap', data);
-  } 
+  },
+  resetMapResource: (context, data) => {
+    context.commit('resetMapResource', data);
+  }
 }
 
 export default {
