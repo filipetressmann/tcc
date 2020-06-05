@@ -5,6 +5,7 @@ import bikescience.sp_grid as gr
 import saopaulo.stations as st
 import saopaulo.load_trips as odfilters
 import filter_list as filter_list
+import datetime
 import pandas as pd
 import numpy as np
 import math
@@ -28,13 +29,30 @@ class ODFilterData:
   def set_grid(self, n, west=-0.15, east=0.23, north=0.19, south=-0.46):
     self.grid = gr.create(n, west, east, north, south)
   
-  def trips_by_age(self, age_range, num_tiers=4):
-    filtered_trips = odfilters.select_age_range(self.od, age_range)
-    tiers_table = self.separate_in_tiers(filtered_trips, num_tiers)
+  def trips_by_hour(self, trips, periods, specific, min_hour, max_hour):
+    # filter periods, if theres any selected
+    for period in periods:
+      if period == 'morning':
+        trips = trips[(trips['HORA_SAIDA'] >= 6) & (trips['HORA_SAIDA'] <= 12)]
+      if period == 'afternoon':
+        trips = trips[(trips['HORA_SAIDA'] >= 12) & (trips['HORA_SAIDA'] <= 18)]
+      if period == 'evening':
+        trips = trips[(trips['HORA_SAIDA'] >= 18) & (trips['HORA_SAIDA'] <= 23)]
+    # filter by specific time, if selected
+    if specific:
+      trips = trips[(trips['HORA_SAIDA'] >= int(min_hour)) & (trips['HORA_SAIDA'] <= int(max_hour))]
+    
+    return trips
+
+  def trips_by_age(self, trips, age_range):
+    filtered_trips = odfilters.select_age_range(trips, age_range)
+    return filtered_trips
+    
+  def coords_by_tier(self, trips, num_tiers=4):
     coords_by_tier = []
+    tiers_table = self.separate_in_tiers(trips, num_tiers)
     for index, row in tiers_table.iterrows():
-      coords = self.zones.apply_od_flows(filtered_trips, minimum=row['min'], maximum=row['top'])
-      print(f'n arrows for tier {index}: {len(coords)}')
+      coords = self.zones.apply_od_flows(trips, minimum=row['min'], maximum=row['top'])
       coords_by_tier.append(coords.tolist())
     return coords_by_tier
   
@@ -46,6 +64,9 @@ class ODFilterData:
     tiers_table, _ = tiers.separate_into_tiers(od.sort_values('trip counts', ascending=False), trips, None, 
                                                max_tiers=num_tiers)
     return tiers_table
+
+  def get_od_dataset(self):
+    return self.od
 
 class Zones:
   def __init__(self, od_zones):
@@ -155,24 +176,26 @@ odf.set_grid(20)
 odf.set_zones(zone_dataset=zones)
 
 # parses request args and returns the filtered data
-def handle_filtering(filter_args):
-  fid = int(filter_args['fid'])
-  if fid == 8:
-    min_age = filter_args['minAge']
-    max_age = filter_args['maxAge']
-    nTiers = filter_args['ntiers']
-    print(f'Número de tiers: {nTiers}')
-    filtered = {'name': 'age',
-                'data': odf.trips_by_age(age_range=[min_age, max_age], num_tiers=nTiers)}
-    return filtered
-  if fid == 0:
-    morning = filter_args['morning']
-    afternoon = filter_args['afternoon']
-    evening = filter_args['evening']
-    min_hour = filter_args['minHour'],
-    max_hour = filter_args['maxHour']
-    """ data = odf.trips_by_hour(morning, afternoon, evening, min_hour, max_hour) """
-    filtered = {'name': 'horary',
-                'data': data}
-    return filtered
+def handle_filtering(filters):
+  trips = odf.get_od_dataset()
+  for f_id in filters:
+    # filter by hours
+    if f_id == '0':
+      params = filters[f_id]
+      periods = params['periods']
+      specific = params['specific']
+      min_hours = params['minHours']
+      min_minutes = params['minMinutes']
+      max_hours = params['maxHours']
+      max_minutes = params['maxMinutes']
+      min_time = datetime.time(hour=min_hours, minute=min_minutes)
+      max_time = datetime.time(hour=max_hours, minute=max_minutes)
+      trips = odf.trips_by_hour(trips, periods, specific, min_time, max_time)
+    
+    if f_id == '8':
+      params = filters[f_id]
+      age_range = params['ageRange']
+      trips = odf.trips_by_age(trips, age_range)
+
+  return odf.coords_by_tier(trips)
     

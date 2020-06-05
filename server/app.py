@@ -28,7 +28,8 @@ def bsweb():
 @app.route('/filter_data', methods=['GET', 'POST'])
 def filter_data():
     req_data = request.get_json()
-    return filters.handle_filtering(req_data)
+    data = filters.handle_filtering(req_data)
+    return jsonify(data)
 
 # Map layers
 api.add_resource(layers.CPTM, '/load_railway_data')
