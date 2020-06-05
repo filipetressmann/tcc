@@ -1,6 +1,16 @@
 <template>
   <div>
     <div v-if="activeFilters.length > 0">
+      <div>
+        <b-button type="is-info"
+                  icon-pack="fas"
+                  icon-right="fa-filter"
+                  expanded
+                  @click="applyFilters">
+          Filtrar
+        </b-button>
+        <hr>
+      </div>
       <app-filter v-for="filter in activeFilters" :filter="filter" :key="filter.id" />
     </div>
       <span v-else>Nenhum filtro adicionado.</span>
@@ -8,7 +18,6 @@
 </template>
 
 <script>
-  import { filterEvents } from '../../main.js';
   import { mapActions } from 'vuex';
   import Filter from './Filter';
 
@@ -16,15 +25,37 @@
     components: {
       'app-filter': Filter
     },
+    data() {
+      return {
+        filters: []
+      };
+    },
     methods: {
       ...mapActions([
         'removeFilter',
-        'removeFromMap'
-      ])
+        'resetMapResource',
+        'filterData',
+        'resetData'
+      ]),
+      applyFilters() {
+        this.resetData();
+        this.resetMapResource({
+          mapkey: "main",
+          category: "filters",
+          type: "polyline"
+        });
+        this.filterData({ http: this.$http, filters: this.$store.getters.params });
+        this.$emit('tab-changed', 0);
+      }
     },
     computed: {
       activeFilters() {
         return this.$store.getters.activeFilters;
+      }
+    },
+    watch: {
+      activeFilters: function(value) {
+        this.$emit('tab-changed', 1);
       }
     }
   }
