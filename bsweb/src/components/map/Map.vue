@@ -2,6 +2,11 @@
   <div id="map">
     <l-map :zoom="properties.zoom" :center="properties.center">
       <l-tile-layer :url="properties.tile_layer_url"></l-tile-layer>
+        <!-- Create zones layer once, then just change display property to avoid reloading component again -->
+        <l-geo-json 
+          :geojson="zones.geometry"
+          :optionsStyle="zones.style"
+          v-if="showZones"/>
         <l-geo-json
         v-for="key in Object.keys(layersGeojson)"
         :geojson="layers[key].geometry"
@@ -58,7 +63,8 @@
       ...mapActions([
         'fetchCPTM',
         'fetchSubway',
-        'fetchBikelane'
+        'fetchBikelane',
+        'fetchZones'
       ])
     },
     computed: mapState({
@@ -85,12 +91,17 @@
         },
         filters: state => state.filters.data,
         layers: state => state.layers.data,
-        decorators: state => state.filters.decorators
+        decorators: state => state.filters.decorators,
+        zones: state => state.layers.zones,
+        showZones(state) {
+          return state.map.maps[this.mapkey].show.zones
+        }
       }),
       created() {
         this.fetchCPTM(this.$http);
         this.fetchSubway(this.$http);
         this.fetchBikelane(this.$http);
+        this.fetchZones(this.$http);
       }
   }
 </script>
