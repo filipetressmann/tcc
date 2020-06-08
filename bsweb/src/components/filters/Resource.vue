@@ -45,11 +45,9 @@
     },
     methods: {
       ...mapActions([
-        'fetchCPTM',
-        'fetchSubway',
-        'fetchBikelane',
         'addToMap',
-        'removeFromMap'
+        'removeFromMap',
+        'toggleZones'
       ]),
       showCptm() {
         this.resourceInfo = {
@@ -89,8 +87,11 @@
         }
         this.addToMap(this.resourceInfo);
       },
+       showZones() {
+         this.toggleZones("main");
+      },
       isLayer(resource) {
-        return resource.id == 14 || resource.id == 15 || resource.id == 16;
+        return resource.id == 14 || resource.id == 15 || resource.id == 16 || resource.id == 17;
       }
     },
     created() {
@@ -102,6 +103,8 @@
           this.showSubway();
         } else if (resource.id == 16) {
           this.showBikelane();
+        } else if (resource.id == 17) {
+          this.showZones();
         }
       }
     }
