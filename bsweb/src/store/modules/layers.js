@@ -1,7 +1,9 @@
-import Vue from 'vue'
+import Vue from 'vue';
+import * as style from '../helpers/style_layers';
 const state = {
   activeLayers: [],
-  data: {}
+  data: {},
+  zones: {}
 };
 
 const getters = {
@@ -20,6 +22,10 @@ const mutations = {
   },
   removeActiveLayer: (state, layer) => {
     state.activeLayers = state.activeLayers.filter((activeLayer) => layer.id !== activeLayer.id);
+  },
+  loadZones: (state, layer) => {
+    Vue.set(state.zones, "geometry", layer);
+    Vue.set(state.zones, "style", style.zones);
   }
 }
 
@@ -80,6 +86,16 @@ const actions = {
           };
           context.commit('addLayer', resource);
         });
+  },
+  fetchZones: (context, httpResource) => {
+    httpResource.get('http://127.0.0.1:5000/load_zones')
+      .then(response => {
+        return response.json();
+      })
+      .then(response => {
+        let zones = JSON.parse(response);
+        context.commit('loadZones', zones);
+      }) 
   }
 };
 
