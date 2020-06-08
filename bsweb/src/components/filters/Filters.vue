@@ -18,12 +18,12 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex';
-  import Filter from './Filter';
+  import { mapActions, mapMutations } from 'vuex';
+  import Resource from './Resource';
 
   export default {
     components: {
-      'app-filter': Filter
+      'app-filter': Resource
     },
     data() {
       return {
@@ -37,6 +37,9 @@
         'filterData',
         'resetData'
       ]),
+      ...mapMutations([
+        'addActiveLayer'
+      ]),
       applyFilters() {
         this.resetData();
         this.resetMapResource({
@@ -46,6 +49,9 @@
         });
         this.filterData({ http: this.$http, filters: this.$store.getters.params });
         this.$emit('tab-changed', 0);
+      },
+      showZones() {
+        this.addActiveLayer({ layer: "zones"});
       }
     },
     computed: {

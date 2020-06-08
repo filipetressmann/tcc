@@ -50,7 +50,8 @@
         'addActiveFilter',
         'removeActiveFilter',
         'addActiveLayer',
-        'removeActiveLayer'
+        'removeActiveLayer',
+        'removeFromMap'
       ]),
       selectResource(resource) {
         let category = this.category.category_name;
@@ -63,11 +64,23 @@
       },
       deselectResource(resource) {
         let category = this.category.category_name;
+        let catkey = "filters"
         if (category == 'Layers') {
           this.removeActiveLayer(resource);
+          catkey = "layers"
         } else {
           this.removeActiveFilter(resource);
         }
+
+        // Object to handle resource removal
+        const mapResource = {
+          mapkey: "main",
+          category: catkey,
+          type: resource.filter_type,
+          key: resource.filter_key
+        }
+        // remove resource from map
+        this.removeFromMap(mapResource);
       }
     }
 }
