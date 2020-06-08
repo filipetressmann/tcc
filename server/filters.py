@@ -16,8 +16,10 @@ import math
 pd.options.mode.chained_assignment = 'raise'
 class ODFilterData:
   def __init__(self, od_dataset):
+    # remove round off trips
     od_dataset = od_dataset[od_dataset['ZONA_O'] != od_dataset['ZONA_D']]
     od_dataset_newcolumn = od_dataset.copy()
+    # label FE_VIA as trip counts, for tier countings
     od_dataset_newcolumn.rename(columns={'FE_VIA':'trip counts'}, inplace=True)
     od_dataset = od_dataset_newcolumn
     self.od = od_dataset
@@ -49,8 +51,9 @@ class ODFilterData:
     return filtered_trips
     
   def coords_by_tier(self, trips, num_tiers=4):
-    coords_by_tier = []
+    trips = self.zones.join_zones_and_data(trips)
     tiers_table = self.separate_in_tiers(trips, num_tiers)
+    coords_by_tier = []
     for index, row in tiers_table.iterrows():
       coords = self.zones.apply_od_flows(trips, minimum=row['min'], maximum=row['top'])
       coords_by_tier.append(coords.tolist())
@@ -96,17 +99,13 @@ class Zones:
     return od_df[od_df[start_zone_identifier]!=od_df[end_zone_identifier]]
 
   def apply_od_flows(self, filter_data, minimum, maximum):
-    data_in_zones = self.join_zones_and_data(filter_data)
-    no_rounding_trips = self.remove_zone_roundoff_trips(data_in_zones)
-    total_trips = no_rounding_trips['trip counts'].sum()
+    total_trips = filter_data['trip counts'].sum()
     shown_trips = 0
     # select the tier to filter data
-    no_rounding_trips = no_rounding_trips[((no_rounding_trips['trip counts'] >= minimum) & (no_rounding_trips['trip counts'] <= maximum))]
-
+    filtered_trips = filter_data[(filter_data['trip counts'] >= minimum) & (filter_data['trip counts'] <= maximum)]
     amount_of_points = 30
     flows = []
-    flows_folium = []
-    for index, row in no_rounding_trips.iterrows():
+    for index, row in filtered_trips.iterrows():
       num_trips = row['trip counts']
       shown_trips += num_trips
       lat1, lon1, lat2, lon2 = self.calculate_lat_long(row)
