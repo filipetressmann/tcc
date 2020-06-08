@@ -20,8 +20,8 @@ const state = {
           geojson: {},
           polyline: {},
           decorators: {}
-        }
-
+        },
+        zones: false
       }
     }
   }
@@ -35,10 +35,17 @@ const mutations = {
     Vue.set(state.maps[mapkey].show[category][type], key, options);
   },
   removeFromMap: (state, { mapkey, category, type, key }) => {
+    if (key == "zones") {
+      state.maps[mapkey].show.zones = false;
+      return;
+    }
     Vue.delete(state.maps[mapkey].show[category][type], key);
   },
   resetMapResource: (state, { mapkey, category, type }) => {
     Vue.set(state.maps[mapkey].show[category], type, {});
+  },
+  showZones: (state, mapkey) => {
+    Vue.set(state.maps[mapkey].show, "zones", !state.maps[mapkey].show.zones);
   }
 }
 const actions = {
@@ -50,6 +57,9 @@ const actions = {
   },
   resetMapResource: (context, data) => {
     context.commit('resetMapResource', data);
+  },
+  toggleZones: (context, mapKey) => {
+    context.commit('showZones', mapKey);
   }
 }
 
