@@ -7,7 +7,7 @@
           <span>Dados</span>
         </template>
         <tiers v-if="tierList.length > 0"></tiers>
-        
+        <hr>
         Source; Import; Export;
       </b-tab-item>
       <b-tab-item>
@@ -36,14 +36,12 @@
 <script>
   import { filterEvents } from '../../main.js';
   import { mapActions } from 'vuex';
-  import Filter from './Filter';
   import FiltersVue from './Filters.vue';
   import Tiers from './Tiers.vue';
   import Layers from './Layers.vue';
 
   export default {
     components: {
-      'app-filter': Filter,
       'filters': FiltersVue,
       'tiers': Tiers,
       'layers': Layers

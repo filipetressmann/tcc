@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="activeLayers.length > 0">
-      <app-filter v-for="layer in activeLayers" :filter="layer" :key="layer.id" />
+      <app-layer v-for="layer in activeLayers" :filter="layer" :key="layer.id" />
     </div>
       <span v-else>Nenhum layer adicionado.</span>
   </div>
@@ -9,11 +9,11 @@
 
 <script>
   import { mapActions } from 'vuex';
-  import Filter from './Filter';
+  import Resource from './Resource';
 
   export default {
     components: {
-      'app-filter': Filter
+      'app-layer': Resource
     },
     data() {
       return {
