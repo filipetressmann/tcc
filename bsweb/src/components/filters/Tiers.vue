@@ -1,7 +1,5 @@
 <template>
   <div>
-    {{ tierList }}
-    {{ shownTiers }}
     <p class="label">Selecionar tiers:</p>
     <b-checkbox v-for="(count, index) in tierList" v-model="shownTiers" :native-value="index" :key="index">
       Tier {{ index+1 }} ({{ count }} fluxos)
