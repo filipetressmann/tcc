@@ -23,7 +23,15 @@ FILTERS = [
         'filter_type': 'geojson',
         'filter_name': 'Malha cicloviária',
         'has_form': False
+      },
+      {
+        'id': 17,
+        'filter_key': 'zones',
+        'filter_type': 'geojson',
+        'filter_name': 'Zonas OD',
+        'has_form': False
       }
+
     ]
   },
   {

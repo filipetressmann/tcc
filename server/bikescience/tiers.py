@@ -8,17 +8,15 @@ def separate_into_tiers(od, trips, grid_and_stations, max_tiers):
     """ ** Internal use function ** """
     flows = od['trip counts']
     total = flows.sum()
-
+    total = round(total, 4)
     tiers = []
     tops = []
     mins = []
     flow_counts = []
     flows_perc = []
     partial = 0
-    
     num_flows = 0
     new_tier = True
-    
     trip_tiers = []
     tier = max_tiers - 1
     for value in flows:
@@ -29,8 +27,7 @@ def separate_into_tiers(od, trips, grid_and_stations, max_tiers):
         trip_tiers.append(tier+1)
         num_flows +=1
         partial += value
-        
-        if partial >= ((max_tiers - tier) * total / max_tiers):
+        if round(partial, 4) >= ((max_tiers - tier) * total / max_tiers):
             flow_counts.append(num_flows)
             flows_perc.append(100*num_flows/flows.size)
             tiers.append(tier+1)
@@ -39,7 +36,7 @@ def separate_into_tiers(od, trips, grid_and_stations, max_tiers):
             new_tier = True
             tier -= 1
             num_flows = 0
-        
+
     return pd.DataFrame(OrderedDict([('tier', tiers), ('top', tops), ('min', mins), ('flow_counts', flow_counts), 
                                      ('flows_perc', flows_perc)])), \
            trip_tiers

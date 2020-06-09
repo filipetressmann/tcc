@@ -76,4 +76,13 @@ const bikelane = function(data) {
   return { color: '#999'}
 }
 
-export { railway, subway, bikelane };
+const zones = function(data) {
+  return {
+    color: '#9ccad6',
+    weight: 0.8,
+    fillColor: 'none',
+    'z-index': 0
+  }
+}
+
+export { railway, subway, bikelane, zones };

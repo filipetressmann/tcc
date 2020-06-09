@@ -1,8 +1,15 @@
 import geopandas as gpd
 from flask_restful import Resource
 from os.path import abspath
+import unidecode
 
+# preload zones layer
 data_path = abspath('./') + '/data'
+zones = gpd.GeoDataFrame.from_file(f'{data_path}/shapes/Zonas_2017_region.shp', encoding='latin-1')
+zones = zones.to_crs({"init": "epsg:4326"})
+zones['NomeDistri'] = zones['NomeDistri'].apply(lambda x: unidecode.unidecode(x))
+zones['NomeZona'] = zones['NomeZona'].apply(lambda x: unidecode.unidecode(x))
+zones = zones.to_json()
 
 # provides CPTM railway layer
 class CPTM(Resource):
@@ -35,3 +42,7 @@ class BikeLane(Resource):
     
   def get(self):
     return self.load_bike_lane().to_json()
+
+class Zones(Resource):
+  def get(self):
+    return zones
