@@ -88,7 +88,7 @@ const actions = {
         });
   },
   fetchZones: (context, httpResource) => {
-    httpResource.get('http://127.0.0.1:5000/load_zones')
+    return httpResource.get('http://127.0.0.1:5000/load_zones')
       .then(response => {
         return response.json();
       })
