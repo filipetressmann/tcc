@@ -3,10 +3,12 @@
     <l-map :zoom="properties.zoom" :center="properties.center">
       <l-tile-layer :url="properties.tile_layer_url"></l-tile-layer>
         <!-- Create zones layer once, then just change display property to avoid reloading component again -->
-        <l-geo-json 
+        <span v-if="renderZones">
+          <l-geo-json 
           :geojson="zones.geometry"
           :optionsStyle="zones.style"
-          v-if="showZones"/>
+          :visible="showZones" />
+        </span>
         <l-geo-json
         v-for="key in Object.keys(layersGeojson)"
         :geojson="layers[key].geometry"
@@ -56,7 +58,8 @@
     },
     data() {
       return{
-        symbol: L.Symbol
+        symbol: L.Symbol,
+        renderZones: false
       };
     },
     methods: {
@@ -97,11 +100,13 @@
           return state.map.maps[this.mapkey].show.zones
         }
       }),
-      created() {
+      async created() {
         this.fetchCPTM(this.$http);
         this.fetchSubway(this.$http);
         this.fetchBikelane(this.$http);
-        this.fetchZones(this.$http);
+        await this.fetchZones(this.$http);
+        this.renderZones = true;
+        console.log(this.showZones);
       }
   }
 </script>
@@ -110,5 +115,9 @@
   #map {
     width: 85%;
     height: 80vh;
+  }
+  
+  .zones-layer {
+    z-index: 0;
   }
 </style>
