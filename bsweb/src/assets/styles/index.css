@@ -79,3 +79,8 @@ body{
 .multiselect__tags {
   cursor: pointer;
 }
+
+.b-checkbox.checkbox + .checkbox {
+  margin: 0;
+  width: 100%;
+}
