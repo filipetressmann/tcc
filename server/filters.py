@@ -9,6 +9,7 @@ import datetime
 import pandas as pd
 import numpy as np
 import math
+
 """
   The purpose of ODFilterData class is to return coordinates data to be
   plotted in the web application, given the OD data and parameters for a filter.
@@ -27,37 +28,45 @@ class ODFilterData:
   
   def set_zones(self, zone_dataset):
     self.zones = Zones(zone_dataset)
-  
+
   def set_grid(self, n, west=-0.15, east=0.23, north=0.19, south=-0.46):
     self.grid = gr.create(n, west, east, north, south)
   
   def trips_by_hour(self, trips, periods, specific, min_hour, max_hour):
     # filter periods, if theres any selected
+    trips['HORA_SAIDA'] = pd.to_datetime(trips['HORA_SAIDA'], format='%H:%M:%S')
+    trips['HORA_CHEG'] = pd.to_datetime(trips['HORA_CHEG'], format='%H:%M:%S')
     for period in periods:
       if period == 'morning':
-        trips = trips[(trips['HORA_SAIDA'] >= 6) & (trips['HORA_SAIDA'] <= 12)]
+        trips = trips[(trips['HORA_SAIDA'].dt.hour >= 6) & (trips['HORA_CHEG'].dt.hour <= 12)]
       if period == 'afternoon':
-        trips = trips[(trips['HORA_SAIDA'] >= 12) & (trips['HORA_SAIDA'] <= 18)]
+        trips = trips[(trips['HORA_SAIDA'].dt.hour >= 12) & (trips['HORA_CHEG'].dt.hour <= 18)]
       if period == 'evening':
-        trips = trips[(trips['HORA_SAIDA'] >= 18) & (trips['HORA_SAIDA'] <= 23)]
+        trips = trips[(trips['HORA_SAIDA'].dt.hour >= 18) & (trips['HORA_CHEG'].dt.hour <= 23)]
     # filter by specific time, if selected
     if specific:
-      trips = trips[(trips['HORA_SAIDA'] >= int(min_hour)) & (trips['HORA_SAIDA'] <= int(max_hour))]
-    
+      trips = trips[(trips['HORA_SAIDA'].dt.hour >= min_hour) & (trips['HORA_CHEG'].dt.hour <= max_hour)]
     return trips
 
   def trips_by_age(self, trips, age_range):
     filtered_trips = odfilters.select_age_range(trips, age_range)
     return filtered_trips
+  
+  def trips_by_weekday(self, trips, days):
+    filtered_trips = trips[trips['DIASEMANA'].isin(days)]
+    return filtered_trips
     
-  def coords_by_tier(self, trips, num_tiers=4):
-    trips = self.zones.join_zones_and_data(trips)
+  def coords_by_tier(self, trips, base_layer, num_tiers=4):
+    if (base_layer == 'zones'):
+      trips = self.zones.join_zones_and_data(trips)
     tiers_table = self.separate_in_tiers(trips, num_tiers)
     coords_by_tier = []
+    weights_by_tier = []
     for index, row in tiers_table.iterrows():
-      coords = self.zones.apply_od_flows(trips, minimum=row['min'], maximum=row['top'])
+      coords, weights = self.zones.apply_od_flows(trips, minimum=row['min'], maximum=row['top'])
       coords_by_tier.append(coords.tolist())
-    return coords_by_tier
+      weights_by_tier.append(weights.tolist())
+    return coords_by_tier, weights_by_tier
   
   def separate_in_tiers(self, trips, num_tiers=4):
     od = odflow.od_countings(trips, self.grid, self.zones.geodataframe(),
@@ -103,8 +112,9 @@ class Zones:
     shown_trips = 0
     # select the tier to filter data
     filtered_trips = filter_data[(filter_data['trip counts'] >= minimum) & (filter_data['trip counts'] <= maximum)]
-    amount_of_points = 30
+    amount_of_points = 10
     flows = []
+    weights = []
     for index, row in filtered_trips.iterrows():
       num_trips = row['trip counts']
       shown_trips += num_trips
@@ -115,7 +125,8 @@ class Zones:
       tooltip_text = f'{num_trips} viagens nesse fluxo.'
       flow = arrow.draw_arrow(lat1, lon1, lat2, lon2, text=tooltip_text, weight=weight)
       flows.append(flow)
-    return np.array(flows)
+      weights.append(weight)
+    return np.array(flows), np.array(weights)
   
   def geodataframe(self):
     return self.zones
@@ -168,33 +179,37 @@ def initialize_filter_list():
   return filter_data
 
 # initialize filtering object
-od_dataset = pd.read_csv('data/trips_od17_bikes_all.csv')
+od_dataset = pd.read_csv('data/trips_od17_bikes_all_withdates.csv')
 zones = pd.read_csv('data/zonas_od17.csv')
 odf = ODFilterData(od_dataset)
 odf.set_grid(20)
 odf.set_zones(zone_dataset=zones)
 
 # parses request args and returns the filtered data
-def handle_filtering(filters):
+def handle_filtering(params):
   trips = odf.get_od_dataset()
+  base_layer = params['baseLayer']
+  filters = params['params']
   for f_id in filters:
     # filter by hours
     if f_id == '0':
       params = filters[f_id]
       periods = params['periods']
       specific = params['specific']
-      min_hours = params['minHours']
-      min_minutes = params['minMinutes']
-      max_hours = params['maxHours']
-      max_minutes = params['maxMinutes']
-      min_time = datetime.time(hour=min_hours, minute=min_minutes)
-      max_time = datetime.time(hour=max_hours, minute=max_minutes)
+      min_time = params['minHours']
+      max_time = params['maxHours']
       trips = odf.trips_by_hour(trips, periods, specific, min_time, max_time)
     
     if f_id == '8':
       params = filters[f_id]
       age_range = params['ageRange']
       trips = odf.trips_by_age(trips, age_range)
-
-  return odf.coords_by_tier(trips)
+    
+    if f_id == '1':
+      params = filters[f_id]
+      days = params['days']
+      trips = odf.trips_by_weekday(trips, days)
+      
+  tiers, weights = odf.coords_by_tier(trips, base_layer)
+  return {'tiers': tiers, 'weights': weights}
     

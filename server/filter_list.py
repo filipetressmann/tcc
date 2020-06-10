@@ -24,14 +24,6 @@ FILTERS = [
         'filter_name': 'Malha cicloviária',
         'has_form': False
       },
-      {
-        'id': 17,
-        'filter_key': 'zones',
-        'filter_type': 'geojson',
-        'filter_name': 'Zonas OD',
-        'has_form': False
-      }
-
     ]
   },
   {
@@ -40,23 +32,23 @@ FILTERS = [
       {
       'id': 0,
       'filter_key': 'horary',
-      'filter_type': 'todo',
+      'filter_type': 'polyline',
       'filter_name': 'Horário',
       'has_form': True
       },
       {
         'id': 1,
-        'filter_key': 'date',
-        'filter_type': 'todo',
-        'filter_name': 'Data',
-        'has_form': False
+        'filter_key': 'weekday',
+        'filter_type': 'polyline',
+        'filter_name': 'Dia da semana',
+        'has_form': True
       },
       {
         'id': 2,
-        'filter_key': 'daytype',
-        'filter_type': 'todo',
-        'filter_name': 'Tipo de dia' ,
-        'has_form': False
+        'filter_key': 'holidays',
+        'filter_type': 'polyline',
+        'filter_name': 'Feriados' ,
+        'has_form': True
       }
     ]
   },
