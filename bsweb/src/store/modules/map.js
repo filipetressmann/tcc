@@ -21,7 +21,7 @@ const state = {
           polyline: {},
           decorators: {}
         },
-        zones: false
+        zones: true
       }
     }
   }
