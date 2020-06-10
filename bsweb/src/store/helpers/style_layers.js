@@ -79,10 +79,19 @@ const bikelane = function(data) {
 const zones = function(data) {
   return {
     color: '#9ccad6',
-    weight: 0.8,
+    weight: 1,
     fillColor: 'none',
+    opacity: 0.4,
     'z-index': 0
   }
 }
 
-export { railway, subway, bikelane, zones };
+const grid = function(data) {
+  return {
+    color: '#9ccad6',
+    weight: 0.6,
+    fillColor: 'none'
+  }
+}
+
+export { railway, subway, bikelane, zones, grid };
