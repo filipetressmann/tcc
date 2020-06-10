@@ -3,7 +3,7 @@ import math
 import folium
 from shapely.geometry import shape, LineString, Polygon
 
-N = 30
+N = 10
 
 def inv_parametric_circle(x, y, xc, yc):
     """

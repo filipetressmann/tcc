@@ -11,6 +11,7 @@ zones['NomeDistri'] = zones['NomeDistri'].apply(lambda x: unidecode.unidecode(x)
 zones['NomeZona'] = zones['NomeZona'].apply(lambda x: unidecode.unidecode(x))
 zones = zones.to_json()
 
+
 # provides CPTM railway layer
 class CPTM(Resource):
   def load_railway(self):
