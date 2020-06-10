@@ -21,17 +21,20 @@
         :optionsStyle="filtersGeojson[key].style"
         :options="filtersGeojson[key].options"
         :key="key" />
-        <l-feature-group v-for="key in Object.keys(filtersPolylines)" :key="key">
+        <l-feature-group v-for="tier in Object.keys(filtersPolylines)" :key="tier">
           <l-polyline
-          :lat-lngs="filters[key]"
+          v-for="(flow, index) in filters[tier]"
+          :lat-lngs="flow"
           :color="'blue'"
-          :key="key">
+          :weight="weights[tier][index]"
+          :key="index">
         </l-polyline>
         <polyline-decorator
-          :paths="decorators[key]"
-          :key="`${key}decorator`"
+          v-for="(arrow, index) in decorators[tier]"
+          :paths="arrow"
+          :key="`${tier}${index}decorator`"
           :patterns="[
-                {offset: '100%', repeat: 0, symbol: symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true, color: 'blue'}})}
+                {offset: '100%', repeat: 0, symbol: symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true, color: 'blue', weight: weights[tier][index]}})}
             ]"
         >
         </polyline-decorator>
@@ -95,6 +98,7 @@
         filters: state => state.filters.data,
         layers: state => state.layers.data,
         decorators: state => state.filters.decorators,
+        weights: state => state.filters.weights,
         zones: state => state.layers.zones,
         showZones(state) {
           return state.map.maps[this.mapkey].show.zones
@@ -106,7 +110,6 @@
         this.fetchBikelane(this.$http);
         await this.fetchZones(this.$http);
         this.renderZones = true;
-        console.log(this.showZones);
       }
   }
 </script>
