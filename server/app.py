@@ -5,6 +5,7 @@ import layers as layers
 import filters as filters
 import filter_list as filter_list
 import pandas as pd
+import bikescience.sp_grid as gr
 # configuration
 DEBUG = True
 
@@ -20,10 +21,17 @@ api = Api(app)
 def fetchfilters():
     return jsonify(filters.initialize_filter_list())
 
+@app.route('/grid_layer', methods=['GET', 'POST'])
+def grid():
+    req_data = request.get_json()
+    n = int(req_data['gridSize'])
+    grid = gr.create(n)
+    return grid.geodataframe().to_json()
+
 # sanity check route
 @app.route('/', methods=['GET'])
 def bsweb():
-    return jsonify('This is the beginning of BikeScience Web!')
+    return jsonify('This is BikeScience Web!')
 
 @app.route('/filter_data', methods=['GET', 'POST'])
 def filter_data():
