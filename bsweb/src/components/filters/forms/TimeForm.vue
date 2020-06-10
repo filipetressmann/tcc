@@ -1,31 +1,31 @@
 <template>
   <div>
     <div class="field">
-      <b-checkbox v-model="periods" native-value="morning">
+      <b-checkbox v-model="periods" native-value="morning" type="is-info">
         Manhã (6h - 12h)
       </b-checkbox>
     </div>
     <div class="field">
-      <b-checkbox v-model="periods" native-value="afternoon">
+      <b-checkbox v-model="periods" native-value="afternoon"  type="is-info">
         Tarde (12h - 18h)
       </b-checkbox>
     </div>
     <div class="field">
-      <b-checkbox v-model="periods" native-value="evening">
+      <b-checkbox v-model="periods" native-value="evening"  type="is-info">
         Noite (18h - 00h)
       </b-checkbox>
     </div>
     <div class="field">
-      <b-checkbox v-model="specific">
+      <b-checkbox v-model="specific"  type="is-info">
         Horário específico
       </b-checkbox>
     </div>
     <div v-if="specific">
       <b-field label="De">
-        <b-timepicker v-model="minTime" icon="clock" />
+        <b-timepicker v-model="minTime" :increment-minutes="60" icon="clock" />
       </b-field>
       <b-field label="Até">
-        <b-timepicker v-model="maxTime" icon="clock" />
+        <b-timepicker v-model="maxTime" :default-minutes="0" icon="clock" />
       </b-field>
     </div>
   </div>
@@ -40,8 +40,8 @@
       return {
         periods: [],
         specific: false,
-        minTime: new Date(),
-        maxTime: new Date()
+        minTime: new Date(2020, 1, 1, 4, 0, 0),
+        maxTime: new Date(2020, 1, 1, 13, 0, 0)
       };
     },
     computed: {

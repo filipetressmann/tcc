@@ -1,7 +1,7 @@
 <template>
   <div>
     <p class="label">Selecionar tiers:</p>
-    <b-checkbox v-for="(count, index) in tierList" v-model="shownTiers" :native-value="index" :key="index">
+    <b-checkbox v-for="(count, index) in tierList" v-model="shownTiers" :native-value="index" :key="index" type="is-info">
       Tier {{ index+1 }} ({{ count }} fluxos)
     </b-checkbox>
   </div>
@@ -51,10 +51,3 @@ import { mapActions } from 'vuex';
     }
   }
 </script>
-
-<style scoped>
-  .b-checkbox.checkbox + .checkbox {
-    margin: 0;
-    width: 100%;
-  }
-</style>
