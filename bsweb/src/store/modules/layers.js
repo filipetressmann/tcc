@@ -3,7 +3,8 @@ import * as style from '../helpers/style_layers';
 const state = {
   activeLayers: [],
   data: {},
-  zones: {}
+  zones: {},
+  grid: {}
 };
 
 const getters = {
@@ -26,6 +27,10 @@ const mutations = {
   loadZones: (state, layer) => {
     Vue.set(state.zones, "geometry", layer);
     Vue.set(state.zones, "style", style.zones);
+  },
+  loadGrid: (state, layer) => {
+    Vue.set(state.grid, "geometry", layer);
+    Vue.set(state.grid, "style", style.grid);
   }
 }
 
@@ -96,6 +101,14 @@ const actions = {
         let zones = JSON.parse(response);
         context.commit('loadZones', zones);
       }) 
+  },
+
+  fetchGrid: (context, { httpResource, gridSize }) => {
+    return async function() {
+      let response = await httpResource.get('http://127.0.0.1:5000/grid_layer');
+      let grid = await response.json();
+      context.commit('loadGrid', JSON.parse(grid));
+    }
   }
 };
 
