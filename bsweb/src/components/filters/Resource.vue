@@ -12,7 +12,7 @@
         </p>
           <a class="card-header-icon" v-if="filter.has_form">
             <b-icon
-              :icon="props.open ? 'menu-down' : 'menu-up'">
+              :icon="props.open ? 'menu-down' : 'menu-up'" type="is-info">
             </b-icon>
           </a>
         </div>
@@ -46,8 +46,7 @@
     methods: {
       ...mapActions([
         'addToMap',
-        'removeFromMap',
-        'toggleZones'
+        'removeFromMap'
       ]),
       showCptm() {
         this.resourceInfo = {
@@ -87,11 +86,8 @@
         }
         this.addToMap(this.resourceInfo);
       },
-       showZones() {
-         this.toggleZones("main");
-      },
       isLayer(resource) {
-        return resource.id == 14 || resource.id == 15 || resource.id == 16 || resource.id == 17;
+        return resource.id == 14 || resource.id == 15 || resource.id == 16;
       }
     },
     created() {
@@ -103,8 +99,6 @@
           this.showSubway();
         } else if (resource.id == 16) {
           this.showBikelane();
-        } else if (resource.id == 17) {
-          this.showZones();
         }
       }
     }
