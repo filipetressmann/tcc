@@ -6,6 +6,7 @@
         <template slot="header">
           <span>Dados</span>
         </template>
+        <baselayer></baselayer>
         <tiers v-if="tierList.length > 0"></tiers>
         <hr>
         Source; Import; Export;
@@ -39,12 +40,14 @@
   import FiltersVue from './Filters.vue';
   import Tiers from './Tiers.vue';
   import Layers from './Layers.vue';
+  import BaseLayer from './BaseLayer.vue';
 
   export default {
     components: {
       'filters': FiltersVue,
       'tiers': Tiers,
-      'layers': Layers
+      'layers': Layers,
+      'baselayer': BaseLayer
     },
     data() {
       return {
