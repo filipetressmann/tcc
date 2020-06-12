@@ -27,7 +27,8 @@ const mutations = {
     state.activeFilters.push(filter);
   },
   removeActiveFilter: (state, filter) => {
-    state.activeFilters = state.activeFilters.filter((activeFilter) => filter.id !== activeFilter.id)
+    state.activeFilters = state.activeFilters.filter((activeFilter) => filter.id !== activeFilter.id);
+    Vue.delete(state.filters.params, filter.id);
   },
   addFilter: (state, { id, data }) => {
     Vue.set(state.data, id, data);
