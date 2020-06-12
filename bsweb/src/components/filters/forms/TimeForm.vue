@@ -52,9 +52,7 @@
             periods: this.periods,
             specific: this.specific,
             minHours: this.minTime.getHours(),
-            minMinutes: this.minTime.getMinutes(),
-            maxHours: this.maxTime.getHours(),
-            maxMinutes: this.maxTime.getMinutes()
+            maxHours: this.maxTime.getHours()
           }
         }
       }
