@@ -25,7 +25,7 @@
           <l-polyline
           v-for="(flow, index) in filters[tier]"
           :lat-lngs="flow"
-          :color="'blue'"
+          :color="'#ff7e6b'"
           :weight="weights[tier][index]"
           :key="index">
         </l-polyline>
@@ -34,7 +34,7 @@
           :paths="arrow"
           :key="`${tier}${index}decorator`"
           :patterns="[
-                {offset: '100%', repeat: 0, symbol: symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true, color: 'blue', weight: weights[tier][index]}})}
+                {offset: '100%', repeat: 0, symbol: symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true, color: '#ff7e6b', weight: weights[tier][index]}})}
             ]"
         >
         </polyline-decorator>
