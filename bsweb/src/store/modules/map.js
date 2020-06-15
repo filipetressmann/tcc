@@ -21,7 +21,8 @@ const state = {
           polyline: {},
           decorators: {}
         },
-        zones: false
+        zones: false,
+        grid: true
       }
     }
   }
@@ -44,8 +45,17 @@ const mutations = {
   resetMapResource: (state, { mapkey, category, type }) => {
     Vue.set(state.maps[mapkey].show[category], type, {});
   },
+  hideZones: (state, mapkey) => {
+    Vue.set(state.maps[mapkey].show, "zones", false);
+  },
+  hideGrid: (state, mapkey) => {
+    Vue.set(state.maps[mapkey].show, "grid", false);
+  },
   showZones: (state, mapkey) => {
-    Vue.set(state.maps[mapkey].show, "zones", !state.maps[mapkey].show.zones);
+    Vue.set(state.maps[mapkey].show, "zones", true);
+  },
+  showGrid: (state, mapkey) => {
+    Vue.set(state.maps[mapkey].show, "grid", true);
   }
 }
 const actions = {
@@ -57,9 +67,6 @@ const actions = {
   },
   resetMapResource: (context, data) => {
     context.commit('resetMapResource', data);
-  },
-  toggleZones: (context, mapKey) => {
-    context.commit('showZones', mapKey);
   }
 }
 

@@ -64,7 +64,7 @@
       },
       deselectResource(resource) {
         let category = this.category.category_name;
-        let catkey = "filters"
+        let catkey = "filters";
         if (category == 'Layers') {
           this.removeActiveLayer(resource);
           catkey = "layers"

@@ -9,6 +9,12 @@
           :optionsStyle="zones.style"
           :visible="showZones" />
         </span>
+        <span v-if="renderGrid">
+          <l-geo-json
+          :geojson="grid.geometry"
+          :optionsStyle="grid.style"
+          :visible="showGrid" />
+        </span>
         <l-geo-json
         v-for="key in Object.keys(layersGeojson)"
         :geojson="layers[key].geometry"
@@ -21,17 +27,20 @@
         :optionsStyle="filtersGeojson[key].style"
         :options="filtersGeojson[key].options"
         :key="key" />
-        <l-feature-group v-for="key in Object.keys(filtersPolylines)" :key="key">
+        <l-feature-group v-for="tier in Object.keys(filtersPolylines)" :key="tier">
           <l-polyline
-          :lat-lngs="filters[key]"
-          :color="'blue'"
-          :key="key">
+          v-for="(flow, index) in filters[tier]"
+          :lat-lngs="flow"
+          :color="'#ff7e6b'"
+          :weight="weights[tier][index]"
+          :key="index">
         </l-polyline>
         <polyline-decorator
-          :paths="decorators[key]"
-          :key="`${key}decorator`"
+          v-for="(arrow, index) in decorators[tier]"
+          :paths="arrow"
+          :key="`${tier}${index}decorator`"
           :patterns="[
-                {offset: '100%', repeat: 0, symbol: symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true, color: 'blue'}})}
+                {offset: '100%', repeat: 0, symbol: symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true, color: '#ff7e6b', weight: weights[tier][index]}})}
             ]"
         >
         </polyline-decorator>
@@ -59,7 +68,8 @@
     data() {
       return{
         symbol: L.Symbol,
-        renderZones: false
+        renderZones: false,
+        renderGrid: false
       };
     },
     methods: {
@@ -67,8 +77,15 @@
         'fetchCPTM',
         'fetchSubway',
         'fetchBikelane',
-        'fetchZones'
-      ])
+        'fetchZones',
+        'fetchGrid'
+      ]),
+      async loadBaseLayers() {
+        await this.fetchZones(this.$http);
+        this.renderZones = true;
+        await this.fetchGrid({ httpResource: this.$http, gridSize: 20 });
+        this.renderGrid = true;
+      }
     },
     computed: mapState({
         properties(state) {
@@ -95,18 +112,21 @@
         filters: state => state.filters.data,
         layers: state => state.layers.data,
         decorators: state => state.filters.decorators,
+        weights: state => state.filters.weights,
         zones: state => state.layers.zones,
+        grid: state => state.layers.grid,
         showZones(state) {
           return state.map.maps[this.mapkey].show.zones
+        },
+        showGrid(state) {
+          return state.map.maps[this.mapkey].show.grid
         }
       }),
       async created() {
         this.fetchCPTM(this.$http);
         this.fetchSubway(this.$http);
         this.fetchBikelane(this.$http);
-        await this.fetchZones(this.$http);
-        this.renderZones = true;
-        console.log(this.showZones);
+        this.loadBaseLayers();
       }
   }
 </script>

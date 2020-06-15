@@ -1,0 +1,65 @@
+<template>
+  <div>
+    <span class="label">Camada de visualização:</span>
+    <b-radio v-model="od" name="Grid" native-value="grid" type="is-info">
+      Grid
+    </b-radio>
+    <b-radio v-model="od" name="Zonas OD" native-value="zones" type="is-info">
+      Zonas OD
+    </b-radio>
+  </div>
+</template>
+
+<script>
+import { mapActions, mapMutations } from 'vuex';
+  export default {
+    data() {
+      return {
+        od: "grid"
+      };
+    },
+    computed: {
+      filterParams() {
+        return this.$store.getters.filters;
+      }
+    },
+    methods: {
+      ...mapActions([
+        'resetData',
+        'updateOD',
+        'resetMapResource',
+        'filterData'
+      ]),
+      ...mapMutations([
+        'showZones',
+        'hideZones',
+        'showGrid',
+        'hideGrid'
+      ])
+    },
+    watch: {
+      od: function(value) {
+        this.updateOD(value);
+        this.resetData();
+        this.resetMapResource({
+          mapkey: "main",
+          category: "filters",
+          type: "polyline"
+        });
+        if (Object.keys(this.filterParams.params).length !== 0)
+          this.filterData({ http: this.$http, filters: this.filterParams });
+        if (value == "zones") {
+          this.showZones("main");
+          this.hideGrid("main");
+        } else if (value == "grid") {
+          this.showGrid("main");
+          this.hideZones("main");
+        }
+      }
+    }
+  }
+</script>
+
+<style scoped>
+
+</style>

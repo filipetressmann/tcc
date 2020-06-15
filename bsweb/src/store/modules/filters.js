@@ -6,14 +6,18 @@ const state = {
   /* Plotting data is stored on data object */
   data: {},
   decorators: {},
+  weights: {},
   tierdata: [],
   /* Stores active filters' parameters */
-  filters: {}
+  filters: {
+    params: {},
+    baseLayer: "grid"
+  }
 };
 
 const getters = {
   activeFilters: (state) => state.activeFilters,
-  params: (state) => state.filters,
+  filters: (state) => state.filters,
   tierList: (state) => state.tierdata
 };
 
@@ -23,15 +27,19 @@ const mutations = {
     state.activeFilters.push(filter);
   },
   removeActiveFilter: (state, filter) => {
-    state.activeFilters = state.activeFilters.filter((activeFilter) => filter.id !== activeFilter.id)
+    state.activeFilters = state.activeFilters.filter((activeFilter) => filter.id !== activeFilter.id);
+    Vue.delete(state.filters.params, filter.id);
   },
   addFilter: (state, { id, data }) => {
     Vue.set(state.data, id, data);
     let decorators = data.map(arrow => arrow[arrow.length - 1]);
     Vue.set(state.decorators, id, decorators);
   },
+  addWeight: (state, {id, data }) => {
+    Vue.set(state.weights, id, data);
+  },
   updateFilterParams: (state, {id, params} ) => {
-    Vue.set(state.filters, id, params);
+    Vue.set(state.filters.params, id, params);
   },
   addTierData: (state, { count }) => {
     state.tierdata = [...state.tierdata, count]
@@ -40,6 +48,10 @@ const mutations = {
     state.data = {};
     state.decorators = {};
     state.tierdata = [];
+    state.weights = {};
+  },
+  updateOD: (state, value) => {
+    Vue.set(state.filters, "baseLayer", value);
   }
 }
 
@@ -56,10 +68,13 @@ const actions = {
       return response.json();
     })
     .then(response => {
-      response.map((tier, index) => {
+      response.tiers.map((tier, index) => {
         commit('addFilter', {id: index, data: tier});
         commit('addTierData', { count: tier.length });
       });
+      response.weights.map((tier_weights, index) => {
+        commit('addWeight', {id: index, data: tier_weights});
+      })
     });
   },
   updateFilterParams: ({ commit }, args) => {
@@ -67,6 +82,9 @@ const actions = {
   },
   resetData: ({ commit }) => {
     commit('resetData');
+  },
+  updateOD: ({ commit }, value) => {
+    commit('updateOD', value);
   }
 };
 

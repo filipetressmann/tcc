@@ -47,7 +47,7 @@
           category: "filters",
           type: "polyline"
         });
-        this.filterData({ http: this.$http, filters: this.$store.getters.params });
+        this.filterData({ http: this.$http, filters: this.$store.getters.filters });
         this.$emit('tab-changed', 0);
       },
       showZones() {
