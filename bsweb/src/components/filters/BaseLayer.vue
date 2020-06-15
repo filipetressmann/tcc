@@ -11,20 +11,30 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
   export default {
     data() {
       return {
-        od: "zones"
+        od: "grid"
       };
+    },
+    computed: {
+      filterParams() {
+        return this.$store.getters.filters;
+      }
     },
     methods: {
       ...mapActions([
         'resetData',
         'updateOD',
         'resetMapResource',
-        'filterData',
-        'toggleZones'
+        'filterData'
+      ]),
+      ...mapMutations([
+        'showZones',
+        'hideZones',
+        'showGrid',
+        'hideGrid'
       ])
     },
     watch: {
@@ -36,9 +46,14 @@ import { mapActions } from 'vuex';
           category: "filters",
           type: "polyline"
         });
-        this.filterData({ http: this.$http, filters: this.$store.getters.filters });
+        if (Object.keys(this.filterParams.params).length !== 0)
+          this.filterData({ http: this.$http, filters: this.filterParams });
         if (value == "zones") {
-          this.toggleZones("main");
+          this.showZones("main");
+          this.hideGrid("main");
+        } else if (value == "grid") {
+          this.showGrid("main");
+          this.hideZones("main");
         }
       }
     }
