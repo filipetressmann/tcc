@@ -103,12 +103,10 @@ const actions = {
       }) 
   },
 
-  fetchGrid: (context, { httpResource, gridSize }) => {
-    return async function() {
-      let response = await httpResource.get('http://127.0.0.1:5000/grid_layer');
-      let grid = await response.json();
-      context.commit('loadGrid', JSON.parse(grid));
-    }
+  fetchGrid: async (context, { httpResource, gridSize }) => {
+    let response = await httpResource.post('http://127.0.0.1:5000/grid_layer', { gridSize });
+    let grid = await response.json();
+    context.commit('loadGrid', grid);
   }
 };
 
