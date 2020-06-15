@@ -24,7 +24,6 @@ class ODFilterData:
     od_dataset_newcolumn.rename(columns={'FE_VIA':'trip counts'}, inplace=True)
     od_dataset = od_dataset_newcolumn
     self.od = od_dataset
-    self.grid = gr.create(n=20)
   
   def set_zones(self, zone_dataset):
     self.zones = Zones(zone_dataset)
@@ -58,21 +57,28 @@ class ODFilterData:
     
   def coords_by_tier(self, trips, base_layer, num_tiers=4):
     if (base_layer == 'zones'):
-      trips = self.zones.join_zones_and_data(trips)
-    tiers_table = self.separate_in_tiers(trips, num_tiers)
+      od = self.zones.zones_od(trips)
+    if (base_layer == 'grid'):
+      od = self.grid_od(trips)
+    tiers_table = self.separate_in_tiers(od, trips, num_tiers)
+    print(base_layer)
+    print(tiers_table)
     coords_by_tier = []
     weights_by_tier = []
     for index, row in tiers_table.iterrows():
-      coords, weights = self.zones.apply_od_flows(trips, minimum=row['min'], maximum=row['top'])
+      coords, weights = self.zones.apply_od_flows(od, minimum=row['min'], maximum=row['top'])
       coords_by_tier.append(coords.tolist())
       weights_by_tier.append(weights.tolist())
     return coords_by_tier, weights_by_tier
   
-  def separate_in_tiers(self, trips, num_tiers=4):
+  def grid_od(self, trips):
     od = odflow.od_countings(trips, self.grid, self.zones.geodataframe(),
                            station_index='NumeroZona', 
                            start_station_index='ZONA_O', 
                            end_station_index='ZONA_D')
+    return od
+
+  def separate_in_tiers(self, od, trips, num_tiers=4):
     tiers_table, _ = tiers.separate_into_tiers(od.sort_values('trip counts', ascending=False), trips, None, 
                                                max_tiers=num_tiers)
     return tiers_table
@@ -81,12 +87,12 @@ class ODFilterData:
     return self.od
 
 class Zones:
-  def __init__(self, od_zones):
-    zones = st.stations_geodf(od_zones)
+  def __init__(self, df_zones):
+    zones = st.stations_geodf(df_zones)
     self.zones = zones
   
-  def join_zones_and_data(self, data):
-    od_df = data.copy()
+  def zones_od(self, trips):
+    od_df = trips.copy()
     od_df = od_df.groupby(['ZONA_O', 'ZONA_D', 'NOME_O', 'NOME_D'], as_index=False).agg({'trip counts': 'sum'})
     df_zones = self.zones[['NumeroZona','geometry']]
     od_df = pd.merge(od_df, df_zones, left_on='ZONA_O', right_on='NumeroZona', sort=False)
@@ -120,7 +126,7 @@ class Zones:
       shown_trips += num_trips
       lat1, lon1, lat2, lon2 = self.calculate_lat_long(row)
       # weight of flow arrow
-      weight = math.ceil( (num_trips-minimum)/maximum * 10)
+      weight = math.ceil((num_trips-minimum)/maximum * 10)
       if weight == 0: weight = 1
       tooltip_text = f'{num_trips} viagens nesse fluxo.'
       flow = arrow.draw_arrow(lat1, lon1, lat2, lon2, text=tooltip_text, weight=weight)
@@ -182,7 +188,7 @@ def initialize_filter_list():
 od_dataset = pd.read_csv('data/trips_od17_bikes_all_withdates.csv')
 zones = pd.read_csv('data/zonas_od17.csv')
 odf = ODFilterData(od_dataset)
-odf.set_grid(20)
+odf.set_grid(n=20)
 odf.set_zones(zone_dataset=zones)
 
 # parses request args and returns the filtered data
@@ -209,7 +215,10 @@ def handle_filtering(params):
       params = filters[f_id]
       days = params['days']
       trips = odf.trips_by_weekday(trips, days)
-      
-  tiers, weights = odf.coords_by_tier(trips, base_layer)
+  if (len(trips) > 0):
+    tiers, weights = odf.coords_by_tier(trips, base_layer)
+  else:
+    print('No trips found')
+    tiers, weights = [], []
   return {'tiers': tiers, 'weights': weights}
     
