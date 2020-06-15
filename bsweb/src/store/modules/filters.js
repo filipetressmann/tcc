@@ -11,7 +11,7 @@ const state = {
   /* Stores active filters' parameters */
   filters: {
     params: {},
-    baseLayer: "zones"
+    baseLayer: "grid"
   }
 };
 
@@ -68,7 +68,6 @@ const actions = {
       return response.json();
     })
     .then(response => {
-      console.log(response);
       response.tiers.map((tier, index) => {
         commit('addFilter', {id: index, data: tier});
         commit('addTierData', { count: tier.length });
