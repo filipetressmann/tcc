@@ -9,6 +9,12 @@
           :optionsStyle="zones.style"
           :visible="showZones" />
         </span>
+        <span v-if="renderGrid">
+          <l-geo-json
+          :geojson="grid.geometry"
+          :optionsStyle="grid.style"
+          :visible="showGrid" />
+        </span>
         <l-geo-json
         v-for="key in Object.keys(layersGeojson)"
         :geojson="layers[key].geometry"
@@ -62,7 +68,8 @@
     data() {
       return{
         symbol: L.Symbol,
-        renderZones: false
+        renderZones: false,
+        renderGrid: false
       };
     },
     methods: {
@@ -70,8 +77,15 @@
         'fetchCPTM',
         'fetchSubway',
         'fetchBikelane',
-        'fetchZones'
-      ])
+        'fetchZones',
+        'fetchGrid'
+      ]),
+      async loadBaseLayers() {
+        await this.fetchZones(this.$http);
+        this.renderZones = true;
+        await this.fetchGrid({ httpResource: this.$http, gridSize: 20 });
+        this.renderGrid = true;
+      }
     },
     computed: mapState({
         properties(state) {
@@ -100,16 +114,19 @@
         decorators: state => state.filters.decorators,
         weights: state => state.filters.weights,
         zones: state => state.layers.zones,
+        grid: state => state.layers.grid,
         showZones(state) {
           return state.map.maps[this.mapkey].show.zones
+        },
+        showGrid(state) {
+          return state.map.maps[this.mapkey].show.grid
         }
       }),
       async created() {
         this.fetchCPTM(this.$http);
         this.fetchSubway(this.$http);
         this.fetchBikelane(this.$http);
-        await this.fetchZones(this.$http);
-        this.renderZones = true;
+        this.loadBaseLayers();
       }
   }
 </script>
