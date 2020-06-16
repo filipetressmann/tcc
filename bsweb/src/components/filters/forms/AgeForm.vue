@@ -1,14 +1,16 @@
 <template>
   <div>
-    <b-field :label="ageLabel">
-      <b-slider
-        v-model="ageRange"
-        lazy
-        :min="10"
-        :max="90"
-        :step="1"
-        type="is-info" />
-    </b-field>
+    <b-label>
+      {{ $t('ageField') }}
+      ({{ ageRange[0]}} {{ $t('to') }} {{ ageRange[1] }} {{ $t('years') }})
+    </b-label>
+    <b-slider
+      v-model="ageRange"
+      lazy
+      :min="10"
+      :max="90"
+      :step="1"
+      type="is-info" />
     <!-- <b-field label="Tiers">
       <b-select placeholder="Selecione" v-model="ntiers">
         <option v-for="index in 10"
@@ -44,7 +46,7 @@
     },
     computed: {
       ageLabel() {
-        return `Faixa etária dos ciclistas \n (${this.ageRange[0]} a ${this.ageRange[1]} anos)`
+        return `${$t(ageField)} ${this.ageRange[0]} - ${this.ageRange[1]}`
       },
       filterData() {
         return {

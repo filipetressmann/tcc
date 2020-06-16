@@ -15,7 +15,10 @@
                 @select="selectResource"
                 @remove="deselectResource">
       <template slot="selection" slot-scope="{ values, search, isOpen }">
-        {{ category.category_name }}
+        {{ $t(category.category_name) }}
+      </template>
+      <template slot="option" slot-scope="props">
+        <span>{{ $t(props.option.filter_name) }}</span>
       </template>
     </multiselect>
   </div>
@@ -55,7 +58,7 @@
       ]),
       selectResource(resource) {
         let category = this.category.category_name;
-        if (category == 'Layers') {
+        if (category == "layers") {
           this.addActiveLayer(resource);
         } else {
           this.addActiveFilter(resource);
@@ -65,7 +68,7 @@
       deselectResource(resource) {
         let category = this.category.category_name;
         let catkey = "filters";
-        if (category == 'Layers') {
+        if (category == "layers") {
           this.removeActiveLayer(resource);
           catkey = "layers"
         } else {
