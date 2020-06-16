@@ -8,7 +8,7 @@
       @open="isOpen = filter.id">
       <div slot="trigger" slot-scope="props" class="card-header" role="button">
         <p class="card-header-title">
-          {{ filter.filter_name }}
+          {{ $t(filter.filter_name) }}
         </p>
           <a class="card-header-icon" v-if="filter.has_form">
             <b-icon

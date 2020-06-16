@@ -2,29 +2,29 @@
   <div>
     <div class="field">
       <b-checkbox v-model="periods" native-value="morning" type="is-info">
-        Manhã (6h - 12h)
+        {{ $t('morning') }}
       </b-checkbox>
     </div>
     <div class="field">
       <b-checkbox v-model="periods" native-value="afternoon"  type="is-info">
-        Tarde (12h - 18h)
+        {{ $t('afternoon') }}
       </b-checkbox>
     </div>
     <div class="field">
       <b-checkbox v-model="periods" native-value="evening"  type="is-info">
-        Noite (18h - 00h)
+        {{ $t('evening') }}
       </b-checkbox>
     </div>
     <div class="field">
       <b-checkbox v-model="specific"  type="is-info">
-        Horário específico
+        {{ $t('specificTime') }}
       </b-checkbox>
     </div>
     <div v-if="specific">
-      <b-field label="De">
+      <b-field :label="$t('from')">
         <b-timepicker v-model="minTime" :increment-minutes="60" icon="clock" />
       </b-field>
-      <b-field label="Até">
+      <b-field :label="$t('to')">
         <b-timepicker v-model="maxTime" :default-minutes="0" icon="clock" />
       </b-field>
     </div>

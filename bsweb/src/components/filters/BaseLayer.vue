@@ -1,11 +1,11 @@
 <template>
   <div>
-    <span class="label">Camada de visualização:</span>
+    <span class="label">{{ $t('baseLayer') }}</span>
     <b-radio v-model="od" name="Grid" native-value="grid" type="is-info">
-      Grid
+      {{ $t('grid') }}
     </b-radio>
     <b-radio v-model="od" name="Zonas OD" native-value="zones" type="is-info">
-      Zonas OD
+      {{ $t('zones') }}
     </b-radio>
   </div>
 </template>

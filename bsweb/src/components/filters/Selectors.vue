@@ -5,11 +5,13 @@
                     :key="category.category_name"
                     class="selector">
     </filter-selector>
+    <app-language id="lang-selector"></app-language>
   </div>
 </template>
 
 <script>
   import FilterSelectorVue from './FilterSelector.vue'
+  import Language from '../Language.vue'
   
   export default {
     data: function() {
@@ -18,7 +20,8 @@
       }
     },
     components: {
-      filterSelector: FilterSelectorVue
+      filterSelector: FilterSelectorVue,
+      appLanguage: Language
     },
     methods: {
       // fetch filter categories and filter names itself from server
@@ -42,11 +45,18 @@
   #selectors {
     padding-top: 2%;
     padding-bottom: 1%;
+    width: 80%;
     margin: 0;
     overflow: visible !important;
   }
 
   .selector {
     padding-right: 0;
+  }
+
+  #lang-selector {
+    margin-left: 2%;
+    margin-bottom: 0;
+    padding: 0;
   }
 </style>

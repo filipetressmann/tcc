@@ -7,13 +7,13 @@
                   icon-right="fa-filter"
                   expanded
                   @click="applyFilters">
-          Filtrar
+          {{ $t('filterBtn') }}
         </b-button>
         <hr>
       </div>
       <app-filter v-for="filter in activeFilters" :filter="filter" :key="filter.id" />
     </div>
-      <span v-else>Nenhum filtro adicionado.</span>
+      <span v-else>{{ $t('noFilters') }}</span>
   </div>
 </template>
 

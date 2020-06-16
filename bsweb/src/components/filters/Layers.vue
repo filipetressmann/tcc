@@ -3,7 +3,7 @@
     <div v-if="activeLayers.length > 0">
       <app-layer v-for="layer in activeLayers" :filter="layer" :key="layer.id" />
     </div>
-      <span v-else>Nenhum layer adicionado.</span>
+      <span v-else>{{ $t('noLayers') }}</span>
   </div>
 </template>
 
