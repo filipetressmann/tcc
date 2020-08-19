@@ -7,7 +7,8 @@ const state = {
       properties: {
         zoom: 12,
         center: [-23.550164466, -46.633664132],
-        tile_layer_url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png'
+        //tile_layer_url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png'
+        tile_layer_url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png'
       },
       show: {
         /* this object stores keys to access data user wants to show */
@@ -16,13 +17,13 @@ const state = {
           polyline: {},
           decorators: {}
         },
-        filters: {
-          geojson: {},
-          polyline: {},
-          decorators: {}
+        flows: {
+          polyline: {}
         },
         zones: false,
-        grid: true
+        grid: true,
+        attractors: true,
+        emitters: false
       }
     }
   }
@@ -36,10 +37,6 @@ const mutations = {
     Vue.set(state.maps[mapkey].show[category][type], key, options);
   },
   removeFromMap: (state, { mapkey, category, type, key }) => {
-    if (key == "zones") {
-      state.maps[mapkey].show.zones = false;
-      return;
-    }
     Vue.delete(state.maps[mapkey].show[category][type], key);
   },
   resetMapResource: (state, { mapkey, category, type }) => {
@@ -56,6 +53,9 @@ const mutations = {
   },
   showGrid: (state, mapkey) => {
     Vue.set(state.maps[mapkey].show, "grid", true);
+  },
+  changeHeatmapVisibility: (state, {which, visible, mapkey}) => {
+    Vue.set(state.maps[mapkey].show, which, visible);
   }
 }
 const actions = {

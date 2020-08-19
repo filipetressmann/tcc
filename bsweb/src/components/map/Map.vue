@@ -1,8 +1,7 @@
 <template>
   <div id="map">
-    <l-map :zoom="properties.zoom" :center="properties.center">
+    <l-map :zoom="properties.zoom" :center="properties.center" :ref="mapkey">
       <l-tile-layer :url="properties.tile_layer_url"></l-tile-layer>
-        <!-- Create zones layer once, then just change display property to avoid reloading component again -->
         <span v-if="renderZones">
           <l-geo-json 
           :geojson="zones.geometry"
@@ -21,37 +20,32 @@
         :optionsStyle="layersGeojson[key].style"
         :options="layersGeojson[key].options"
         :key="key" />
-        <l-geo-json
-        v-for="key in Object.keys(filtersGeojson)"
-        :geojson="filters[key].geometry"
-        :optionsStyle="filtersGeojson[key].style"
-        :options="filtersGeojson[key].options"
-        :key="key" />
-        <l-feature-group v-for="tier in Object.keys(filtersPolylines)" :key="tier">
+        <l-feature-group v-for="tier in Object.keys(arrowTiers)" :key="tier">
           <l-polyline
-          v-for="(flow, index) in filters[tier]"
-          :lat-lngs="flow"
-          :color="'#ff7e6b'"
-          :weight="weights[tier][index]"
-          :key="index">
-        </l-polyline>
-        <polyline-decorator
-          v-for="(arrow, index) in decorators[tier]"
-          :paths="arrow"
-          :key="`${tier}${index}decorator`"
+            v-for="(arrow, index) in flows[tier]"
+            :key="`${tier}-${index}`"
+            :lat-lngs="arrow['coords']"
+            :color="'blue'"
+            :weight="arrow['weight']">
+            <l-tooltip>FE_VIA: {{ arrow['total_trips']}}</l-tooltip>
+          </l-polyline>
+          <polyline-decorator
+          v-for="(arrow, index) in flows[tier]"
+          :paths="arrow['coords'][arrow['coords'].length - 1]"
+          :key="`${tier}-${index}-decorator`"
           :patterns="[
-                {offset: '100%', repeat: 0, symbol: symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true, color: '#ff7e6b', weight: weights[tier][index]}})}
+                {offset: '100%', repeat: 0, symbol: symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true, color: 'blue', weight: arrow['weight']}})}
             ]"
         >
         </polyline-decorator>
-      </l-feature-group>
+        </l-feature-group>
     </l-map>
   </div>
 </template>
 
 <script>
   import L from 'leaflet';
-  import { LMap, LTileLayer, LGeoJson, LPolyline, LFeatureGroup } from 'vue2-leaflet';
+  import { LMap, LTileLayer, LGeoJson, LPolyline, LFeatureGroup, LTooltip } from 'vue2-leaflet';
   import Vue2LeafletPolylineDecorator from 'vue2-leaflet-polylinedecorator';
   import { mapState, mapActions } from 'vuex';
 
@@ -62,6 +56,7 @@
       LTileLayer,
       LGeoJson,
       LPolyline,
+      LTooltip,
       'polyline-decorator': Vue2LeafletPolylineDecorator,
       LFeatureGroup
     },
@@ -69,7 +64,7 @@
       return{
         symbol: L.Symbol,
         renderZones: false,
-        renderGrid: false
+        renderGrid: false,
       };
     },
     methods: {
@@ -100,21 +95,21 @@
         layersDecorators(state) {
           return state.map.maps[this.mapkey].show.layers["decorators"]
         },
-        filtersGeojson(state) {
-          return state.map.maps[this.mapkey].show.filters["geojson"]
+        arrowTiers(state) {
+          return state.map.maps[this.mapkey].show.flows["polyline"]
         },
-        filtersPolylines(state) {
-          return state.map.maps[this.mapkey].show.filters["polyline"]
-        },
-        filtersDecorators(state) {
-          return state.map.maps[this.mapkey].show.filters["decorators"]
-        },
-        filters: state => state.filters.data,
+        flows: state => state.filters.flows,
         layers: state => state.layers.data,
-        decorators: state => state.filters.decorators,
-        weights: state => state.filters.weights,
         zones: state => state.layers.zones,
         grid: state => state.layers.grid,
+        attractors: state => state.filters.heatmaps.attractors,
+        emitters: state => state.filters.heatmaps.emitters,
+        showAttractors(state) {
+          return state.map.maps[this.mapkey].show.attractors;
+        },
+        showEmitters(state) {
+          return state.map.maps[this.mapkey].show.emitters;
+        },
         showZones(state) {
           return state.map.maps[this.mapkey].show.zones
         },
@@ -127,17 +122,13 @@
         this.fetchSubway(this.$http);
         this.fetchBikelane(this.$http);
         this.loadBaseLayers();
+      },
+      watch: {
+        attractors(value) {
+          console.log(L)
+        },
+        emitters(value) {
+        }
       }
   }
 </script>
-
-<style scoped>
-  #map {
-    width: 85%;
-    height: 80vh;
-  }
-  
-  .zones-layer {
-    z-index: 0;
-  }
-</style>

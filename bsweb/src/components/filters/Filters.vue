@@ -44,7 +44,7 @@
         this.resetData();
         this.resetMapResource({
           mapkey: "main",
-          category: "filters",
+          category: "flows",
           type: "polyline"
         });
         this.filterData({ http: this.$http, filters: this.$store.getters.filters });

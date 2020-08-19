@@ -1,13 +1,8 @@
 <template>
   <div>
-    <b-dropdown aria-role="list">
-      <b-button class="button is-info lang-selector" slot="trigger" slot-scope="{ active }" outlined>
-        <span>{{ $t('language') }}</span>
-          <b-icon :icon="active ? 'menu-up' : 'menu-down'"></b-icon>
-      </b-button>
-      <b-dropdown-item aria-role="listitem" @click="changeLanguage('pt-br')">{{ $t('portuguese') }}</b-dropdown-item>
-      <b-dropdown-item aria-role="listitem" @click="changeLanguage('en')">{{ $t('english') }}</b-dropdown-item>
-    </b-dropdown>
+    <b-button class="button is-info lang-selector" @click="changeLanguage()" outlined>   
+        <span>{{ btn }}</span>
+    </b-button>
   </div>
 </template>
 
@@ -15,9 +10,23 @@
   import { i18n } from '../main.js'
 
   export default {
+    data() {
+      return {
+        pt: true,
+        btn: 'English'
+      }
+      
+    },
     methods: {
-      changeLanguage(locale) {
-        i18n.locale = locale;
+      changeLanguage() {
+        if(this.pt) {
+          i18n.locale = 'en'
+          this.btn = 'Português'
+        } else {
+          i18n.locale = 'pt-br'
+          this.btn = 'English'
+        }
+        this.pt = !this.pt
       }
     }  
   }
