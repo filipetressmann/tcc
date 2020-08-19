@@ -1,12 +1,11 @@
 <template>
 <div id="app">
-  <div id="header"></div>
   <div id="main-content">
-    <div class="columns" id="columns-content">
-      <div class="column is-3 left">
+    <div class="columns is-mobile" id="columns-content">
+      <div class="column left manage" v-show="true">
         <manage-panel id="filter-container"></manage-panel>
       </div>
-      <div id="main-column" class="column is-10">
+      <div id="main-column" class="column is-full">
         <selectors></selectors>
         <app-map mapkey="main"></app-map>
       </div>

@@ -1,15 +1,16 @@
 <template>
   <div>
     <b-field>
-      {{ $t('ageField') }}
-      ({{ ageRange[0]}} {{ $t('to') }} {{ ageRange[1] }} {{ $t('years') }})
+      {{ $t('tripDistance') }}
+      ({{ distanceRange[0]}} {{ $t('to') }} {{ distanceRange[1] }} km)
     </b-field>
     <b-slider
-      v-model="ageRange"
+      v-model="distanceRange"
       lazy
-      :min="1"
-      :max="71"
-      :step="1"
+      :min="0"
+      :max="51"
+      :step="0.5"
+      :custom-formatter="value => `${value} km`"
       type="is-info" />
   </div>
 </template>
@@ -20,18 +21,18 @@
     props: ['fid'],
     data() {
       return {
-        ageRange: [1, 71]
+        distanceRange: [0, 51]
       }
     },
     computed: {
       ageLabel() {
-        return `${$t(ageField)} ${this.ageRange[0]} - ${this.ageRange[1]}`
+        return `${$t(ageField)} ${this.distanceRange[0]} - ${this.distanceRange[1]}`
       },
       filterData() {
         return {
           id: this.fid,
           params: {
-            ageRange: this.ageRange
+            distanceRange: this.distanceRange
           }
         }
       }

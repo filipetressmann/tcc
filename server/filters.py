@@ -1,142 +1,9 @@
-import bikescience.arrow as arrow
-import bikescience.tiers as tiers
-import saopaulo.flow as odflow
-import bikescience.sp_grid as gr
-import saopaulo.stations as st
-import saopaulo.load_trips as odfilters
 import filter_list as filter_list
-import datetime
 import pandas as pd
-import numpy as np
-import math
+from od import OD
+from charts import Charts
 
-"""
-  The purpose of ODFilterData class is to return coordinates data to be
-  plotted in the web application, given the OD data and parameters for a filter.
-"""
-pd.options.mode.chained_assignment = 'raise'
-class ODFilterData:
-  def __init__(self, od_dataset):
-    # remove round off trips
-    od_dataset = od_dataset[od_dataset['ZONA_O'] != od_dataset['ZONA_D']]
-    od_dataset_newcolumn = od_dataset.copy()
-    # label FE_VIA as trip counts, for tier countings
-    od_dataset_newcolumn.rename(columns={'FE_VIA':'trip counts'}, inplace=True)
-    od_dataset = od_dataset_newcolumn
-    self.od = od_dataset
-  
-  def set_zones(self, zone_dataset):
-    self.zones = Zones(zone_dataset)
-
-  def set_grid(self, n, west=-0.15, east=0.23, north=0.19, south=-0.46):
-    self.grid = gr.create(n, west, east, north, south)
-  
-  def trips_by_hour(self, trips, periods, specific, min_hour, max_hour):
-    # filter periods, if theres any selected
-    trips['HORA_SAIDA'] = pd.to_datetime(trips['HORA_SAIDA'], format='%H:%M:%S')
-    trips['HORA_CHEG'] = pd.to_datetime(trips['HORA_CHEG'], format='%H:%M:%S')
-    for period in periods:
-      if period == 'morning':
-        trips = trips[(trips['HORA_SAIDA'].dt.hour >= 6) & (trips['HORA_CHEG'].dt.hour <= 12)]
-      if period == 'afternoon':
-        trips = trips[(trips['HORA_SAIDA'].dt.hour >= 12) & (trips['HORA_CHEG'].dt.hour <= 18)]
-      if period == 'evening':
-        trips = trips[(trips['HORA_SAIDA'].dt.hour >= 18) & (trips['HORA_CHEG'].dt.hour <= 23)]
-    # filter by specific time, if selected
-    if specific:
-      trips = trips[(trips['HORA_SAIDA'].dt.hour >= min_hour) & (trips['HORA_CHEG'].dt.hour <= max_hour)]
-    return trips
-
-  def trips_by_age(self, trips, age_range):
-    filtered_trips = odfilters.select_age_range(trips, age_range)
-    return filtered_trips
-  
-  def trips_by_weekday(self, trips, days):
-    filtered_trips = trips[trips['DIASEMANA'].isin(days)]
-    return filtered_trips
-    
-  def coords_by_tier(self, trips, base_layer, num_tiers=4):
-    if (base_layer == 'zones'):
-      od = self.zones.zones_od(trips)
-    if (base_layer == 'grid'):
-      od = self.grid_od(trips)
-    tiers_table = self.separate_in_tiers(od, trips, num_tiers)
-    print(base_layer)
-    print(tiers_table)
-    coords_by_tier = []
-    weights_by_tier = []
-    for index, row in tiers_table.iterrows():
-      coords, weights = self.zones.apply_od_flows(od, minimum=row['min'], maximum=row['top'])
-      coords_by_tier.append(coords.tolist())
-      weights_by_tier.append(weights.tolist())
-    return coords_by_tier, weights_by_tier
-  
-  def grid_od(self, trips):
-    od = odflow.od_countings(trips, self.grid, self.zones.geodataframe(),
-                           station_index='NumeroZona', 
-                           start_station_index='ZONA_O', 
-                           end_station_index='ZONA_D')
-    return od
-
-  def separate_in_tiers(self, od, trips, num_tiers=4):
-    tiers_table, _ = tiers.separate_into_tiers(od.sort_values('trip counts', ascending=False), trips, None, 
-                                               max_tiers=num_tiers)
-    return tiers_table
-
-  def get_od_dataset(self):
-    return self.od
-
-class Zones:
-  def __init__(self, df_zones):
-    zones = st.stations_geodf(df_zones)
-    self.zones = zones
-  
-  def zones_od(self, trips):
-    od_df = trips.copy()
-    od_df = od_df.groupby(['ZONA_O', 'ZONA_D', 'NOME_O', 'NOME_D'], as_index=False).agg({'trip counts': 'sum'})
-    df_zones = self.zones[['NumeroZona','geometry']]
-    od_df = pd.merge(od_df, df_zones, left_on='ZONA_O', right_on='NumeroZona', sort=False)
-    od_df.rename(columns={'geometry':'origin'},inplace=True)
-    od_df.drop(['NumeroZona'],inplace=True,axis=1)
-    od_df = pd.merge(od_df, df_zones, left_on='ZONA_D', right_on='NumeroZona',sort=False)
-    od_df.rename(columns={'geometry':'destination'},inplace=True)
-    od_df.drop(['NumeroZona'],inplace=True,axis=1)
-    return od_df
-
-  def calculate_lat_long(self, data):
-    lat1 = data['origin'].y
-    lon1 = data['origin'].x
-    lat2 = data['destination'].y
-    lon2 = data['destination'].x
-    return lat1, lon1, lat2, lon2
-
-  def remove_zone_roundoff_trips(self, od_df, start_zone_identifier='ZONA_O', end_zone_identifier='ZONA_D'):
-    return od_df[od_df[start_zone_identifier]!=od_df[end_zone_identifier]]
-
-  def apply_od_flows(self, filter_data, minimum, maximum):
-    total_trips = filter_data['trip counts'].sum()
-    shown_trips = 0
-    # select the tier to filter data
-    filtered_trips = filter_data[(filter_data['trip counts'] >= minimum) & (filter_data['trip counts'] <= maximum)]
-    amount_of_points = 10
-    flows = []
-    weights = []
-    for index, row in filtered_trips.iterrows():
-      num_trips = row['trip counts']
-      shown_trips += num_trips
-      lat1, lon1, lat2, lon2 = self.calculate_lat_long(row)
-      # weight of flow arrow
-      weight = math.ceil((num_trips-minimum)/maximum * 10)
-      if weight == 0: weight = 1
-      tooltip_text = f'{num_trips} viagens nesse fluxo.'
-      flow = arrow.draw_arrow(lat1, lon1, lat2, lon2, text=tooltip_text, weight=weight)
-      flows.append(flow)
-      weights.append(weight)
-    return np.array(flows), np.array(weights)
-  
-  def geodataframe(self):
-    return self.zones
-
+od = OD()
 class Filter:
   def __init__(self, filter_id, name, ftype, key, has_form):
     self.id = filter_id
@@ -185,40 +52,68 @@ def initialize_filter_list():
   return filter_data
 
 # initialize filtering object
-od_dataset = pd.read_csv('data/trips_od17_bikes_all_withdates.csv')
-zones = pd.read_csv('data/zonas_od17.csv')
-odf = ODFilterData(od_dataset)
-odf.set_grid(n=20)
-odf.set_zones(zone_dataset=zones)
 
-# parses request args and returns the filtered data
+zones = pd.read_csv('data/zonas_od17.csv')
+od = OD()
+od.set_grid(20)
+od.set_zones(zone_dataset=zones)
+
+# parse request args and returns the filtered data
 def handle_filtering(params):
-  trips = odf.get_od_dataset()
+  trips = od.get_od_dataset()
+  trips = trips[trips['ZONA_O'] != trips['ZONA_D']]
   base_layer = params['baseLayer']
   filters = params['params']
+  flows = []
   for f_id in filters:
-    # filter by hours
+    
+    params = filters[f_id]
+
     if f_id == '0':
-      params = filters[f_id]
       periods = params['periods']
       specific = params['specific']
       min_time = params['minHours']
       max_time = params['maxHours']
-      trips = odf.trips_by_hour(trips, periods, specific, min_time, max_time)
+      trips = od.trips_by_start_time(trips, periods, specific, min_time, max_time)
     
+    if f_id == '17':
+      periods = params['periods']
+      specific = params['specific']
+      min_time = params['minHours']
+      max_time = params['maxHours']
+      trips = od.trips_by_finish_time(trips, periods, specific, min_time, max_time)
+
     if f_id == '8':
-      params = filters[f_id]
       age_range = params['ageRange']
-      trips = odf.trips_by_age(trips, age_range)
+      trips = od.trips_by_age(trips, age_range)
+
+    if f_id == '5':
+      duration_range = params['durationRange']
+      trips = od.trips_by_duration(trips, duration_range)
+
+    if f_id == '7':
+      selected_sexes = params['sexes']
+      trips = od.trips_by_sex(trips, selected_sexes)
     
-    if f_id == '1':
-      params = filters[f_id]
-      days = params['days']
-      trips = odf.trips_by_weekday(trips, days)
-  if (len(trips) > 0):
-    tiers, weights = odf.coords_by_tier(trips, base_layer)
-  else:
-    print('No trips found')
-    tiers, weights = [], []
-  return {'tiers': tiers, 'weights': weights}
+    if f_id == '9':
+      income_interval = params['incomeInterval']
+      trips = od.trips_by_income(trips, income_interval)
+
+    if f_id == '3':
+      distance_range = params['distanceRange']
+      trips = od.trips_by_distance(trips, distance_range)
+
+    if f_id == '4':
+      speed_range = params['speedRange']
+      trips = od.trips_by_speed(trips, speed_range)
+    
+    if f_id == '6':
+      reasons = params['reasons']
+      trips = od.trips_by_reason(trips, reasons)
+
+  flows, heatmaps = od.coords_by_tier(trips, base_layer)
+  return {
+    'flows': flows,
+    'heatmaps': heatmaps
+  }
     

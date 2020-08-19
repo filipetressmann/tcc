@@ -43,7 +43,7 @@ import { mapActions, mapMutations } from 'vuex';
         this.resetData();
         this.resetMapResource({
           mapkey: "main",
-          category: "filters",
+          category: "flows",
           type: "polyline"
         });
         if (Object.keys(this.filterParams.params).length !== 0)

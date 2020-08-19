@@ -1,9 +1,10 @@
 <template>
   <div>
     <div class="block">
-      <b-checkbox v-for="(day, index) in weekdays" v-model="days" :native-value="index" :key="index" type="is-info">
-      {{ $t(day) }}
+      <b-checkbox v-for="(month, index) in yearmonths" v-model="months" :native-value="index+1" :key="index" type="is-info">
+      {{ $t(month) }}
     </b-checkbox>
+    {{ months }}
     </div>
   </div>
 </template>
@@ -14,16 +15,21 @@ import { mapActions } from 'vuex';
     props: ['fid'],
     data() {
       return {
-        weekdays: [
-          'mon',
-          'tue',
-          'wed',
-          'thu',
-          'fri',
-          'sat',
-          'sun'
+        yearmonths: [
+          'jan',
+          'feb',
+          'mar',
+          'apr',
+          'may',
+          'jun',
+          'jul',
+          'aug',
+          'sep',
+          'oct',
+          'nov',
+          'dec'
         ],
-        days: []
+        months: []
       };
     },
     computed: {
@@ -31,15 +37,13 @@ import { mapActions } from 'vuex';
         return {
           id: this.fid,
           params: {
-            days: this.days
+            months: this.months
           }
-        };
-      }
+        }
+      },
     },
     methods: {
-      ...mapActions([
-        'updateFilterParams'
-      ])
+      ...mapActions(['updateFilterParams'])
     },
     watch: {
       filterData: function(value) {

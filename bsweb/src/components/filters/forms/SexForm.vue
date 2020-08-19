@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="block">
-      <b-checkbox v-for="(day, index) in weekdays" v-model="days" :native-value="index" :key="index" type="is-info">
-      {{ $t(day) }}
+      <b-checkbox v-for="(sex, index) in sexes" v-model="selectedSexes" :native-value="index+1" :key="index" type="is-info">
+      {{ $t(sex) }}
     </b-checkbox>
     </div>
   </div>
@@ -14,16 +14,11 @@ import { mapActions } from 'vuex';
     props: ['fid'],
     data() {
       return {
-        weekdays: [
-          'mon',
-          'tue',
-          'wed',
-          'thu',
-          'fri',
-          'sat',
-          'sun'
+        sexes: [
+          'male',
+          'female',
         ],
-        days: []
+        selectedSexes: []
       };
     },
     computed: {
@@ -31,7 +26,7 @@ import { mapActions } from 'vuex';
         return {
           id: this.fid,
           params: {
-            days: this.days
+            sexes: this.selectedSexes
           }
         };
       }
@@ -48,7 +43,3 @@ import { mapActions } from 'vuex';
     }
   }
 </script>
-
-<style scoped>
-
-</style>

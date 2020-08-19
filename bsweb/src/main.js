@@ -9,7 +9,9 @@ import './assets/styles/index.css'
 import VueI18n from 'vue-i18n'
 import { messages } from './plugins/i18n'
 import { store } from './store/store.js'
-
+import LoadScript from 'vue-plugin-load-script';
+ 
+Vue.use(LoadScript);
 Vue.use(VueI18n);
 Vue.use(Buefy);
 Vue.use(VueResource);

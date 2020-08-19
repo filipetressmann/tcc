@@ -9,7 +9,6 @@
         <baselayer></baselayer>
         <tiers v-if="tierList.length > 0"></tiers>
         <hr>
-        Source; Import; Export;
       </b-tab-item>
       <b-tab-item>
         <template slot="header">
@@ -29,6 +28,12 @@
         </template>
         Select maps to filter; Select maps that will be rendered;
       </b-tab-item>
+      <b-tab-item>
+        <template slot="header">
+          <span>{{ $t('charts') }}</span>
+        </template>
+        <Charts></Charts>
+      </b-tab-item>
     </b-tabs>
     
   </div>
@@ -41,13 +46,15 @@
   import Tiers from './Tiers.vue';
   import Layers from './Layers.vue';
   import BaseLayer from './BaseLayer.vue';
+  import Charts from '../charts/Charts';
 
   export default {
     components: {
       'filters': FiltersVue,
       'tiers': Tiers,
       'layers': Layers,
-      'baselayer': BaseLayer
+      'baselayer': BaseLayer,
+      Charts
     },
     data() {
       return {

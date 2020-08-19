@@ -54,6 +54,7 @@
         'removeActiveFilter',
         'addActiveLayer',
         'removeActiveLayer',
+        'resetMapResource',
         'removeFromMap'
       ]),
       selectResource(resource) {
@@ -63,28 +64,19 @@
         } else {
           this.addActiveFilter(resource);
         }
-        
       },
       deselectResource(resource) {
         let category = this.category.category_name;
-        let catkey = "filters";
-        if (category == "layers") {
-          this.removeActiveLayer(resource);
-          catkey = "layers"
+        if (category != "layers") category = "flows";
+        
+        if (category == 'layers') {
+          this.removeFromMap({ mapkey: "main", category, type: resource.filter_type, key: resource.filter_key});
+          this.removeActiveLayer(resource);  
         } else {
+          this.resetMapResource({ mapkey: "main", category, type: resource.filter_type });
           this.removeActiveFilter(resource);
         }
-
-        // Object to handle resource removal
-        const mapResource = {
-          mapkey: "main",
-          category: catkey,
-          type: resource.filter_type,
-          key: resource.filter_key
-        }
-        // remove resource from map
-        this.removeFromMap(mapResource);
       }
     }
-}
+  }
 </script>

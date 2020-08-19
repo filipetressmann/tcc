@@ -2,7 +2,7 @@
   <div>
     <p class="label">{{ $t('selectTiers') }}</p>
     <b-checkbox v-for="(count, index) in tierList" v-model="shownTiers" :native-value="index" :key="index" type="is-info">
-      Tier {{ index+1 }} ({{ count }} {{ $tc('flows', count)}})
+      Tier {{ index+1 }} ({{ count }} {{ $tc('flow', count)}})
     </b-checkbox>
   </div>
 </template>
@@ -24,7 +24,7 @@ import { mapActions } from 'vuex';
       resetTiers() {
         const resource = {
           mapkey: "main",
-          category: "filters",
+          category: "flows",
           type: "polyline"
         };
         this.resetMapResource(resource);
@@ -41,7 +41,7 @@ import { mapActions } from 'vuex';
         value.map(tier => {
           const data = {
             mapkey: "main",
-            category: "filters",
+            category: "flows",
             type: "polyline",
             key: tier
           };

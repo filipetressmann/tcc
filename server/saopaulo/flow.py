@@ -93,6 +93,8 @@ def weighted_counts(with_od_cells, cell_identifier):
                           .agg({'trip counts': 'sum', 'normalized_counts': 'sum',
                                 'start_lat': 'sum', 'start_lon': 'sum',
                                 'end_lat': 'sum', 'end_lon': 'sum'})
+    if (od_counts.empty):
+        return od_counts
     # center of mass
     od_counts['origin'] = od_counts.apply(
             lambda row: Point(row['start_lon'] / row['normalized_counts'], 

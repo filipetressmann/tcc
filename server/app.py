@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_file
 from flask_restful import Api
 from flask_cors import CORS
 import layers as layers
@@ -32,6 +32,10 @@ def grid():
 @app.route('/', methods=['GET'])
 def bsweb():
     return jsonify('This is BikeScience Web!')
+
+@app.route('/chart')
+def load_chart():
+    return send_file('charts/triplengths.png')
 
 @app.route('/filter_data', methods=['GET', 'POST'])
 def filter_data():

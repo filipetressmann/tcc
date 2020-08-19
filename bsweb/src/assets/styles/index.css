@@ -1,14 +1,7 @@
-#header {
-  width: 100%;
-  height: 2vh;
-  background-color: black;
-  display: block;
-}
-
 html{
   width: 100%;
   height: 100%;
-  
+  margin: 0;
 }
 
 body{
@@ -20,6 +13,8 @@ body{
 #app {
   width: 100%;
   height: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 .container {
@@ -28,7 +23,10 @@ body{
 
 #main-column {
   padding: 0;
+  width: 80%;
   height: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #main-content {
@@ -36,7 +34,31 @@ body{
   height: 100%;
 }
 
+#map {
+  width: 95%;
+  height: 85vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.zones-layer {
+  z-index: 0;
+}
+
+.manage {
+  width: 25%;
+}
+
+.column {
+  padding-right: 0;
+}
+
+.columns {
+  padding: 0;
+}
+
 #columns-content {
+  width: 100%;
   height: 100%;
 }
 
@@ -50,6 +72,22 @@ body{
 .multiselect {
   width: -moz-fit-content;
   width: -webkit-fit-content;
+  float: left;
+  margin-right: 1vh;
+}
+
+#selectors {
+    margin: 2vh 0vh 1vh 4vh;
+}
+
+.selector {
+  padding-right: 0;
+}
+
+#lang-selector {
+  margin-left: 2%;
+  margin-bottom: 0;
+  padding: 0;
 }
 
 .multiselect__content-wrapper /*, .multiselect__element */ {

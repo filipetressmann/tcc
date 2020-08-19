@@ -40,23 +40,3 @@
     }
   }
 </script>
-
-<style scoped>
-  #selectors {
-    padding-top: 2%;
-    padding-bottom: 1%;
-    width: 80%;
-    margin: 0;
-    overflow: visible !important;
-  }
-
-  .selector {
-    padding-right: 0;
-  }
-
-  #lang-selector {
-    margin-left: 2%;
-    margin-bottom: 0;
-    padding: 0;
-  }
-</style>
