@@ -1,7 +1,7 @@
 <template>
   <div class="container" id="filter-container">
     <p class="title is-5">{{ $t('appName') }}</p>
-    <b-tabs position="is-centered" v-model="activeTab" size="is-small">
+    <b-tabs v-model="activeTab" size="is-small">
       <b-tab-item>
         <template slot="header">
           <span>{{ $t('data') }}</span>

@@ -122,3 +122,8 @@ body{
   margin: 0;
   width: 100%;
 }
+
+.tabs li.is-active a {
+  color: #167df0;
+  border-bottom-color:#167df0;
+}
