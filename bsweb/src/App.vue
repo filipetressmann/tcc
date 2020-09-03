@@ -18,12 +18,25 @@
   import ManagePanelVue from './components/filters/Manage.vue';
   import SelectorsVue from './components/filters/Selectors.vue';
   import MapVue from './components/map/Map.vue';
+  import { uuid } from 'vue-uuid';
+  import { mapActions } from 'vuex';
 
   export default {
     components: {
       managePanel: ManagePanelVue,
       selectors: SelectorsVue,
       appMap: MapVue
+    },
+    methods: {
+      ...mapActions([
+        'setToken'
+      ])
+    },
+    mounted() {
+      if (localStorage.ut === undefined) {
+        localStorage.ut = this.$uuid.v4()
+      }
+      this.setToken(localStorage.ut);
     }
   }
 </script>

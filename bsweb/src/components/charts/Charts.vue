@@ -1,19 +1,25 @@
 <template>
   <div>
-    <!-- <Chart v-for="chart in chartList" :key="chart" :chart="chart" /> -->
+    <img v-for="chart in charts" :src="`http://127.0.0.1:5000/chart?ut=${ut}&chart=${chart}`" :key="chart" />
+    
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-  import Chart from './Chart';
+  import { mapState } from 'vuex'
+  
 
   export default {
-    components: {
-      Chart
+    data() {
+      return {
+        ut: ''
+      }
     },
-    methods: {
-      ...mapGetters(['chartList'])
+    computed: mapState({
+      charts: state => state.filters.charts
+    }),
+    mounted() {
+      this.ut = localStorage.ut
     }
   }
 </script>

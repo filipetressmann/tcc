@@ -33,7 +33,7 @@ class OD:
   def trips_by_start_time(self, trips, periods, specific, min_hour, max_hour):
     # filter periods, if theres any selecte
     trips['HORA_SAIDA'] = pd.to_datetime(trips['HORA_SAIDA'], format='%H:%M:%S')
-    filtered_trips = pd.DataFrame()
+    filtered_trips = pd.DataFrame(columns=trips.columns)
     for period in periods:
       if period == 'morning':
         filtered_trips = filtered_trips.append(trips[(trips['HORA_SAIDA'].dt.hour >= 6) & (trips['HORA_SAIDA'].dt.hour <= 12)])
@@ -49,12 +49,12 @@ class OD:
   def trips_by_finish_time(self, trips, periods, specific, min_hour, max_hour):
     # filter periods, if theres any selecte
     trips['HORA_CHEG'] = pd.to_datetime(trips['HORA_CHEG'], format='%H:%M:%S')
-    filtered_trips = pd.DataFrame()
+    filtered_trips = pd.DataFrame(columns=trips.columns)
     for period in periods:
       if period == 'morning':
-        filtered_trips = filtered_trips.append(trips[(trips['HORA_CHEG'].dt.hour >= 6) & (trips['HORA_CHEG'].dt.hour <= 12)])
+        filtered_trips = filtered_trips.append(trips[(trips['HORA_CHEG'].dt.hour >= 6) & (trips['HORA_CHEG'].dt.hour < 12)])
       if period == 'afternoon':
-        filtered_trips = filtered_trips.append(trips[(trips['HORA_CHEG'].dt.hour >= 12) & (trips['HORA_CHEG'].dt.hour <= 18)])
+        filtered_trips = filtered_trips.append(trips[(trips['HORA_CHEG'].dt.hour >= 12) & (trips['HORA_CHEG'].dt.hour < 18)])
       if period == 'evening':
         filtered_trips = filtered_trips.append(trips[(trips['HORA_CHEG'].dt.hour >= 18) & (trips['HORA_CHEG'].dt.hour <= 23)])
     # filter by specific time, if selected

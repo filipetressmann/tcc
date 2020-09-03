@@ -59,11 +59,11 @@ od.set_grid(20)
 od.set_zones(zone_dataset=zones)
 
 # parse request args and returns the filtered data
-def handle_filtering(params):
+def handle_filtering(req_params):
   trips = od.get_od_dataset()
   trips = trips[trips['ZONA_O'] != trips['ZONA_D']]
-  base_layer = params['baseLayer']
-  filters = params['params']
+  base_layer = req_params['baseLayer']
+  filters = req_params['params']
   flows = []
   for f_id in filters:
     
@@ -110,10 +110,14 @@ def handle_filtering(params):
     if f_id == '6':
       reasons = params['reasons']
       trips = od.trips_by_reason(trips, reasons)
-
+  
+  charts = Charts(req_params['ut'], trips)
+  chart_list = charts.create_for_filters(filters)
   flows, heatmaps = od.coords_by_tier(trips, base_layer)
+  
   return {
     'flows': flows,
-    'heatmaps': heatmaps
+    'heatmaps': heatmaps,
+    'charts': chart_list
   }
     

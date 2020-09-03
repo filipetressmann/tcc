@@ -2,7 +2,7 @@
   <div>
     <b-field>
       {{ $t('tripDistance') }}
-      ({{ distanceRange[0]}} {{ $t('to') }} {{ distanceRange[1] }} km)
+      ({{ distanceRange[0]}} km {{ $t('to') }} {{ distanceRange[1] }} km)
     </b-field>
     <b-slider
       v-model="distanceRange"

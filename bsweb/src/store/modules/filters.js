@@ -6,8 +6,10 @@ const state = {
   tripsPerTier: [],
   heatmaps: {
   },
+  charts: [],
   /* Stores active filters' parameters */
   filters: {
+    ut: '',
     params: {},
     baseLayer: "grid"
   },
@@ -21,13 +23,16 @@ const getters = {
   activeFilters: (state) => state.activeFilters,
   filters: (state) => state.filters,
   tierList: (state) => state.tripsPerTier,
-  chartList: (state) => state.chartList
+  chartList: (state) => state.charts
 };
 
 const mutations = {
   /* The purpose of the two following mutations is to update the filter list at the DOM */
   addActiveFilter: (state, filter) => {
     state.activeFilters.push(filter);
+  },
+  setToken: (state, token) => {
+    Vue.set(state.filters, 'ut', token);
   },
   removeActiveFilter: (state, filter) => {
     state.activeFilters = state.activeFilters.filter((activeFilter) => filter.id !== activeFilter.id);
@@ -41,6 +46,9 @@ const mutations = {
   },
   addEmitters: (state, { emitters }) => {
     Vue.set(state.heatmaps, 'emitters', emitters);
+  },
+  addCharts: (state, { charts }) => {
+    Vue.set(state, 'charts', charts)
   },
   updateFilterParams: (state, {id, params} ) => {
     Vue.set(state.filters.params, id, params);
@@ -73,8 +81,10 @@ const actions = {
       let flows = response['flows']
       let heatmaps = response['heatmaps']
       let tiers = Object.keys(flows)
+      let charts = response['charts']
       commit('addAttractors', { attractors: heatmaps['attractors']});
       commit('addEmitters', { emitters: heatmaps['emitters']});
+      commit('addCharts', { charts })
       tiers.map(tier => {
         commit('addTripsPerTier', { count: flows[tier].length });
         commit('addFlows', { tier: tier, flows: flows[tier]})
@@ -89,6 +99,9 @@ const actions = {
   },
   updateOD: ({ commit }, value) => {
     commit('updateOD', value);
+  },
+  setToken: ({ commit }, value) => {
+    commit('setToken', value);
   }
 };
 

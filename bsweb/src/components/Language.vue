@@ -27,6 +27,7 @@
           this.btn = 'English'
         }
         this.pt = !this.pt
+        localStorage.pt_br = this.pt
       }
     }  
   }

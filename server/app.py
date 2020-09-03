@@ -1,9 +1,10 @@
-from flask import Flask, jsonify, request, send_file
+from flask import Flask, jsonify, request, send_file, url_for
 from flask_restful import Api
 from flask_cors import CORS
 import layers as layers
 import filters as filters
 import filter_list as filter_list
+from charts import Charts
 import pandas as pd
 import bikescience.sp_grid as gr
 # configuration
@@ -35,7 +36,10 @@ def bsweb():
 
 @app.route('/chart')
 def load_chart():
-    return send_file('charts/triplengths.png')
+    ut = request.args.get('ut')
+    chart = request.args.get('chart')
+    print(f'static/charts/{ut}/{chart}')
+    return send_file(f'static/charts/{ut}/{chart}')
 
 @app.route('/filter_data', methods=['GET', 'POST'])
 def filter_data():
