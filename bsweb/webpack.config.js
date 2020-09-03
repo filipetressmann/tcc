@@ -2,6 +2,7 @@ var path = require('path')
 var webpack = require('webpack')
 require("babel-polyfill");
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   entry: ["babel-polyfill", "./src/main.js"],
@@ -13,6 +14,15 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin()
   ],
+  optimization: {
+    minimizer: [
+        new UglifyJsPlugin({
+            cache: true,
+            parallel: true,
+            sourceMap: false, // set to true if you want JS source maps
+        }),
+    ],
+  },
   module: {
     rules: [
       {
@@ -69,12 +79,6 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
       }
     }),
     new webpack.LoaderOptionsPlugin({

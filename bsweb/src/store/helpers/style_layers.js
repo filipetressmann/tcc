@@ -78,7 +78,7 @@ const bikelane = function(data) {
 
 const zones = function(data) {
   return {
-    color: '#1098F7',
+    color: '#999',
     weight: 2,
     fillColor: 'none',
     opacity: 0.4,
@@ -88,7 +88,7 @@ const zones = function(data) {
 
 const grid = function(data) {
   return {
-    color: '#1098F7',
+    color: '#AAA',
     weight: 1.5,
     fillColor: 'none'
   }
