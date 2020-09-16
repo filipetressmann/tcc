@@ -8,7 +8,6 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex';
   import Resource from './Resource';
 
   export default {
@@ -26,7 +25,7 @@
       }
     },
     watch: {
-      activeLayers: function(value) {
+      activeLayers: function() {
         this.$emit('tab-changed', 2);
       }
     }

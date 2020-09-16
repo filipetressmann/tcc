@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex';
+  import { mapActions } from 'vuex';
   export default {
     props: ['fid'],
     data() {
@@ -26,7 +26,7 @@
     },
     computed: {
       ageLabel() {
-        return `${$t(ageField)} ${this.speedRange[0]} - ${this.speedRange[1]}`
+        return `${$t('ageField')} ${this.speedRange[0]} - ${this.speedRange[1]}`
       },
       filterData() {
         return {

@@ -73,7 +73,7 @@ const actions = {
     commit('removeFilter', filter);
   },
   filterData: ({ commit }, { http, filters }) => {
-    http.post('http://127.0.0.1:5000/filter_data', filters)
+    http.post('http:///localhost:8000/filter_data', filters)
     .then(response => {
       return response.json();
     })

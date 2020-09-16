@@ -122,13 +122,6 @@
         this.fetchSubway(this.$http);
         this.fetchBikelane(this.$http);
         this.loadBaseLayers();
-      },
-      watch: {
-        attractors(value) {
-          console.log(L)
-        },
-        emitters(value) {
-        }
       }
   }
 </script>

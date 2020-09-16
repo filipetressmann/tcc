@@ -14,7 +14,7 @@
                 :show-labels="false"
                 @select="selectResource"
                 @remove="deselectResource">
-      <template slot="selection" slot-scope="{ values, search, isOpen }">
+      <template slot="selection">
         {{ $t(category.category_name) }}
       </template>
       <template slot="option" slot-scope="props">

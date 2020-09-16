@@ -60,7 +60,7 @@
       }
     },
     watch: {
-      activeFilters: function(value) {
+      activeFilters: function() {
         this.$emit('tab-changed', 1);
       }
     }
