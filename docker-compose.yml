@@ -1,0 +1,37 @@
+# check your version: https://docs.docker.com/compose/compose-file/
+version: "3.7"
+
+
+services:
+# first container
+    backend:
+        # look for dockerfile and build the container
+        build: ./server
+        container_name:  backend
+        restart: always
+        # set enviornemt variables
+        environment: 
+            - APP_NAME=FlaskApp
+        #  mount the volumes so we can change code and hot reload
+        volumes:
+            - './server:/backend'
+        #  expose port on the container, only to other containers
+        expose:
+            - 9000
+    
+    ui:
+        build: ./bsweb
+        container_name: ui
+        restart: always
+        expose:
+            - 80
+
+    nginx:
+        build: ./nginx
+        container_name:  nginx
+        restart: always
+        # port allows the host machine to link to container
+        # pass 80 from host machine to 80 of the image filesystem
+        ports:
+            - "8000:8000"
+            - "8001:80"
