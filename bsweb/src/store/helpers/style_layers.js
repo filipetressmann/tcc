@@ -73,10 +73,12 @@ const subway = function(data) {
 }
 
 const bikelane = function(data) {
-  return { color: '#999'}
+  if (data) {
+    return { color: '#999'}
+  }
 }
 
-const zones = function(data) {
+const zones = function() {
   return {
     color: '#999',
     weight: 2,
@@ -86,7 +88,7 @@ const zones = function(data) {
   }
 }
 
-const grid = function(data) {
+const grid = function() {
   return {
     color: '#AAA',
     weight: 1.5,

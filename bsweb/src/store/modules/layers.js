@@ -41,14 +41,8 @@ const actions = {
   removeLayer: ({ commit }, layer) => {
     commit('removeLayer', layer);
   },
-  fetchLayer: ( { commit }, args) => {
-    httpResource = args.httpResource;
-    url = args.url;
-    id = args.id;
-    httpResource.get(url);
-  },
   fetchCPTM: (context, httpResource) => {
-    httpResource.get('http://127.0.0.1:5000/load_railway_data')
+    httpResource.get('http:///localhost:8000/load_railway_data')
         .then(response => {
           return response.json();
         })
@@ -63,7 +57,7 @@ const actions = {
           });
   },
   fetchSubway: (context, httpResource) => {
-    httpResource.get('http://127.0.0.1:5000/load_metro_data')
+    httpResource.get('http:///localhost:8000/load_metro_data')
         .then(response => {
           return response.json();
         })
@@ -78,7 +72,7 @@ const actions = {
           });
   },
   fetchBikelane: (context, httpResource) => {
-    httpResource.get('http://127.0.0.1:5000/load_bikelane_data')
+    httpResource.get('http:///localhost:8000/load_bikelane_data')
         .then(response => {
           return response.json();
         })
@@ -93,7 +87,7 @@ const actions = {
         });
   },
   fetchZones: (context, httpResource) => {
-    return httpResource.get('http://127.0.0.1:5000/load_zones')
+    return httpResource.get('http:///localhost:8000/load_zones')
       .then(response => {
         return response.json();
       })
@@ -104,7 +98,7 @@ const actions = {
   },
 
   fetchGrid: async (context, { httpResource, gridSize }) => {
-    let response = await httpResource.post('http://127.0.0.1:5000/grid_layer', { gridSize });
+    let response = await httpResource.post('http:///localhost:8000/grid_layer', { gridSize });
     let grid = await response.json();
     context.commit('loadGrid', grid);
   }

@@ -38,8 +38,7 @@ def bsweb():
 def load_chart():
     ut = request.args.get('ut')
     chart = request.args.get('chart')
-    print(f'static/charts/{ut}/{chart}')
-    return send_file(f'static/charts/{ut}/{chart}')
+    return send_file(f"static/charts/{ut}/{chart}/")
 
 @app.route('/filter_data', methods=['GET', 'POST'])
 def filter_data():
