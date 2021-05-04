@@ -4,7 +4,7 @@
     <b-tabs v-model="activeTab" size="is-small">
       <b-tab-item>
         <template slot="header">
-          <span>{{ $t('data') }}</span>
+          <span>{{ $t('flows') }}</span>
         </template>
         <baselayer></baselayer>
         <tiers v-if="tierList.length > 0"></tiers>

@@ -26,7 +26,7 @@
     methods: {
       // fetch filter categories and filter names itself from server
       fetchCategories() {
-          this.$http.get('http:///localhost:8000/fetchfilters')
+          this.$http.get('http://143.107.45.126:30105/api/fetchfilters')
             .then(response => {
                 return response.json();
               })

@@ -1,4 +1,5 @@
 /server/data/*
+/server/.idea/*
 *.pyc
 /server/*pyc
 test_new_module.py

@@ -27,7 +27,7 @@
             :lat-lngs="arrow['coords']"
             :color="'blue'"
             :weight="arrow['weight']">
-            <l-tooltip>FE_VIA: {{ arrow['total_trips']}}</l-tooltip>
+            <l-tooltip>{{ arrow['total_trips']}} {{ $t('trips') }}</l-tooltip>
           </l-polyline>
           <polyline-decorator
           v-for="(arrow, index) in flows[tier]"

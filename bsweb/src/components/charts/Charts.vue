@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img v-for="chart in charts" :src="`http:///localhost:8000/chart?ut=${ut}&chart=${chart}`" :key="chart" />
+    <img v-for="chart in charts" :src="`http://143.107.45.126:30105/api/chart?ut=${ut}&chart=${chart}`" :key="chart" />
     
   </div>
 </template>
