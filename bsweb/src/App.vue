@@ -11,6 +11,7 @@
       </div>
     </div>
   </div>
+  <Loading />
 </div>
 </template>
 
@@ -20,12 +21,14 @@
   import MapVue from './components/map/Map.vue';
   import { uuid } from 'vue-uuid';
   import { mapActions } from 'vuex';
+  import Loading from './components/Loading';
 
   export default {
     components: {
       managePanel: ManagePanelVue,
       selectors: SelectorsVue,
-      appMap: MapVue
+      appMap: MapVue,
+      Loading
     },
     methods: {
       ...mapActions([
