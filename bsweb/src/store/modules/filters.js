@@ -1,5 +1,7 @@
 import Vue from 'vue';
 
+const api_url = process.env.VUE_APP_API_URL;
+
 const state = {
   activeFilters: [],
   flows: {},
@@ -73,7 +75,7 @@ const actions = {
     commit('removeFilter', filter);
   },
   filterData: ({ commit }, { http, filters }) => {
-    http.post('http://143.107.45.126:30105/api/filter_data', filters)
+    http.post(`${api_url}/filter_data`, filters)
     .then(response => {
       return response.json();
     })

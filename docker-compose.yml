@@ -33,5 +33,4 @@ services:
         # port allows the host machine to link to container
         # pass 80 from host machine to 80 of the image filesystem
         ports:
-            # - "8000:8000"
             - "80:80"

@@ -14,9 +14,10 @@
   import Language from '../Language.vue'
   
   export default {
-    data: function() {
+    data() {
       return {
-        categories: []
+        categories: [],
+        api_url: process.env.VUE_APP_API_URL
       }
     },
     components: {
@@ -26,7 +27,7 @@
     methods: {
       // fetch filter categories and filter names itself from server
       fetchCategories() {
-          this.$http.get('http://143.107.45.126:30105/api/fetchfilters')
+          this.$http.get(`${this.api_url}/fetchfilters`)
             .then(response => {
                 return response.json();
               })

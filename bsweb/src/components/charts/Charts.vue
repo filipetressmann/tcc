@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img v-for="chart in charts" :src="`http://143.107.45.126:30105/api/chart?ut=${ut}&chart=${chart}`" :key="chart" />
+    <img v-for="chart in charts" :src="`http://${api_url}/chart?ut=${ut}&chart=${chart}`" :key="chart" />
     
   </div>
 </template>
@@ -12,7 +12,8 @@
   export default {
     data() {
       return {
-        ut: ''
+        ut: '',
+        api_url: process.env.VUE_APP_API_URL
       }
     },
     computed: mapState({

@@ -1,5 +1,4 @@
-# use python container image
-From python:3.6-stretch
+FROM python:3.6-stretch
 
 # set the working directory of the image filesystem 
 RUN mkdir /backend
