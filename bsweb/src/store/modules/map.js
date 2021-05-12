@@ -23,7 +23,8 @@ const state = {
         zones: false,
         grid: true,
         attractors: true,
-        emitters: false
+        emitters: false,
+        gridSize: 10
       }
     }
   }

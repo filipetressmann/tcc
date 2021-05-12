@@ -1,13 +1,17 @@
 import Vue from 'vue';
 import * as style from '../helpers/style_layers';
 
+const default_grid_size = 10;
+
 const api_url = process.env.VUE_APP_API_URL;
 
 const state = {
   activeLayers: [],
   data: {},
   zones: {},
-  grid: {}
+  grid: {
+    size: default_grid_size
+  }
 };
 
 const getters = {
@@ -34,6 +38,10 @@ const mutations = {
   loadGrid: (state, layer) => {
     Vue.set(state.grid, "geometry", layer);
     Vue.set(state.grid, "style", style.grid);
+    Vue.set(state.grid, "size", default_grid_size);
+  },
+  updateGridSize(state, gridSize) {
+    Vue.set(state.grid, "size", gridSize);
   }
 }
 
