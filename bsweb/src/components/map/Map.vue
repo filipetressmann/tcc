@@ -4,22 +4,22 @@
       <l-tile-layer :url="properties.tile_layer_url"></l-tile-layer>
         <span v-if="renderZones">
           <l-geo-json 
-          :geojson="zones.geometry"
-          :optionsStyle="zones.style"
-          :visible="showZones" />
+            :geojson="zones.geometry"
+            :optionsStyle="zones.style"
+            :visible="showZones" />
         </span>
         <span v-if="renderGrid">
           <l-geo-json
-          :geojson="grid.geometry"
-          :optionsStyle="grid.style"
-          :visible="showGrid" />
+            :geojson="grid.geometry"
+            :optionsStyle="grid.style"
+            :visible="showGrid" />
         </span>
         <l-geo-json
-        v-for="key in Object.keys(layersGeojson)"
-        :geojson="layers[key].geometry"
-        :optionsStyle="layersGeojson[key].style"
-        :options="layersGeojson[key].options"
-        :key="key" />
+          v-for="key in Object.keys(layersGeojson)"
+          :geojson="layers[key].geometry"
+          :optionsStyle="layersGeojson[key].style"
+          :options="layersGeojson[key].options"
+          :key="key" />
         <l-feature-group v-for="tier in Object.keys(arrowTiers)" :key="tier">
           <l-polyline
             v-for="(arrow, index) in flows[tier]"
@@ -30,14 +30,14 @@
             <l-tooltip>{{ arrow['total_trips']}} {{ $t('trips') }}</l-tooltip>
           </l-polyline>
           <polyline-decorator
-          v-for="(arrow, index) in flows[tier]"
-          :paths="arrow['coords'][arrow['coords'].length - 1]"
-          :key="`${tier}-${index}-decorator`"
-          :patterns="[
-                {offset: '100%', repeat: 0, symbol: symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true, color: 'blue', weight: arrow['weight']}})}
-            ]"
-        >
-        </polyline-decorator>
+            v-for="(arrow, index) in flows[tier]"
+            :paths="arrow['coords'][arrow['coords'].length - 1]"
+            :key="`${tier}-${index}-decorator`"
+            :patterns="[
+                  {offset: '100%', repeat: 0, symbol: symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true, color: 'blue', weight: arrow['weight']}})}
+              ]"
+          >
+          </polyline-decorator>
         </l-feature-group>
     </l-map>
   </div>

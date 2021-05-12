@@ -12,8 +12,7 @@
     <div v-if="od == 'grid'">
       <p>Grid selecionado!</p>
       <p>Tamanho: {{gridSize}}</p>
-      <!-- <input type="text" v-model="gridSize"> -->
-      <input type="text" :value="gridSize" @input="updateGridSize">
+      <input type="text" v-model="gridSize">
       <button type="button" @click="setGridSize">Redefinir gridSize</button>
     </div>
   </div>
@@ -27,15 +26,19 @@ import { mapState, mapActions, mapMutations } from 'vuex';
         od: "grid",
       };
     },
-    computed: mapState({
-      filterParams: state => state.getters.filters,
-      gridSize: state => state.layers.grid.size
-    }),
-    // computed: {
-    //   filterParams() {
-    //     return this.$store.getters.filters;
-    //   },
-    // },
+    computed: {
+      gridSize: {
+        get() {
+          return this.$store.state.layers.grid.size;
+        },
+        set(value) {
+          this.$store.commit('updateGridSize', value);
+        }
+      },
+      ...mapState({
+        filterParams: state => state.getters.filters,
+      })
+    },
     methods: {
       ...mapActions([
         'resetData',
@@ -50,26 +53,10 @@ import { mapState, mapActions, mapMutations } from 'vuex';
         'showGrid',
         'hideGrid'
       ]),
-       async loadBaseLayers() {
-        await this.fetchGrid({ httpResource: this.$http, gridSize: this.$store.state.layers.grid.size });
+      async loadBaseLayers() {
+        console.log(this.gridSize);
+        await this.fetchGrid({ httpResource: this.$http, gridSize: this.gridSize});
         this.renderGrid = true;
-      },
-      updateGridSize(e) {
-        console.log('gridSize', this.gridSize);
-        // console.log('filters');
-        // console.log(this.$store.state.filters);
-        // console.log('layers');
-        // console.log(this.$store.state.layers);
-        console.log('layers.grid.size');
-        console.log(this.$store.state.layers.grid.size);
-        // console.log('map');
-        // console.log(this.$store.state.map);
-        console.log('dispatch');
-        console.log(this.$store.dispatch);
-        // this.$store.commit('testePena', this);
-        console.log('layers.grid.size');
-        console.log(this.$store.state.layers.grid.size);
-        this.$store.commit('updateGridSize', e.target.value);
       },
       setGridSize() {
         this.loadBaseLayers();

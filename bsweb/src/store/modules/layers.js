@@ -16,6 +16,7 @@ const state = {
 
 const getters = {
   activeLayers: (state) => state.activeLayers,
+  gridSize: state => state.grid.size
 }
 
 const mutations = {
@@ -38,7 +39,6 @@ const mutations = {
   loadGrid: (state, layer) => {
     Vue.set(state.grid, "geometry", layer);
     Vue.set(state.grid, "style", style.grid);
-    Vue.set(state.grid, "size", default_grid_size);
   },
   updateGridSize(state, gridSize) {
     Vue.set(state.grid, "size", gridSize);
