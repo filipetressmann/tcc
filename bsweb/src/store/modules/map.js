@@ -24,7 +24,6 @@ const state = {
         grid: true,
         attractors: true,
         emitters: false,
-        gridSize: 10
       }
     }
   }

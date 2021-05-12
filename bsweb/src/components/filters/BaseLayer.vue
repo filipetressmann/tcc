@@ -45,7 +45,8 @@ import { mapState, mapActions, mapMutations } from 'vuex';
         'updateOD',
         'resetMapResource',
         'filterData',
-        'fetchGrid'
+        'fetchGrid',
+        'fetchZones'
       ]),
       ...mapMutations([
         'showZones',
@@ -54,7 +55,7 @@ import { mapState, mapActions, mapMutations } from 'vuex';
         'hideGrid'
       ]),
       async loadBaseLayers() {
-        console.log(this.gridSize);
+        await this.fetchZones(this.$http);
         await this.fetchGrid({ httpResource: this.$http, gridSize: this.gridSize});
         this.renderGrid = true;
       },
@@ -64,13 +65,20 @@ import { mapState, mapActions, mapMutations } from 'vuex';
     },
     watch: {
       od: function(value) {
+        console.log(this.$store);
+        console.log(this.$store.filters);
+        debugger;
         this.updateOD(value);
+        console.log(this.$store.filters);
+        debugger;
         this.resetData();
+        debugger;
         this.resetMapResource({
           mapkey: "main",
           category: "flows",
           type: "polyline"
         });
+        debugger;
         if (Object.keys(this.filterParams.params).length !== 0)
           this.filterData({ http: this.$http, filters: this.filterParams });
         if (value == "zones") {

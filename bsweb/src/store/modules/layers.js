@@ -16,7 +16,6 @@ const state = {
 
 const getters = {
   activeLayers: (state) => state.activeLayers,
-  gridSize: state => state.grid.size
 }
 
 const mutations = {

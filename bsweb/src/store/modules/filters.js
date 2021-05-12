@@ -63,6 +63,7 @@ const mutations = {
     state.tripsPerTier = [];
   },
   updateOD: (state, value) => {
+    debugger;
     Vue.set(state.filters, "baseLayer", value);
   }
 }
