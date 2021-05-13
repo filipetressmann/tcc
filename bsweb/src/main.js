@@ -11,12 +11,21 @@ import { messages } from './plugins/i18n'
 import { store } from './store/store.js'
 import LoadScript from 'vue-plugin-load-script';
 import UUID from "vue-uuid";
+import { Icon } from 'leaflet';
 
 Vue.use(UUID);
 Vue.use(LoadScript);
 Vue.use(VueI18n);
 Vue.use(Buefy);
 Vue.use(VueResource);
+
+// Leaflet fix for missing marker icons
+delete Icon.Default.prototype._getIconUrl;
+Icon.Default.mergeOptions({
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+});
 
 
 export const filterEvents = new Vue();

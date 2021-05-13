@@ -76,6 +76,8 @@ const actions = {
     commit('removeFilter', filter);
   },
   filterData: ({ commit }, { http, filters }) => {
+    debugger;
+    // Pena: investigar se a info do grid entra aqui(?)
     http.post(`${api_url}/filter_data`, filters)
     .then(response => {
       return response.json();

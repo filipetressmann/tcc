@@ -19,12 +19,15 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
   export default {
     data() {
       return {
         od: "grid",
       };
+    },
+    computed: {
+      
     },
     computed: {
       gridSize: {
@@ -35,8 +38,8 @@ import { mapState, mapActions, mapMutations } from 'vuex';
           this.$store.commit('updateGridSize', value);
         }
       },
-      ...mapState({
-        filterParams: state => state.getters.filters,
+      ...mapGetters({
+        filterParams: 'filters'
       })
     },
     methods: {
