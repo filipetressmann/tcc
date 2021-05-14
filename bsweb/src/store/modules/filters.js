@@ -1,7 +1,7 @@
 import Vue from 'vue';
 
 const api_url = process.env.VUE_APP_API_URL;
-const default_grid_size = 10;
+const default_grid_size = 20;
 
 const state = {
   activeFilters: [],
@@ -68,7 +68,7 @@ const mutations = {
     Vue.set(state.filters, "baseLayer", value);
   },
   updateGridSize(state, gridSize) {
-    Vue.set(state.filters, "gridSize", gridSize);
+    Vue.set(state.filters, "gridSize", Number(gridSize));
   }
 }
 
@@ -80,7 +80,6 @@ const actions = {
     commit('removeFilter', filter);
   },
   filterData: ({ commit }, { http, filters }) => {
-    // Pena: investigar se a info do grid entra aqui(?)
     http.post(`${api_url}/filter_data`, filters)
     .then(response => {
       return response.json();

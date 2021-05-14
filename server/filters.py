@@ -55,11 +55,11 @@ def initialize_filter_list():
 
 zones = pd.read_csv('data/zonas_od17.csv')
 od = OD()
-od.set_grid(20)
 od.set_zones(zone_dataset=zones)
 
 # parse request args and returns the filtered data
 def handle_filtering(req_params):
+  od.set_grid(req_params['gridSize'])
   trips = od.get_od_dataset()
   trips = trips[trips['ZONA_O'] != trips['ZONA_D']]
   base_layer = req_params['baseLayer']
@@ -116,6 +116,7 @@ def handle_filtering(req_params):
   flows, heatmaps = od.coords_by_tier(trips, base_layer)
   
   return {
+    'gridSize': req_params['gridSize'],
     'flows': flows,
     'heatmaps': heatmaps,
     'charts': chart_list

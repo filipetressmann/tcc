@@ -64,6 +64,8 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
       },
       setGridSize() {
         this.loadBaseLayers();
+        this.resetData();
+        this.filterData({ http: this.$http, filters: this.filterParams });
       }
     },
     watch: {
