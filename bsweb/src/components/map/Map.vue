@@ -78,8 +78,7 @@
       async loadBaseLayers() {
         await this.fetchZones(this.$http);
         this.renderZones = true;
-        console.log("Map", this.$store.state.layers.grid.size);
-        await this.fetchGrid({ httpResource: this.$http, gridSize: this.$store.state.layers.grid.size });
+        await this.fetchGrid({ httpResource: this.$http, gridSize: this.$store.state.filters.filters.gridSize });
         this.renderGrid = true;
       }
     },

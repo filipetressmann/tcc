@@ -1,6 +1,7 @@
 import Vue from 'vue';
 
 const api_url = process.env.VUE_APP_API_URL;
+const default_grid_size = 10;
 
 const state = {
   activeFilters: [],
@@ -13,7 +14,8 @@ const state = {
   filters: {
     ut: '',
     params: {},
-    baseLayer: "grid"
+    baseLayer: "grid",
+    gridSize: default_grid_size
   },
   chartList: [
     '@/assets/tmp_charts/agechart.png',
@@ -63,8 +65,10 @@ const mutations = {
     state.tripsPerTier = [];
   },
   updateOD: (state, value) => {
-    debugger;
     Vue.set(state.filters, "baseLayer", value);
+  },
+  updateGridSize(state, gridSize) {
+    Vue.set(state.filters, "gridSize", gridSize);
   }
 }
 
@@ -76,7 +80,6 @@ const actions = {
     commit('removeFilter', filter);
   },
   filterData: ({ commit }, { http, filters }) => {
-    debugger;
     // Pena: investigar se a info do grid entra aqui(?)
     http.post(`${api_url}/filter_data`, filters)
     .then(response => {

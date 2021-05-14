@@ -32,7 +32,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
     computed: {
       gridSize: {
         get() {
-          return this.$store.state.layers.grid.size;
+          return this.$store.state.filters.filters.gridSize;
         },
         set(value) {
           this.$store.commit('updateGridSize', value);
@@ -70,18 +70,14 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
       od: function(value) {
         console.log(this.$store);
         console.log(this.$store.filters);
-        debugger;
         this.updateOD(value);
         console.log(this.$store.filters);
-        debugger;
         this.resetData();
-        debugger;
         this.resetMapResource({
           mapkey: "main",
           category: "flows",
           type: "polyline"
         });
-        debugger;
         if (Object.keys(this.filterParams.params).length !== 0)
           this.filterData({ http: this.$http, filters: this.filterParams });
         if (value == "zones") {
