@@ -15,7 +15,13 @@ const state = {
     ut: '',
     params: {},
     baseLayer: "grid",
-    gridSize: default_grid_size
+    gridSize: default_grid_size,
+    grid: {
+      west: -0.15,
+      east: 0.23,
+      north: 0.19,
+      south: -0.46
+    }
   },
   chartList: [
     '@/assets/tmp_charts/agechart.png',
@@ -69,6 +75,9 @@ const mutations = {
   },
   updateGridSize(state, gridSize) {
     Vue.set(state.filters, "gridSize", Number(gridSize));
+  },
+  updateGrid(state, {key, value}) {
+    Vue.set(state.filters.grid, key, value);
   }
 }
 

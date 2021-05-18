@@ -26,7 +26,12 @@ def fetchfilters():
 def grid():
     req_data = request.get_json()
     n = int(req_data['gridSize'])
-    grid = gr.create(n)
+    west = req_data['grid']['west']
+    east = req_data['grid']['east']
+    north = req_data['grid']['north']
+    south = req_data['grid']['south']
+    # grid = gr.create(n)
+    grid = gr.create(n, west, east, north, south)
     return grid.geodataframe().to_json()
 
 # sanity check route

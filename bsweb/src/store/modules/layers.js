@@ -100,10 +100,10 @@ const actions = {
       }) 
   },
 
-  fetchGrid: async (context, { httpResource, gridSize }) => {
-    let response = await httpResource.post(`${api_url}/grid_layer`, { gridSize });
-    let grid = await response.json();
-    context.commit('loadGrid', grid);
+  fetchGrid: async (context, { httpResource, gridSize, grid }) => {
+    let response = await httpResource.post(`${api_url}/grid_layer`, { gridSize, grid });
+    let grid2 = await response.json();
+    context.commit('loadGrid', grid2);
   }
 };
 

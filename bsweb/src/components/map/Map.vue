@@ -78,7 +78,7 @@
       async loadBaseLayers() {
         await this.fetchZones(this.$http);
         this.renderZones = true;
-        await this.fetchGrid({ httpResource: this.$http, gridSize: this.$store.state.filters.filters.gridSize });
+        await this.fetchGrid({ httpResource: this.$http, gridSize: this.$store.state.filters.filters.gridSize, grid: { west: -0.15, east: 0.23, north: 0.19, south: -0.46}});
         this.renderGrid = true;
       }
     },
