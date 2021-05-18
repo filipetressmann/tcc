@@ -1,6 +1,7 @@
 import Vue from 'vue';
 
 const api_url = process.env.VUE_APP_API_URL;
+const default_grid_size = 20;
 
 const state = {
   activeFilters: [],
@@ -13,7 +14,14 @@ const state = {
   filters: {
     ut: '',
     params: {},
-    baseLayer: "grid"
+    baseLayer: "grid",
+    gridSize: default_grid_size,
+    gridOffset: {
+      west: -0.15,
+      east: 0.23,
+      north: 0.19,
+      south: -0.46
+    }
   },
   chartList: [
     '@/assets/tmp_charts/agechart.png',
@@ -64,6 +72,12 @@ const mutations = {
   },
   updateOD: (state, value) => {
     Vue.set(state.filters, "baseLayer", value);
+  },
+  updateGridSize(state, gridSize) {
+    Vue.set(state.filters, "gridSize", Number(gridSize));
+  },
+  updateGridOffset(state, {key, value}) {
+    Vue.set(state.filters.gridOffset, key, value);
   }
 }
 

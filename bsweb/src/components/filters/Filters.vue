@@ -63,6 +63,9 @@
       activeFilters: function() {
         this.$emit('tab-changed', 1);
       }
+    },
+    created() {
+      this.applyFilters();
     }
   }
 </script>

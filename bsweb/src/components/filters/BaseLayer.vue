@@ -1,34 +1,46 @@
 <template>
   <div>
-    <span class="label">{{ $t('baseLayer') }}</span>
-    <b-radio v-model="od" name="Grid" native-value="grid" type="is-info">
-      {{ $t('grid') }}
-    </b-radio>
-    <b-radio v-model="od" name="Zonas OD" native-value="zones" type="is-info">
-      {{ $t('zones') }}
-    </b-radio>
+    <div>
+      <span class="label">{{ $t('baseLayer') }}</span>
+      <b-radio v-model="od" name="Grid" native-value="grid" type="is-info">
+        {{ $t('grid') }}
+      </b-radio>
+      <b-radio v-model="od" name="Zonas OD" native-value="zones" type="is-info">
+        {{ $t('zones') }}
+      </b-radio>
+    </div>
+    <div v-if="od == 'grid'">
+      <GridForm />
+    </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
+import GridForm from '@/components/filters/forms/GridForm';
+
   export default {
+    components: {
+      GridForm
+    },
     data() {
       return {
-        od: "grid"
+        od: "grid",
       };
     },
     computed: {
-      filterParams() {
-        return this.$store.getters.filters;
-      }
+      ...mapGetters({
+        filterParams: 'filters'
+      })
     },
     methods: {
       ...mapActions([
-        'resetData',
+        // 'resetData',
         'updateOD',
         'resetMapResource',
-        'filterData'
+        // 'filterData',
+        // 'fetchGrid',
+        // 'fetchZones'
       ]),
       ...mapMutations([
         'showZones',

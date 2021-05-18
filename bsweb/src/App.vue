@@ -3,11 +3,11 @@
   <div id="main-content">
     <div class="columns is-mobile" id="columns-content">
       <div class="column left manage" v-show="true">
-        <manage-panel id="filter-container"></manage-panel>
+        <manage-panel id="filter-container" />
       </div>
       <div id="main-column" class="column is-full">
-        <selectors></selectors>
-        <app-map mapkey="main"></app-map>
+        <selectors />
+        <app-map mapkey="main" />
       </div>
     </div>
   </div>

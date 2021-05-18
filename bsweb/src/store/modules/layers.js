@@ -34,7 +34,7 @@ const mutations = {
   loadGrid: (state, layer) => {
     Vue.set(state.grid, "geometry", layer);
     Vue.set(state.grid, "style", style.grid);
-  }
+  },
 }
 
 const actions = {
@@ -100,8 +100,8 @@ const actions = {
       }) 
   },
 
-  fetchGrid: async (context, { httpResource, gridSize }) => {
-    let response = await httpResource.post(`${api_url}/grid_layer`, { gridSize });
+  fetchGrid: async (context, { httpResource, gridSize, gridOffset }) => {
+    let response = await httpResource.post(`${api_url}/grid_layer`, { gridSize, gridOffset });
     let grid = await response.json();
     context.commit('loadGrid', grid);
   }
