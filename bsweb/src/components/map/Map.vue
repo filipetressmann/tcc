@@ -78,7 +78,6 @@
       async loadBaseLayers() {
         await this.fetchZones(this.$http);
         this.renderZones = true;
-        console.log('gridOffset', this.$store.state.filters.filters.gridOffset);
         await this.fetchGrid({ httpResource: this.$http, gridSize: this.$store.state.filters.filters.gridSize, gridOffset: this.$store.state.filters.filters.gridOffset});
         this.renderGrid = true;
       }

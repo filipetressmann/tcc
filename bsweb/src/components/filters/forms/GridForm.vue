@@ -1,25 +1,68 @@
 <template>
   <div>
-    <p>Tamanho: {{gridSize}}</p>
-    <p>West offset: {{grid_west}}</p>
-    <p>East offset: {{grid_east}}</p>
-    <p>North offset: {{grid_north}}</p>
-    <p>South offset: {{grid_south}}</p>
-    <p>West: {{grid_west - 23.5489}}</p>
-    <p>East: {{grid_east - 23.5489}}</p>
-    <p>North: {{grid_north - 46.6388}}</p>
-    <p>South: {{grid_south - 46.6388}}</p>
-    <input type="text" name="gridSize" v-model="gridSize">
-    <input type="text" name="west" v-model="grid_west">
-    <input type="text" name="east" v-model="grid_east">
-    <input type="text" name="north" v-model="grid_north">
-    <input type="text" name="south" v-model="grid_south">
+    <b-field label="Tamanho">
+      <b-slider
+        v-model="gridSize"
+        type="is-success"
+        size="is-small"
+        :min="10"
+        :max="100"
+        :step="10"
+        :tooltip="false"
+      />
+      <div class="value">{{gridSize}}</div>
+    </b-field>
+    <b-field label="Oeste">
+      <b-slider
+        v-model="grid_west"
+        type="is-info"
+        size="is-small"
+        :min="-0.5"
+        :max="0.5"
+        :step="0.001"
+        :tooltip="false"
+      />
+      <div class="value">{{grid_west.toFixed(3)}}</div>
+    </b-field>
+    <b-field label="Leste">
+      <b-slider
+        v-model="grid_east"
+        type="is-info"
+        size="is-small"
+        :min="-0.5"
+        :max="0.5"
+        :step="0.001"
+      />
+      <div class="value">{{grid_east.toFixed(3)}}</div>
+    </b-field>
+    <b-field label="Norte">
+      <b-slider
+        v-model="grid_north"
+        type="is-info"
+        size="is-small"
+        :min="-0.5"
+        :max="0.5"
+        :step="0.001"
+      />
+      <div class="value">{{grid_north.toFixed(3)}}</div>
+    </b-field>
+    <b-field label="Sul">
+      <b-slider
+        v-model="grid_south"
+        type="is-info"
+        size="is-small"
+        :min="-0.5"
+        :max="0.5"
+        :step="0.001"
+      />
+      <div class="value">{{grid_south.toFixed(3)}}</div>
+    </b-field>
     <button type="button" @click="sendGridForm">Redefinir grid</button>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   methods: {
@@ -29,10 +72,6 @@ export default {
       this.filterData({ http: this.$http, filters: this.filterParams });
     },
     async loadBaseLayers() {
-      debugger;
-      console.log('gridSize', this.gridSize);
-      console.log('grid', this.grid);
-      debugger;
       await this.fetchZones(this.$http);
       await this.fetchGrid({ httpResource: this.$http, gridSize: this.gridSize, gridOffset: this.gridOffset});
       this.renderGrid = true;
@@ -63,7 +102,7 @@ export default {
         return this.$store.state.filters.filters.gridOffset.west;
       },
       set(value) {
-        this.$store.commit('updateGrid', {key: 'west', value: Number(value)});
+        this.$store.commit('updateGridOffset', {key: 'west', value: Number(value)});
       }
     },
     grid_east: {
@@ -71,7 +110,7 @@ export default {
         return this.$store.state.filters.filters.gridOffset.east;
       },
       set(value) {
-        this.$store.commit('updateGrid', {key: 'east', value: Number(value)});
+        this.$store.commit('updateGridOffset', {key: 'east', value: Number(value)});
       }
     },
     grid_north: {
@@ -79,7 +118,7 @@ export default {
         return this.$store.state.filters.filters.gridOffset.north;
       },
       set(value) {
-        this.$store.commit('updateGrid', {key: 'north', value: Number(value)});
+        this.$store.commit('updateGridOffset', {key: 'north', value: Number(value)});
       }
     },
     grid_south: {
@@ -87,9 +126,20 @@ export default {
         return this.$store.state.filters.filters.gridOffset.south;
       },
       set(value) {
-        this.$store.commit('updateGrid', {key: 'south', value: Number(value)});
+        this.$store.commit('updateGridOffset', {key: 'south', value: Number(value)});
       }
-    }
+    },
+    ...mapGetters({
+      filterParams: 'filters'
+    })
   }
 }
 </script>
+
+<style scoped>
+  .value {
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+  }
+</style>
