@@ -60,13 +60,13 @@ od.set_zones(zone_dataset=zones)
 # parse request args and returns the filtered data
 def handle_filtering(req_params):
   # def set_grid(self, n, west=-0.15, east=0.23, north=0.19, south=-0.46):
-  teste = req_params['grid']
+  offset = req_params['gridOffset']
   od.set_grid(
     req_params['gridSize'],
-    west=teste['west'],
-    east=teste['east'],
-    north=teste['north'],
-    south=teste['south']
+    west=offset['west'],
+    east=offset['east'],
+    north=offset['north'],
+    south=offset['south']
   )
   trips = od.get_od_dataset()
   trips = trips[trips['ZONA_O'] != trips['ZONA_D']]
@@ -125,6 +125,7 @@ def handle_filtering(req_params):
   
   return {
     'gridSize': req_params['gridSize'],
+    'gridOffset': offset,
     'flows': flows,
     'heatmaps': heatmaps,
     'charts': chart_list

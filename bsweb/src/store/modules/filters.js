@@ -16,7 +16,7 @@ const state = {
     params: {},
     baseLayer: "grid",
     gridSize: default_grid_size,
-    grid: {
+    gridOffset: {
       west: -0.15,
       east: 0.23,
       north: 0.19,
@@ -76,8 +76,8 @@ const mutations = {
   updateGridSize(state, gridSize) {
     Vue.set(state.filters, "gridSize", Number(gridSize));
   },
-  updateGrid(state, {key, value}) {
-    Vue.set(state.filters.grid, key, value);
+  updateGridOffset(state, {key, value}) {
+    Vue.set(state.filters.gridOffset, key, value);
   }
 }
 
