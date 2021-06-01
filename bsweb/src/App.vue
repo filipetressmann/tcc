@@ -11,7 +11,7 @@
       </div>
     </div>
   </div>
-  <Loading />
+  <Loading :isActive="loading" />
 </div>
 </template>
 
@@ -20,7 +20,7 @@
   import SelectorsVue from './components/filters/Selectors.vue';
   import MapVue from './components/map/Map.vue';
   import { uuid } from 'vue-uuid';
-  import { mapActions } from 'vuex';
+  import { mapActions, mapGetters } from 'vuex';
   import Loading from './components/Loading';
 
   export default {
@@ -33,6 +33,11 @@
     methods: {
       ...mapActions([
         'setToken'
+      ])
+    },
+    computed: {
+      ...mapGetters([
+        'loading'
       ])
     },
     mounted() {

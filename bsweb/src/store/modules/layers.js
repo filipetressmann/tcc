@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import * as style from '../helpers/style_layers';
+import axios from 'axios';
 
 const api_url = process.env.VUE_APP_API_URL;
 
@@ -100,10 +101,11 @@ const actions = {
       }) 
   },
 
-  fetchGrid: async (context, { httpResource, gridSize, gridOffset }) => {
-    let response = await httpResource.post(`${api_url}/grid_layer`, { gridSize, gridOffset });
-    let grid = await response.json();
-    context.commit('loadGrid', grid);
+  fetchGrid: async (context, { gridSize, gridOffset }) => {
+    return await axios.post(`${api_url}/grid_layer`, { gridSize, gridOffset })
+      .then(res => {
+        context.commit('loadGrid', res.data);
+      });
   }
 };
 

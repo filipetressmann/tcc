@@ -35,10 +35,10 @@ import GridForm from '@/components/filters/forms/GridForm';
     },
     methods: {
       ...mapActions([
-        // 'resetData',
+        'resetData',
         'updateOD',
         'resetMapResource',
-        // 'filterData',
+        'filterData',
         // 'fetchGrid',
         // 'fetchZones'
       ]),

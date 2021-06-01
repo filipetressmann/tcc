@@ -8,7 +8,8 @@
         :min="10"
         :max="100"
         :step="10"
-        :tooltip="false"
+        :tooltip="true"
+        lazy
       />
       <div class="value">{{gridSize}}</div>
     </b-field>
@@ -20,7 +21,8 @@
         :min="-0.5"
         :max="0.5"
         :step="0.001"
-        :tooltip="false"
+        :tooltip="true"
+        lazy
       />
       <div class="value">{{grid_west.toFixed(3)}}</div>
     </b-field>
@@ -32,6 +34,8 @@
         :min="-0.5"
         :max="0.5"
         :step="0.001"
+        :tooltip="true"
+        lazy
       />
       <div class="value">{{grid_east.toFixed(3)}}</div>
     </b-field>
@@ -43,6 +47,8 @@
         :min="-0.5"
         :max="0.5"
         :step="0.001"
+        :tooltip="true"
+        lazy
       />
       <div class="value">{{grid_north.toFixed(3)}}</div>
     </b-field>
@@ -54,10 +60,12 @@
         :min="-0.5"
         :max="0.5"
         :step="0.001"
+        :tooltip="true"
+        lazy
       />
       <div class="value">{{grid_south.toFixed(3)}}</div>
     </b-field>
-    <button type="button" @click="sendGridForm">Redefinir grid</button>
+    <button type="button" @click="getFlows">Calcular fluxos</button>
   </div>
 </template>
 
@@ -66,9 +74,7 @@ import { mapActions, mapGetters } from 'vuex';
 
 export default {
   methods: {
-    sendGridForm() {
-      this.loadBaseLayers();
-      this.resetData();
+    getFlows() {
       this.filterData({ http: this.$http, filters: this.filterParams });
     },
     async loadBaseLayers() {
@@ -76,11 +82,21 @@ export default {
       await this.fetchGrid({ httpResource: this.$http, gridSize: this.gridSize, gridOffset: this.gridOffset});
       this.renderGrid = true;
     },
+    reloadGrid() {
+      this.setLoading();
+      this.resetData();
+      this.fetchGrid({gridSize: this.gridSize, gridOffset: this.gridOffset})
+        .then(() => {
+          this.unsetLoading();
+        });
+    },
     ...mapActions([
       'resetData',
       'filterData',
       'fetchZones',
       'fetchGrid',
+      'setLoading',
+      'unsetLoading'
     ])
   },
   computed: {
@@ -90,6 +106,7 @@ export default {
       },
       set(value) {
         this.$store.commit('updateGridSize', value);
+        this.reloadGrid();
       }
     },
     gridOffset: {
@@ -103,6 +120,7 @@ export default {
       },
       set(value) {
         this.$store.commit('updateGridOffset', {key: 'west', value: Number(value)});
+        this.reloadGrid();
       }
     },
     grid_east: {
@@ -111,6 +129,7 @@ export default {
       },
       set(value) {
         this.$store.commit('updateGridOffset', {key: 'east', value: Number(value)});
+        this.reloadGrid();
       }
     },
     grid_north: {
@@ -119,6 +138,7 @@ export default {
       },
       set(value) {
         this.$store.commit('updateGridOffset', {key: 'north', value: Number(value)});
+        this.reloadGrid();
       }
     },
     grid_south: {
@@ -127,6 +147,7 @@ export default {
       },
       set(value) {
         this.$store.commit('updateGridOffset', {key: 'south', value: Number(value)});
+        this.reloadGrid();
       }
     },
     ...mapGetters({

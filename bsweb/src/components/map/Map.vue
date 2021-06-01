@@ -73,12 +73,19 @@
         'fetchSubway',
         'fetchBikelane',
         'fetchZones',
-        'fetchGrid'
+        'fetchGrid',
+        'loading/setLoading',
+        'loading/unsetLoading'
       ]),
       async loadBaseLayers() {
+        debugger;
+        this.setLoading();
         await this.fetchZones(this.$http);
         this.renderZones = true;
-        await this.fetchGrid({ httpResource: this.$http, gridSize: this.$store.state.filters.filters.gridSize, gridOffset: this.$store.state.filters.filters.gridOffset});
+        await this.fetchGrid({gridSize: this.$store.state.filters.filters.gridSize, gridOffset: this.$store.state.filters.filters.gridOffset})
+          .then(() => {
+            this.unsetLoading();
+          });
         this.renderGrid = true;
       }
     },

@@ -15,10 +15,8 @@
 
 <script>
   export default {
-    data() {
-      return {
-        isActive: false
-      }
+    props: {
+      isActive: Boolean
     }
   }
 </script>

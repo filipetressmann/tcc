@@ -4,6 +4,7 @@ import filters from './modules/filters';
 import layers from './modules/layers'
 import map from './modules/map';
 import user from './modules/user';
+import loading from './modules/loading';
 
 Vue.use(Vuex);
 
@@ -12,6 +13,7 @@ export const store = new Vuex.Store({
     filters,
     layers,
     map,
-    user
+    user,
+    loading
   }
 });
