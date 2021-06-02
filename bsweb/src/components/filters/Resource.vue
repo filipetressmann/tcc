@@ -56,7 +56,7 @@
           key: "cptm",
           options: {
             style: style.railway,
-            options: options.railways
+            options: options.railway
           }
         }
         this.addToMap(this.resourceInfo);
@@ -69,7 +69,7 @@
           key: "subway",
           options: {
             style: style.subway,
-            options: options.railways
+            options: options.subway
           }
         }
         this.addToMap(this.resourceInfo);
@@ -82,7 +82,7 @@
           key: "bikelane",
           options: {
             style: style.bikelane,
-            options: options.railways // temp Pena
+            options: options.bikeLane
           }
         }
         this.addToMap(this.resourceInfo);
