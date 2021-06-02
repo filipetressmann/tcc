@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import axios from 'axios';
 
 const api_url = process.env.VUE_APP_API_URL;
 const default_grid_size = 20;
@@ -30,10 +31,12 @@ const state = {
 };
 
 const getters = {
-  activeFilters: (state) => state.activeFilters,
-  filters: (state) => state.filters,
-  tierList: (state) => state.tripsPerTier,
-  chartList: (state) => state.charts
+  activeFilters: state => state.activeFilters,
+  filters: state => state.filters,
+  tierList: state => state.tripsPerTier,
+  chartList: state => state.charts,
+  gridSize: state => state.filters.gridSize,
+  gridOffset: state => state.filters.gridOffset
 };
 
 const mutations = {
@@ -88,24 +91,24 @@ const actions = {
   removeFilter: ({ commit }, filter) => {
     commit('removeFilter', filter);
   },
-  filterData: ({ commit }, { http, filters }) => {
-    http.post(`${api_url}/filter_data`, filters)
-    .then(response => {
-      return response.json();
-    })
-    .then(response => {
-      let flows = response['flows']
-      let heatmaps = response['heatmaps']
-      let tiers = Object.keys(flows)
-      let charts = response['charts']
-      commit('addAttractors', { attractors: heatmaps['attractors']});
-      commit('addEmitters', { emitters: heatmaps['emitters']});
-      commit('addCharts', { charts })
-      tiers.map(tier => {
-        commit('addTripsPerTier', { count: flows[tier].length });
-        commit('addFlows', { tier: tier, flows: flows[tier]})
+  filterData: async({ commit, getters }) => {
+    return await axios.post(`${api_url}/filter_data`, getters.filters)
+      .then(res => {
+        return res.data;
+      })
+      .then(response => {
+        let flows = response['flows']
+        let heatmaps = response['heatmaps']
+        let tiers = Object.keys(flows)
+        let charts = response['charts']
+        commit('addAttractors', { attractors: heatmaps['attractors']});
+        commit('addEmitters', { emitters: heatmaps['emitters']});
+        commit('addCharts', { charts })
+        tiers.map(tier => {
+          commit('addTripsPerTier', { count: flows[tier].length });
+          commit('addFlows', { tier: tier, flows: flows[tier]})
+        });
       });
-    });
   },
   updateFilterParams: ({ commit }, args) => {
     commit('updateFilterParams', args);

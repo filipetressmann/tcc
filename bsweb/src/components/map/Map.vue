@@ -47,7 +47,7 @@
   import L from 'leaflet';
   import { LMap, LTileLayer, LGeoJson, LPolyline, LFeatureGroup, LTooltip } from 'vue2-leaflet';
   import Vue2LeafletPolylineDecorator from 'vue2-leaflet-polylinedecorator';
-  import { mapState, mapActions } from 'vuex';
+  import { mapState, mapActions, mapGetters } from 'vuex';
 
   export default {
     props: ['mapkey'],
@@ -80,14 +80,15 @@
         this.setLoading();
         await this.fetchZones(this.$http);
         this.renderZones = true;
-        await this.fetchGrid({gridSize: this.$store.state.filters.filters.gridSize, gridOffset: this.$store.state.filters.filters.gridOffset})
+        await this.fetchGrid()
           .then(() => {
+            this.renderGrid = true;
             this.unsetLoading();
           });
-        this.renderGrid = true;
       }
     },
-    computed: mapState({
+    computed: {
+      ...mapState({
         properties(state) {
           return state.map.maps[this.mapkey].properties
         },
@@ -121,12 +122,13 @@
         showGrid(state) {
           return state.map.maps[this.mapkey].show.grid
         }
-      }),
-      async created() {
-        this.fetchCPTM(this.$http);
-        this.fetchSubway(this.$http);
-        this.fetchBikelane(this.$http);
-        this.loadBaseLayers();
-      }
+      })
+    },
+    async created() {
+      this.fetchCPTM(this.$http);
+      this.fetchSubway(this.$http);
+      this.fetchBikelane(this.$http);
+      this.loadBaseLayers();
+    }
   }
 </script>

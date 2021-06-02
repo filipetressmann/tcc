@@ -75,19 +75,20 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   methods: {
     getFlows() {
-      this.filterData({ http: this.$http, filters: this.filterParams });
-    },
-    async loadBaseLayers() {
-      await this.fetchZones(this.$http);
-      await this.fetchGrid({ httpResource: this.$http, gridSize: this.gridSize, gridOffset: this.gridOffset});
-      this.renderGrid = true;
+      this.setLoading();
+      this.resetData();
+      this.resetMapResource({ mapkey: "main", category: "flows", type: "polyline" });
+      this.filterData()
+        .then(() => {
+          this.unsetLoading();
+        });
     },
     reloadGrid() {
-      // this.setLoading();
+      this.setLoading();
       this.resetData();
-      this.fetchGrid({gridSize: this.gridSize, gridOffset: this.gridOffset})
+      this.fetchGrid()
         .then(() => {
-          // this.unsetLoading();
+          this.unsetLoading();
         });
     },
     ...mapActions([
@@ -95,9 +96,9 @@ export default {
       'filterData',
       'fetchZones',
       'fetchGrid',
-      // 'setLoading',
-      // 'unsetLoading'
-    ])
+      'resetMapResource'
+    ]),
+    ...mapActions('loading', ['setLoading', 'unsetLoading']),
   },
   computed: {
     gridSize: {

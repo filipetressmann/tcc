@@ -39,8 +39,6 @@ import GridForm from '@/components/filters/forms/GridForm';
         'updateOD',
         'resetMapResource',
         'filterData',
-        // 'fetchGrid',
-        // 'fetchZones'
       ]),
       ...mapMutations([
         'showZones',
@@ -59,7 +57,7 @@ import GridForm from '@/components/filters/forms/GridForm';
           type: "polyline"
         });
         if (Object.keys(this.filterParams.params).length !== 0)
-          this.filterData({ http: this.$http, filters: this.filterParams });
+          this.filterData();
         if (value == "zones") {
           this.showZones("main");
           this.hideGrid("main");

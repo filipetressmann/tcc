@@ -1,10 +1,11 @@
 const railways = {
     onEachFeature: function(feature, layer) {
       let tooltipMsg = '';
-      if (feature.properties.ltr_numero) {
-        tooltipMsg = "Linha " + feature.properties.ltr_numero + " - " + feature.properties.ltr_nome;
+      debugger;
+      if (feature.properties.etr_empres) {
+        tooltipMsg = "Linha " + feature.properties.etr_linha + " - " + feature.properties.etr_nome;
       } else {
-        tooltipMsg = "Linha " + feature.properties.lmt_linha + " - " + feature.properties.lmt_nome;
+        tooltipMsg = "Linha " + feature.properties.emt_linha + " - " + feature.properties.emt_nome;
       }
       layer.bindPopup(tooltipMsg);
     }

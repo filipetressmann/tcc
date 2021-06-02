@@ -37,17 +37,11 @@
         'filterData',
         'resetData'
       ]),
-      ...mapMutations([
-        'addActiveLayer'
-      ]),
+      ...mapMutations(['addActiveLayer']),
       applyFilters() {
         this.resetData();
-        this.resetMapResource({
-          mapkey: "main",
-          category: "flows",
-          type: "polyline"
-        });
-        this.filterData({ http: this.$http, filters: this.$store.getters.filters });
+        this.resetMapResource({ mapkey: "main", category: "flows", type: "polyline" });
+        this.filterData();
         this.$emit('tab-changed', 0);
       },
       showZones() {
