@@ -81,7 +81,8 @@
           mapkey: "main",
           key: "bikelane",
           options: {
-            style: style.bikelane
+            style: style.bikelane,
+            options: options.railways // temp Pena
           }
         }
         this.addToMap(this.resourceInfo);
