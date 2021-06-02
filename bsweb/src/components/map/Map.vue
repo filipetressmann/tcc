@@ -74,11 +74,9 @@
         'fetchBikelane',
         'fetchZones',
         'fetchGrid',
-        'loading/setLoading',
-        'loading/unsetLoading'
       ]),
+      ...mapActions('loading', ['setLoading', 'unsetLoading']),
       async loadBaseLayers() {
-        debugger;
         this.setLoading();
         await this.fetchZones(this.$http);
         this.renderZones = true;

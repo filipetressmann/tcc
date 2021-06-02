@@ -11,7 +11,7 @@
       </div>
     </div>
   </div>
-  <Loading :isActive="loading" />
+  <Loading :isActive="active" />
 </div>
 </template>
 
@@ -36,9 +36,7 @@
       ])
     },
     computed: {
-      ...mapGetters([
-        'loading'
-      ])
+      ...mapGetters('loading', ['active'])
     },
     mounted() {
       if (localStorage.ut === undefined) {

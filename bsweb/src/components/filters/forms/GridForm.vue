@@ -83,11 +83,11 @@ export default {
       this.renderGrid = true;
     },
     reloadGrid() {
-      this.setLoading();
+      // this.setLoading();
       this.resetData();
       this.fetchGrid({gridSize: this.gridSize, gridOffset: this.gridOffset})
         .then(() => {
-          this.unsetLoading();
+          // this.unsetLoading();
         });
     },
     ...mapActions([
@@ -95,8 +95,8 @@ export default {
       'filterData',
       'fetchZones',
       'fetchGrid',
-      'setLoading',
-      'unsetLoading'
+      // 'setLoading',
+      // 'unsetLoading'
     ])
   },
   computed: {

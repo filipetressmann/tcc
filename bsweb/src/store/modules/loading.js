@@ -1,12 +1,12 @@
 import Vue from 'vue';
 
 const state = {
-  loading: false
+  active: false
 };
 
 const getters = {
-  loading: state => {
-    return state.loading;
+  active: state => {
+    return state.active;
   }
 };
 
@@ -21,10 +21,10 @@ const actions = {
 
 const mutations = {
   setLoading(state) {
-    state.loading = true;
+    state.active = true;
   },
   unsetLoading(state) {
-    state.loading = false;
+    state.active = false;
   },
 };
 
