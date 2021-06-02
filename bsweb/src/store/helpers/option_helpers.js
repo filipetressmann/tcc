@@ -14,7 +14,6 @@ const metroIcon = new L.Icon({
   iconUrl: iconMetroUrl
 });
 
-
 export const railway = {
   onEachFeature: function(feature, layer) {
     const tooltipMsg = `Linha ${feature.properties.etr_linha} - ${feature.properties.etr_nome}`;
@@ -42,5 +41,5 @@ export const bikeLane = {
     const newDate = `${day}/${month}/${year}`;
     tooltipMsg = `${feature.properties.rc_nome}<br>Extensão: ${feature.properties.rc_extensa} m<br>Data de implantação: ${newDate}`;
     layer.bindPopup(tooltipMsg);
-  },
+  }
 }

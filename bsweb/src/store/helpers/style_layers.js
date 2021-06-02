@@ -1,4 +1,4 @@
-const railway = function(data) {
+export const railway = function(data) {
   const LINE_7_COLOR = '#b81d64';
   const LINE_8_COLOR = '#a39e8c';
   const LINE_9_COLOR = '#00caaa';
@@ -37,7 +37,7 @@ const railway = function(data) {
   return {color: color};
 }
 
-const subway = function(data) {
+export const subway = function(data) {
   const LINE_1_COLOR = '#2a34a3';
   const LINE_2_COLOR = '#008963';
   const LINE_3_COLOR = '#f4000b';
@@ -72,13 +72,27 @@ const subway = function(data) {
   return {color: color};
 }
 
-const bikelane = function(data) {
+export const bikelane = function(data) {
+  let color = '';
   if (data) {
-    return { color: '#999'}
+    switch (data.properties.rc_tipo) {
+      case 'ciclovia':
+        color = 'green'
+        break;
+      case 'ciclorrota':
+        color = 'orange';
+        break;
+      case 'ciclofaixa':
+        color = 'red';
+        break;
+      default:
+        color = '#999';
+    }
+    return { color }
   }
 }
 
-const zones = function() {
+export const zones = function() {
   return {
     color: '#999',
     weight: 2,
@@ -88,12 +102,10 @@ const zones = function() {
   }
 }
 
-const grid = function() {
+export const grid = function() {
   return {
     color: '#AAA',
     weight: 1.5,
     fillColor: 'none'
   }
 }
-
-export { railway, subway, bikelane, zones, grid };
