@@ -64,8 +64,8 @@
     data() {
       return {
         incomeBracket: [],
-        incomeInterval: [0,0],
-        interval: false,
+        incomeInterval: [0, 0],
+        // interval: false,
         mode: 'brackets',
         incomeBracketBounds: {
           1: {
@@ -92,11 +92,18 @@
       }
     },
     computed: {
+      interval() {
+        return this.mode === 'interval'
+      },
       filterData() {
         return {
           id: this.fid,
           params: {
-            incomeInterval: this.incomeInterval
+            incomeBracket: this.incomeBracket,
+            incomeInterval: this.incomeInterval,
+            interval: this.interval,
+            mode: this.mode,
+            incomeBracketBounds: this.incomeBracketBounds
           }
         }
       }

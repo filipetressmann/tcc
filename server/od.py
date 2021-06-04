@@ -79,8 +79,15 @@ class OD:
   def trips_by_sex(self, trips, sex):
     return trips[trips['SEXO'].isin(sex)]
   
-  def trips_by_income(self, trips, income_interval):
-    return trips[(trips['RENDA_FA'] >= income_interval[0]) & (trips['RENDA_FA'] <= income_interval[1])]
+  def trips_by_income(self, trips, isInterval, income_bracket, income_bracket_bounds, income_interval):
+    if isInterval:
+      return trips[(trips['RENDA_FA'] >= income_interval[0]) & (trips['RENDA_FA'] <= income_interval[1])]
+    else:
+      filtered_trips = pd.DataFrame(columns=trips.columns)
+      for i in income_bracket:
+        filtered_trips = trips[(trips['RENDA_FA'] >= income_bracket_bounds[str(i)]['min'])
+                      & (trips['RENDA_FA'] <= income_bracket_bounds[str(i)]['max'])]
+      return filtered_trips
   
   def trips_by_speed(self, trips, speed_range):
     return trips[(trips['VEL_MEDIA'] >= speed_range[0]) & (trips['VEL_MEDIA'] <= speed_range[1])]

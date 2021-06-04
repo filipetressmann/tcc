@@ -84,38 +84,41 @@ def handle_filtering(req_params):
       max_time = params['maxHours']
       trips = od.trips_by_start_time(trips, periods, specific, min_time, max_time)
     
-    if f_id == '17':
+    elif f_id == '17':
       periods = params['periods']
       specific = params['specific']
       min_time = params['minHours']
       max_time = params['maxHours']
       trips = od.trips_by_finish_time(trips, periods, specific, min_time, max_time)
 
-    if f_id == '8':
+    elif f_id == '8':
       age_range = params['ageRange']
       trips = od.trips_by_age(trips, age_range)
 
-    if f_id == '5':
+    elif f_id == '5':
       duration_range = params['durationRange']
       trips = od.trips_by_duration(trips, duration_range)
 
-    if f_id == '7':
+    elif f_id == '7':
       selected_sexes = params['sexes']
       trips = od.trips_by_sex(trips, selected_sexes)
     
-    if f_id == '9':
+    elif f_id == '9':
+      isInterval = params['interval']
+      income_bracket = params['incomeBracket']
+      income_bracket_bounds = params['incomeBracketBounds']
       income_interval = params['incomeInterval']
-      trips = od.trips_by_income(trips, income_interval)
+      trips = od.trips_by_income(trips, isInterval, income_bracket, income_bracket_bounds, income_interval)
 
-    if f_id == '3':
+    elif f_id == '3':
       distance_range = params['distanceRange']
       trips = od.trips_by_distance(trips, distance_range)
 
-    if f_id == '4':
+    elif f_id == '4':
       speed_range = params['speedRange']
-      trips = od.trips_by_speed(trips, speed_range)
+      trips = od.trips_by_speed(trips, speed_range) # Erro: KeyError: 'VEL_MEDIA'
     
-    if f_id == '6':
+    elif f_id == '6':
       reasons = params['reasons']
       trips = od.trips_by_reason(trips, reasons)
   

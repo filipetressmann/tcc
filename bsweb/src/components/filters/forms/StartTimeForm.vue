@@ -46,6 +46,11 @@
     },
     computed: {
       filterData() {
+        console.log('periods', this.periods);
+        console.log('activeFilters');
+        console.log(this.$store.state.filters.activeFilters);
+        console.log('fid', this.fid);
+        debugger;
         return {
           id: this.fid,
           params: {
