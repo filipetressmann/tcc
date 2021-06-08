@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img v-for="chart in charts" :src="`http://${api_url}/chart?ut=${ut}&chart=${chart}`" :key="chart" />
+    <img v-for="chart in charts" :src="`${api_url}/chart?ut=${ut}&chart=${chart}`" :key="chart" />
     
   </div>
 </template>
@@ -19,7 +19,7 @@
     computed: mapState({
       charts: state => state.filters.charts
     }),
-    mounted() {
+    created() {
       this.ut = localStorage.ut
     }
   }

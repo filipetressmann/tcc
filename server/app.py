@@ -7,6 +7,8 @@ import filter_list as filter_list
 from charts import Charts
 import pandas as pd
 import bikescience.sp_grid as gr
+import os
+
 # configuration
 DEBUG = True
 
@@ -42,7 +44,8 @@ def bsweb():
 def load_chart():
     ut = request.args.get('ut')
     chart = request.args.get('chart')
-    return send_file(f"static/charts/{ut}/{chart}/")
+    path = os.path.normpath("static/charts/" + ut + "/" + chart + "/")
+    return send_file(path)
 
 @app.route('/filter_data', methods=['GET', 'POST'])
 def filter_data():
