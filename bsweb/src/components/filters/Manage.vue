@@ -30,7 +30,7 @@
       </b-tab-item>
       <b-tab-item>
         <template slot="header">
-          <span>{{ $t('charts') }}</span>
+          <span>{{ $t('charts') }}<b-tag rounded>{{ chartList.length }}</b-tag></span>
         </template>
         <Charts></Charts>
       </b-tab-item>
@@ -41,7 +41,7 @@
 
 <script>
   import { filterEvents } from '../../main.js';
-  import { mapActions } from 'vuex';
+  import { mapActions, mapGetters } from 'vuex';
   import FiltersVue from './Filters.vue';
   import Tiers from './Tiers.vue';
   import Layers from './Layers.vue';
@@ -76,7 +76,8 @@
       },
       tierList() {
         return this.$store.getters.tierList;
-      }
+      },
+      ...mapGetters(['chartList'])
     }
   }
 </script>

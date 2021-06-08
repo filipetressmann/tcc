@@ -1,13 +1,11 @@
 <template>
   <div>
     <img v-for="chart in charts" :src="`${api_url}/chart?ut=${ut}&chart=${chart}`" :key="chart" />
-    
   </div>
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-  
+  import { mapState } from 'vuex';
 
   export default {
     data() {

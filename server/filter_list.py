@@ -104,16 +104,16 @@ FILTERS = [
       },
     ]
   },
-  {
-    'category_name': 'geographicFilters',
-    'filters': [
-      {
-        'id': 12,
-        'filter_key': 'attractors_emitters',
-        'filter_type': 'heatmap',
-        'filter_name': 'attractors_emitters',
-        'has_form': True
-      }
-    ]
-  }
+  # {
+  #   'category_name': 'geographicFilters',
+  #   'filters': [
+  #     {
+  #       'id': 12,
+  #       'filter_key': 'attractors_emitters',
+  #       'filter_type': 'heatmap',
+  #       'filter_name': 'attractors_emitters',
+  #       'has_form': True
+  #     }
+  #   ]
+  # }
 ]

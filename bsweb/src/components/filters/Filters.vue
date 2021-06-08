@@ -2,11 +2,13 @@
   <div>
     <div v-if="activeFilters.length > 0">
       <div>
-        <b-button type="is-info"
-                  icon-pack="fas"
-                  icon-right="fa-filter"
-                  expanded
-                  @click="applyFilters">
+        <b-button
+          type="is-info"
+          icon-pack="fas"
+          icon-right="fa-filter"
+          expanded
+          @click="applyFilters"
+        >
           {{ $t('filterBtn') }}
         </b-button>
         <hr>

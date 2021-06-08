@@ -100,10 +100,10 @@ const actions = {
         let flows = response['flows']
         let heatmaps = response['heatmaps']
         let tiers = Object.keys(flows)
-        let charts = response['charts']
+        let charts = response['charts'] // filter_data -> retorna a lista de gráficos gerados no servidor
         commit('addAttractors', { attractors: heatmaps['attractors']});
         commit('addEmitters', { emitters: heatmaps['emitters']});
-        commit('addCharts', { charts })
+        commit('addCharts', { charts }) // adiciona a lista de gráficos na store
         tiers.map(tier => {
           commit('addTripsPerTier', { count: flows[tier].length });
           commit('addFlows', { tier: tier, flows: flows[tier]})

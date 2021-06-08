@@ -129,8 +129,6 @@
       this.fetchSubway(this.$http);
       this.fetchBikelane(this.$http);
       this.loadBaseLayers();
-      console.log('ut filters map', this.$store.state.filters.filters.ut);
-      console.log('ut user map', this.$store.state.user.user.token);
     }
   }
 </script>

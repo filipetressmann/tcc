@@ -43,8 +43,6 @@
         localStorage.ut = this.$uuid.v4()
       }
       this.setToken(localStorage.ut);
-      console.log('ut filters app', this.$store.state.filters.filters.ut);
-      console.log('ut user app', this.$store.state.user.user.token);
     }
   }
 </script>
