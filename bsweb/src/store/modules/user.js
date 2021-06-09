@@ -12,7 +12,6 @@ const getters = {
 
 const mutations = {
   set_user_token: (state, token) => {
-    debugger;
     Vue.set(state.user.token, token);
   }
 };

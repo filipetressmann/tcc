@@ -1,6 +1,7 @@
 <template>
   <div>
-    <b-field label="Tamanho">
+    <div class="slider-container">
+      <span class="label">Tamanho</span>
       <b-slider
         v-model="gridSize"
         type="is-success"
@@ -12,8 +13,9 @@
         lazy
       />
       <div class="value">{{gridSize}}</div>
-    </b-field>
-    <b-field label="Oeste">
+    </div>
+    <div class="slider-container">
+      <span class="label">Oeste</span>
       <b-slider
         v-model="grid_west"
         type="is-info"
@@ -24,9 +26,10 @@
         :tooltip="true"
         lazy
       />
-      <div class="value">{{grid_west.toFixed(3)}}</div>
-    </b-field>
-    <b-field label="Leste">
+      <div class="value">{{grid_west}}</div>
+    </div>
+    <div class="slider-container">
+      <span class="label">Leste</span>
       <b-slider
         v-model="grid_east"
         type="is-info"
@@ -37,9 +40,10 @@
         :tooltip="true"
         lazy
       />
-      <div class="value">{{grid_east.toFixed(3)}}</div>
-    </b-field>
-    <b-field label="Norte">
+      <div class="value">{{grid_east}}</div>
+    </div>
+    <div class="slider-container">
+      <span class="label">Norte</span>
       <b-slider
         v-model="grid_north"
         type="is-info"
@@ -50,9 +54,10 @@
         :tooltip="true"
         lazy
       />
-      <div class="value">{{grid_north.toFixed(3)}}</div>
-    </b-field>
-    <b-field label="Sul">
+      <div class="value">{{grid_north}}</div>
+    </div>
+    <div class="slider-container">
+      <span class="label">Sul</span>
       <b-slider
         v-model="grid_south"
         type="is-info"
@@ -63,8 +68,8 @@
         :tooltip="true"
         lazy
       />
-      <div class="value">{{grid_south.toFixed(3)}}</div>
-    </b-field>
+      <div class="value">{{grid_south}}</div>
+    </div>
     <button type="button" @click="getFlows">Calcular fluxos</button>
   </div>
 </template>
@@ -160,8 +165,19 @@ export default {
 
 <style scoped>
   .value {
+    min-width: 46px;
     padding-left: 10px;
     display: flex;
     align-items: center;
+    justify-content: right;
+  }
+  .slider-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .label {
+    min-width: 72px;
+    font-weight: bold;
   }
 </style>
