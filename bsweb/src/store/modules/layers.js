@@ -45,6 +45,9 @@ const actions = {
   removeLayer: ({ commit }, layer) => {
     commit('removeLayer', layer);
   },
+  removeActiveLayer: ({ commit }, layer) => {
+    commit('removeActiveLayer', layer);
+  },
   fetchCPTM: (context, httpResource) => {
     httpResource.get(`${api_url}/load_railway_data`)
         .then(response => {

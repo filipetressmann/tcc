@@ -32,7 +32,7 @@
         <template slot="header">
           <span>{{ $t('charts') }}<b-tag rounded>{{ chartList.length }}</b-tag></span>
         </template>
-        <Charts></Charts>
+        <Charts />
       </b-tab-item>
     </b-tabs>
     

@@ -48,6 +48,7 @@ const mutations = {
     Vue.set(state.filters, 'ut', token);
   },
   removeActiveFilter: (state, filter) => {
+    debugger;
     state.activeFilters = state.activeFilters.filter((activeFilter) => filter.id !== activeFilter.id);
     Vue.delete(state.filters.params, filter.id);
   },
@@ -89,7 +90,7 @@ const actions = {
     commit('addFilter', filter);
   },
   removeFilter: ({ commit }, filter) => {
-    commit('removeFilter', filter);
+    commit('removeActiveFilter', filter);
   },
   filterData: async({ commit, getters }) => {
     return await axios.post(`${api_url}/filter_data`, getters.filters)

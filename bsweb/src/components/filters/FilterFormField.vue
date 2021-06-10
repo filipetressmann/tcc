@@ -13,9 +13,11 @@
     <attractor-form v-if="filter.filter_key == 'attractors_emitters'" />
     <speed-form v-if="filter.filter_key == 'speed'" :fid="filter.id" />
     <reason-form v-if="filter.filter_key == 'reason'" :fid="filter.id" />
+    <button type="button" @click="removeResource">Remover</button>
   </div>
 </template>
 <script>
+  import { mapActions } from 'vuex';
   import AgeForm from './forms/AgeForm';
   import TimeForm from './forms/TimeForm';
   import StartTimeForm from './forms/StartTimeForm';
@@ -46,11 +48,32 @@
       SpeedForm,
       ReasonForm
     },
+    props: ['filter'],
     data() {
       return {
         filters: []
       };
     },
-    props: ['filter'],
+    methods: {
+      ...mapActions(['removeFilter', 'removeActiveLayer', 'removeFromMap']),
+      removeResource() {
+        debugger;
+        if (this.isLayer(this.filter)) {
+          this.removeFromMap({ mapkey: "main", category: 'layers', type: this.filter.filter_type, key: this.filter.filter_key});
+          this.removeActiveLayer({ ...this.filter, key: this.filter.filter_key });
+        } else {
+          this.removeFromMap({ mapkey: "main", category: 'flows', type: this.filter.filter_type, key: this.filter.filter_key});
+          this.removeFilter(this.filter);
+        }
+      },
+      isLayer(resource) {
+        return resource.id == 14 || resource.id == 15 || resource.id == 16;
+      }
+    },
+    computed: {
+      activeFilters() {
+          return this.$store.getters.activeFilters;
+      }
+    }
   }
 </script>
