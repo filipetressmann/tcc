@@ -40,7 +40,7 @@ class BikeLane(Resource):
     bikelane.crs = {'init': 'epsg:22523'}
     bikelane = bikelane.to_crs({'init': 'epsg:4326'})
     return bikelane
-    
+
   def get(self):
     return self.load_bike_lane().to_json()
 

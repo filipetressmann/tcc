@@ -65,7 +65,7 @@ body{
 #filter-container {
   padding-top: 9%;
   border-right: 1px solid #bbb;
-  overflow: scroll;
+  overflow: auto;
   height: 100%;
 }
 

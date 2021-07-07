@@ -1,7 +1,11 @@
 <template>
   <div id="map">
     <l-map :zoom="properties.zoom" :center="properties.center" :ref="mapkey">
-      <l-tile-layer :url="properties.tile_layer_url"></l-tile-layer>
+      <l-control-layers position="topright" />
+      <l-tile-layer :url="properties.tile_layer_url" 
+        :name="`teste`"
+        layer-type="overlay"
+      />
         <span v-if="renderZones">
           <l-geo-json 
             :geojson="zones.geometry"
@@ -19,14 +23,17 @@
           :geojson="layers[key].geometry"
           :optionsStyle="layersGeojson[key].style"
           :options="layersGeojson[key].options"
-          :key="key" />
+          :key="key"
+          :name="`layer-${key}`"
+          layer-type="overlay"
+          />
         <l-feature-group v-for="tier in Object.keys(arrowTiers)" :key="tier">
           <l-polyline
             v-for="(arrow, index) in flows[tier]"
             :key="`${tier}-${index}`"
             :lat-lngs="arrow['coords']"
             :color="'blue'"
-            :weight="arrow['weight']">
+            :weight="0.4*arrow['weight']">
             <l-tooltip>{{ arrow['total_trips']}} {{ $t('trips') }}</l-tooltip>
           </l-polyline>
           <polyline-decorator
@@ -45,7 +52,7 @@
 
 <script>
   import L from 'leaflet';
-  import { LMap, LTileLayer, LGeoJson, LPolyline, LFeatureGroup, LTooltip } from 'vue2-leaflet';
+  import { LMap, LTileLayer, LGeoJson, LPolyline, LFeatureGroup, LTooltip, LControlLayers } from 'vue2-leaflet';
   import Vue2LeafletPolylineDecorator from 'vue2-leaflet-polylinedecorator';
   import { mapState, mapActions, mapGetters } from 'vuex';
 
@@ -58,7 +65,8 @@
       LPolyline,
       LTooltip,
       'polyline-decorator': Vue2LeafletPolylineDecorator,
-      LFeatureGroup
+      LFeatureGroup,
+      LControlLayers
     },
     data() {
       return{
@@ -93,6 +101,7 @@
           return state.map.maps[this.mapkey].properties
         },
         layersGeojson(state) {
+          // debugger;
           return state.map.maps[this.mapkey].show.layers["geojson"];
         },
         layersPolylines(state) {

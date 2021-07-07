@@ -74,7 +74,7 @@ class OD:
     return trips[(trips['DURACAO'] >= duration_range[0]*60) & (trips['DURACAO'] <= duration_range[1]*60)]
   
   def trips_by_distance(self, trips, distance_range):
-    return trips[(trips['DISTANCIA'] >= distance_range[0]) & (trips['DISTANCIA'] <= distance_range[1])]
+    return trips[(trips['distance'] >= distance_range[0]) & (trips['distance'] <= distance_range[1])]
   
   def trips_by_sex(self, trips, sex):
     return trips[trips['SEXO'].isin(sex)]
@@ -90,7 +90,7 @@ class OD:
       return filtered_trips
   
   def trips_by_speed(self, trips, speed_range):
-    return trips[(trips['VEL_MEDIA'] >= speed_range[0]) & (trips['VEL_MEDIA'] <= speed_range[1])]
+    return trips[(3600*trips['distance']/trips['DURACAO'] >= speed_range[0]) & (3600*trips['distance']/trips['DURACAO'] <= speed_range[1])]
   
   def trips_by_reason(self, trips, reasons):
     if len(reasons) == 8:

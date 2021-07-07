@@ -57,7 +57,6 @@
     methods: {
       ...mapActions(['removeFilter', 'removeActiveLayer', 'removeFromMap']),
       removeResource() {
-        debugger;
         if (this.isLayer(this.filter)) {
           this.removeFromMap({ mapkey: "main", category: 'layers', type: this.filter.filter_type, key: this.filter.filter_key});
           this.removeActiveLayer({ ...this.filter, key: this.filter.filter_key });
