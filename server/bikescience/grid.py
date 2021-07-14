@@ -49,7 +49,7 @@ class Grid():
                 j_column.append(j)
                 rectangles.append(box(longitudes[j], latitudes[i], longitudes[j+1], latitudes[i+1]))
 
-        self.grid = gpd.GeoDataFrame(data={'i': i_column, 'j': j_column}, geometry=rectangles, crs={'init': 'epsg:4326'})
+        self.grid = gpd.GeoDataFrame(data={'i': i_column, 'j': j_column}, geometry=rectangles, crs='epsg:4326')
         return self.grid
     
     def map_around(self, 

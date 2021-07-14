@@ -48,7 +48,6 @@ const mutations = {
     Vue.set(state.filters, 'ut', token);
   },
   removeActiveFilter: (state, filter) => {
-    debugger;
     state.activeFilters = state.activeFilters.filter((activeFilter) => filter.id !== activeFilter.id);
     Vue.delete(state.filters.params, filter.id);
   },

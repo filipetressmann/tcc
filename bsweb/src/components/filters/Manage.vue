@@ -1,10 +1,10 @@
 <template>
   <div class="container" id="filter-container">
     <p class="title is-5">{{ $t('appName') }}</p>
-    <b-tabs v-model="activeTab" size="is-small">
+    <b-tabs v-model="activeTab" size="is-small" multiline expanded position="is-centered">
       <b-tab-item>
         <template slot="header">
-          <span>{{ $t('flows') }}</span>
+          <span class="custom-size">{{ $t('flows') }}</span>
         </template>
         <baselayer></baselayer>
         <tiers v-if="tierList.length > 0"></tiers>
@@ -41,7 +41,7 @@
 
 <script>
   import { filterEvents } from '../../main.js';
-  import { mapActions, mapGetters } from 'vuex';
+  import { mapGetters } from 'vuex';
   import FiltersVue from './Filters.vue';
   import Tiers from './Tiers.vue';
   import Layers from './Layers.vue';
@@ -54,7 +54,7 @@
       'tiers': Tiers,
       'layers': Layers,
       'baselayer': BaseLayer,
-      Charts
+      Charts,
     },
     data() {
       return {
@@ -82,8 +82,15 @@
   }
 </script>
 
-<style>
+<style scoped>
   .title {
     text-align: center;
+  }
+  .custom-size {
+    height: 24px;
+    /* padding-top: 3px;
+    padding-left: 12.4px;
+padding-right: 12.4px; */
+    padding: 3px 12.4px 0 12.4px;
   }
 </style>

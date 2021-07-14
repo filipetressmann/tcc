@@ -57,7 +57,6 @@
     methods: {
       ...mapActions(['removeFilter', 'removeActiveLayer', 'removeFromMap']),
       removeResource() {
-        debugger;
         if (this.isLayer(this.filter)) {
           this.removeFromMap({ mapkey: "main", category: 'layers', type: this.filter.filter_type, key: this.filter.filter_key});
           this.removeActiveLayer({ ...this.filter, key: this.filter.filter_key });
@@ -67,7 +66,7 @@
         }
       },
       isLayer(resource) {
-        return resource.id == 14 || resource.id == 15 || resource.id == 16;
+        return [14, 15, 16, 18, 19, 20].includes(resource.id);
       }
     },
     computed: {

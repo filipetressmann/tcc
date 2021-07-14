@@ -91,21 +91,31 @@ export const messages = {
     populationFilters: 'Filtros demográficos',
     tripFilters: 'Filtros de viagem',
     geographicFilters: 'Filtros geográficos',
+    // Layers
     spRailway: 'Linhas da CPTM',
     spSubway: 'Linhas do Metrô',
     spBikelanes: 'Malha cicloviária',
+    sp_bikelane_ciclovia: 'Ciclovias',
+    sp_bikelane_ciclofaixa: 'Ciclofaixas',
+    sp_bikelane_ciclorrota: 'Ciclorrotas',
+    sp_accidents: 'Acidentes',
+    // Filters (time)
     start_time: 'Horário de início',
     finish_time: 'Horário de término',
     weekday: 'Dia da semana',
     holidays: 'Feriados',
+    // Filters (trips)
     tripDistance: 'Distância',
     tripDuration: 'Duração',
     avgSpeed: 'Velocidade média',
     tripReason: 'Motivos da viagem',
+    // Filters (demographic)
     sex: 'Sexo',
     age: 'Idade',
     income: 'Renda familiar',
+    // Filters (others)
     attractors_emitters: 'Regiões atratores e emissoras de viagens',
+    // Miscellaneous
     ageField: 'Faixa etária dos ciclistas',
     years: 'anos',
     minutes: 'minutos',

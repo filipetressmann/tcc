@@ -22,7 +22,7 @@ def from_trips(trips):
 
     stations['sname'] = stations['sname'].str.replace("'", "&#8217;")
     stations['geometry'] = stations.apply(lambda row: Point(row['lon'], row['lat']), axis=1)
-    return gpd.GeoDataFrame(stations, crs={'init': 'epsg:4326'})
+    return gpd.GeoDataFrame(stations, crs='epsg:4326')
 
 
 def save(stations_df, filename):

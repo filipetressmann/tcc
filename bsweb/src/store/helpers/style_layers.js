@@ -92,6 +92,41 @@ export const bikelane = function(data) {
   }
 }
 
+export const accidents = function (data) {
+  const LINE_1_COLOR = '#2a34a3';
+  const LINE_2_COLOR = '#008963';
+  const LINE_3_COLOR = '#f4000b';
+  const LINE_4_COLOR = '#f9e300';
+  const LINE_5_COLOR = '#8213a0';
+  const LINE_15_COLOR = '#858d90';
+  let color = '';
+
+  switch (data.properties.lmt_linha) {
+    case 1:
+      color = LINE_1_COLOR;
+      break;
+    case 2:
+      color = LINE_2_COLOR;
+      break;
+    case 3:
+      color = LINE_3_COLOR;
+      break;
+    case 4:
+      color = LINE_4_COLOR;
+      break;
+    case 5:
+      color = LINE_5_COLOR;
+      break;
+    case 15:
+      color = LINE_15_COLOR;
+      break;
+    default:
+      break;
+  }
+
+  return { color: color };
+}
+
 export const zones = function() {
   return {
     color: '#999',

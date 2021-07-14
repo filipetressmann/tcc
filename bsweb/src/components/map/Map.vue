@@ -1,7 +1,7 @@
 <template>
   <div id="map">
     <l-map :zoom="properties.zoom" :center="properties.center" :ref="mapkey">
-      <l-tile-layer :url="properties.tile_layer_url"></l-tile-layer>
+      <l-tile-layer :url="properties.tile_layer_url" />
         <span v-if="renderZones">
           <l-geo-json 
             :geojson="zones.geometry"
@@ -19,14 +19,15 @@
           :geojson="layers[key].geometry"
           :optionsStyle="layersGeojson[key].style"
           :options="layersGeojson[key].options"
-          :key="key" />
+          :key="key"
+          />
         <l-feature-group v-for="tier in Object.keys(arrowTiers)" :key="tier">
           <l-polyline
             v-for="(arrow, index) in flows[tier]"
             :key="`${tier}-${index}`"
             :lat-lngs="arrow['coords']"
             :color="'blue'"
-            :weight="arrow['weight']">
+            :weight="0.4*arrow['weight']">
             <l-tooltip>{{ arrow['total_trips']}} {{ $t('trips') }}</l-tooltip>
           </l-polyline>
           <polyline-decorator
@@ -58,7 +59,7 @@
       LPolyline,
       LTooltip,
       'polyline-decorator': Vue2LeafletPolylineDecorator,
-      LFeatureGroup
+      LFeatureGroup,
     },
     data() {
       return{
@@ -72,6 +73,7 @@
         'fetchCPTM',
         'fetchSubway',
         'fetchBikelane',
+        'fetchAccidents',
         'fetchZones',
         'fetchGrid',
       ]),
@@ -122,12 +124,13 @@
         showGrid(state) {
           return state.map.maps[this.mapkey].show.grid
         }
-      })
+      }),
     },
     async created() {
       this.fetchCPTM(this.$http);
       this.fetchSubway(this.$http);
       this.fetchBikelane(this.$http);
+      this.fetchAccidents(this.$http);
       this.loadBaseLayers();
     }
   }
