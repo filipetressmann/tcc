@@ -1,11 +1,7 @@
 <template>
   <div id="map">
     <l-map :zoom="properties.zoom" :center="properties.center" :ref="mapkey">
-      <l-control-layers position="topright" />
-      <l-tile-layer :url="properties.tile_layer_url" 
-        :name="`teste`"
-        layer-type="overlay"
-      />
+      <l-tile-layer :url="properties.tile_layer_url" />
         <span v-if="renderZones">
           <l-geo-json 
             :geojson="zones.geometry"
@@ -24,8 +20,6 @@
           :optionsStyle="layersGeojson[key].style"
           :options="layersGeojson[key].options"
           :key="key"
-          :name="`layer-${key}`"
-          layer-type="overlay"
           />
         <l-feature-group v-for="tier in Object.keys(arrowTiers)" :key="tier">
           <l-polyline
@@ -52,7 +46,7 @@
 
 <script>
   import L from 'leaflet';
-  import { LMap, LTileLayer, LGeoJson, LPolyline, LFeatureGroup, LTooltip, LControlLayers } from 'vue2-leaflet';
+  import { LMap, LTileLayer, LGeoJson, LPolyline, LFeatureGroup, LTooltip } from 'vue2-leaflet';
   import Vue2LeafletPolylineDecorator from 'vue2-leaflet-polylinedecorator';
   import { mapState, mapActions, mapGetters } from 'vuex';
 
@@ -66,7 +60,6 @@
       LTooltip,
       'polyline-decorator': Vue2LeafletPolylineDecorator,
       LFeatureGroup,
-      LControlLayers
     },
     data() {
       return{
@@ -80,6 +73,7 @@
         'fetchCPTM',
         'fetchSubway',
         'fetchBikelane',
+        'fetchAccidents',
         'fetchZones',
         'fetchGrid',
       ]),
@@ -101,7 +95,6 @@
           return state.map.maps[this.mapkey].properties
         },
         layersGeojson(state) {
-          // debugger;
           return state.map.maps[this.mapkey].show.layers["geojson"];
         },
         layersPolylines(state) {
@@ -131,12 +124,13 @@
         showGrid(state) {
           return state.map.maps[this.mapkey].show.grid
         }
-      })
+      }),
     },
     async created() {
       this.fetchCPTM(this.$http);
       this.fetchSubway(this.$http);
       this.fetchBikelane(this.$http);
+      this.fetchAccidents(this.$http);
       this.loadBaseLayers();
     }
   }

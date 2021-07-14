@@ -43,3 +43,9 @@ export const bikeLane = {
     layer.bindPopup(tooltipMsg);
   }
 }
+
+export const accidents = {
+  pointToLayer: function (feature, latlng) {
+    return L.circleMarker(latlng, {radius: 3, opacity: 0.6, fillOpacity: 0.6, fillColor: "#bb0000", color: "#bb0000"})
+  }
+}

@@ -58,6 +58,7 @@ api.add_resource(layers.CPTM, '/load_railway_data')
 api.add_resource(layers.Metro, '/load_metro_data')
 api.add_resource(layers.BikeLane, '/load_bikelane_data')
 api.add_resource(layers.Zones, '/load_zones')
+api.add_resource(layers.Accidents, '/load_accidents')
 
 if __name__ == '__main__':
     app.run()

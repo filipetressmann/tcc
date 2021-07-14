@@ -66,7 +66,7 @@
         }
       },
       isLayer(resource) {
-        return resource.id == 14 || resource.id == 15 || resource.id == 16;
+        return [14, 15, 16, 18, 19, 20].includes(resource.id);
       }
     },
     computed: {

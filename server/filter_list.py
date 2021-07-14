@@ -19,9 +19,30 @@ FILTERS = [
       },
       {
         'id': 16,
-        'filter_key': 'bikelane',
+        'filter_key': 'sp_bikelane_ciclovia',
         'filter_type': 'geojson',
-        'filter_name': 'spBikelanes',
+        'filter_name': 'sp_bikelane_ciclovia',
+        'has_form': True
+      },
+      {
+        'id': 18,
+        'filter_key': 'sp_bikelane_ciclofaixa',
+        'filter_type': 'geojson',
+        'filter_name': 'sp_bikelane_ciclofaixa',
+        'has_form': True
+      },
+      {
+        'id': 19,
+        'filter_key': 'sp_bikelane_ciclorrota',
+        'filter_type': 'geojson',
+        'filter_name': 'sp_bikelane_ciclorrota',
+        'has_form': True
+      },
+      {
+        'id': 20,
+        'filter_key': 'sp_accidents',
+        'filter_type': 'geojson',
+        'filter_name': 'sp_accidents',
         'has_form': True
       },
     ]

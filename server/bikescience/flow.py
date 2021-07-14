@@ -124,7 +124,7 @@ def od_countings_simple(trips, grid, stations):
     merge_grid_and_stations(grid, stations)
 
     trips['start geometry'] = trips.apply(lambda row: Point(row['start station longitude'], row['start station latitude']), axis=1)
-    trips_geoframe = gpd.GeoDataFrame(trips, crs={'init': 'epsg:4326'})
+    trips_geoframe = gpd.GeoDataFrame(trips, crs='epsg:4326')
 
     # total count per (origin, destination) pair of stations 
     od_station_counts = trips.groupby(['start station id', 'end station id'], as_index=False) \

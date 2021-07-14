@@ -84,14 +84,32 @@ const actions = {
           return response.json();
         })
         .then(response => {
-          const resource = {
-            data: {
-              geometry: JSON.parse(response)
-            },
-            key: "bikelane"
-          };
-          context.commit('addLayer', resource);
-        });
+          const bikelanes = JSON.parse(response);
+          for (const type in bikelanes) {
+            const resource = {
+              data: {
+                geometry: JSON.parse(bikelanes[type])
+              },
+              key: type
+            };
+            context.commit('addLayer', resource);
+          }
+        })
+  },
+  fetchAccidents: (context, httpResource) => {
+    httpResource.get(`${api_url}/load_accidents`)
+      .then(response => {
+        return response.json();
+      })
+      .then(response => {
+        const resource = {
+          data: {
+            geometry: JSON.parse(response)
+          },
+          key: "sp_accidents"
+        };
+        context.commit('addLayer', resource);
+      });
   },
   fetchZones: (context, httpResource) => {
     return httpResource.get(`${api_url}/load_zones`)

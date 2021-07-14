@@ -74,12 +74,12 @@
         }
         this.addToMap(this.resourceInfo);
       },
-      showBikelane() {
+      showBikelane(key) {
         this.resourceInfo = {
           category: "layers",
           type: "geojson",
           mapkey: "main",
-          key: "bikelane",
+          key,
           options: {
             style: style.bikelane,
             options: options.bikeLane
@@ -87,8 +87,21 @@
         }
         this.addToMap(this.resourceInfo);
       },
+      showAccidents() {
+        this.resourceInfo = {
+          category: "layers",
+          type: "geojson",
+          mapkey: "main",
+          key: "sp_accidents",
+          options: {
+            style: style.accidents,
+            options: options.accidents
+          }
+        }
+        this.addToMap(this.resourceInfo);
+      },
       isLayer(resource) {
-        return resource.id == 14 || resource.id == 15 || resource.id == 16;
+        return [14, 15, 16, 18, 19, 20].includes(resource.id);
       }
     },
     created() {
@@ -98,8 +111,10 @@
           this.showCptm();
         } else if (resource.id == 15) {
           this.showSubway();
-        } else if (resource.id == 16) {
-          this.showBikelane();
+          } else if ([16, 18, 19].includes(resource.id)) {
+          this.showBikelane(resource.filter_key);
+        } else if (resource.id == 20) {
+          this.showAccidents();
         }
       }
     }
