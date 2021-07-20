@@ -98,7 +98,7 @@ export const messages = {
     sp_bikelane_ciclovia: 'Ciclovias',
     sp_bikelane_ciclofaixa: 'Ciclofaixas',
     sp_bikelane_ciclorrota: 'Ciclorrotas',
-    sp_accidents: 'Acidentes',
+    sp_accidents: 'Acidentes com bicicletas',
     // Filters (time)
     start_time: 'Horário de início',
     finish_time: 'Horário de término',

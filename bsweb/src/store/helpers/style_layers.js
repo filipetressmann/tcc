@@ -34,7 +34,7 @@ export const railway = function(data) {
       break;
   }
 
-  return {color: color};
+  return { color };
 }
 
 export const subway = function(data) {
@@ -69,26 +69,28 @@ export const subway = function(data) {
       break;
   }
 
-  return {color: color};
+  return {color};
 }
 
 export const bikelane = function(data) {
   let color = '';
+  let dashArray = '';
   if (data) {
     switch (data.properties.rc_tipo) {
       case 'ciclovia':
-        color = 'green'
-        break;
-      case 'ciclorrota':
-        color = 'orange';
+        color = '#ed2939';
         break;
       case 'ciclofaixa':
-        color = 'red';
+        color = '#ff781f';
+        break;
+        case 'ciclorrota':
+        color = '#ff781f';
+        dashArray = '10,6';
         break;
       default:
         color = '#999';
     }
-    return { color }
+    return { color, dashArray, weight: 2 }
   }
 }
 
@@ -124,7 +126,7 @@ export const accidents = function (data) {
       break;
   }
 
-  return { color: color };
+  return { color };
 }
 
 export const zones = function() {

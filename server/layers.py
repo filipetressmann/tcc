@@ -64,7 +64,8 @@ class BikeLane(Resource):
 
 class Accidents(Resource):
   def load_accidents(self):
-    df = pd.read_csv(data_path + "/acidentes-2015-2018.csv", encoding='utf-8')
+    # df = pd.read_csv(data_path + "/acidentes-2015-2018.csv", encoding='utf-8')
+    df = pd.read_csv(data_path + "/acidentes_infosiga_sp_maio21.csv", encoding='utf-8')
     gdf = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.lon, df.lat))
     # accidents = gpd.GeoDataFrame.from_file(data_path + "/acidentes-2015-2018.csv", encoding='utf-8')
     gdf.crs = 'epsg:4326'

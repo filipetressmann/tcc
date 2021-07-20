@@ -45,6 +45,33 @@ export const bikeLane = {
 }
 
 export const accidents = {
+  onEachFeature: function (feature, layer) {
+    debugger;
+    const {
+      automovel,
+      bicicleta, 
+      caminhao,
+      motocicleta,
+      onibus,
+      pedestre,
+      data_acidente,
+    } = feature.properties;
+
+    const [year, month, day] = data_acidente.split('-');
+    const newDate = `${day}/${month}/${year}`;
+
+    let modais = [
+      {type: 'automóvel', val: automovel},
+      {type: 'bicicleta', val: bicicleta},
+      {type: 'caminhão', val: caminhao},
+      {type: 'motocicleta', val: motocicleta},
+      {type: 'ônibus', val: onibus},
+      {type: 'pedestre', val: pedestre},
+    ].filter(item => item.val > 0).map(item => item.type).join(', ');
+    
+    let tooltipMsg = `Data do acidente: ${newDate}<br>Modais envolvidos: ${modais}`;
+    layer.bindPopup(tooltipMsg);
+  },
   pointToLayer: function (feature, latlng) {
     return L.circleMarker(latlng, {radius: 3, opacity: 0.6, fillOpacity: 0.6, fillColor: "#bb0000", color: "#bb0000"})
   }
