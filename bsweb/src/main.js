@@ -27,7 +27,6 @@ Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 });
 
-
 export const filterEvents = new Vue();
 export const i18n = new VueI18n({ locale: "pt-br", fallbackLocale: "en", messages });
 

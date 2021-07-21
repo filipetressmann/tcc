@@ -101,7 +101,8 @@ export default {
       'filterData',
       'fetchZones',
       'fetchGrid',
-      'resetMapResource'
+      'resetMapResource',
+      'updateGridOffset'
     ]),
     ...mapActions('loading', ['setLoading', 'unsetLoading']),
   },
@@ -118,15 +119,14 @@ export default {
     gridOffset: {
       get() {
         return this.$store.state.filters.filters.gridOffset;
-      }
+      },
     },
     grid_west: {
       get() {
         return this.$store.state.filters.filters.gridOffset.west;
       },
       set(value) {
-        this.$store.commit('updateGridOffset', {key: 'west', value: Number(value)});
-        this.reloadGrid();
+        this.updateGridOffset({ key: 'west', value: Number(value) });
       }
     },
     grid_east: {
@@ -134,8 +134,7 @@ export default {
         return this.$store.state.filters.filters.gridOffset.east;
       },
       set(value) {
-        this.$store.commit('updateGridOffset', {key: 'east', value: Number(value)});
-        this.reloadGrid();
+        this.updateGridOffset({ key: 'east', value: Number(value) });
       }
     },
     grid_north: {
@@ -143,8 +142,7 @@ export default {
         return this.$store.state.filters.filters.gridOffset.north;
       },
       set(value) {
-        this.$store.commit('updateGridOffset', {key: 'north', value: Number(value)});
-        this.reloadGrid();
+        this.updateGridOffset({ key: 'north', value: Number(value) });
       }
     },
     grid_south: {
@@ -152,13 +150,17 @@ export default {
         return this.$store.state.filters.filters.gridOffset.south;
       },
       set(value) {
-        this.$store.commit('updateGridOffset', {key: 'south', value: Number(value)});
-        this.reloadGrid();
+        this.updateGridOffset({ key: 'south', value: Number(value) });
       }
     },
     ...mapGetters({
       filterParams: 'filters'
     })
+  },
+  watch: {
+    gridOffset: function() {
+      this.reloadGrid();
+    }
   }
 }
 </script>

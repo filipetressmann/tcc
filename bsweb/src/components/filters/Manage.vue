@@ -6,7 +6,7 @@
         <template slot="header">
           <span class="custom-size">{{ $t('flows') }}</span>
         </template>
-        <baselayer></baselayer>
+        <BaseLayer />
         <tiers v-if="tierList.length > 0"></tiers>
         <hr>
       </b-tab-item>
@@ -53,7 +53,7 @@
       'filters': FiltersVue,
       'tiers': Tiers,
       'layers': Layers,
-      'baselayer': BaseLayer,
+      BaseLayer,
       Charts,
     },
     data() {

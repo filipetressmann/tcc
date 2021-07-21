@@ -1,18 +1,22 @@
 <template>
   <div>
-    <div v-if="activeLayers.length > 0">
-      <app-layer v-for="layer in activeLayers" :filter="layer" :key="layer.id" />
-    </div>
-      <span v-else>{{ $t('noLayers') }}</span>
+    <LayerSelectorV2
+      v-for="layer in allLayers" :key="layer.id"
+      :layer="layer"
+    />
+    <p v-for="layer in allLayers" :key="layer.id">
+      {{ layer.id }}
+    </p>
   </div>
 </template>
 
 <script>
-  import Resource from './Resource';
+  import LayerSelectorV2 from './LayerSelectorV2';
+  import { mapGetters } from 'vuex';
 
   export default {
     components: {
-      'app-layer': Resource
+      LayerSelectorV2
     },
     data() {
       return {
@@ -20,36 +24,18 @@
       };
     },
     computed: {
-      activeLayers() {
-        return this.$store.getters.activeLayers;
-      }
+      ...mapGetters(['allLayers']),
+      // activeLayers() {
+      //   return this.$store.getters.activeLayers;
+      // }
     },
-    watch: {
-      activeLayers: function() {
-        this.$emit('tab-changed', 2);
-      }
-    }
+    // watch: {
+    //   activeLayers: function() {
+    //     this.$emit('tab-changed', 2);
+    //   }
+    // },
   }
 </script>
 
 <style scoped>
-  #title {
-    text-align: center;
-    margin-bottom: 10%
-  }
-
-  .filter-item {
-    padding: 5%;
-    border: 1px solid #666;
-    cursor: pointer;
-    margin-bottom: 1%;
-  }
-
-  .filter-item:hover {
-    background-color: #ccc;
-  }
-
-  .filter-link {
-    font-size: 8pt;
-  }
 </style>

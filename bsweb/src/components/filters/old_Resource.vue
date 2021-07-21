@@ -1,22 +1,29 @@
 <template>
   <div>
-    <div slot="trigger" slot-scope="props" class="card-header" role="button">
-      <p class="card-header-title">
-        {{ $t(filter.filter_name) }}
-      </p>
-        <a class="card-header-icon" v-if="filter.has_form">
-          <b-icon
-            :icon="props.open ? 'menu-down' : 'menu-up'" type="is-info">
-          </b-icon>
-        </a>
-      </div>
-      <div class="card-content" v-if="filter.has_form">
-        <div class="content">
-          <p>
-            <FilterFormField :filter="filter" />
-          </p>
+    <b-collapse
+      class="card"
+      animation="slide"
+      :key="filter.id"
+      :open="false"
+      @open="isOpen = filter.id">
+      <div slot="trigger" slot-scope="props" class="card-header" role="button">
+        <p class="card-header-title">
+          {{ $t(filter.filter_name) }}
+        </p>
+          <a class="card-header-icon" v-if="filter.has_form">
+            <b-icon
+              :icon="props.open ? 'menu-down' : 'menu-up'" type="is-info">
+            </b-icon>
+          </a>
         </div>
-      </div>
+        <div class="card-content" v-if="filter.has_form">
+          <div class="content">
+            <p>
+              <FilterFormField :filter="filter" />
+            </p>
+          </div>
+        </div>
+    </b-collapse>
   </div>
 </template>
 

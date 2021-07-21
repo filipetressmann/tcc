@@ -1,12 +1,25 @@
 <template>
   <div>
+    <div v-if="activeFilters.length > 0">
+      <div>
+        <b-button
+          type="is-info"
+          icon-pack="fas"
+          icon-right="fa-filter"
+          expanded
+          @click="applyFilters"
+        >
+          {{ $t('filterBtn') }}
+        </b-button>
+        <hr>
+      </div>
+      <app-filter v-for="filter in activeFilters" :filter="filter" :key="filter.id" />
+    </div>
+    <span v-else>{{ $t('noFilters') }}</span>
     <FilterSelectorV2
       v-for="category in allFilters" :key="category.id"
       :category="category"
     />
-    <p>---------------------</p>
-    activeFilters
-    {{activeFilters}}
   </div>
 </template>
 
@@ -17,6 +30,7 @@
 
   export default {
     components: {
+      'app-filter': Resource,
       FilterSelectorV2
     },
     data() {
@@ -46,7 +60,7 @@
       },
     },
     computed: {
-      ...mapGetters(['allFilters', 'allLayers', 'activeFilters', 'activeLayers']),
+      ...mapGetters(['allFilters']),
       activeFilters() {
         return this.$store.getters.activeFilters;
       }

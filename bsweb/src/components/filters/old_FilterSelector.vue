@@ -27,12 +27,12 @@
     },
     computed: {
       activeFilters: {
-          get() {
-            return [...this.$store.getters.activeFilters, ...this.$store.getters.activeLayers];
-          },
-          set(value) {
-            return value;
-          }
+        get() {
+          return [...this.$store.getters.activeFilters, ...this.$store.getters.activeLayers];
+        },
+        set(value) {
+          return value;
+        }
       }
     },
     methods: {

@@ -69,15 +69,11 @@
       };
     },
     methods: {
+      ...mapActions('loading', ['setLoading', 'unsetLoading']),
       ...mapActions([
-        'fetchCPTM',
-        'fetchSubway',
-        'fetchBikelane',
-        'fetchAccidents',
         'fetchZones',
         'fetchGrid',
       ]),
-      ...mapActions('loading', ['setLoading', 'unsetLoading']),
       async loadBaseLayers() {
         this.setLoading();
         await this.fetchZones(this.$http);
@@ -90,6 +86,9 @@
       }
     },
     computed: {
+      ...mapGetters([
+        'grid'
+      ]),
       ...mapState({
         properties(state) {
           return state.map.maps[this.mapkey].properties
@@ -109,7 +108,6 @@
         flows: state => state.filters.flows,
         layers: state => state.layers.data,
         zones: state => state.layers.zones,
-        grid: state => state.layers.grid,
         attractors: state => state.filters.heatmaps.attractors,
         emitters: state => state.filters.heatmaps.emitters,
         showAttractors(state) {
@@ -126,12 +124,16 @@
         }
       }),
     },
-    async created() {
-      this.fetchCPTM(this.$http);
-      this.fetchSubway(this.$http);
-      this.fetchBikelane(this.$http);
-      this.fetchAccidents(this.$http);
+    mounted() {
       this.loadBaseLayers();
     }
   }
 </script>
+
+<style scoped>
+  #map {
+    height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>

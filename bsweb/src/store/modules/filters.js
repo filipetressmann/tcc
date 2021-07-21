@@ -32,6 +32,7 @@ const state = {
 
 const getters = {
   activeFilters: state => state.activeFilters,
+  activeFiltersIds: state => state.activeFilters.map(f => f.id),
   filters: state => state.filters,
   tierList: state => state.tripsPerTier,
   chartList: state => state.charts,
@@ -79,8 +80,8 @@ const mutations = {
   updateGridSize(state, gridSize) {
     Vue.set(state.filters, "gridSize", Number(gridSize));
   },
-  updateGridOffset(state, {key, value}) {
-    Vue.set(state.filters.gridOffset, key, value);
+  updateGridOffset(state, value) {
+    Vue.set(state.filters, 'gridOffset', value);
   }
 }
 
@@ -89,6 +90,12 @@ const actions = {
     commit('addFilter', filter);
   },
   removeFilter: ({ commit }, filter) => {
+    commit('removeActiveFilter', filter);
+  },
+  addActiveFilter: ({ commit }, filter) => {
+    commit('addActiveFilter', filter);
+  },
+  removeActiveFilter: ({ commit }, filter) => {
     commit('removeActiveFilter', filter);
   },
   filterData: async({ commit, getters }) => {
@@ -121,6 +128,13 @@ const actions = {
   },
   setToken: ({ commit }, value) => {
     commit('setToken', value);
+  },
+  updateGridOffset({ commit, getters }, { key, value }) {
+    if (getters.gridOffset[key] !== value) {
+      let newGridOffset = {...getters.gridOffset}
+      newGridOffset[key] = value;
+      commit('updateGridOffset', newGridOffset);
+    }
   }
 };
 

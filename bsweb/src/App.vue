@@ -3,10 +3,10 @@
   <div id="main-content">
     <div class="columns is-mobile" id="columns-content">
       <div class="column left manage" v-show="true">
-        <manage-panel id="filter-container" />
+        <Manage id="filter-container" />
       </div>
       <div id="main-column" class="column is-full">
-        <selectors />
+        <!-- <selectors /> -->
         <app-map mapkey="main" />
       </div>
     </div>
@@ -16,23 +16,30 @@
 </template>
 
 <script>
-  import ManagePanelVue from './components/filters/Manage.vue';
-  import SelectorsVue from './components/filters/Selectors.vue';
+  import Manage from './components/filters/Manage.vue';
   import MapVue from './components/map/Map.vue';
   import { uuid } from 'vue-uuid';
   import { mapActions, mapGetters } from 'vuex';
   import Loading from './components/Loading';
+  // import SelectorsVue from './components/filters/Selectors.vue';
 
   export default {
     components: {
-      managePanel: ManagePanelVue,
-      selectors: SelectorsVue,
+      Manage,
+      // selectors: SelectorsVue,
       appMap: MapVue,
       Loading
     },
     methods: {
       ...mapActions([
-        'setToken'
+        'setToken',
+        'fetchCategories',
+        'fetchCPTM',
+        'fetchSubway',
+        'fetchBikelane',
+        'fetchAccidents',
+        'fetchZones',
+        'fetchGrid',
       ])
     },
     computed: {
@@ -43,6 +50,12 @@
         localStorage.ut = this.$uuid.v4()
       }
       this.setToken(localStorage.ut);
+      this.fetchZones();
+      this.fetchCategories();
+      this.fetchCPTM();
+      this.fetchSubway();
+      this.fetchBikelane();
+      this.fetchAccidents();
     }
   }
 </script>
