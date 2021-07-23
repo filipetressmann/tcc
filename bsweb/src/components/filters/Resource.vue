@@ -1,22 +1,10 @@
 <template>
   <div>
-    <div slot="trigger" slot-scope="props" class="card-header" role="button">
-      <p class="card-header-title">
-        {{ $t(filter.filter_name) }}
-      </p>
-        <a class="card-header-icon" v-if="filter.has_form">
-          <b-icon
-            :icon="props.open ? 'menu-down' : 'menu-up'" type="is-info">
-          </b-icon>
-        </a>
+    <div v-if="filter.has_form">
+      <div :class="{'options': type === 'filter'}">
+        <FilterFormField :filter="filter" />
       </div>
-      <div class="card-content" v-if="filter.has_form">
-        <div class="content">
-          <p>
-            <FilterFormField :filter="filter" />
-          </p>
-        </div>
-      </div>
+    </div>
   </div>
 </template>
 
@@ -27,7 +15,7 @@
   import * as options from './../../store/helpers/option_helpers';
 
   export default {
-    props: ["filter"],
+    props: ["filter", "type"],
     components: {
       FilterFormField
     },
@@ -99,7 +87,8 @@
     },
     created() {
       const resource = this.filter;
-      if (this.isLayer(resource)) {
+      debugger;
+      if (this.type === 'layer') {
         if (resource.id == 14) {
           this.showCptm();
         } else if (resource.id == 15) {
@@ -113,3 +102,10 @@
     }
   }
 </script>
+
+<style scoped>
+  .options {
+    margin: 0 0 10px 20px;
+    font-size: 12px;
+  }
+</style>

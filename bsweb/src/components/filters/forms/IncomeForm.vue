@@ -22,37 +22,51 @@
       type="is-info"
       v-if="mode == 'interval'"/>
     <div v-if="mode == 'brackets'">
-      <br>
-      <b-checkbox v-model="incomeBracket"
-          type="is-info"
-          :native-value="1"
-          @input="updateIncomeInterval">
-          1 ({{ $t('max')}} R$ 1908)
-      </b-checkbox>
-      <b-checkbox v-model="incomeBracket"
-          type="is-info"
-          :native-value="2"
-          @input="updateIncomeInterval">
-          2 ({{ $t('from')}} R$ 1908 {{ $t('max')}} R$ 3816)
-      </b-checkbox>
-      <b-checkbox v-model="incomeBracket"
-          type="is-info"
-          :native-value="3"
-          @input="updateIncomeInterval">
-          3 ({{ $t('from')}} R$ 3816 {{ $t('max')}} R$ 7632)
-      </b-checkbox>
-      <b-checkbox v-model="incomeBracket"
-          type="is-info"
-          :native-value="4"
-          @input="updateIncomeInterval">
-          4 ({{ $t('from')}} R$ 7632 {{ $t('max')}} R$ 11448)
-      </b-checkbox>
-      <b-checkbox v-model="incomeBracket"
-          type="is-info"
-          :native-value="5"
-          @input="updateIncomeInterval">
-          5 ({{ $t('more_than') }} R$ 11488)
-      </b-checkbox>
+      <div>
+        <input
+          type="checkbox"
+          value="1"
+          v-model="incomeBracket"
+          @input="updateIncomeInterval"
+        />
+        <label>1 ({{ $t('max')}} R$ 1908)</label>
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          value="2"
+          v-model="incomeBracket"
+          @input="updateIncomeInterval"
+        />
+        <label>2 ({{ $t('from')}} R$ 1908 {{ $t('max')}} R$ 3816)</label>
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          value="3"
+          v-model="incomeBracket"
+          @input="updateIncomeInterval"
+        />
+        <label>3 ({{ $t('from')}} R$ 3816 {{ $t('max')}} R$ 7632)</label>
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          value="4"
+          v-model="incomeBracket"
+          @input="updateIncomeInterval"
+        />
+        <label>4 ({{ $t('from')}} R$ 7632 {{ $t('max')}} R$ 11448)</label>
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          value="5"
+          v-model="incomeBracket"
+          @input="updateIncomeInterval"
+        />
+        <label>5 ({{ $t('more_than') }} R$ 11488)</label>
+      </div>
     </div>
   </div>
 </template>
@@ -128,3 +142,13 @@
     }
   } 
 </script>
+
+<style scoped>
+  label {
+    margin: 0 5px;
+  }
+
+  input {
+    cursor: pointer;
+  }
+</style>

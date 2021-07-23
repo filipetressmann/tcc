@@ -1,30 +1,32 @@
 <template>
   <div>
-    <div>
-      <input type="checkbox" value="morning" v-model="periods" />
-      <label>{{ $t('morning') }}</label>
+    <div class="field">
+      <b-checkbox v-model="periods" native-value="morning" type="is-info">
+        {{ $t('morning') }}
+      </b-checkbox>
     </div>
-    <div>
-      <input type="checkbox" value="afternoon" v-model="periods" />
-      <label>{{ $t('afternoon') }}</label>
+    <div class="field">
+      <b-checkbox v-model="periods" native-value="afternoon"  type="is-info">
+        {{ $t('afternoon') }}
+      </b-checkbox>
     </div>
-    <div>
-      <input type="checkbox" value="evening" v-model="periods" />
-      <label>{{ $t('evening') }}</label>
+    <div class="field">
+      <b-checkbox v-model="periods" native-value="evening"  type="is-info">
+        {{ $t('evening') }}
+      </b-checkbox>
     </div>
-    <div>
-      <input type="checkbox" v-model="specific" />
-      <label>{{ $t('specificTime') }}</label>
+    <div class="field">
+      <b-checkbox v-model="specific"  type="is-info">
+        {{ $t('specificTime') }}
+      </b-checkbox>
     </div>
     <div v-if="specific">
-      <div class="flex">
-        <span class="timepicker-label center">{{ $t('from') }}</span>
-        <b-timepicker v-model="minTime" :increment-minutes="60" icon="clock" size=is-small class="timepicker" />
-      </div>
-      <div class="flex">
-        <span class="timepicker-label center">{{ $t('to') }}</span>
-        <b-timepicker v-model="maxTime" :default-minutes="0" icon="clock" size=is-small class="timepicker" />
-      </div>
+      <b-field :label="$t('from')">
+        <b-timepicker v-model="minTime" :increment-minutes="60" icon="clock" />
+      </b-field>
+      <b-field :label="$t('to')">
+        <b-timepicker v-model="maxTime" :default-minutes="0" icon="clock" />
+      </b-field>
     </div>
   </div>
 </template>
@@ -73,22 +75,3 @@
     }
   }
 </script>
-
-<style scoped>
-  label {
-    margin: 0 5px;
-  }
-
-  input {
-    cursor: pointer;
-  }
-
-  .timepicker-label {
-    min-width: 20px;
-    margin-left: 10px;
-  }
-
-  .timepicker {
-    width: 110px;
-  }
-</style>

@@ -122,3 +122,13 @@ body{
   color: #167df0;
   border-bottom-color:#167df0;
 }
+
+.flex {
+  display: flex
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,11 +1,16 @@
 <template>
-  <div class="category-name" @click="toggleCategory">
-    {{ $t(category.category_name) }}
-    <div v-for="filter in category.filters" :key="filter.id">
-      <FilterHandlerV2
-        :filter="filter"
-        :type="'filter'"
-      />
+  <div class="category-wrapper">
+    <div class="category-toggle" @click="toggleCategory">
+      <img :src="iconArrow" :class="['arrow', { active: isActive }]"/>
+      <h3 class="category-name">{{ $t(category.category_name) }}</h3>
+    </div>
+    <div v-if="isActive" class="category-options">
+      <div v-for="filter in category.filters" :key="filter.id">
+        <FilterHandlerV2
+          :filter="filter"
+          :type="'filter'"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -13,6 +18,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import FilterHandlerV2 from './FilterHandlerV2.vue';
+import iconArrow from '@/assets/svg/icon-arrow-dropdown.svg';
 
 export default {
   components: {
@@ -21,7 +27,9 @@ export default {
   props: ['category'],
   data() {
     return {
-      checkboxes: []
+      checkboxes: [],
+      isActive: false,
+      iconArrow,
     }
   },
   computed: {
@@ -81,4 +89,30 @@ export default {
 </script>
 
 <style scoped>
+  .category-wrapper{
+    margin-bottom: 10px;
+  }
+
+  .category-name {
+  }
+
+  .category-toggle {
+    cursor: pointer;
+    display: flex;
+  }
+
+  .category-options {
+    margin-left: 8px;
+  }
+
+  .arrow {
+    transition: all ease-in-out 0.2s;
+    transform: rotate(-90deg);
+    width: 12px;
+    margin-right: 4px;
+  }
+
+  .arrow.active {
+    transform: none
+  }
 </style>

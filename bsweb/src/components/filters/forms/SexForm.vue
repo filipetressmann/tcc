@@ -1,9 +1,8 @@
 <template>
   <div>
-    <div class="block">
-      <b-checkbox v-for="(sex, index) in sexes" v-model="selectedSexes" :native-value="index+1" :key="index" type="is-info">
-      {{ $t(sex) }}
-    </b-checkbox>
+    <div v-for="(sex, index) in sexes" :key="index">
+      <input  type="checkbox" :value="index+1" v-model="selectedSexes" />
+      <label>{{ $t(sex) }}</label>
     </div>
   </div>
 </template>
@@ -43,3 +42,13 @@ import { mapActions } from 'vuex';
     }
   }
 </script>
+
+<style scoped>
+  label {
+    margin: 0 5px;
+  }
+
+  input {
+    cursor: pointer;
+  }
+</style>

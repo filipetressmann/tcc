@@ -46,7 +46,6 @@ export const bikeLane = {
 
 export const accidents = {
   onEachFeature: function (feature, layer) {
-    debugger;
     const {
       automovel,
       bicicleta, 

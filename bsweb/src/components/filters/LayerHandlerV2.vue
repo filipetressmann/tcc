@@ -26,7 +26,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['activeFilters', 'activeFiltersIds']),
+    ...mapGetters(['activeFilters', 'activeFiltersIds', 'activeLayersIds']),
   },
   methods: {
     ...mapActions([
@@ -37,11 +37,20 @@ export default {
       'resetData',
       'resetMapResource',
       'filterData',
+      'removeFromMap'
     ]),
+    isResourceActive(resource) {
+      if (this.type === "filter") {
+        return this.activeFiltersIds.includes(resource.id);
+      } else if (this.type === "layer") {
+        return this.activeLayersIds.includes(resource.id);
+      }
+    },
   },
   watch: {
     isActive: function(val) {
       console.log(this.filter.filter_name, val)
+      debugger;
       if (this.type === 'filter') {
         if (val) {
           this.addActiveFilter(this.filter);
@@ -55,11 +64,23 @@ export default {
         if (val) {
           this.addActiveLayer(this.filter);
         } else {
+          this.removeFromMap({ mapkey: "main", category: "layers", type: this.filter.filter_type, key: this.filter.filter_key});
           this.removeActiveLayer(this.filter);
+
+          // this.removeFromMap({ mapkey: "main", category, type: resource.filter_type, key: resource.filter_key});
+          // this.removeActiveLayer(resource);  
+          
+          debugger;
         }
       }
     }
-  }
+  },
+  // mounted() {
+  //   debugger;
+  //   if (this.isResourceActive(this.filter)) {
+  //     this.isActive = true;
+  //   }
+  // }
 }
 
 </script>

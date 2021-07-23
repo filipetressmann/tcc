@@ -11,7 +11,7 @@
       </div>
     </div>
   </div>
-  <Loading :isActive="active" />
+  <Loading :isActive="active || loading_filters" />
 </div>
 </template>
 
@@ -43,7 +43,8 @@
       ])
     },
     computed: {
-      ...mapGetters('loading', ['active'])
+      ...mapGetters('loading', ['active']),
+      ...mapGetters(['loading_filters'])
     },
     created() {
       if (localStorage.ut === undefined) {

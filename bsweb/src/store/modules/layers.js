@@ -13,6 +13,7 @@ const state = {
 
 const getters = {
   activeLayers: state => state.activeLayers,
+  activeLayersIds: state => state.activeLayers.map(l => l.id),
   grid: state => state.grid,
 }
 

@@ -7,20 +7,20 @@
           <span class="custom-size">{{ $t('flows') }}</span>
         </template>
         <BaseLayer />
-        <tiers v-if="tierList.length > 0"></tiers>
+        <Tiers v-if="tierList.length > 0" />
         <hr>
       </b-tab-item>
       <b-tab-item>
         <template slot="header">
           <span>{{ $t('filters') }}<b-tag rounded>{{ activeFilters.length }}</b-tag></span>
         </template>
-        <filters v-on:tab-changed="changeTab" />
+        <Filters v-on:tab-changed="changeTab" />
       </b-tab-item>
       <b-tab-item>
         <template slot="header">
           <span>{{ $t('layers') }}<b-tag rounded>{{ activeLayers.length }}</b-tag></span>
         </template>
-        <layers v-on:tab-changed="changeTab" />
+        <Layers v-on:tab-changed="changeTab" />
       </b-tab-item>
       <b-tab-item>
         <template slot="header">
@@ -42,7 +42,7 @@
 <script>
   import { filterEvents } from '../../main.js';
   import { mapGetters } from 'vuex';
-  import FiltersVue from './Filters.vue';
+  import Filters from './Filters.vue';
   import Tiers from './Tiers.vue';
   import Layers from './Layers.vue';
   import BaseLayer from './BaseLayer.vue';
@@ -50,9 +50,9 @@
 
   export default {
     components: {
-      'filters': FiltersVue,
-      'tiers': Tiers,
-      'layers': Layers,
+      Filters,
+      Tiers,
+      Layers,
       BaseLayer,
       Charts,
     },

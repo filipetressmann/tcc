@@ -1,69 +1,73 @@
 <template>
-  <div>
+  <div class="category-wrapper">
+    <div class="category-toggle" @click="toggleCategory">
+      <img :src="iconArrow" :class="['arrow', { active: isActive }]"/>
+      <h3 class="category-name">{{ $t(category.category_name) }}</h3>
+    </div>
+    <div v-if="isActive" class="category-options">
+      <div v-for="filter in category.filters" :key="filter.id">
+        <LayerHandlerV2
+        :filter="filter"
+        :type="'layer'"
+      />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import LayerHandlerV2 from './LayerHandlerV2.vue';
+import iconArrow from '@/assets/svg/icon-arrow-dropdown.svg';
 
 export default {
+  components: {
+    LayerHandlerV2
+  },
   props: ['category'],
+  data() {
+    return {
+      checkboxes: [],
+      isActive: false,
+      iconArrow,
+    }
+  },
   computed: {
-    ...mapGetters([
-      'allLayers',
-      'activeLayers'
-    ]),
+    ...mapGetters(['allFilters']),
   },
   methods: {
     toggleCategory() {
       this.isActive = !this.isActive
-      // Adicionar categoria (layer ou filtro)
     },
-    selectResource(resource) {
-      let category = this.category.category_name;
-      debugger;
-      // if (category == "layers") {
-      //   this.addActiveLayer(resource);
-      // } else {
-      //   this.addActiveFilter(resource);
-      // }
-    },
-  }
+  },
 }
-// methods: {
-//       ...mapMutations([
-//         'addActiveFilter',
-//         'removeActiveFilter',
-//         'addActiveLayer',
-//         'removeActiveLayer',
-//         'resetMapResource',
-//         'removeFromMap'
-//       ]),
-//       selectResource(resource) {
-//         let category = this.category.category_name;
-//         if (category == "layers") {
-//           this.addActiveLayer(resource);
-//         } else {
-//           this.addActiveFilter(resource);
-//         }
-//       },
-//       deselectResource(resource) {
-//         let category = this.category.category_name;
-//         if (category != "layers") category = "flows";
-        
-//         if (category == 'layers') {
-//           this.removeFromMap({ mapkey: "main", category, type: resource.filter_type, key: resource.filter_key});
-//           this.removeActiveLayer(resource);  
-//         } else {
-//           this.resetMapResource({ mapkey: "main", category, type: resource.filter_type });
-//           this.removeActiveFilter(resource);
-//         }
-//       }
-//     }
-
 </script>
 
-
-
 <style scoped>
+  .category-wrapper{
+    margin-bottom: 10px;
+  }
+
+  .category-name {
+  }
+
+  .category-toggle {
+    cursor: pointer;
+    display: flex;
+  }
+
+  .category-options {
+    margin-left: 8px;
+  }
+
+  .arrow {
+    transition: all ease-in-out 0.2s;
+    transform: rotate(-90deg);
+    width: 12px;
+    margin-right: 4px;
+  }
+
+  .arrow.active {
+    transform: none
+  }
 </style>

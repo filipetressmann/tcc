@@ -13,7 +13,6 @@
     <attractor-form v-if="filter.filter_key == 'attractors_emitters'" />
     <speed-form v-if="filter.filter_key == 'speed'" :fid="filter.id" />
     <reason-form v-if="filter.filter_key == 'reason'" :fid="filter.id" />
-    <button type="button" @click="removeResource">Remover</button>
   </div>
 </template>
 <script>
@@ -56,15 +55,15 @@
     },
     methods: {
       ...mapActions(['removeFilter', 'removeActiveLayer', 'removeFromMap']),
-      removeResource() {
-        if (this.isLayer(this.filter)) {
-          this.removeFromMap({ mapkey: "main", category: 'layers', type: this.filter.filter_type, key: this.filter.filter_key});
-          this.removeActiveLayer({ ...this.filter, key: this.filter.filter_key });
-        } else {
-          this.removeFromMap({ mapkey: "main", category: 'flows', type: this.filter.filter_type, key: this.filter.filter_key});
-          this.removeFilter(this.filter);
-        }
-      },
+      // removeResource() {
+      //   if (this.isLayer(this.filter)) {
+      //     this.removeFromMap({ mapkey: "main", category: 'layers', type: this.filter.filter_type, key: this.filter.filter_key});
+      //     this.removeActiveLayer({ ...this.filter, key: this.filter.filter_key });
+      //   } else {
+      //     this.removeFromMap({ mapkey: "main", category: 'flows', type: this.filter.filter_type, key: this.filter.filter_key});
+      //     this.removeFilter(this.filter);
+      //   }
+      // },
       isLayer(resource) {
         return [14, 15, 16, 18, 19, 20].includes(resource.id);
       }

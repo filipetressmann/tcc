@@ -4,9 +4,6 @@
       v-for="category in allFilters" :key="category.id"
       :category="category"
     />
-    <p>---------------------</p>
-    activeFilters
-    {{activeFilters}}
   </div>
 </template>
 
@@ -39,7 +36,7 @@
         this.resetData();
         this.resetMapResource({ mapkey: "main", category: "flows", type: "polyline" });
         this.filterData();
-        this.$emit('tab-changed', 0);
+        // this.$emit('tab-changed', 0);
       },
       showZones() {
         this.addActiveLayer({ layer: "zones"});
@@ -54,7 +51,7 @@
     watch: {
       activeFilters: function() {
         console.log('activeFilters', this.$store.getters.activeFilters);
-        this.$emit('tab-changed', 1);
+        // this.$emit('tab-changed', 1);
       }
     },
     created() {
