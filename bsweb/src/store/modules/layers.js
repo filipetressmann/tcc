@@ -53,26 +53,50 @@ const actions = {
   removeActiveLayer: ({ commit }, layer) => {
     commit('removeActiveLayer', layer);
   },
-  fetchCPTM: async (context) => {
-    return await axios.get(`${api_url}/load_railway_data`)
+  fetchCPTM_lines: async (context) => {
+    return await axios.get(`${api_url}/load_railway_lines_data`)
       .then(response => {
         const resource = {
           data: {
             geometry: JSON.parse(response.data)
           },
-          key: "cptm"
+          key: "cptm_lines"
         };
         context.commit('addLayer', resource);
       });
   },
-  fetchSubway: async (context) => {
-    return await axios.get(`${api_url}/load_metro_data`)
+  fetchCPTM_stations: async (context) => {
+    return await axios.get(`${api_url}/load_railway_stations_data`)
+      .then(response => {
+        const resource = {
+          data: {
+            geometry: JSON.parse(response.data)
+          },
+          key: "cptm_stations"
+        };
+        context.commit('addLayer', resource);
+      });
+  },
+  fetchSubway_lines: async (context) => {
+    return await axios.get(`${api_url}/load_metro_lines_data`)
       .then(response => { 
         const resource = {
           data: {
             geometry: JSON.parse(response.data)
           },
-          key: "subway"
+          key: "subway_lines"
+        };
+        context.commit('addLayer', resource);
+      });
+  },
+  fetchSubway_stations: async (context) => {
+    return await axios.get(`${api_url}/load_metro_stations_data`)
+      .then(response => { 
+        const resource = {
+          data: {
+            geometry: JSON.parse(response.data)
+          },
+          key: "subway_stations"
         };
         context.commit('addLayer', resource);
       });

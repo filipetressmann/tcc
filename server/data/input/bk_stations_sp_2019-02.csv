@@ -1,0 +1,728 @@
+address,capacity,lat,lon,name,project
+Av. Brigadeiro Faria Lima,55,-23.5667969,-46.6936916,1 - Largo da Batata,BikeSampa
+R. Gilberto Sabino,15,-23.5664009,-46.7012455,3 - CPTM Pinheiros,BikeSampa
+4 - Rua Diogo Moreira,23,-23.568866,-46.692149,4 - Rua Diogo Moreira,BikeSampa
+Travessa da R. Butantã,15,-23.5696313,-46.6980166,5 - Rua Butantã,BikeSampa
+6 - Rua Manduri,19,-23.572252,-46.690362,6 - Rua Manduri,BikeSampa
+Av. Rebouças,19,-23.5725665,-46.6936955,7 - Praça Joaquim Roberto,BikeSampa
+9 - R. Grécia,23,-23.5755326,-46.687426,9 - R. Grécia,BikeSampa
+Rua Campo Verde,15,-23.575567,-46.6907281,10 - Rua Campo Verde,BikeSampa
+Rua Cardeal Arcoverde / esquina com Av. Brigadeiro Faria Lima,19,-23.5654929,-46.6942395,11 - Praça Faria Lima,BikeSampa
+12 - Largo de Batata II,65,-23.566151,-46.693992,12 - Largo de Batata II,BikeSampa
+R. Angelina Maffei Vita,23,-23.5795465,-46.6906742,13 - Esporte Clube Pinheiros Funcionários,BikeSampa
+14 - Casa Brasileira,17,-23.5803111,-46.6851625,14 - Casa Brasileira,BikeSampa
+15 - Rua Professor Artur Ramos,19,-23.5824487,-46.686837,15 - Rua Prof. Artur Ramos,BikeSampa
+R. Hans Nobiling,19,-23.5825155,-46.6912684,16 - Esporte Clube Pinheiros Boliche,BikeSampa
+R. José Gonçalves de Oliveira,23,-23.5842942,-46.6828306,17 - Rua José Gonçalves de Oliveira,BikeSampa
+18 - Itaú Faria Lima,23,-23.586612,-46.683715,18 - Itaú Faria Lima,BikeSampa
+R. Funchal,15,-23.5957151,-46.6906164,19 - Av. Dr. Cardoso de Melo,BikeSampa
+20 - CPTM Cidade Jardim,19,-23.585076,-46.690391,20 - CPTM Cidade Jardim,BikeSampa
+Av. Henrique Chamma,23,-23.58947,-46.688389,21 - Parque do Povo portão 1,BikeSampa
+Rua Leopoldo Couto de Magalhães Junior,15,-23.58921,-46.68402,22 - Rua Leopoldo Couto,BikeSampa
+Rua Gomes de Carvalho,47,-23.5938149,-46.6912616,23 - CPTM Vila Olímpia,BikeSampa
+Rua Funchal,23,-23.5928476,-46.688406,24 - Rua Funchal,BikeSampa
+Rua Helena,23,-23.5927912,-46.6843087,25 - Rua Helena,BikeSampa
+26 - Praça Pierre Germayel,23,-23.595589,-46.683312,26 - Praça Pierre Germayel,BikeSampa
+Rua Ministro Jesuíno Cardoso,43,-23.5924959,-46.6813105,27 - Rua Min. Jesuíno Cardoso,BikeSampa
+Rua Comendador Miguel Calfat,15,-23.59335,-46.67702,28 - Rua Comendador Miguel Calfat,BikeSampa
+Rua João Franco,15,-23.5902904,-46.6783446,29 - Rua João Franco,BikeSampa
+Rua Bandeira Paulista em frente ao número 1237 / esquina com Rua Dr. Alceu de Campos Rodrigues,19,-23.5902625,-46.6738357,30 - Bandeira Paulista,BikeSampa
+Jacques Felix,11,-23.591681,-46.671262,31 - Jacques Felix,BikeSampa
+Pq. Ibirapuera Portão 07,11,-23.590322,-46.665951,32 - Pq. Ibirapuera Portão 07,BikeSampa
+33 - Pq. Ibirapuera Portão 08,11,-23.587756,-46.66608,33 - Pq. Ibirapuera Portão 08,BikeSampa
+34 - Rua Bastos Pereira,11,-23.58871,-46.668184,34 - Rua Bastos Pereira,BikeSampa
+Rua Benedito Lapin em frente ao número 81 / esquina com Rua Dr. Renato Paes de Barros,23,-23.5872155,-46.672994,35 - Rua Benedito Lapin,BikeSampa
+Rua Urussuí,23,-23.5867259,-46.676238,36 - E.E. Aristides de Castro,BikeSampa
+37 - Edifício Infinity,23,-23.5876306,-46.6791795,37 - Edifício Infinity,BikeSampa
+Rua Viradouro,19,-23.5851341,-46.6804979,38 - Viradouro,BikeSampa
+Rua Brasília,11,-23.5835317,-46.672088,40 - Brasília,BikeSampa
+41 - Paróquia São Gabriel,15,-23.5817803,-46.6696627,41 - Paróquia São Gabriel,BikeSampa
+42 - Hotel Unique,23,-23.582269,-46.667158,42 - Hotel Unique,BikeSampa
+44 - Pq. Ibirapuera Portão 09,11,-23.578783,-46.660142,44 - Pq. Ibirapuera Portão 09,BikeSampa
+45 - Marechal Bitencourt,23,-23.5788352,-46.6634529,45 - Marechal Bitencourt,BikeSampa
+46 - Rua General Fonseca Telles,11,-23.5793044,-46.6666822,46 - Rua General Fonseca Telles,BikeSampa
+47 - Suzano,11,-23.578703,-46.67057,47 - Suzano,BikeSampa
+"Rua Itacema, 239",15,-23.5794711,-46.6732094,48 - Itacema,BikeSampa
+Rua Tapinás / esquina com Rua Pedroso Alvarenga,15,-23.5814511,-46.6778542,49 - Tapinás,BikeSampa
+50 - Rua Professor Carlos de Carvalho,17,-23.5832623,-46.6802221,50 - Rua Professor Carlos de Carvalho,BikeSampa
+51 - Praça Luiz Delben Junior,11,-23.577003,-46.680223,51 - Praça Luiz Delben Junior,BikeSampa
+53 -Google São Paulo,15,-23.5869285,-46.6822892,53 -Google São Paulo,BikeSampa
+Colégio Madre Alix,11,-23.57288,-46.681527,54 - Colégio Madre Alix,BikeSampa
+55 - Jacupiranga,11,-23.569899,-46.6805486,55 - Jacupiranga,BikeSampa
+Atlântica,11,-23.568591,-46.677829,56 - Atlântica,BikeSampa
+57 - Groelândia,11,-23.5707391,-46.6759698,57 - Groelândia,BikeSampa
+58 - Mube,11,-23.573617,-46.6771251,58 - Mube,BikeSampa
+59 - EBAC,19,-23.556057,-46.692581,59 - EBAC,BikeSampa
+60 - Clube Harmonia,11,-23.5738552,-46.6694306,60 - Clube Harmonia,BikeSampa
+61 - Venezuela,11,-23.5677153,-46.6735725,61 - Venezuela,BikeSampa
+62 - Equador,11,-23.5713455,-46.6703347,62 - Equador,BikeSampa
+63 - Club Athletico Paulistano,11,-23.568485,-46.669122,63 - Club Athletico Paulistano,BikeSampa
+"Rua - Maestro Elias Lobo, em frente ao número 691 / esquina com Rua Espéria",11,-23.575943,-46.668121,64 - Maestro Elias Lobo,BikeSampa
+"65 - Rua Dr. João Pinheiro, oposto ao número 507",11,-23.5753293,-46.6643586,65 - Rua Dr. João Pinheiro,BikeSampa
+66 - Praça Domingos Delascio,15,-23.5754073,-46.6616822,66 - Praça Domingos Delascio,BikeSampa
+67 - Maestro Chiafarelli,15,-23.5732836,-46.6628549,67 - Maestro Chiafarelli,BikeSampa
+68 - Praça Nicolau Scarpa,15,-23.570446,-46.664754,68 - Praça Nicolau Scarpa,BikeSampa
+Oscar Freire,11,-23.565809,-46.665977,69 - Oscar Freire,BikeSampa
+Alameda Casa Branca,15,-23.56817,-46.66222,70 - Alameda Casa Branca,BikeSampa
+71 - Pamplona,15,-23.569899,-46.659679,71 - Pamplona,BikeSampa
+72 - Queluz,15,-23.572689,-46.658629,72 - Queluz,BikeSampa
+73 - Ginásio Ibirapuera,11,-23.576096,-46.655579,73 - Ginásio Ibirapuera,BikeSampa
+75 - Viaduto Tutóia,11,-23.580296,-46.650472,75 - Viaduto Tutóia,BikeSampa
+76 - 8° Batalhão,15,-23.574333,-46.654062,76 - 8° Batalhão,BikeSampa
+Alameda j. Eugênio de Lima,11,-23.57046,-46.655306,77 - Alameda j. Eugênio de Lima,BikeSampa
+78 - Alameda Franca,15,-23.5683394,-46.6558291,78 - Alameda Franca,BikeSampa
+79 - R. José Maria Lisboa,15,-23.566274,-46.660353,79 - R. José Maria Lisboa,BikeSampa
+Praça Alexandre de Gusmão,17,-23.564341,-46.657046,80 - Praça Alexandre de Gusmão,BikeSampa
+81 - Colégio Dante Alighieri,15,-23.5632889,-46.6601801,81 - Colégio Dante Alighieri,BikeSampa
+82- Alameda Min. Rocha Azevedo,15,-23.5647081,-46.6620336,82- Alameda Min. Rocha Azevedo,BikeSampa
+83- Augusta,15,-23.5627569,-46.6649566,83- Augusta,BikeSampa
+94 - Alameda Jaú,15,-23.5689848,-46.6516445,94 - Alameda Jaú,BikeSampa
+Metrô Brigadeiro,11,-23.568361,-46.648988,95 - Metrô Brigadeiro,BikeSampa
+96 - Tutóia,11,-23.573772,-46.651426,96 - Tutóia,BikeSampa
+99 - R. Tomás Carvalhal,15,-23.577262,-46.64712,99 - R. Tomás Carvalhal,BikeSampa
+100 - Itaú Cultural,11,-23.570599,-46.645858,100 - Itaú Cultural,BikeSampa
+101 -  Praça Gen. Gentil Falcão,11,-23.604952,-46.695012,101 -  Praça Gen. Gentil Falcão,BikeSampa
+102 - Rua James Watt,23,-23.611846,-46.694956,102 - Rua James Watt,BikeSampa
+103 - Rua Hans Oerted,23,-23.608902,-46.694772,103 - Rua Hans Oerted,BikeSampa
+105 - Praça João Duram Alonso,19,-23.6024438,-46.6924783,105 - Praça João Duram Alonso,BikeSampa
+106 - Rua Florida,15,-23.609066,-46.6915033,106 - Rua Florida,BikeSampa
+107 - Rua Indiana,11,-23.607565,-46.688398,107 - Rua Indiana,BikeSampa
+108 - Praça Prof. José Lannes,7,-23.6012684,-46.6916317,108 - Praça Prof. José Lannes,BikeSampa
+109 - Praça Oswaldo Varella,19,-23.603375,-46.692587,109 - Praça Oswaldo Varella,BikeSampa
+110 - Flórida 1670,15,-23.607328,-46.694248,110 - Flórida 1670,BikeSampa
+111 - CENU TEMPORÁRIA,11,-23.60998,-46.69641,111 - CENU TEMPORÁRIA,BikeSampa
+112 - R. Lee de Forest,15,-23.6121495,-46.6957282,112 - R. Lee de Forest,BikeSampa
+Rua Andrade Pertence,11,-23.603846,-46.677037,113 - Rua Andrade Pertence,BikeSampa
+114 - Rua Alvorada,15,-23.601327,-46.681552,114 - Rua Alvorada,BikeSampa
+Praça Procopio Ferreira,19,-23.6001071,-46.6894299,115 - Praça Procopio Ferreira,BikeSampa
+116 - Praça Dr. Francisco Patti,15,-23.599341,-46.687151,116 - Praça Dr. Francisco Patti,BikeSampa
+117 - Cubo Itaú,23,-23.5965902,-46.686423,117 - Cubo Itaú,BikeSampa
+118 - Rua Júlio Diniz,19,-23.59775,-46.684073,118 - Rua Júlio Diniz,BikeSampa
+119 - Rua Quatá,11,-23.597089,-46.680457,119 - Rua Quatá,BikeSampa
+Rua Gomes de Carvalho,15,-23.599571,-46.679913,120 - Rua Gomes de Carvalho,BikeSampa
+121 - Insper,23,-23.597702,-46.677695,121 - Insper,BikeSampa
+122 - Rua Baluarte,15,-23.6011147,-46.6753273,122 - Rua Baluarte,BikeSampa
+123 - Rua Egito,15,-23.5943765,-46.6739414,123 - Rua Egito,BikeSampa
+Praça PereIra Coutinho,11,-23.594013,-46.669702,124 - Praça PereIra Coutinho,BikeSampa
+125 - Natividade,10,-23.597273,-46.67159,125 - Natividade,BikeSampa
+Graúna,11,-23.601377,-46.671169,126 - Graúna,BikeSampa
+127 - Jacutinga,11,-23.600513,-46.668861,127 - Jacutinga,BikeSampa
+128 - R. Sampaio Góis,19,-23.597182,-46.66705,128 - R. Sampaio Góis,BikeSampa
+Sabiá,11,-23.599832,-46.666141,129 - Sabiá,BikeSampa
+131 - Pq. Ibirapuera Portão 06,11,-23.593513,-46.659608,131 - Pq. Ibirapuera Portão 06,BikeSampa
+132 - Pq. Ibirapuera Portão 05,11,-23.592008,-46.655227,132 - Pq. Ibirapuera Portão 05,BikeSampa
+133 - Avenida Ibirapuera,11,-23.594628,-46.655001,133 - Avenida Ibirapuera,BikeSampa
+137 - Rua do Rocio,23,-23.594366,-46.686919,137 - Rua do Rocio,BikeSampa
+138 - Chilon,23,-23.593602,-46.679896,138 - Chilon,BikeSampa
+140 - JK Iguatemi,18,-23.5907522,-46.6888262,140 - JK Iguatemi,BikeSampa
+141 - Praça Luis Carlos Paraná,23,-23.582617,-46.6839963,141 - Praça Luis Carlos Paraná,BikeSampa
+143- Rua João Cachoeira,23,-23.5841927,-46.6780063,143- Rua João Cachoeira,BikeSampa
+144 - Rua Iguatemi,23,-23.5871339,-46.6810805,144 - Rua Iguatemi,BikeSampa
+145 - CPTM BERRINI,11,-23.6047443,-46.6962398,145 - CPTM BERRINI,BikeSampa
+147 - Rua Min Jesuíno Cardoso II,35,-23.592339,-46.6803037,147 - Rua Min Jesuíno Cardoso II,BikeSampa
+148 - R. Maria Figueiredo,11,-23.571787,-46.649986,148 - R. Maria Figueiredo,BikeSampa
+Rua Afonso de Freitas,11,-23.574977,-46.644256,149 - Rua Afonso de Freitas,BikeSampa
+150 - Metrô Paraiso,19,-23.575408,-46.641621,150 - Metrô Paraiso,BikeSampa
+268 - Hotel Maksoud Plaza,11,-23.563366,-46.651175,268 - Hotel Maksoud Plaza,BikeSampa
+189 - CEMG FARIA LIMA,23,-23.570658,-46.690528,189 - CEMG FARIA LIMA,BikeSampa
+201 - Metro Sumaré,27,-23.5517205,-46.6780394,201 - Metro Sumaré,BikeSampa
+202 - Arruda Alvim,23,-23.5551642,-46.6741127,202 - Arruda Alvim,BikeSampa
+203 - Capote Valente 822,15,-23.554837,-46.677467,203 - Capote Valente 822,BikeSampa
+204- Consolação,19,-23.5570626,-46.6645022,204- Consolação,BikeSampa
+205 - Alameda Itú 1579,11,-23.5579722,-46.6661783,205 - Alameda Itú 1579,BikeSampa
+207 - Bela Cintra,15,-23.561914,-46.667605,207 - Bela Cintra,BikeSampa
+208 - Rua Dr. Melo Alves,23,-23.561165,-46.670801,208 - Rua Dr. Melo Alves,BikeSampa
+209 - Haddock Lobo,15,-23.5650021,-46.669324,209 - Haddock Lobo,BikeSampa
+210 - Capote Valente 429,11,-23.557965,-46.675308,210 - Capote Valente 429,BikeSampa
+211 - Capote Valente,19,-23.5599793,-46.6738799,211 - Capote Valente,BikeSampa
+212 - R. Estados Unidos,15,-23.563354,-46.673044,212 - R. Estados Unidos,BikeSampa
+213 - Guadelupe,15,-23.56505,-46.672448,213 - Guadelupe,BikeSampa
+214 - João Moura,15,-23.5571033,-46.6797917,214 - João Moura,BikeSampa
+215 - E.E. Godofredo Furtado,15,-23.55939,-46.678393,215 - E.E. Godofredo Furtado,BikeSampa
+216 - João Moura 328,15,-23.562089,-46.676471,216 - João Moura 328,BikeSampa
+217 - Alameda Gabriel,19,-23.5651717,-46.676435,217 - Alameda Gabriel,BikeSampa
+218 - Cemitério Cardeal,15,-23.55856,-46.683137,218 - Cemitério Cardeal,BikeSampa
+Rua Joaquim Antunes,15,-23.561729,-46.683453,219 - Rua Joaquim Antunes,BikeSampa
+220 - R. dos Pinheiros,15,-23.564371,-46.679803,220 - R. dos Pinheiros,BikeSampa
+221 - Sampaio Vidal 27,15,-23.566676,-46.680333,221 - Sampaio Vidal 27,BikeSampa
+222 - Rua Horácio Lane,15,-23.55872,-46.68716,222 - Rua Horácio Lane,BikeSampa
+223 -Fradique Coutinho,23,-23.5619624,-46.6872897,223 -Fradique Coutinho,BikeSampa
+224 - Metrô Fradique Coutinho,27,-23.565424,-46.68467,224 - Metrô Fradique Coutinho,BikeSampa
+225 - Sampaio Vidal 530,15,-23.568758,-46.684279,225 - Sampaio Vidal 530,BikeSampa
+226 - Fradique Coutinho 941,15,-23.559206,-46.689287,226 - Fradique Coutinho 941,BikeSampa
+227 - R. Simão Álvares,15,-23.5610237,-46.6908863,227 - R. Simão Álvares,BikeSampa
+Arthur de Azevedo,11,-23.566128,-46.68761,229 - Arthur de Azevedo,BikeSampa
+230 - Rua Mariano Correia,15,-23.570132,-46.686392,230 - Rua Mariano Correia,BikeSampa
+231 - Instituto Tomie Ohtake,11,-23.5614362,-46.695446,231 - Instituto Tomie Ohtake,BikeSampa
+232 - Sumidouro,15,-23.5652407,-46.6955286,232 - Sumidouro,BikeSampa
+233 - Paraopeba,15,-23.564243,-46.6993368,233 - Paraopeba,BikeSampa
+234 - Praça Roquete Pinto,15,-23.5589217,-46.6994292,234 - Praça Roquete Pinto,BikeSampa
+235 - CETESB,17,-23.560217,-46.700815,235 - CETESB,BikeSampa
+praça ernami Braga,11,-23.556791,-46.70212,236 - Praça Ernami Braga,BikeSampa
+238 - Avenida dos Semaneiros,15,-23.5552497,-46.7056093,238 - Avenida dos Semaneiros,BikeSampa
+239 - Avenida Antônio Batuira,15,-23.5584938,-46.7067852,239 - Avenida Antônio Batuira,BikeSampa
+240 - Praça Panamericana,23,-23.5542011,-46.707958,240 - Praça Panamericana,BikeSampa
+241 - CPTM Cidade Universitária,23,-23.556746,-46.710985,241 - CPTM Cidade Universitária,BikeSampa
+262 - Colégio Santa Cruz,23,-23.5505127,-46.7177288,262 - Colégio Santa Cruz,BikeSampa
+276 - R. Carneiro da Silva,27,-23.524723,-46.736451,276 - R. Carneiro da Silva,BikeSampa
+267 - CPTM Vila Lobos Jaguaré,23,-23.545371,-46.732305,267 - CPTM Vila Lobos Jaguaré,BikeSampa
+292 - Rua Domingos de Moraes,0,-23.57921,-46.640725,292 - Rua Domingos de Moraes,BikeSampa
+293 - Metrô Ana Rosa,0,-23.580855,-46.63766,293 - Metrô Ana Rosa,BikeSampa
+294 - Metrô Ana Rosa II,19,-23.581989,-46.638525,294 - Metrô Ana Rosa II,BikeSampa
+295 -Vergueiro,23,-23.584369,-46.636452,295 -Vergueiro,BikeSampa
+296 - R. Major Maragliano,19,-23.5860237,-46.6382096,296 - R. Major Maragliano,BikeSampa
+297 -SESC Vila Mariana,19,-23.582163,-46.642831,297 -SESC Vila Mariana,BikeSampa
+299 - R. Áurea,15,-23.58455,-46.646551,299 - R. Áurea,BikeSampa
+300 - Caravelas,15,-23.582373,-46.648791,300 - Caravelas,BikeSampa
+301 - R. França Pinto,15,-23.5908707,-46.6490886,301 - R. França Pinto,BikeSampa
+302 - Tangará,15,-23.589366,-46.647226,302 - Tangará,BikeSampa
+303 - Rio Grande,15,-23.587243,-46.643222,303 - Rio Grande,BikeSampa
+304 - Gandavo,11,-23.59171,-46.643646,304 - Gandavo,BikeSampa
+305 - MUBA,23,-23.589514,-46.640179,305 - MUBA,BikeSampa
+306 - R.Madre Cabrini,0,-23.590562,-46.636625,306 - R. Madre Cabrini,BikeSampa
+307 - Metrô Vila Mariana,23,-23.589853,-46.635073,307 - Metrô Vila Mariana,BikeSampa
+308 - R da cunha,15,-23.595055,-46.637392,308 - R da cunha,BikeSampa
+310 - R. Cel. Lisboa,19,-23.595774,-46.639826,310 - R. Cel. Lisboa,BikeSampa
+"311 - R. Diogo de Faria , 650",18,-23.595669,-46.643035,"311 - R. Diogo de Faria , 650",BikeSampa
+312 - R. DIOGO DE FARIA,23,-23.595207,-46.648579,312 - R. DIOGO DE FARIA,BikeSampa
+314 - R. José Guimarães,19,-23.59875,-46.64945,314 - R. José Guimarães,BikeSampa
+315 -Metrô Hospital São Paulo,19,-23.598014,-46.647094,315 -Metrô Hospital São Paulo,BikeSampa
+316 - EMBAÚ,19,-23.597986,-46.640923,316 - EMBAÚ,BikeSampa
+317 - R. Leonardo Nunes,15,-23.598727,-46.639142,317 - R. Leonardo Nunes,BikeSampa
+319 - Metrô Moema,27,-23.603657,-46.661782,319 - Metrô Moema,BikeSampa
+320 - Jandira,19,-23.605971,-46.663826,320 - Jandira,BikeSampa
+321 - Gaivota,23,-23.6043018,-46.6682573,321 - Gaivota,BikeSampa
+322 - Metrô Eucaliptos,27,-23.609553,-46.668485,322 - Metrô Eucaliptos,BikeSampa
+323 - Eucaliptos,15,-23.608406,-46.671081,323 - Eucaliptos,BikeSampa
+324 - Canário,14,-23.605189,-46.670666,324 - Canário,BikeSampa
+325 - Pintassilgo,11,-23.604269,-46.674326,325 - Pintassilgo,BikeSampa
+326 - Inhambú,19,-23.60729,-46.674141,326 - Inhambú,BikeSampa
+327 - Arapanés,15,-23.611669,-46.67172,327 - Arapanés,BikeSampa
+328 - R. Demóstenes,11,-23.613484,-46.677349,328 - R. Demóstenes,BikeSampa
+329 - Bandeirantes,11,-23.6080405,-46.6780242,329 - Bandeirantes,BikeSampa
+331 - Rua Nebrasca,11,-23.6088329,-46.6836064,331 - Rua Nebrasca,BikeSampa
+332 - Rua Nova York,11,-23.6107008,-46.6805368,332 - Rua Nova York,BikeSampa
+333 -R. Flórida 53,15,-23.6172281,-46.6812646,333 -R. Flórida 53,BikeSampa
+334 - R. Pe. Antônio,15,-23.613325,-46.682667,334 - R. Pe. Antônio,BikeSampa
+335 - R. Ribeiro do Vale,11,-23.610676,-46.685846,335 - R. Ribeiro do Vale,BikeSampa
+336 - Flórida 1020,11,-23.611062,-46.688886,336 - Flórida 1020,BikeSampa
+337 - Castilho,19,-23.6132275,-46.691358,337 - Castilho,BikeSampa
+338 - RUA PITÚ,23,-23.614598,-46.688266,338 - RUA PITÚ,BikeSampa
+339 - R. Min. Luiz Gallotti,15,-23.618943,-46.6839485,339 - R. Min. Luiz Gallotti,BikeSampa
+340 - R. Oscar Gomes Cardim II,15,-23.6208404,-46.6882269,340 - R. Oscar Gomes Cardim II,BikeSampa
+341 - R. Coronel Conrado Siqueira,15,-23.624119,-46.686842,341 - R. Coronel Conrado Siqueira,BikeSampa
+342 - R. Santo Arcádio,11,-23.6240245,-46.6913464,342 - R. Santo Arcádio,BikeSampa
+343 - Jurubatuba,15,-23.6165603,-46.6944973,343 - Jurubatuba,BikeSampa
+345 - R. Henrique FIsher,23,-23.61936959,-46.69657426,345 - R. Henrique FIsher,BikeSampa
+346 - R. Vieira da Silva,15,-23.622813,-46.695661,346 - R. Vieira da Silva,BikeSampa
+347 - Metrô Brooklin,29,-23.6267571,-46.6873239,347 - Metrô Brooklin,BikeSampa
+348 - R. João Pais,15,-23.629282,-46.688435,348 - R. João Pais,BikeSampa
+349 - Cacioneiro de Évora,11,-23.6275112,-46.6921382,349 - Cacioneiro de Évora,BikeSampa
+355 - R. Dr. Rafael de Barros,19,-23.57257,-46.646526,355 - R. Dr. Rafael de Barros,BikeSampa
+358 - SHOPPING VILLA LOBOS,7,-23.5517772,-46.7222185,358 - SHOPPING VILLA LOBOS,BikeSampa
+206 - Alameda Tietê,15,-23.55906,-46.668945,206 - Alameda Tietê,BikeSampa
+261- Praça Pero Vaz de Caminha,15,-23.551755,-46.711156,261- Praça Pero Vaz de Caminha,BikeSampa
+263 - Praça Beethoven,15,-23.547235,-46.716313,263 - Praça Beethoven,BikeSampa
+264 - Parque Vila Lobos Portão 2,19,-23.543531,-46.725728,264 - Parque Vila Lobos Portão 2,BikeSampa
+269 - R. Blumenau,15,-23.535868,-46.726758,269 - R. Blumenau,BikeSampa
+271 - R. Fröben,15,-23.531196,-46.731937,271 - R. Fröben,BikeSampa
+277 -Carlos Weber 223,11,-23.523347,-46.733747,277 -Carlos Weber 223,BikeSampa
+270 - R. Nagel,15,-23.533249,-46.731082,270 - R. Nagel,BikeSampa
+273 - R. Hayden,11,-23.529005,-46.732888,273 - R. Hayden,BikeSampa
+275 - R. Hassib Mofarrej,27,-23.52751,-46.734407,275 - R. Hassib Mofarrej,BikeSampa
+272 -SESI Leopoldina,23,-23.5281991,-46.7298323,272 -SESI Leopoldina,BikeSampa
+274 - BAUMANN,19,-23.5282989,-46.737114,274 - BAUMANN,BikeSampa
+278 - R. Tripoli,19,-23.5262598,-46.7322527,278 - R. Tripoli,BikeSampa
+111 - Edward Weston,19,-23.610667,-46.69625,111 - Edward Weston,BikeSampa
+1 - Central do Brasil,24,-22.9045032,-43.1907295,1 - Central do Brasil,BikeRio
+2 - Praça da República,19,-22.9076921,-43.1898851,2 - Praça da República,BikeRio
+3 - Praça Tiradentes,17,-22.9068542,-43.1820677,3 - Praça Tiradentes,BikeRio
+4 - Largo de São Francisco,11,-22.90568,-43.180201,4 - Largo de São Francisco,BikeRio
+5 - Largo da Carioca,19,-22.90734,-43.17798,5 - Largo da Carioca,BikeRio
+6 - Praça Marechal Âncora,19,-22.904101,-43.171723,6 - Praça Marechal Âncora,BikeRio
+7 - Bossa Nova Mall,11,-22.914995,-43.1660078,7 - Bossa Nova Mall,BikeRio
+8 - MAM,23,-22.912731,-43.172146,8 - MAM,BikeRio
+9 - Sala Cecília Meirelles,23,-22.913962,-43.178629,9 - Sala Cecília Meirelles,BikeRio
+10 - Largo da Glória,11,-22.92047,-43.177309,10 - Largo da Glória,BikeRio
+11 - Praça Luiz de Camões,17,-22.9207114,-43.1746119,11 - Praça Luiz de Camões,BikeRio
+12 - Artur Bernardes,15,-22.928383,-43.179292,12 - Artur Bernardes,BikeRio
+13 - Parque Guinle,15,-22.932322,-43.1822047,13 - Parque Guinle,BikeRio
+14 - Pereira da Silva,19,-22.9338553,-43.1858676,14 - Pereira da Silva,BikeRio
+15 - Alegrete,15,-22.9386697,-43.1937608,15 - Alegrete,BikeRio
+16 - Praça São Judas Tadeu,19,-22.9405247,-43.1981781,16 - Praça São Judas Tadeu,BikeRio
+17 - Oswaldo Cruz,19,-22.9383503,-43.1735918,17 - Oswaldo Cruz,BikeRio
+18 - Praça Nicarágua,23,-22.942217,-43.176924,18 - Praça Nicarágua,BikeRio
+19 - Guilhermina Guinle,11,-22.949601,-43.1886287,19 - Guilhermina Guinle,BikeRio
+20 - Cobal,23,-22.9537484,-43.1970587,20 - Cobal,BikeRio
+21 - Real Grandeza,15,-22.9540547,-43.1930877,21 - Real Grandeza,BikeRio
+22 - General Polidoro,15,-22.9572257,-43.1889413,22 - General Polidoro,BikeRio
+23 - Teresa Guimarães,15,-22.9554978,-43.1850605,23 - Teresa Guimarães,BikeRio
+24 - Lauro Müller,23,-22.9562215,-43.1771829,24 - Lauro Müller,BikeRio
+25 - UFRJ Praia Vermelha,15,-22.9527534,-43.1762743,25 - UFRJ Praia Vermelha,BikeRio
+26 - Iate Clube,23,-22.9534017,-43.1731411,26 - Iate Clube,BikeRio
+27 - Pedra do Leme,15,-22.962385,-43.165493,27 - Pedra do Leme,BikeRio
+28 - Praça Demétrio Ribeiro,23,-22.9621894,-43.1754096,28 - Praça Demétrio Ribeiro,BikeRio
+29 - Copacabana Palace,23,-22.9672277,-43.1777902,29 - Copacabana Palace,BikeRio
+30 - Santa Clara 98,11,-22.9707973,-43.1878196,30 - Santa Clara 98,BikeRio
+31 - Santa Clara,23,-22.972478,-43.186424,31 - Santa Clara,BikeRio
+32 - Domingos Ferreira,23,-22.975967,-43.188677,32 - Domingos Ferreira,BikeRio
+33 - Miguel Lemos,11,-22.9781402,-43.1888416,33 - Miguel Lemos,BikeRio
+34 - Conselheiro Lafaiete,23,-22.9863295,-43.1921151,34 - Conselheiro Lafaiete,BikeRio
+35 - Pedra do Arpoador,23,-22.9888297,-43.1922299,35 - Pedra do Arpoador,BikeRio
+36 - Joaquim Nabuco,15,-22.9873182,-43.1960897,36 - Joaquim Nabuco,BikeRio
+37 - Posto 9,15,-22.9863129,-43.2008942,37 - Posto 9,BikeRio
+38 - Garcia DÁvila,23,-22.985743,-43.2093593,38 - Garcia DÁvila,BikeRio
+39 - Aníbal de Mendonça,11,-22.9863269,-43.211349,39 - Aníbal de Mendonça,BikeRio
+40 - Afrânio,19,-22.986241,-43.217434,40 - Afrânio,BikeRio
+41 - Maria Quitéria,23,-22.9808258,-43.2069995,41 - Maria Quitéria,BikeRio
+42 - Epitácio Pessoa,17,-22.9788299,-43.2010788,42 - Epitácio Pessoa,BikeRio
+43 - Parque da Catacumba,17,-22.9757502,-43.2003125,43 - Parque da Catacumba,BikeRio
+44 - Epitácio Pessoa 4224,23,-22.9696671,-43.205777,44 - Epitácio Pessoa 4224,BikeRio
+45 - Epitácio Pessoa 4794,19,-22.9657931,-43.2035163,45 - Epitácio Pessoa 4794,BikeRio
+"Avenida Borges de Medeiros, oposto ao N 2415, no canteiro central",22,-22.966468,-43.21673,46 - Clube Piraquê,BikeRio
+47 - Parque dos Patins,17,-22.9725162,-43.217594,47 - Parque dos Patins,BikeRio
+49 - Shopping da Gávea,15,-22.9756941,-43.2278443,49 - Shopping da Gávea,BikeRio
+50 - Praça Sibélius,23,-22.9779132,-43.2263925,50 - Praça Sibélius,BikeRio
+51 - Cidade Nova,17,-22.9107023,-43.2056476,51 - Cidade Nova,BikeRio
+52 - Medalha Milagrosa,15,-22.915679,-43.212376,52 - Medalha Milagrosa,BikeRio
+53 - Gaffrée e Guinle,11,-22.915922,-43.2216217,53 - Gaffrée e Guinle,BikeRio
+54 - Morais e Silva,19,-22.9121705,-43.2221993,54 - Morais e Silva,BikeRio
+55 - Mata Machado,17,-22.9125039,-43.2261999,55 - Mata Machado,BikeRio
+56 - Praça Varnhagem,23,-22.919187,-43.2335933,56 - Praça Varnhagem,BikeRio
+57 - Praça Niteroi,15,-22.916004,-43.234582,57 - Praça Niteroi,BikeRio
+58 - Estádio Célio de Barros,11,-22.9121247,-43.2338901,58 - Estádio Célio de Barros,BikeRio
+59 - Boulevard 28 de Setembro 157,11,-22.9148521,-43.2404567,59 - Boulevard 28 de setembro 157,BikeRio
+60 - Maxwell,15,-22.9202627,-43.2439252,60 - Maxwell,BikeRio
+61 - SESC Tijuca,11,-22.924198,-43.2416447,61 - SESC Tijuca,BikeRio
+62 - Oi Futuro,11,-22.9257471,-43.2455129,62 - Oi Futuro,BikeRio
+63 - Praça Xavier de Brito,15,-22.932135,-43.242713,63 - Praça Xavier de Brito,BikeRio
+64 - Metrô Uruguai,19,-22.931984,-43.239549,64 - Metrô Uruguai,BikeRio
+65 - Metrô Uruguaiana,15,-22.902536,-43.1821948,65 - Metrô Uruguaiana,BikeRio
+66 - Estação de Bondes,11,-22.910029,-43.178429,66 - Estação de Bondes,BikeRio
+67 - Gomes Freire,15,-22.912754,-43.1830277,67 - Gomes Freire,BikeRio
+68 - Rua do Catete,23,-22.923446,-43.1772281,68 - Rua do Catete,BikeRio
+69 - Palácio do Catete,19,-22.9270379,-43.1766158,69 - Palácio do Catete,BikeRio
+70 - Praça São Salvador,23,-22.9341308,-43.1808624,70 - Praça São Salvador,BikeRio
+71 - Palácio Guanabara,19,-22.9388664,-43.1831331,71 - Palácio Guanabara,BikeRio
+72 - Santa Marta,17,-22.9502181,-43.1921946,72 - Santa Marta,BikeRio
+73 - Furnas,23,-22.956439,-43.1916046,73 - Furnas,BikeRio
+74 - Visconde de Caravelas,19,-22.9567882,-43.195087,74 - Visconde de Caravelas,BikeRio
+75 - Pinheiro Guimarães,15,-22.9586824,-43.1966812,75 - Pinheiro Guimarães,BikeRio
+76 - Baixo Gávea,19,-22.972937,-43.225107,76 - Baixo Gávea,BikeRio
+77 - Cine Leblon,17,-22.981194,-43.2212383,77 - Cine Leblon,BikeRio
+78 - Fashion Mall,11,-22.996323,-43.258427,78 - Fashion Mall,BikeRio
+79 - São Conrado,11,-22.998586,-43.257999,79 - São Conrado,BikeRio
+80 - Praça São Conrado,23,-23.000446,-43.270762,80 - Praça São Conrado,BikeRio
+81 - General Venâncio Flores,15,-22.986214,-43.224568,81 - General Venâncio Flores,BikeRio
+82 - Antero de Quental,29,-22.985044,-43.22317,82 - Antero de Quental,BikeRio
+83 - Cupertino Durão,23,-22.986781,-43.220258,83 - Cupertino Durão,BikeRio
+85 - Jardim de Alah,23,-22.983572,-43.216415,85 - Jardim de Alah,BikeRio
+86 -  Henrique Dumont,23,-22.986159,-43.213967,86 -  Henrique Dumont,BikeRio
+87 - Barão da Torre 631,23,-22.982617,-43.212027,87 - Barão da Torre 631,BikeRio
+88 - Barão da Torre 577,23,-22.982887,-43.209402,88 - Barão da Torre 577,BikeRio
+89 - Praça Nossa Senhora da Paz,15,-22.984274,-43.206084,89 - Praça Nossa Senhora da Paz,BikeRio
+90 -  Joana Angélica,11,-22.985143,-43.205037,90 -  Joana Angélica,BikeRio
+91 - Visconde de Pirajá,11,-22.984323,-43.203169,91 - Visconde de Pirajá,BikeRio
+92 - Alberto de Campos,15,-22.981185,-43.20277,92 - Alberto de Campos,BikeRio
+93 - Praça Nossa Senhora Auxiliadora,15,-22.977808,-43.222491,93 - Praça Nossa Senhora Auxiliadora,BikeRio
+94 - Farme de Amoedo,15,-22.982609,-43.200621,94 - Farme de Amoedo,BikeRio
+95 - General Osório,17,-22.984773,-43.197041,95 - General Osório,BikeRio
+96 - Posto 6,19,-22.986664,-43.189345,96 - Posto 6,BikeRio
+97 - Júlio de Castilhos,15,-22.98392,-43.190369,97 - Júlio de Castilhos,BikeRio
+99 - Sá Ferreira,11,-22.981995,-43.195039,99 - Sá Ferreira,BikeRio
+Rua Leopoldo Miguez E/n 150,19,-22.977636,-43.191685,101 - Leopoldo Miguez,BikeRio
+102 - Metrô Cantagalo,27,-22.97675,-43.194212,102 - Metrô Cantagalo,BikeRio
+103 - Barão de Ipanema,11,-22.974133,-43.191023,103 - Barão de Ipanema,BikeRio
+105 - Dias da Rocha,17,-22.972912,-43.188701,105 - Dias da Rocha,BikeRio
+106 - Parque Olimpico,19,-22.973571,-43.393094,106 - Parque Olimpico,BikeRio
+107 - Figueiredo Magalhães,15,-22.966031,-43.189406,107 - Figueiredo Magalhães,BikeRio
+108 - Hospital Lourenço Jorge,11,-22.995495,-43.365557,108 - Hospital Lourenço Jorge,BikeRio
+109 - Metrô Siqueira Campos,29,-22.967614,-43.187319,109 - Metrô Siqueira Campos,BikeRio
+110 - Rio 2,15,-22.972922,-43.384719,110 - Rio 2,BikeRio
+111 - Siqueira Campos,19,-22.970023,-43.183862,111 - Siqueira Campos,BikeRio
+114 - Cardeal Arcoverde,17,-22.964835,-43.1800234,114 - Cardeal Arcoverde,BikeRio
+115 - Shopping Metropolitano,15,-22.973029,-43.370981,115 - Shopping Metropolitano,BikeRio
+116 - Praça do Lido,17,-22.964885,-43.175664,116 - Praça do Lido,BikeRio
+117 - Antônio Vieira,23,-22.964155,-43.1723142,117 - Antônio Vieira,BikeRio
+119 - Parque Lage,11,-22.961338,-43.211823,119 - Parque Lage,BikeRio
+120 -  Rua da Passagem,23,-22.952413,-43.182431,120 -  Rua da Passagem,BikeRio
+121 - Mourisco,23,-22.949818,-43.180999,121 - Mourisco,BikeRio
+122 - Botafogo Praia Shopping,11,-22.947933,-43.182996,122 - Botafogo Praia Shopping,BikeRio
+123 - Bambina,11,-22.949319,-43.186131,123 - Bambina,BikeRio
+124 - Praça Joia Valansi,17,-22.945131,-43.183841,124 - Praça Joia Valansi,BikeRio
+126 - Clarice Índio do Brasil,15,-22.940002,-43.178956,126 - Clarice Índio do Brasil,BikeRio
+128 - Palacio da Cidade,23,-22.951227,-43.194193,128 - Palacio da Cidade,BikeRio
+131 - Metrô Botafogo,23,-22.951866,-43.184068,131 - Metrô Botafogo,BikeRio
+132 - Escola Eleva,19,-22.953891,-43.179582,132 - Escola Eleva,BikeRio
+133 - Pasteur,15,-22.954093,-43.168655,133 - Pasteur,BikeRio
+135 - BRT Salvador Allende,11,-23.008613,-43.443971,135 - BRT Salvador Allende,BikeRio
+136 - Metrô Flamengo,15,-22.937332,-43.177821,136 - Metrô Flamengo,BikeRio
+137 - Tucumam,11,-22.935534,-43.174009,137 - Tucumam,BikeRio
+138 - Praça José de Alencar,15,-22.933447,-43.177594,138 - Praça José de Alencar,BikeRio
+139 - Buarque de Macedo,15,-22.929518,-43.174002,139 - Buarque de Macedo,BikeRio
+141 - New York City Center,23,-22.999788,-43.360771,141 - New York City Center,BikeRio
+"Rua Álvaro Chaves, oposto ao número 6",15,-22.93601,-43.18449,143 - Fluminense,BikeRio
+146 - Planetário Gávea,17,-22.978929,-43.229819,146 - Planetário Gávea,BikeRio
+147 - Alfredo Russell,15,-22.981377,-43.225884,147 - Alfredo Russell,BikeRio
+148 - Bartolomeu Mitre,15,-22.981879,-43.223584,148 - Bartolomeu Mitre,BikeRio
+149 - Rainha Guilhermina,15,-22.985248,-43.226533,149 - Rainha Guilhermina,BikeRio
+153 - Epitácio Pessoa,23,-22.980504,-43.210916,153 - Epitácio Pessoa,BikeRio
+154 - Curva do Calombo,17,-22.973741,-43.205042,154 - Curva do Calombo,BikeRio
+156 - J. Carlos,11,-22.960203,-43.20887,156 - J. Carlos,BikeRio
+157 - Frei Leandro,23,-22.962804,-43.207237,157 - Frei Leandro,BikeRio
+158 - Lagoa Vasco da Gama,23,-22.963018,-43.209553,158 - Lagoa Vasco da Gama,BikeRio
+159 - Hospital da Lagoa,15,-22.962769,-43.21622,159 - Hospital da Lagoa,BikeRio
+160 - Paróquia São José da Lagoa,23,-22.964358,-43.214736,160 - Paróquia São José da Lagoa,BikeRio
+161 - Jd. Botânico,11,-22.96564,-43.218873,161 - Jd. Botânico,BikeRio
+162 - Pacheco Leão,17,-22.965299,-43.222538,162 - Pacheco Leão,BikeRio
+163 - Viúva Lacerda,17,-22.957195,-43.198819,163 - Viúva Lacerda,BikeRio
+164 - Shopping Tijuca,17,-22.921629,-43.236061,164 - Shopping Tijuca,BikeRio
+165 - Tijuca off Shopping,11,-22.923731,-43.236009,165 - Tijuca off shopping,BikeRio
+166 - Tijuca Tênis Clube,11,-22.9266249,-43.2355844,166 - Tijuca Tênis Clube,BikeRio
+167 - Metrô Saens Pena,31,-22.924356,-43.23215,167 - Metrô Saens Pena,BikeRio
+168 - Barão de Mesquita 174,19,-22.920923,-43.232102,168 - Barão de Mesquita 174,BikeRio
+169 - Conde de Bonfim 526,17,-22.928462,-43.236607,169 - Conde de Bonfim 526,BikeRio
+170 - Pereira de Siqueira,11,-22.92036,-43.227208,170 - Pereira de Siqueira,BikeRio
+171 - Colégio Militar,11,-22.916305,-43.227292,171 - Colégio Militar,BikeRio
+172 - Barão de Mesquita,19,-22.916876,-43.22924,172 - Barão de Mesquita,BikeRio
+173 - SENAI Tijuca,15,-22.915419,-43.232501,173 - SENAI Tijuca,BikeRio
+174 - São Cristóvão,15,-22.910903,-43.223468,174 - São Cristóvão,BikeRio
+175 - Félix da Cunha,17,-22.922858,-43.22253,175 - Félix da Cunha,BikeRio
+176 - Largo Frei Cassiano Villarosa,15,-22.915735,-43.216963,176 - Largo Frei Cassiano Villarosa,BikeRio
+177 - Senador Furtado,15,-22.910431,-43.2203,177 - Senador Furtado,BikeRio
+178 - Praça da Bandeira,19,-22.912196,-43.215194,178 - Praça da Bandeira,BikeRio
+179 - Haddock Lobo,15,-22.920943,-43.218829,179 - Haddock Lobo,BikeRio
+181 - Júlio do Carmo,15,-22.910601,-43.202749,181 - Júlio do Carmo,BikeRio
+182 - Metrô Praça Onze,17,-22.909549,-43.200404,182 - Metrô Praça Onze,BikeRio
+185 - Rua da Lapa,15,-22.915714,-43.177829,185 - Rua da Lapa,BikeRio
+186 - Lúcio de Mendonça,11,-22.915528,-43.224443,186 - Lúcio de Mendonça,BikeRio
+187 - Extra Mariz e Barros,17,-22.917778,-43.224048,187 - Extra Mariz e Barros,BikeRio
+188 - Metrô São Francisco Xavier,17,-22.920523,-43.223738,188 - Metrô São Francisco Xavier,BikeRio
+189 - Mariz e Barros,15,-22.914477,-43.219281,189 - Mariz e Barros,BikeRio
+190 - Metrô Afonso Pena,31,-22.918022,-43.2176,190 - Metrô Afonso Pena,BikeRio
+192 - Saens Peña Medical Center,15,-22.923596,-43.22957,192 - Saens Peña Medical Center,BikeRio
+193 - Uruguai,11,-22.928682,-43.243507,193 - Uruguai,BikeRio
+194 - Batalhão de Policia do Exército,17,-22.924202,-43.238982,194 - Batalhão de Policia do Exército,BikeRio
+195 - Senador Muniz Freire,15,-22.92094,-43.239961,195 - Senador Muniz Freire,BikeRio
+196 - Ribeiro Guimarães,15,-22.918562,-43.237601,196 - Ribeiro Guimarães,BikeRio
+197 - Octacílio Negrão de Lima,15,-22.917936,-43.241613,197 - Octacílio Negrão de Lima,BikeRio
+199 - Metrô Estácio,27,-22.91273,-43.205357,199 - Metrô Estácio,BikeRio
+200 - Armazém da Utopia,11,-22.893109,-43.190047,200 - Armazém da Utopia,BikeRio
+201 - Aquário,15,-22.892758,-43.192842,201 - Aquário,BikeRio
+202 - Armazém 3,15,-22.894614,-43.1863,202 - Armazém 3,BikeRio
+203 - Praça Mauá,19,-22.896985,-43.181576,203 - Praça Mauá,BikeRio
+204 - São Bento,15,-22.8984,-43.179711,204 - São Bento,BikeRio
+205 - Praça Barão de Ládario,17,-22.898996,-43.17694,205 - Praça Barão de Ládario,BikeRio
+206 - Tribunal Marítimo,15,-22.901126,-43.174937,206 - Tribunal Marítimo,BikeRio
+207 - Rua da Alfândega,15,-22.902264,-43.179098,207 - Rua da Alfândega,BikeRio
+208 - Av. Passos,11,-22.902157,-43.184158,208 - Av. Passos,BikeRio
+209 - Rua da Quitanda,11,-22.903949,-43.176419,209 - Rua da Quitanda,BikeRio
+210 - Praça XV,43,-22.902064,-43.173213,210 - Praça XV,BikeRio
+211 - Península 2,11,-22.991781,-43.350684,211 - Península 2,BikeRio
+213 - Praça do Expedicionário,23,-22.906915,-43.172771,213 - Praça do Expedicionário,BikeRio
+214 - Poeta Manuel Bandeira,15,-22.910626,-43.172382,214 - Poeta Manuel Bandeira,BikeRio
+216 - Clementino Fraga,15,-22.908233,-43.194759,216 - Clementino Fraga,BikeRio
+217 -Balança Mas Não Cai,15,-22.906395,-43.193826,217 -Balança Mas Não Cai,BikeRio
+218 - Península 1,11,-22.98894,-43.356761,218 - Península 1,BikeRio
+219 - Frei Caneca,15,-22.910809,-43.192831,219 - Frei Caneca,BikeRio
+221 - Rua do Riachuelo,11,-22.914725,-43.185073,221 - Rua do Riachuelo,BikeRio
+223 - Henrique Valadares,11,-22.911151,-43.18575,223 - Henrique Valadares,BikeRio
+224 - Catedral Metropolitano,15,-22.909589,-43.180929,224 - Catedral Metropolitano,BikeRio
+226 - Rua do Rezende,15,-22.914021,-43.188198,226 - Rua do Rezende,BikeRio
+227 - Saara Buenos Aires,11,-22.905548,-43.18518,227 - Saara Buenos Aires,BikeRio
+228 - Praça do Itamaraty,19,-22.903433,-43.187331,228 -  Praça do Itamaraty,BikeRio
+229 - Afonso de Taunay,0,-23.010457,-43.312793,229 - Afonso de Taunay,BikeRio
+230 -Metrô São Conrado,19,-22.99339,-43.253626,230 -Metrô São Conrado,BikeRio
+231 - Prefeito Mendes de Morais,15,-22.999505,-43.266278,231 - Prefeito Mendes de Morais,BikeRio
+232 - Parque de Madureira I,29,-22.870199,-43.340191,232 - Parque de Madureira I,BikeRio
+233 - Parque Madureira II,31,-22.856461,-43.351608,233 - Parque Madureira II,BikeRio
+234 - Pier Barra da Tijuca,15,-23.014437,-43.297871,234 - Pier Barra da Tijuca,BikeRio
+235 - R. Tenente Airton Pereira,15,-23.014509,-43.301611,235 - R. Tenente Airton Pereira,BikeRio
+236 - Jornalista Mário Filho,15,-23.014858,-43.306577,236 - Jornalista Mário Filho,BikeRio
+237 - Adilson Seria da Motta,15,-23.013665,-43.309701,237 - Adilson Seria da Motta,BikeRio
+"Avenida Lúcio Costa, E/F N 1700, esquina com Av. Afonso de Taunay",15,-23.013798,-43.313735,238 - Port Brise,BikeRio
+239 - Praça São Perpétuo,15,-23.013026,-43.317132,239 - Praça São Perpétuo,BikeRio
+240 - Lúcio Costa 2860,15,-23.011824,-43.3225,240 - Lúcio Costa 2860,BikeRio
+241 - Posto 4 Barra,15,-23.011043,-43.326199,241 - Posto 4 Barra,BikeRio
+242 - Posto 5 Barra,15,-23.010629,-43.331698,242 - Posto 5 Barra,BikeRio
+243 - Santorini,15,-23.007347,-43.318611,243 - Santorini,BikeRio
+244 - Lúcio Costa 4000,11,-23.010345,-43.336916,244 - Lúcio Costa 4000,BikeRio
+245 - Lúcio Costa 4350,15,-23.010364,-43.341695,245 - Lúcio Costa 4350,BikeRio
+246 - Lúcio Costa 4600,15,-23.010134,-43.343713,246 - Lúcio Costa 4600,BikeRio
+"Avenida Afonso Arinos de Melo Franco, oposto ao N 222, E/F à Praça Pimentinha",19,-23.003987,-43.323468,247 - Praça Pimentinha,BikeRio
+248 - Downtown,15,-23.004395,-43.320165,248 - Downtown,BikeRio
+249 - Ministro Afrânio Costa,15,-23.005537,-43.339201,249 - Ministro Afrânio Costa,BikeRio
+250 - Praça Professor Souza Araújo,11,-23.0074,-43.316794,250 - Praça Professor Souza Araújo,BikeRio
+251- Veiga de Almeida,19,-23.002756,-43.352642,251- Veiga de Almeida,BikeRio
+252 - Parque das Rosas,19,-23.000738,-43.351858,252 - Parque das Rosas,BikeRio
+253 - Av. Olegário Maciel,11,-23.012544,-43.305068,253 - Av. Olegário Maciel,BikeRio
+254 - Vila do PAN,11,-22.970289,-43.357858,254 - Vila do PAN,BikeRio
+255 - Praça Euvaldo Lodi,11,-23.008741,-43.304128,255 - Praça Euvaldo Lodi,BikeRio
+256 - Humaitá,17,-22.960477,-43.202642,256 - Humaitá,BikeRio
+257 - Metrô Jardim Oceânico,23,-23.007347,-43.310976,257 - Metrô Jardim Oceânico,BikeRio
+258 - Praça do Pomar,11,-23.010378,-43.309383,258 - Praça do Pomar,BikeRio
+259 - Posto 9 Recreio,11,-23.022929,-43.448587,259 - Posto 9 Recreio,BikeRio
+260 - Posto 12 Recreio,27,-23.030213,-43.468981,260 - Posto 12 Recreio,BikeRio
+261 - Praça Soldado Geraldo da Cruz,15,-23.010155,-43.320883,261 - Praça Soldado Geraldo da,BikeRio
+262 - Golden Green,11,-23.009967,-43.348066,262 - Golden Green,BikeRio
+263 - Almare,11,-23.010321,-43.357229,263 - Almare,BikeRio
+264 - Alfa Barra,11,-23.010728,-43.365249,264 - Alfa Barra,BikeRio
+265 - Ayrton Senna,11,-23.004741,-43.366546,265 - Ayrton Senna,BikeRio
+266 - Terminal Alvorada Oste,23,-23.001018,-43.368766,266 - Terminal Alvorada Oste,BikeRio
+267 - Terminal Alvorada Leste,23,-23.001892,-43.364426,267 - Terminal Alvorada Leste,BikeRio
+268 - Bosque da Barra,11,-22.999788,-43.374757,268 - Bosque da Barra,BikeRio
+269 - Promo Info,11,-22.999967,-43.378932,269 - Promo Info,BikeRio
+270 - Mandala,11,-23.003689,-43.375908,270 - Mandala,BikeRio
+271 - Alfa Barra II,11,-23.010689,-43.369382,271 - Alfa Barra II,BikeRio
+272 - La Place,11,-23.002387,-43.371547,272 - La Place,BikeRio
+273 - Escola Eleva  Barra,15,-22.988717,-43.361249,273 - Escola Eleva  Barra,BikeRio
+274 - SubPrefeitura da Barra e Jacarepaguá,11,-22.992393,-43.366313,274 - SubPrefeitura da Barra e Jacarepaguá,BikeRio
+275 - Leila Diniz,11,-22.994834,-43.361315,275 - Leila Diniz,BikeRio
+276 - Zoila Abreu Teixeira,11,-23.000579,-43.358636,276 - Zoila Abreu Teixeira,BikeRio
+278 - Estácio,11,-23.005514,-43.349673,278 - Estácio,BikeRio
+279 - Barra Business Center,11,-23.00053,-43.34771,279 - Barra Business Center,BikeRio
+280 - Barra Garden,11,-23.000824,-43.341086,280 - Barra Garden,BikeRio
+281 - Gastão Sengés,11,-23.002002,-43.341529,281 - Gastão Sengés,BikeRio
+282 - Guanabara,11,-23.000794,-43.335925,282 - Guanabara,BikeRio
+283 - Athaydeville,11,-23.001945,-43.328248,283 - Athaydeville,BikeRio
+284 - Praça Restier Gonçalves,11,-23.014826,-43.45779,284 - Praça Restier Gonçalves,BikeRio
+285 - Gláucio Gil Praia,11,-23.024866,-43.457286,285 - Gláucio Gil Praia,BikeRio
+286 - BRT Benvindo de Novaes,11,-23.014323,-43.467479,286 - BRT Benvindo de Novaes,BikeRio
+287 - Dez e meio,11,-23.027269,-43.463333,287 - Dez e meio,BikeRio
+288 - Murilo Araújo,11,-23.016811,-43.464305,288 - Murilo Araújo,BikeRio
+289 - Parque Chico Mendes,11,-23.021924,-43.470847,289 - Parque Chico Mendes,BikeRio
+290 - Barra World,11,-23.009754,-43.441211,290 - Barra World,BikeRio
+291 - Praça Miguel Osório,11,-23.013355,-43.450808,291 - Praça Miguel Osório,BikeRio
+292 - Parque Marapendi,11,-23.017764,-43.450483,292 - Parque Marapendi,BikeRio
+"Largo Jornalista Glênio Peres, oposto ao Mercado Municipal / esquina Av. Borges de Medeiros",29,-30.0283417,-51.227863,1 - Mercado,BikePOA
+"Rua Capitão Montanha, lateral do Museu de Arte do Rio Grande do Sul",17,-30.0284999,-51.2323205,2 - Praça da Alfândega,BikePOA
+"Rua Sete de Setembro, oposto ao número 510",17,-30.0308719,-51.2351243,3 - Casa de Cultura Mário Quintana,BikePOA
+"Rua Duque de Caxias, em frente ao número 1208 / esquina com Rua Praça Mal. Deodoro",15,-30.033485,-51.22958,4 - Museu Júlio de Castilhos,BikePOA
+Rua Cel Fernando Machado oposto ao número 623 / próximo à Brigada Militar,11,-30.03503,-51.23125,5 - Rua Fernando Machado,BikePOA
+Rua Duque de Caxias oposto ao número 593 / esquina com Rua General Canabarro,11,-30.034008,-51.235398,6 - Duque de Caxias,BikePOA
+7 - Usina do Gasômetro,27,-30.0332788,-51.2395546,7 - Usina do Gasômetro,BikePOA
+"Rua Ibanor José Tartarotti, próxima a entrada da Câmara Municipal dos Vereadores de Porto Alegre / esquina Avenida Loureiro da Silva",19,-30.0381019,-51.2367387,8 - Câmara dos Vereadores,BikePOA
+Avenida Augusto de Carvalho em frente ao número 1133 (SERPRO) / esquina com Avenida Loureiro da Silva,15,-30.03773,-51.23294,9 - SERPRO,BikePOA
+Avenida Loureiro da Silva / em frente a Praça General Braga Pinheiro,19,-30.03767,-51.23026,10 - UFRGS Administração,BikePOA
+"Rua José do Patrocínio, em frente ao número 9 / esquina com Rua Cel. Genuíno",15,-30.03608,-51.22725,11 - Caminho dos Antiquários,BikePOA
+"Avenida Sarmento Leite, em frente a UFRGS/ Esquina Avenida Osvaldo Aranha",23,-30.032518,-51.2207851,12 - UFRGS Arq.,BikePOA
+Rua Sarmento Leite oposto ao número 763 / Praça Professor Saint Pastous,15,-30.03563,-51.222609,13 - FARSUL,BikePOA
+"Rua General Lima e Siva, oposto ao número 591",19,-30.03831,-51.22145,14 - Lima e Silva,BikePOA
+"Rua Alberto Tôrres, lateral da Caixa  / esquina com Rua José do Patrocínio",11,-30.04069,-51.22224,15 - Rua Alberto Tôrres,BikePOA
+Rua da República em frente ao número 618 / E.E.E.F. Prof. Olintho de Oliveira,15,-30.03987,-51.22526,16 - República,BikePOA
+"Av. Praia de Belas, oposto ao número 442 / na Praça Isabel, a católica",15,-30.0424594,-51.227767,17 - Praça Isabel,BikePOA
+"Av Aureliano de Figueiredo Pinto, em frente ao número 80 / Ministério Público",15,-30.0421054,-51.2316598,18 - Ministério Público,BikePOA
+Rotatório entre Avenida Loureiro da Silva e Avenida Edvaldo Pereira Paiva,31,-30.0369414,-51.2408549,19 - Rótula do Gasômetro,BikePOA
+"Avenida Praia de Belas frente ao número 954, oposto ao Batalhão de Ferro",15,-30.0473256,-51.2273043,20 - Praia de Belas,BikePOA
+"R. Cecília Meireles, esquina com Av Borges de Medeiros / em frente a Praça Itália",19,-30.0508652,-51.2297232,21 - Praça Itália,BikePOA
+Avenida Bastian em frente ao numero 332 / esquina com Rua Mucio Teixeira,15,-30.05042,-51.224119,22 - Av. Bastian,BikePOA
+"Av. 17 de junho, em frente ao número 743",15,-30.0474116,-51.2217653,23 - 17 de junho,BikePOA
+Avenida Ipiranga / canteiro central da Avenida Érico Veríssimo,15,-30.0485392,-51.2185795,24 - Cascatinha,BikePOA
+Rua Mucio Teixeira calçada do supermercado Nacional / esquina com Rua Barão de Gravataí,27,-30.04448,-51.22344,25 - Estação Nacional,BikePOA
+Rua José do Patrocínio oposto ao número 1050 / Praça Garibaldi,23,-30.04352,-51.2196,26 - Praça Garibaldi,BikePOA
+Praça Piratini / esquina com Avenida João Pessoa,15,-30.045394,-51.213444,27 - Estação João Pessoa,BikePOA
+"Av.Venâncio Aires, 449",15,-30.04102,-51.21593,28 - Venâncio Aires,BikePOA
+Avenida Jerônimo de Ornelas em frente ao número 287 / cruzamento com Rua Santana,15,-30.0420262,-51.2119316,29 - Praça Maj. Joaquim de Queirós,BikePOA
+Rua Vieira de Castro em frente ao número 133,15,-30.03888,-51.21223,30 - Vieira de Castro,BikePOA
+Rua Eduardo Zacaro Faraco oposto ao 2574 / esquina com Avenida Ramiro Barcelos (Campus Saúde UFRGS),27,-30.0414643,-51.2080677,31 - UFRGS Campus Saúde,BikePOA
+"Av. Jerônimo de Ornelas,  2350 / esquina com Av. Ramiro Barcelos",11,-30.0395448,-51.2081083,32 - Hospital de Clínicas,BikePOA
+"Largo Doutor José Faibes Lubianca, no estacionamento em frente à Galeria Mercado do Bonfim",23,-30.0360183,-51.2110323,33 - Redenção Mercadinho,BikePOA
+"Rua Antão de Faria, oposto ao número 6 / esquina com Rua Dr. Barros Cassal",15,-30.0318227,-51.2171141,34 - Barros Cassal,BikePOA
+Rua Irmão José Otao / esquina com a Rua Santo Antônio,15,-30.0311348,-51.21441957,35 - Irmão José Otao,BikePOA
+"Rua Fernandes Vieira, 286 / Esquina Rua Vasco da Gama",19,-30.0319514,-51.2108426,36 - Fernandes Vieira,BikePOA
+Rua Miguel Tostes em frente ao número 505 / esquina com Rua Vasco da Gama,19,-30.0325726,-51.2059061,37 - Rua Miguel Tostes,BikePOA
+"Rua César Lombroso, oposto ao número 19",19,-30.035123,-51.208183,38 - R. César Lombroso,BikePOA
+Rua Dr. Florêncio Ygartua em frente ao numero 491,19,-30.0309898,-51.203078,39 - Goethe,BikePOA
+Rua 24 de Outubro oposto ao numero 742 em frente ao Parque Moinhos de Vento,23,-30.024931,-51.2010224,40 - Parcão,BikePOA
+"Av.Padre Cacique, oposto ao nº 2000",27,-30.07694444,-51.245,41 - Iberê,BikePOA
+Prefeitura,15,-8.05529,-34.87221,1 - Prefeitura,BikePE
+Praça Tiradentes,15,-8.05873,-34.87247,2 - Praça Tiradentes,BikePE
+Rua do Bom Jesus com Rua Barão Rodrigues Mendes,23,-8.061392,-34.871049,3 - Praça do Arsenal,BikePE
+Av. Rio Branco,23,-8.0625979,-34.872696,4 - Boulevard Rio Branco,BikePE
+Paço Alfândega,23,-8.063705,-34.8742113,5 - Paço Alfândega,BikePE
+Cais de Santa Rita,15,-8.06707,-34.8757,6 - Cais de Santa Rita,BikePE
+Praça da República,19,-8.06112,-34.87839,7 - Praça da República,BikePE
+Praça da Independência,23,-8.06418,-34.87837,8 - Praça da Independência,BikePE
+Praça Joaquim Nabuco,23,-8.06444,-34.88135,9 - Praça Joaquim Nabuco,BikePE
+Casa da Cultura,27,-8.06673,-34.88294,10 - Casa da Cultura,BikePE
+Ponte do Limoeiro,15,-8.05039,-34.87397,11 - Ponte do Limoeiro,BikePE
+Obelisco Aurora,23,-8.05316,-34.87581,12 - Camilo Simões,BikePE
+Tortura Nunca Mais,19,-8.056193,-34.878319,13 - Tortura Nunca Mais,BikePE
+Parque Treze de Maio,19,-8.05854,-34.88106,14 - Parque Treze de Maio,BikePE
+"Rua Dr. Sebastião Lins, lateral do Cinema São Luiz",11,-8.0623763,-34.8819838,15 - Cine São Luiz,BikePE
+Matriz da Boa Vista,15,-8.06263,-34.88519,16 - Matriz da Boa Vista,BikePE
+Igreja de Santa Cruz,15,-8.06231,-34.88813,17 - Igreja de Santa Cruz,BikePE
+Riachuelo,15,-8.05826,-34.88571,18 - Riachuelo,BikePE
+"Rua Gervásio Pires, em frente ao número 826 e oposto ao Conselho Tutelar",15,-8.0543316,-34.8840345,19 - Sossego.,BikePE
+"Rua Gervásio Pires, oposto ao número 1075",15,-8.0534341,-34.882595,20 - Palmares,BikePE
+Diário de Pernambuco,15,-8.0512256,-34.87922,21 - Diário de Pernambuco,BikePE
+Frei Cassimiro,15,-8.0480364,-34.8780758,22 - Frei Cassimiro,BikePE
+"Praça do Campo Santo, oposto ao SESC / esquina com Rua do Pombal",19,-8.0499004,-34.8827713,23 - SESC Santo Amaro,BikePE
+Cemitério de Santo Amaro,15,-8.051161,-34.8862102,24 - Cemitério de Santo Amaro,BikePE
+"Rua Afonso Pena esquina com a Rua Bernardo Guimarães / Universidade Católica de
+Pernambuco",19,-8.0542505,-34.8881673,25 - Rua do Lazer,BikePE
+Praça Oswaldo Cruz / esquina com a Rua João Fernandes Vieira,19,-8.0546704,-34.8910526,26 - Praça Oswaldo Cruz,BikePE
+"Rua da Soledade, oposto ao 259, próximo ao Posto de Atendimento VEM / esquina
+com Av Conde da Boa Vista",15,-8.0579007,-34.8899672,27 - Rua da Soledade,BikePE
+Rua Joaquim de Brito em frente ao número 29 / esquina com Rua Visconde de Goiana,15,-8.0613555,-34.8921045,28 - Salesiano,BikePE
+Rua Praça Dr Fernando Figueira em frente à Praça Miguel de Cervantes,15,-8.065077,-34.8937564,29 - Praça Miguel de Cervantes,BikePE
+"R. Capitão Lima em frente ao número 250 / Sistema Jornal do Commercio de
+Comunicação (SJCC)",15,-8.0534257,-34.8787347,30 - SJCC,BikePE
+"Rua Epaminondas de Melo, oposto ao numero 195 / oposto Hapvida",11,-8.0605663,-34.8982899,31 - Epaminondas,BikePE
+"Rua Doná Benvinda, oposta ao número 230, próximo à Praça Chora Menino",15,-8.0606218,-34.8951776,32 - Praça Chora Menino,BikePE
+"Rua Dom Bosco, oposto ao número 895 / Conferência Nacional dos Bispos do Brasil",15,-8.0583128,-34.8944371,33 - CNBB,BikePE
+"Rua Silva Ramos, oposto ao número 37 / esquina com Av Governador Carlos de Lima
+Cavalcanti",15,-8.0560306,-34.8964212,34 - R. Silva Ramos,BikePE
+"R. Praça do Derby, proximo à Rua Feliciano Gomes / ao lado do ponto de ônibus",23,-8.0560671,-34.8991701,35 - Praça do Derby,BikePE
+"Rua Prof Benedito Monteiro, oposto à entrada do estacionamento da Escola Politécnica
+de Pernambuco (em frente à Lanchonete do Tio)",23,-8.0595212,-34.9038211,36 - Politécnica,BikePE
+"Rua Guilherme Pinto, em frente a Praça João Pereira Borges / próximo a Rua Dr Osvaldo
+Lima",15,-8.0544086,-34.9018285,37 - Praça João Pereira Borges,BikePE
+"Av Beira Rio, oposto ao número 771",15,-8.0520241,-34.9050039,38 - Ponte da Capunga,BikePE
+"Rua das Graças, oposto ao número 20 / em frente ao Instituto Capibaribe",15,-8.0505195,-34.9018615,39 - Instituto Capibaribe,BikePE
+"Av Beira Rio, na baia de estacionamento oposta à Praça Domingos Giovanetti / próximo à
+Rua Clóvis Beviláqua",17,-8.047239,-34.9042585,40 - Beira Rio,BikePE
+"Rua Ten. Antônio João, lateral do Edifício Empresarial Rui Barbosa / próximo ao Colégio
+Presbiteriano Agnes Erskine",15,-8.0466918,-34.9013058,41 - Colégio Agnes Erskine,BikePE
+"Praça do Entroncamento, próximo a Av Conselheiro Rosa e Silva",15,-8.0504888,-34.896989,42 - Praça do Entrocamento,BikePE
+"Rua Samuel Pinto, oposto ao Conselho Estadual de Saúde de Pernambuco / esquina com
+Rua João Fernandes Vieira",15,-8.0520986,-34.8926042,43 - Rua Samuel Pinto,BikePE
+"Av Montevidéo, oposto ao número 276, em frente à Praça Otília",11,-8.0493548,-34.8926596,44 - Praça Otília,BikePE
+"Rua Bruno Maia, oposto ao número 505 / esquina com Av Conselheiro Rosa e Silva",15,-8.0469895,-34.8969794,45 - R. Bruno Maia,BikePE
+Rua Adalberto Camargo oposto ao número 82,15,-8.0442128,-34.8997584,46 - R. Adalberto Camargo,BikePE
+Av. Doutor Malaquias oposto ao número 1426-B Faculdade Damas,23,-8.0390186,-34.9029058,47 - Faculdade Damas,BikePE
+"Rua do Futuro, esquina com Rua Neto de Mendonça / oposto ao Parque da Jaqueira",23,-8.0366798,-34.9033728,48 - Parque da Jaqueira,BikePE
+Rua Neto de Mendonça em frente ao número 230,15,-8.0348583,-34.900417,49 - R. Gen. Abreu e Lima,BikePE
+"Av Santos Dumont, oposto ao número 657 (Casa Rosada) / esquina com R. Dr. José Maria.",15,-8.0351458,-34.8973164,50 - Casa Rosada.,BikePE
+"Rua Quarenta e Oito, oposto ao número 725 / Praça da FEB",11,-8.0401811,-34.8948252,51 - Praça da FEB,BikePE
+Rua da Agustura em frente ao número 38 / próximo ao Clube Náutico Capibaribe,15,-8.0420719,-34.8974496,52 - Club do Nautico,BikePE
+"Rua Dr. Vicente Meira, oposto ao número 201 e ao São Braz / esquina com Rua Santo
+Elias",11,-8.043955,-34.894815,53 - Rua Dr. Vicente Meira,BikePE
+Rua Venezuela oposto ao número 215 / esquina com Rua da Hora,15,-8.047012,-34.8947475,54 - Venezuela.,BikePE
+"Rua Doutor Carlos Chagas, oposto a entrada da Casa de Acolhimento / próximo ao
+Campus Santo Amaro - UPE",15,-8.0478164,-34.8881181,55 - Hospital Oswaldo Cruz.,BikePE
+"Rua Bernardino Soares da Silva, em frente ao número 50 / esquina com Rua Quarenta e
+Oito",15,-8.0444877,-34.8907734,56 -R. Bernardino Soares da Silva,BikePE
+"Rua Alfredo de Medeiros em frente ao número 44 e oposto ao Posto de Gasolina Shell /
+esquina com Av João de Barros",11,-8.0418614,-34.8905709,57 - R. Alfredo de Medeiros,BikePE
+"Praça Largo da Encruzilhada, próximo a Rua Amaro Coutinho e ao Mercado da
+Encruzilhada",23,-8.0369899,-34.8913845,58 - Mercado da Encruzilhada,BikePE
+"Rua Amaro Coutinho, oposto a Praça do Rosarinho / esquina com Av Norte Miguel Arraes
+de Alencar",15,-8.0327102,-34.8967708,59 - Praça do Rosarinho,BikePE
+Pina,27,-8.09891,-34.88402,60 - Pina,BikePE
+Segundo Jardim,27,-8.10487,-34.88679,61 - Segundo Jardim,BikePE
+Prof. José Brandão,27,-8.11367,-34.89104,62 - Prof. José Brandão,BikePE
+Padre Carapuceiro,27,-8.1210098,-34.8954169,63 - Padre Carapuceiro,BikePE
+R. Verdes Mares,19,-8.1352308,-34.9013796,64 - R. Verdes Mares,BikePE
+Parque Dona Lindú,39,-8.14211,-34.90362,65 - Parque Dona Lindú,BikePE
+"Av Beira Mar, próximo a Rua Engenheiro Antônio Jucá",15,-8.1666331,-34.9144867,66 - Rua Eng. Antônio Jucá,BikePE
+"Av Ayrton Senna da Silva no canteiro central oposto ao Posto de Gasolina Total /
+próximo da Rua Arão Lins de Andrade",19,-8.1663378,-34.9155497,67 - Shopping Guararapes,BikePE
+"Rua Prof Silvia Ferreira, oposto ao número 131 / em frente a Faculdade dos
+Guararapes / esquina com Rua Comendador José Didier",19,-8.1626977,-34.9163684,68 - Faculdade Guararapes,BikePE
+"Praça Massangana, em frente a Av Zequinha Barreto",17,-8.1571898,-34.915636,69 - Praça Massangana,BikePE
+"Rua São João em frente à estação de metrô Monte dos Guararapes / esquina com Av
+Zequinha Barreto",23,-8.1543814,-34.9195828,70 - Metrô Monte dos Guararapes,BikePE
+Praça do Varadouro / esquina com Av Sigismundo Gonçalves,17,-8.0203374,-34.8537242,71 - Mercado Eufrásio Barbosa,BikePE
+Praça do Carmo / esquina Av. Sigismundo Gonçalves e Av. Liberdade,23,-8.0169892,-34.8485236,72 - Praça do Carmo,BikePE
+Praça Doze de Março / esquina com R. Cel. Henrique Guimarães,11,-8.0098717,-34.8423464,73 - Praça Doze de Março,BikePE
+"RUA VISCONDE DE JEQUITINHONHA, OPOSTO AO Nº 2616,A1",15,-8.1430512,-34.9062126,74 - R. João Cardoso Aires,BikePE
+"Av Ministro Marcos Freire, na calçada oposto ao número 1065 / próximo a Rua Alberto
+Lundgren",15,-8.0026105,-34.8395305,75 - Alberto Lundgren,BikePE
+"Av Ministro Marcos Freire, na calçada oposto ao número 1755 / próximo a Rua Dr
+Manoel de Barros Lima",17,-7.9965628,-34.8387641,76 - R. Dr. Manoel de Barros Lima,BikePE
+"Av Ministro Marcos Freire, na baia de estacionamento oposta ao número 2585 / próximo
+a Rua Jorn. Luís Andrade",19,-7.9885679,-34.8382621,77 - Praia da Casa Caiada,BikePE
+"Av da Engenharia, dentro do estacionamento do centro de ciências da saude UFPE",23,-8.0501954,-34.9473543,78 - CCS UFPE,BikePE
+"Av Jornalista Anibal Fernandes, em frente ao Nucleo Integrado de Atividades de Ensino
+(Niate) - UFPE",23,-8.0550577,-34.9526868,79 - NIATE UFPE,BikePE
+"Estacionamento do CAC, próximo ao Restaurante Universitário / Esquina com a Avenida
+dos Funcionários",31,-8.0508827,-34.9534389,80 -Restaurante Universitário UFPE,BikePE
+Av Antonio Gil Veloso,19,-20.331598,-40.2742196,1 - Orla Curva da Sereia,BikeVV
+Av. Antonio Gil Veloso,19,-20.3376014,-40.2821159,2 - Orla Champagnat,BikeVV
+Av. Antonio Gil Veloso,15,-20.3431128,-40.2839507,3 - Orla Maranhao,BikeVV
+Av. Antonio Gil Veloso,19,-20.3521348,-40.283871,4 - Orla Jair Andrade,BikeVV
+Av. Est. Jose Julio de Souza,15,-20.36014,-40.29453,5 - Orla Bobs,BikeVV
+Av. Est. Jose Julio de Souza,19,-20.365932,-40.299685,6 - Orla Itaiabaia,BikeVV
+Av. Est. Jose Julio de Souza,19,-20.37473006,-40.30444444,7 - Orla Praca dos Ciclistas,BikeVV
+Embratel,15,-20.3844198,-40.31128,8 - Embratel,BikeVV
+Praça Otavio Araujo,15,-20.32982253,-40.29194444,9 - Centro Prainha,BikeVV
+Rua Helena Modenese,19,-20.336455,-40.289705,10 - Centro Mc Donalds,BikeVV
+Praca Duque de Caxias,19,-20.33610774,-40.29333333,11 - Centro Praca Duque de Caxias,BikeVV
+Av. Jeronimo Monteiro,19,-20.33499726,-40.29861111,12 - Centro Shopping da Terra,BikeVV
+Rua Santa Cruz,15,-20.3369786,-40.3060011,13 - Gloria Santa Cruz,BikeVV
+Praca da Garoto,15,-20.3372798,-40.30805556,14 - Gloria Praca da Garoto,BikeVV
+Glória P.A.,15,-20.33934043,-40.30638889,15 - Glória P.A.,BikeVV
+Prefeitura,15,-20.35940525,-40.29861111,16 - Prefeitura,BikeVV
+Rua Cabo Aylson Simões,19,-20.3426697,-40.2952969,17 - Terminal de Vila Velha,BikeVV
+Rua Quatro,15,-20.36459966,-40.30305556,18 - Praca Coqueiral de Itaparica,BikeVV
+Rua Santa Catarina,15,-20.34607442,-40.28861111,19 - Praca Dom Cavatti,BikeVV
+Shopping Vila Velha,19,-20.35245543,-40.29583333,20 - Shopping Vila Velha,BikeVV
+"Rua Adelaide Fernandes da Costa, oposto ao número 300 / Esquina com a Rua
+Doutor Baureau",19,-12.997972,-38.448405,1 - Parque Costa Azul,BikeSSA
+"Av. Sete de Setembro, oposto ao Restaurante Ancorador e Hit Hotel",23,-13.003281,-38.532697,2 - Estação Porto da Barra,BikeSSA
+"Rua Professor Lemos Brito, 555",11,-13.009523,-38.528107,3 - Barra - Professor Lemos Brito,BikeSSA
+"No canteiro central da Rua Prof Sabino Silva, próximo à Rua Manuel Dias Morais",15,-13.00502,-38.517932,5 - R. Prof. Sabino Silva,BikeSSA
+"R. Barão de Jeremoabo, esquina com Av. Adhemar de Barros, entrada da UFBA, oposto ao Zoológico",15,-13.006056,-38.509705,6 - UFBA Ondina - Portão Principal,BikeSSA
+"Av. Adhemar de Barros, no acesso a UFBA - Portão 01 e ao ADAB / Oposto ao
+CDA",15,-13.002495,-38.507178,7 - UFBA - Portão 01,BikeSSA
+"Rua da Paciência, ao lado da quadra de futebol, esquina da Travessa Lydio de Mesquita, oposto ao Mar
+Hotel Rio Vermelho",15,-13.011327,-38.493318,8 - Quadras do Rio Vermelho,BikeSSA
+"R. Alagoinhas, oposto ao número 84, na praça Carlos Batalha",11,-13.010333,-38.489844,9 - Praça Carlos Batalha,BikeSSA
+"Largo da Mariquita, em frente ao Hotel Bahia Park",17,-13.013765,-38.488153,10 - Largo da Mariquita,BikeSSA
+"Avenida Octávio Mangabeira, oposto ao Bombom Eventos, próximo à esquina
+da R. Dr. Guilherme Reis",17,-13.01227,-38.468037,11 - Amaralina,BikeSSA
+"Praça Marconi, esquina com a Rua Bahia",17,-13.002792,-38.455332,12 - Praça Marconi,BikeSSA
+"Praça da Piedade, oposto à Livraria Monteiro, entre a Av. Sete de Setembro e R.
+Joana Angélica",15,-12.982846,-38.514973,13 - Largo da Piedade,BikeSSA
+"Avenida Sete de Setembro, em frente ao Espaço Unibanco de Cinema / Esquina
+com a Ladeira da Montanha",15,-12.977387,-38.514527,14 - Praça Castro Alves,BikeSSA
+"Rua Tingui, na Praça do Forum Ruy Barbosa / Na saída do Metrô / Esquina com
+a Avenida Joana Angélica",17,-12.979067,-38.50799,15 - Praça do Fórum Ruy Barbosa,BikeSSA
+"Av. da França, no canteiro central, em frente ao espaço de eventos localizado
+ao lado do Porto",11,-12.97016,-38.513045,16 - Terminal da França,BikeSSA
+"Em frente ao Mercado Modelo, em frente ao monumento localizado na
+entrada principal do Mercado Modelo.",11,-12.973418,-38.513387,17 - Mercado Modelo,BikeSSA
+Próximo ao Plano Inclinado Gonçalves e à Casa do Carnaval,11,-12.972952,-38.510732,18 - Praça da Sé,BikeSSA
+"Avenida Pinto de Aguiar, em frente à Universidade Católica",15,-12.94644,-38.413879,19 - Pinto de Aguiar (UCSAL),BikeSSA
+"Av. Joana Angélica, no acesso ao Metrô Lapa, na Praça Carneiro Ribeiro",11,-12.98105,-38.51203,20 - Metrô Lapa,BikeSSA
+"Calçada da Praça do Campo Grande, no lado oposto do TCA",15,-12.989293,-38.520376,21 - Campo Grande,BikeSSA
+"Praça Dr. Paterson, ao lado da Igreja da Graça",11,-12.999232,-38.523744,22 - Largo da Graça,BikeSSA
+"Praça Nossa Senhora da Luz, na Avenida Otávio Mangabeira, esquina com r.
+Pernambuco",15,-13.005963,-38.457312,23 - Nossa Senhora da Luz,BikeSSA
+"Rua Anísio Teixeira, na calçada do Boulevard 161, próximo à saída do
+estacionamento",15,-12.996531,-38.466283,24 - Itaigara - Boulevard 161,BikeSSA
+"Rua Rubens Guellí, no estacionamento do Shopping Paseo Itaigara",11,-12.995761,-38.470894,25 - Passeo Itaigara,BikeSSA
+"No centro da praça Aquarius, oposto ao Hotel Mercure",11,-12.986925,-38.452353,26 - Praça Aquarius,BikeSSA
+"Praça Ana Lúcia Magalhães, no gramado ao lado da Academia",11,-12.992793,-38.461321,27 - Praça Ana Lúcia Magalhães,BikeSSA
+"Praça do Imbuí, ao lado das quadras, em frente ao condomínio Parque do Imbuí",11,-12.969222,-38.431336,28 - Imbuí I,BikeSSA
+"Av. Oceânica, esquina com Av. Adhemar de Barros, ao lado do ponto de ônibus,
+em frene às gordinhas",15,-13.010308,-38.509888,29 - Praça do Sol,BikeSSA
+"Canteiro Central da Avenida Centenário, oposto ao Shopping Barra / Próximo à esquina da Rua Professor
+Sabino Silva",17,-13.005983,-38.523307,30 - Centenário,BikeSSA
+"R Fonte do Boi, no canteiro central, oposto ao edifício Recanto Iemanjá, nº 55",15,-13.013748,-38.485803,31 - Fonte do Boi,BikeSSA
+Hotel Bahia do Sol na Av. Sete de Setembro,7,-12.99091,-38.524892,32 - Hotel Bahia do Sol,BikeSSA
+"Av. Otávio Mangabeira, na calçada da orla, oposto ao número 3551 (Salvador
+Suites Residence)",15,-12.994033,-38.440247,33 - Jardim de Alah,BikeSSA
+"Avenida Octávio Mangabeira, em frente à Igreja Evangélica Pão Peixe e Brasa nº 6153, próximo a Rua Mangabeira da Boca do Rio.",15,-12.978422,-38.424402,34 - Boca do Rio,BikeSSA
+"Orla da Boca do Rio, no Parque dos Ventos",19,-12.986082,-38.433642,35 - Parque dos Ventos,BikeSSA
+"Avenida Otávio Mangabeira, em frente ao Montiê Eventos, próximo ao Restaurante Carangueiro de Sergipe",17,-12.967182,-38.405462,36 - Patamares,BikeSSA
+"Avenida Otávio Mangabeira, próximo a passarela e faixa de pedestre, oposto ao hotel Jaguaribe",15,-12.959253,-38.393242,37 - Jaguaribe,BikeSSA
+"Av. Octávio Mangabeira, oposto ao Atakarejo",17,-12.95357,-38.379558,38 - Piatã,BikeSSA
+"Avenida Otávio Mangabeira, em frente ao restaurante Portal de Itapuã",19,-12.950197,-38.365623,39 - Itapuã,BikeSSA
+"Praça do Imbuí, esquina com Rua das Gaivotas",15,-12.969528,-38.435565,40 - Imbuí II,BikeSSA
+"Praça Lord Cochrane, perto da faixa de pedestres, oposto à loja Condor Tintas e
+à ladeira",15,-12.993181,-38.507897,41 - Praça Lord Cochrane,BikeSSA
+"Av. Centenário, próximo à Rua Desembargador Baldoino Andrade, no canteiro
+central, em frente ao Condomínio Empresarial Centenário",11,-13.002508,-38.521697,42 -  Centenário II,BikeSSA
+"Av. Anita Garibaldi, em frente ao Centro Médico Garibaldi Nº 1555, no canteiro
+central",11,-13.00211,-38.503628,43 - Praça Clériston Andrade,BikeSSA
+"Rua Marquês de Monte Santo com Avenida Amaralina, na praça em frente ao Quartel de Amaralina",15,-13.013483,-38.478097,44 - Quartel de Amaralina,BikeSSA
+"Jardim dos Namorados, na primeira faixa de pedestre, perto do anfiteatro, dos
+quiosques e do monumento",19,-13.002622,-38.451527,45 - Jardim dos Namorados,BikeSSA
+"4ª Avenida Centro Administrativo da Bahia, próxima da Avenida Luís Viana
+(lado norte)",11,-12.944003,-38.421955,46 - CAB (Metrô Pituaçu),BikeSSA
+"Praça João Mangabeira, próximo às quadras",11,-12.988084,-38.511655,47 - Barris (Praça João Mangabeira),BikeSSA
+"Avenida Professor Magalhães Neto, próximo a esquina da rua Aristides Fraga Lima, em frente ao Teatro Modulo",11,-12.98997,-38.450242,48 - Magalhães Neto,BikeSSA
+"Avenida Ibirapitanga, oposto ao número 745",11,-12.959388,-38.401832,49 - Tamburugy,BikeSSA
+"Ao lado do acesso a praça Vinícius de Moraes, próximo do quiosque.",11,-12.956022,-38.352988,50 - Farol de Itapuã,BikeSSA

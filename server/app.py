@@ -54,8 +54,10 @@ def filter_data():
     return jsonify(data)
 
 # Map layers
-api.add_resource(layers.CPTM, '/load_railway_data')
-api.add_resource(layers.Metro, '/load_metro_data')
+api.add_resource(layers.CPTM_lines, '/load_railway_lines_data')
+api.add_resource(layers.Metro_lines, '/load_metro_lines_data')
+api.add_resource(layers.CPTM_stations, '/load_railway_stations_data')
+api.add_resource(layers.Metro_stations, '/load_metro_stations_data')
 api.add_resource(layers.BikeLane, '/load_bikelane_data')
 api.add_resource(layers.Zones, '/load_zones')
 api.add_resource(layers.Accidents, '/load_accidents')
