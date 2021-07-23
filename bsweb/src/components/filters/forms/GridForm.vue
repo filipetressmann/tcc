@@ -90,8 +90,8 @@ export default {
     },
     reloadGrid() {
       // this.setLoading();
-      // this.resetData();
-      // this.fetchGrid()
+      this.resetData();
+      this.fetchGrid()
         // .then(() => {
           // this.unsetLoading();
         // });

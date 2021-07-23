@@ -73,12 +73,14 @@
       ...mapActions([
         'fetchZones',
         'fetchGrid',
+        'filterData'
       ]),
       async loadBaseLayers() {
         this.setLoading();
         await this.fetchGrid()
           .then(() => {
             this.renderGrid = true;
+            this.filterData();
             this.unsetLoading();
           });
         this.fetchZones(this.$http);
