@@ -106,7 +106,7 @@ const actions = {
     commit('removeActiveFilter', filter);
   },
   filterData: async({ commit, getters }) => {
-    commit('loading_filters', true);
+    // commit('loading_filters', true);
     return await axios.post(`${api_url}/filter_data`, getters.filters)
       .then(res => {
         return res.data;
@@ -124,7 +124,7 @@ const actions = {
           commit('addFlows', { tier: tier, flows: flows[tier]})
         });
       })
-      .then(() => commit('loading_filters', false));
+      // .then(() => commit('loading_filters', false));
   },
   updateFilterParams: ({ commit }, args) => {
     commit('updateFilterParams', args);

@@ -11,7 +11,7 @@
       </div>
     </div>
   </div>
-  <Loading :isActive="active || loading_filters" />
+  <Loading :isActive="active" />
 </div>
 </template>
 
@@ -38,8 +38,6 @@
         'fetchSubway',
         'fetchBikelane',
         'fetchAccidents',
-        'fetchZones',
-        'fetchGrid',
       ])
     },
     computed: {
@@ -51,7 +49,6 @@
         localStorage.ut = this.$uuid.v4()
       }
       this.setToken(localStorage.ut);
-      this.fetchZones();
       this.fetchCategories();
       this.fetchCPTM();
       this.fetchSubway();

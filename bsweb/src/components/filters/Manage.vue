@@ -35,17 +35,15 @@
         <Charts />
       </b-tab-item>
     </b-tabs>
-    
   </div>
 </template>
 
 <script>
-  import { filterEvents } from '../../main.js';
   import { mapGetters } from 'vuex';
-  import Filters from './Filters.vue';
-  import Tiers from './Tiers.vue';
-  import Layers from './Layers.vue';
   import BaseLayer from './BaseLayer.vue';
+  import Tiers from './Tiers.vue';
+  import Filters from './Filters.vue';
+  import Layers from './Layers.vue';
   import Charts from '../charts/Charts';
 
   export default {
@@ -68,16 +66,12 @@
       }
     },
     computed: {
-      activeFilters() {
-        return this.$store.getters.activeFilters;
-      },
-      activeLayers() {
-        return this.$store.getters.activeLayers;
-      },
-      tierList() {
-        return this.$store.getters.tierList;
-      },
-      ...mapGetters(['chartList'])
+      ...mapGetters([
+        'tierList',
+        'activeFilters',
+        'activeLayers',
+        'chartList',
+      ])
     }
   }
 </script>
@@ -88,9 +82,6 @@
   }
   .custom-size {
     height: 24px;
-    /* padding-top: 3px;
-    padding-left: 12.4px;
-padding-right: 12.4px; */
     padding: 3px 12.4px 0 12.4px;
   }
 </style>

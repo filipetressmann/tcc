@@ -4,30 +4,28 @@
       <img :src="iconArrow" :class="['arrow', { active: isActive }]"/>
       <h3 class="category-name">{{ $t(category.category_name) }}</h3>
     </div>
-    <div v-if="isActive" class="category-options">
+    <div v-show="isActive" class="category-options">
       <div v-for="filter in category.filters" :key="filter.id">
-        <LayerHandlerV2
-        :filter="filter"
-        :type="'layer'"
-      />
+        <FilterController
+          :filter="filter"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import LayerHandlerV2 from './LayerHandlerV2.vue';
+import { mapGetters, mapActions } from 'vuex';
+import FilterController from './FilterController.vue';
 import iconArrow from '@/assets/svg/icon-arrow-dropdown.svg';
 
 export default {
   components: {
-    LayerHandlerV2
+    FilterController
   },
   props: ['category'],
   data() {
     return {
-      checkboxes: [],
       isActive: false,
       iconArrow,
     }
@@ -39,16 +37,14 @@ export default {
     toggleCategory() {
       this.isActive = !this.isActive
     },
-  },
+  }
 }
+
 </script>
 
 <style scoped>
   .category-wrapper{
     margin-bottom: 10px;
-  }
-
-  .category-name {
   }
 
   .category-toggle {

@@ -35,7 +35,7 @@
             :paths="arrow['coords'][arrow['coords'].length - 1]"
             :key="`${tier}-${index}-decorator`"
             :patterns="[
-                  {offset: '100%', repeat: 0, symbol: symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true, color: 'blue', weight: arrow['weight']}})}
+                  {offset: '100%', repeat: 0, symbol: symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true, color: 'blue', weight: 0.4*arrow['weight']}})}
               ]"
           >
           </polyline-decorator>
@@ -76,13 +76,13 @@
       ]),
       async loadBaseLayers() {
         this.setLoading();
-        await this.fetchZones(this.$http);
-        this.renderZones = true;
         await this.fetchGrid()
           .then(() => {
             this.renderGrid = true;
             this.unsetLoading();
           });
+        this.fetchZones(this.$http);
+        this.renderZones = true;
       }
     },
     computed: {
