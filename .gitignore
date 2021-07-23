@@ -1,4 +1,3 @@
-/server/data/*
 /server/.idea/*
 *.pyc
 /server/*pyc

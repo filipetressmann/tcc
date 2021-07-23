@@ -42,21 +42,25 @@ export default {
     handleLayer() {
       const resource = this.filter;
       if (resource.id == 14) {
-        this.showCptm();
+        this.showCptmLines();
+      } else if (resource.id == 21) {
+        this.showCptmStations();
       } else if (resource.id == 15) {
-        this.showSubway();
+        this.showSubwayLines();
+      } else if (resource.id == 22) {
+        this.showSubwayStations();
         } else if ([16, 18, 19].includes(resource.id)) {
         this.showBikelane(resource.filter_key);
       } else if (resource.id == 20) {
         this.showAccidents();
       }
     },
-    showCptm() {
+    showCptmLines() {
       this.resourceInfo = {
         category: "layers",
         type: "geojson",
         mapkey: "main",
-        key: "cptm",
+        key: "cptm_lines",
         options: {
           style: style.railway,
           options: options.railway
@@ -64,12 +68,38 @@ export default {
       }
       this.addToMap(this.resourceInfo);
     },
-    showSubway() {
+    showCptmStations() {
       this.resourceInfo = {
         category: "layers",
         type: "geojson",
         mapkey: "main",
-        key: "subway",
+        key: "cptm_stations",
+        options: {
+          style: style.railway,
+          options: options.railway
+        }
+      }
+      this.addToMap(this.resourceInfo);
+    },
+    showSubwayLines() {
+      this.resourceInfo = {
+        category: "layers",
+        type: "geojson",
+        mapkey: "main",
+        key: "subway_lines",
+        options: {
+          style: style.subway,
+          options: options.subway
+        }
+      }
+      this.addToMap(this.resourceInfo);
+    },
+    showSubwayStations() {
+      this.resourceInfo = {
+        category: "layers",
+        type: "geojson",
+        mapkey: "main",
+        key: "subway_stations",
         options: {
           style: style.subway,
           options: options.subway
@@ -106,6 +136,7 @@ export default {
   },
   watch: {
     isActive: function(val) {
+      debugger;
       if (val) {
         this.addActiveLayer(this.filter);
         this.handleLayer();

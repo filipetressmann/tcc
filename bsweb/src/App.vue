@@ -34,8 +34,10 @@
       ...mapActions([
         'setToken',
         'fetchCategories',
-        'fetchCPTM',
-        'fetchSubway',
+        'fetchCPTM_lines',
+        'fetchSubway_lines',
+        'fetchCPTM_stations',
+        'fetchSubway_stations',
         'fetchBikelane',
         'fetchAccidents',
       ])
@@ -50,8 +52,10 @@
       }
       this.setToken(localStorage.ut);
       this.fetchCategories();
-      this.fetchCPTM();
-      this.fetchSubway();
+      this.fetchCPTM_lines();
+      this.fetchSubway_lines();
+      this.fetchCPTM_stations();
+      this.fetchSubway_stations();
       this.fetchBikelane();
       this.fetchAccidents();
     }

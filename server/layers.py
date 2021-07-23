@@ -15,9 +15,20 @@ zones = zones.to_json()
 
 
 # provides CPTM railway layer
-class CPTM(Resource):
+class CPTM_lines(Resource):
   def load_railway(self):
-    railway = gpd.GeoDataFrame.from_file(data_path + "/shapes//SIRGAS_SHP_linhatrem_line.shp", encoding='utf-8')
+    railway = gpd.GeoDataFrame.from_file(data_path + "/shapes/SIRGAS_SHP_linhatrem.shp", encoding='utf-8')
+    railway.crs = 'epsg:22523'
+    railway = railway.to_crs("epsg:4326")
+    return railway
+
+  def get(self):
+    return self.load_railway().to_json()
+
+
+class CPTM_stations(Resource):
+  def load_railway(self):
+    railway = gpd.GeoDataFrame.from_file(data_path + "/shapes/SIRGAS_SHP_estacaotrem_point.shp", encoding='utf-8')
     railway.crs = 'epsg:22523'
     railway = railway.to_crs("epsg:4326")
     return railway
@@ -26,9 +37,21 @@ class CPTM(Resource):
     return self.load_railway().to_json()
 
 # provides Metro layer
-class Metro(Resource):
+
+class Metro_lines(Resource):
   def load_metro(self):
-    metro = gpd.GeoDataFrame.from_file(data_path + "/shapes//SIRGAS_SHP_linhametro_line.shp", encoding='utf-8')
+    metro = gpd.GeoDataFrame.from_file(data_path + "/shapes/SIRGAS_SHP_linhametro_line.shp", encoding='utf-8')
+    metro0 = metro
+    metro.crs = 'epsg:22523'
+    metro = metro.to_crs('epsg:4326')
+    return metro
+
+  def get(self):
+    return self.load_metro().to_json()
+
+class Metro_stations(Resource):
+  def load_metro(self):
+    metro = gpd.GeoDataFrame.from_file(data_path + "/shapes/SIRGAS_SHP_estacaometro_point.shp", encoding='utf-8')
     metro0 = metro
     metro.crs = 'epsg:22523'
     metro = metro.to_crs('epsg:4326')
@@ -46,7 +69,7 @@ class Metro(Resource):
 
 class BikeLane(Resource):
   def load_bike_lane(self):
-    bikelane = gpd.GeoDataFrame.from_file(data_path + "/shapes//SIRGAS_SHP_redecicloviaria.shp", encoding='utf-8')
+    bikelane = gpd.GeoDataFrame.from_file(data_path + "/shapes/SIRGAS_SHP_redecicloviaria.shp", encoding='utf-8')
     types = bikelane['rc_tipo'].unique()
     out = {}
     for type in types:

@@ -5,16 +5,30 @@ FILTERS = [
     'filters': [
       {
         'id': 14,
-        'filter_key': 'cptm',
+        'filter_key': 'cptm_lines',
         'filter_type': 'geojson',
-        'filter_name': 'spRailway',
+        'filter_name': 'spRailwayLines',
+        'has_form': True
+      },
+      {
+        'id': 21,
+        'filter_key': 'cptm_stations',
+        'filter_type': 'geojson',
+        'filter_name': 'spRailwayStations',
         'has_form': True
       },
       {
         'id': 15,
-        'filter_key': 'subway',
+        'filter_key': 'subway_lines',
         'filter_type': 'geojson',
-        'filter_name': 'spSubway',
+        'filter_name': 'spSubwayLines',
+        'has_form': True
+      },
+      {
+        'id': 22,
+        'filter_key': 'subway_stations',
+        'filter_type': 'geojson',
+        'filter_name': 'spSubwayStations',
         'has_form': True
       },
     ]
