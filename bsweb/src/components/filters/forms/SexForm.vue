@@ -21,7 +21,7 @@ import { mapActions } from 'vuex';
       };
     },
     computed: {
-      filterData() {
+      setFilterParams() {
         return {
           id: this.fid,
           params: {
@@ -32,12 +32,18 @@ import { mapActions } from 'vuex';
     },
     methods: {
       ...mapActions([
-        'updateFilterParams'
+        'updateFilterParams',
+        'resetData',
+        'resetMapResource',
+        'filterData',
       ])
     },
     watch: {
-      filterData: function(value) {
+      setFilterParams: function(value) {
         this.updateFilterParams(value);
+        this.resetData();
+        this.resetMapResource({ mapkey: "main", category: "flows", type: "polyline" });
+        this.filterData();
       }
     }
   }

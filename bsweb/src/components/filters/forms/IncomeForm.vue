@@ -109,7 +109,7 @@
       interval() {
         return this.mode === 'interval'
       },
-      filterData() {
+      setFilterParams() {
         return {
           id: this.fid,
           params: {
@@ -123,13 +123,17 @@
       }
     },
     watch: {
-      filterData: function(value) {
+      setFilterParams: function(value) {
         this.updateFilterParams(value);
+        this.resetMapResource({ mapkey: "main", category: "flows", type: "polyline" });
+        this.filterData();
       }
     },
     methods: {
       ...mapActions([
-        'updateFilterParams'
+        'updateFilterParams',
+        'resetMapResource',
+        'filterData',
       ]),
       updateIncomeInterval(value) {
         let min_bracket = Math.min.apply(Math, value)

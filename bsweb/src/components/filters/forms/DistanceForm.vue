@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex';
+  import { mapActions } from 'vuex';
   export default {
     props: ['fid'],
     data() {
@@ -27,7 +27,7 @@
       ageLabel() {
         return `${$t(ageField)} ${this.distanceRange[0]} - ${this.distanceRange[1]}`
       },
-      filterData() {
+      setFilterParams() {
         return {
           id: this.fid,
           params: {
@@ -36,15 +36,19 @@
         }
       }
     },
-    watch: {
-      filterData: function(value) {
-        this.updateFilterParams(value);
-      }
-    },
     methods: {
       ...mapActions([
-        'updateFilterParams'
-      ]),
+        'updateFilterParams',
+        'resetMapResource',
+        'filterData',
+      ])
+    },
+    watch: {
+      setFilterParams: function(value) {
+        this.updateFilterParams(value);
+        this.resetMapResource({ mapkey: "main", category: "flows", type: "polyline" });
+        this.filterData();
+      }
     }
   }
 </script>

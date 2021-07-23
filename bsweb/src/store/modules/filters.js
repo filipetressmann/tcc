@@ -119,6 +119,7 @@ const actions = {
         commit('addAttractors', { attractors: heatmaps['attractors']});
         commit('addEmitters', { emitters: heatmaps['emitters']});
         commit('addCharts', { charts }) // adiciona a lista de gráficos na store
+        commit('resetData');
         tiers.map(tier => {
           commit('addTripsPerTier', { count: flows[tier].length });
           commit('addFlows', { tier: tier, flows: flows[tier]})

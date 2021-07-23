@@ -43,7 +43,7 @@ class OD:
         filtered_trips = filtered_trips.append(trips[(trips['HORA_SAIDA'].dt.hour >= 18) & (trips['HORA_SAIDA'].dt.hour <= 23)])
     # filter by specific time, if selected
     if specific:
-      filtered_trips = filtered_trips.append([(trips['HORA_SAIDA'].dt.hour >= min_hour) & (trips['HORA_SAIDA'].dt.hour <= max_hour)])
+      filtered_trips = filtered_trips.append(trips[(trips['HORA_SAIDA'].dt.hour >= min_hour) & (trips['HORA_SAIDA'].dt.hour <= max_hour)])
     return filtered_trips
 
   def trips_by_finish_time(self, trips, periods, specific, min_hour, max_hour):
@@ -59,7 +59,7 @@ class OD:
         filtered_trips = filtered_trips.append(trips[(trips['HORA_CHEG'].dt.hour >= 18) & (trips['HORA_CHEG'].dt.hour <= 23)])
     # filter by specific time, if selected
     if specific:
-      filtered_trips = filtered_trips.append([(trips['HORA_CHEG'].dt.hour >= min_hour) & (trips['HORA_CHEG'].dt.hour <= max_hour)])
+      filtered_trips = filtered_trips.append(trips[(trips['HORA_CHEG'].dt.hour >= min_hour) & (trips['HORA_CHEG'].dt.hour <= max_hour)])
     return filtered_trips
 
   def trips_by_age(self, trips, age_range):
@@ -85,8 +85,8 @@ class OD:
     else:
       filtered_trips = pd.DataFrame(columns=trips.columns)
       for i in income_bracket:
-        filtered_trips = trips[(trips['RENDA_FA'] >= income_bracket_bounds[str(i)]['min'])
-                      & (trips['RENDA_FA'] <= income_bracket_bounds[str(i)]['max'])]
+        filtered_trips = filtered_trips.append(trips[(trips['RENDA_FA'] >= income_bracket_bounds[str(i)]['min'])
+                      & (trips['RENDA_FA'] <= income_bracket_bounds[str(i)]['max'])])
       return filtered_trips
   
   def trips_by_speed(self, trips, speed_range):
