@@ -1,9 +1,8 @@
 <template>
   <div>
-    <div class="block">
-      <b-checkbox v-for="(sex, index) in sexes" v-model="selectedSexes" :native-value="index+1" :key="index" type="is-info">
-      {{ $t(sex) }}
-    </b-checkbox>
+    <div v-for="(sex, index) in sexes" :key="index">
+      <input  type="checkbox" :value="index+1" v-model="selectedSexes" />
+      <label>{{ $t(sex) }}</label>
     </div>
   </div>
 </template>
@@ -22,7 +21,7 @@ import { mapActions } from 'vuex';
       };
     },
     computed: {
-      filterData() {
+      setFilterParams() {
         return {
           id: this.fid,
           params: {
@@ -33,13 +32,29 @@ import { mapActions } from 'vuex';
     },
     methods: {
       ...mapActions([
-        'updateFilterParams'
+        'updateFilterParams',
+        'resetData',
+        'resetMapResource',
+        'filterData',
       ])
     },
     watch: {
-      filterData: function(value) {
+      setFilterParams: function(value) {
         this.updateFilterParams(value);
+        this.resetData();
+        this.resetMapResource({ mapkey: "main", category: "flows", type: "polyline" });
+        this.filterData();
       }
     }
   }
 </script>
+
+<style scoped>
+  label {
+    margin: 0 5px;
+  }
+
+  input {
+    cursor: pointer;
+  }
+</style>

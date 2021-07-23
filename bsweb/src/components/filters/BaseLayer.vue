@@ -47,19 +47,6 @@ import GridForm from '@/components/filters/forms/GridForm';
         'hideGrid'
       ]),
       ...mapActions('loading', ['setLoading', 'unsetLoading']),
-      ...mapActions([
-        'fetchZones',
-        'fetchGrid',
-      ]),
-      async loadBaseLayers() {
-        this.setLoading();
-        await this.fetchZones(this.$http);
-        this.renderZones = true;
-        await this.fetchGrid()
-        this.renderGrid = true;
-        await this.filterData()
-          .then(() => this.unsetLoading()); 
-      }
     },
     watch: {
       od: function(value) {
@@ -70,7 +57,6 @@ import GridForm from '@/components/filters/forms/GridForm';
           category: "flows",
           type: "polyline"
         });
-        this.loadBaseLayers();
         if (value == "zones") {
           this.showZones("main");
           this.hideGrid("main");

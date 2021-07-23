@@ -35,7 +35,7 @@
             :paths="arrow['coords'][arrow['coords'].length - 1]"
             :key="`${tier}-${index}-decorator`"
             :patterns="[
-                  {offset: '100%', repeat: 0, symbol: symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true, color: 'blue', weight: arrow['weight']}})}
+                  {offset: '100%', repeat: 0, symbol: symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true, color: 'blue', weight: 0.4*arrow['weight']}})}
               ]"
           >
           </polyline-decorator>
@@ -69,27 +69,28 @@
       };
     },
     methods: {
+      ...mapActions('loading', ['setLoading', 'unsetLoading']),
       ...mapActions([
-        'fetchCPTM',
-        'fetchSubway',
-        'fetchBikelane',
-        'fetchAccidents',
         'fetchZones',
         'fetchGrid',
+        'filterData'
       ]),
-      ...mapActions('loading', ['setLoading', 'unsetLoading']),
       async loadBaseLayers() {
         this.setLoading();
-        await this.fetchZones(this.$http);
-        this.renderZones = true;
         await this.fetchGrid()
           .then(() => {
             this.renderGrid = true;
+            this.filterData();
             this.unsetLoading();
           });
+        this.fetchZones(this.$http);
+        this.renderZones = true;
       }
     },
     computed: {
+      ...mapGetters([
+        'grid'
+      ]),
       ...mapState({
         properties(state) {
           return state.map.maps[this.mapkey].properties
@@ -109,7 +110,6 @@
         flows: state => state.filters.flows,
         layers: state => state.layers.data,
         zones: state => state.layers.zones,
-        grid: state => state.layers.grid,
         attractors: state => state.filters.heatmaps.attractors,
         emitters: state => state.filters.heatmaps.emitters,
         showAttractors(state) {
@@ -126,12 +126,16 @@
         }
       }),
     },
-    async created() {
-      this.fetchCPTM(this.$http);
-      this.fetchSubway(this.$http);
-      this.fetchBikelane(this.$http);
-      this.fetchAccidents(this.$http);
+    mounted() {
       this.loadBaseLayers();
     }
   }
 </script>
+
+<style scoped>
+  #map {
+    height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>

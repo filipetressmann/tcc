@@ -1,8 +1,7 @@
 <template>
   <div>
     <b-field>
-      {{ $t('tripSpeed') }}
-      ({{ speedRange[0]}} km/h {{ $t('to') }} {{ speedRange[1] }} km/h)
+      {{ speedRange[0]}} km/h {{ $t('to') }} {{ speedRange[1] }} km/h
     </b-field>
     <b-slider
       v-model="speedRange"
@@ -28,7 +27,7 @@
       ageLabel() {
         return `${$t('ageField')} ${this.speedRange[0]} - ${this.speedRange[1]}`
       },
-      filterData() {
+      setFilterParams() {
         return {
           id: this.fid,
           params: {
@@ -37,15 +36,19 @@
         }
       }
     },
-    watch: {
-      filterData: function(value) {
-        this.updateFilterParams(value);
-      }
-    },
     methods: {
       ...mapActions([
-        'updateFilterParams'
-      ]),
+        'updateFilterParams',
+        'resetMapResource',
+        'filterData',
+      ])
+    },
+    watch: {
+      setFilterParams: function(value) {
+        this.updateFilterParams(value);
+        this.resetMapResource({ mapkey: "main", category: "flows", type: "polyline" });
+        this.filterData();
+      }
     }
   }
 </script>

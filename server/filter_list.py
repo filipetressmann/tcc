@@ -1,7 +1,7 @@
 # This object configures the filter list on view app. Also manages the creation of filter forms.
 FILTERS = [
   {
-    'category_name': 'layers',
+    'category_name': 'layers_highCapacityTransport',
     'filters': [
       {
         'id': 14,
@@ -17,6 +17,11 @@ FILTERS = [
         'filter_name': 'spSubway',
         'has_form': True
       },
+    ]
+  },
+  {
+    'category_name': 'layers_bikelanes',
+    'filters': [
       {
         'id': 16,
         'filter_key': 'sp_bikelane_ciclovia',
@@ -38,6 +43,11 @@ FILTERS = [
         'filter_name': 'sp_bikelane_ciclorrota',
         'has_form': True
       },
+    ]
+  },
+  {
+    'category_name': 'layers_accidents',
+    'filters': [
       {
         'id': 20,
         'filter_key': 'sp_accidents',

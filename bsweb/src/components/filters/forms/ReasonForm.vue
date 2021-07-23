@@ -1,44 +1,36 @@
 <template>
   <div>
-    <div class="field">
-      <b-checkbox v-model="reasons" native-value="1" type="is-info">
-        {{ $t('smallDistance') }}
-      </b-checkbox>
+    <div>
+      <input type="checkbox" value="1" v-model="reasons" />
+      <label>{{ $t('smallDistance') }}</label>
     </div>
-    <div class="field">
-      <b-checkbox v-model="reasons" native-value="2"  type="is-info">
-        {{ $t('expensiveTransport') }}
-      </b-checkbox>
+    <div>
+      <input type="checkbox" value="2" v-model="reasons" />
+      <label>{{ $t('expensiveTransport') }}</label>
     </div>
-    <div class="field">
-      <b-checkbox v-model="reasons" native-value="3"  type="is-info">
-        {{ $t('publicTransportStationDistance') }}
-      </b-checkbox>
+    <div>
+      <input type="checkbox" value="3" v-model="reasons" />
+      <label>{{ $t('publicTransportStationDistance') }}</label>
     </div>
-    <div class="field">
-      <b-checkbox v-model="reasons" native-value="4"  type="is-info">
-        {{ $t('publicTransportSlow') }}
-      </b-checkbox>
+    <div>
+      <input type="checkbox" value="4" v-model="reasons" />
+      <label>{{ $t('publicTransportSlow') }}</label>
     </div>
-    <div class="field">
-      <b-checkbox v-model="reasons" native-value="5"  type="is-info">
-        {{ $t('publicTransportDistance') }}
-      </b-checkbox>
+    <div>
+      <input type="checkbox" value="5" v-model="reasons" />
+      <label>{{ $t('publicTransportDistance') }}</label>
     </div>
-    <div class="field">
-      <b-checkbox v-model="reasons" native-value="6"  type="is-info">
-        {{ $t('crowdedPublicTransport') }}
-      </b-checkbox>
+    <div>
+      <input type="checkbox" value="6" v-model="reasons" />
+      <label>{{ $t('crowdedPublicTransport') }}</label>
     </div>
-    <div class="field">
-      <b-checkbox v-model="reasons" native-value="7"  type="is-info">
-        {{ $t('fitness') }}
-      </b-checkbox>
+    <div>
+      <input type="checkbox" value="7" v-model="reasons" />
+      <label>{{ $t('fitness') }}</label>
     </div>
-    <div class="field">
-      <b-checkbox v-model="reasons" native-value="8"  type="is-info">
-        {{ $t('others') }}
-      </b-checkbox>
+    <div>
+      <input type="checkbox" value="8" v-model="reasons" />
+      <label>{{ $t('others') }}</label>
     </div>
   </div>
 </template>
@@ -54,7 +46,7 @@
       };
     },
     computed: {
-      filterData() {
+      setFilterParams() {
         return {
           id: this.fid,
           params: {
@@ -65,13 +57,29 @@
     },
     methods: {
       ...mapActions([
-        'updateFilterParams'
+        'updateFilterParams',
+        'resetData',
+        'resetMapResource',
+        'filterData',
       ])
     },
     watch: {
-      filterData: function(value) {
+      setFilterParams: function(value) {
         this.updateFilterParams(value);
+        this.resetData();
+        this.resetMapResource({ mapkey: "main", category: "flows", type: "polyline" });
+        this.filterData();
       }
     }
   }
 </script>
+
+<style scoped>
+  label {
+    margin: 0 5px;
+  }
+
+  input {
+    cursor: pointer;
+  }
+</style>

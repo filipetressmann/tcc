@@ -6,21 +6,21 @@
         <template slot="header">
           <span class="custom-size">{{ $t('flows') }}</span>
         </template>
-        <baselayer></baselayer>
-        <tiers v-if="tierList.length > 0"></tiers>
+        <BaseLayer />
+        <Tiers v-if="tierList.length > 0" />
         <hr>
       </b-tab-item>
       <b-tab-item>
         <template slot="header">
           <span>{{ $t('filters') }}<b-tag rounded>{{ activeFilters.length }}</b-tag></span>
         </template>
-        <filters v-on:tab-changed="changeTab" />
+        <Filters v-on:tab-changed="changeTab" />
       </b-tab-item>
       <b-tab-item>
         <template slot="header">
           <span>{{ $t('layers') }}<b-tag rounded>{{ activeLayers.length }}</b-tag></span>
         </template>
-        <layers v-on:tab-changed="changeTab" />
+        <Layers v-on:tab-changed="changeTab" />
       </b-tab-item>
       <b-tab-item>
         <template slot="header">
@@ -35,25 +35,23 @@
         <Charts />
       </b-tab-item>
     </b-tabs>
-    
   </div>
 </template>
 
 <script>
-  import { filterEvents } from '../../main.js';
   import { mapGetters } from 'vuex';
-  import FiltersVue from './Filters.vue';
-  import Tiers from './Tiers.vue';
-  import Layers from './Layers.vue';
   import BaseLayer from './BaseLayer.vue';
+  import Tiers from './Tiers.vue';
+  import Filters from './Filters.vue';
+  import Layers from './Layers.vue';
   import Charts from '../charts/Charts';
 
   export default {
     components: {
-      'filters': FiltersVue,
-      'tiers': Tiers,
-      'layers': Layers,
-      'baselayer': BaseLayer,
+      Filters,
+      Tiers,
+      Layers,
+      BaseLayer,
       Charts,
     },
     data() {
@@ -68,16 +66,12 @@
       }
     },
     computed: {
-      activeFilters() {
-        return this.$store.getters.activeFilters;
-      },
-      activeLayers() {
-        return this.$store.getters.activeLayers;
-      },
-      tierList() {
-        return this.$store.getters.tierList;
-      },
-      ...mapGetters(['chartList'])
+      ...mapGetters([
+        'tierList',
+        'activeFilters',
+        'activeLayers',
+        'chartList',
+      ])
     }
   }
 </script>
@@ -88,9 +82,6 @@
   }
   .custom-size {
     height: 24px;
-    /* padding-top: 3px;
-    padding-left: 12.4px;
-padding-right: 12.4px; */
     padding: 3px 12.4px 0 12.4px;
   }
 </style>
