@@ -79,12 +79,6 @@ body{
   padding-right: 0;
 }
 
-#lang-selector {
-  margin-left: 2%;
-  margin-bottom: 0;
-  padding: 0;
-}
-
 .multiselect__content-wrapper /*, .multiselect__element */ {
   width: -moz-fit-content;
   width: -webkit-fit-content;

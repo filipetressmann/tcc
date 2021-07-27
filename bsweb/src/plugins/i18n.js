@@ -1,6 +1,6 @@
 export const messages = {
   'en': {
-    appName: 'BikeScience Web',
+    appName: 'BikeScienceWeb',
     data: 'Data',
     filters: 'Filters',
     layers: 'Layers',
@@ -8,8 +8,8 @@ export const messages = {
     zones: '2017 OD Zones',
     grid: 'Grid',
     language: 'Language',
-    english: 'English',
-    portuguese: 'Português',
+    english: 'en',
+    portuguese: 'pt',
     baseLayer: 'Base layer:',
     noFilters: 'No filters added yet.',
     noLayers: 'No layers added yet.',
@@ -65,6 +65,8 @@ export const messages = {
     sun: 'Sunday',
     filterBtn: 'Filter',
     selectTiers: 'Show tiers:',
+    tier: 'Tier',
+    notFoundTiers: 'No results found',
     flow: 'flow | flows',
     flows: 'Flows',
     months: 'By months',
@@ -85,10 +87,17 @@ export const messages = {
     publicTransportDistance: 'Long trip in public transport',
     crowdedPublicTransport: 'Crowded public transport',
     fitness: 'Fitness',
-    others: 'Others'
+    survey: 'Survey',
+    others: 'Others',
+    // Grid editor
+    size: 'Size',
+    west: 'West',
+    east: 'East',
+    north: 'North',
+    south: 'South'
   },
   'pt-br': {
-    appName: 'BikeScience Web',
+    appName: 'BikeScienceWeb',
     data: 'Dados',
     filters: 'Filtros',
     layers: 'Camadas',
@@ -96,8 +105,8 @@ export const messages = {
     zones: 'Zonas OD 2017',
     grid: 'Grid',
     language: 'Idioma',
-    english: 'English',
-    portuguese: 'Português',
+    english: 'en',
+    portuguese: 'pt',
     baseLayer: 'Camada de visualização:',
     noFilters: 'Nenhum filtro adicionado.',
     noLayers: 'Nenhuma camada adicionada.',
@@ -155,7 +164,9 @@ export const messages = {
     sat: 'Sábado',
     sun: 'Domingo',
     filterBtn: 'Filtrar',
-    selectTiers: 'Mostrar tiers:',
+    selectTiers: 'Mostrar quartis:',
+    tier: 'Quartil',
+    notFoundTiers: 'Nenhum resultado encontrado',
     flow: 'fluxo | fluxos',
     flows: 'Fluxos',
     months: 'Meses',
@@ -174,6 +185,13 @@ export const messages = {
     publicTransportDistance: 'Viagem muito demorada',
     crowdedPublicTransport: 'Transporte público lotado',
     fitness: 'Atividade física',
-    others: 'Outros'
+    survey: 'Pesquisa de opinião',
+    others: 'Outros',
+    // Grid editor
+    size: 'Tamanho',
+    west: 'Oeste',
+    east: 'Leste',
+    north: 'Norte',
+    south: 'Sul'
   }
 }

@@ -3,13 +3,13 @@ import iconCptmUrl from '@/assets/svg/icon-cptm.svg';
 import iconMetroUrl from '@/assets/svg/icon-metro.svg';
 
 const cptmIcon = new L.Icon({
-  iconSize: [18, 18],
+  iconSize: [12, 12],
   popupAnchor: [0, -10],
   iconUrl: iconCptmUrl
 });
 
 const metroIcon = new L.Icon({
-  iconSize: [18, 18],
+  iconSize: [12, 12],
   popupAnchor: [0, -10],
   iconUrl: iconMetroUrl
 });

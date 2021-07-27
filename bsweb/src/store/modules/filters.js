@@ -56,6 +56,7 @@ const mutations = {
     Vue.delete(state.filters.params, filter.id);
   },
   addFlows: (state, { tier, flows }) => {
+    // debugger;
     Vue.set(state.flows, tier, flows);
   },
   addAttractors: (state, { attractors }) => {
@@ -71,9 +72,11 @@ const mutations = {
     Vue.set(state.filters.params, id, params);
   },
   addTripsPerTier: (state, { count }) => {
+    // debugger;
     state.tripsPerTier = [...state.tripsPerTier, count]
   },
   resetData: (state) => {
+    // debugger;
     state.flows = {};
     state.tripsPerTier = [];
   },
@@ -120,7 +123,9 @@ const actions = {
         commit('addEmitters', { emitters: heatmaps['emitters']});
         commit('addCharts', { charts }) // adiciona a lista de gráficos na store
         commit('resetData');
+        // debugger;
         tiers.map(tier => {
+          // debugger;
           commit('addTripsPerTier', { count: flows[tier].length });
           commit('addFlows', { tier: tier, flows: flows[tier]})
         });

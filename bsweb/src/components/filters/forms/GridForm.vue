@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="slider-container">
-      <span class="label">Tamanho</span>
+      <span class="label">{{ $t('size') }}</span>
       <b-slider
         v-model="gridSize"
         type="is-success"
@@ -15,7 +15,7 @@
       <div class="value">{{gridSize}}</div>
     </div>
     <div class="slider-container">
-      <span class="label">Oeste</span>
+      <span class="label">{{ $t('west') }}</span>
       <b-slider
         v-model="grid_west"
         type="is-info"
@@ -29,7 +29,7 @@
       <div class="value">{{grid_west}}</div>
     </div>
     <div class="slider-container">
-      <span class="label">Leste</span>
+      <span class="label">{{ $t('east') }}</span>
       <b-slider
         v-model="grid_east"
         type="is-info"
@@ -43,7 +43,7 @@
       <div class="value">{{grid_east}}</div>
     </div>
     <div class="slider-container">
-      <span class="label">Norte</span>
+      <span class="label">{{ $t('north') }}</span>
       <b-slider
         v-model="grid_north"
         type="is-info"
@@ -57,7 +57,7 @@
       <div class="value">{{grid_north}}</div>
     </div>
     <div class="slider-container">
-      <span class="label">Sul</span>
+      <span class="label">{{ $t('south') }}</span>
       <b-slider
         v-model="grid_south"
         type="is-info"

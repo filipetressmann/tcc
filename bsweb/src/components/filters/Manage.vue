@@ -1,13 +1,13 @@
 <template>
   <div class="container" id="filter-container">
     <p class="title is-5">{{ $t('appName') }}</p>
-    <b-tabs v-model="activeTab" size="is-small" multiline expanded position="is-centered">
+    <b-tabs v-model="activeTab" size="is-small" multiline expanded position="is-centered" class="custom-tabs">
       <b-tab-item>
         <template slot="header">
           <span class="custom-size">{{ $t('flows') }}</span>
         </template>
         <BaseLayer />
-        <Tiers v-if="tierList.length > 0" />
+        <Tiers />
         <hr>
       </b-tab-item>
       <b-tab-item>
@@ -22,19 +22,23 @@
         </template>
         <Layers v-on:tab-changed="changeTab" />
       </b-tab-item>
-      <b-tab-item>
+      <b-tab-item v-if="false">
         <template slot="header">
           <span>{{ $t('maps') }}<b-tag rounded>1</b-tag></span>
         </template>
         Select maps to filter; Select maps that will be rendered;
       </b-tab-item>
-      <b-tab-item>
+      <b-tab-item v-if="false">
         <template slot="header">
           <span>{{ $t('charts') }}<b-tag rounded>{{ chartList.length }}</b-tag></span>
         </template>
         <Charts />
       </b-tab-item>
     </b-tabs>
+    <div class="manage-footer">
+      <a class="survey" href="">{{ $t('survey') }}</a>
+      <Language />
+    </div>
   </div>
 </template>
 
@@ -45,6 +49,7 @@
   import Filters from './Filters.vue';
   import Layers from './Layers.vue';
   import Charts from '../charts/Charts';
+  import Language from '../Language.vue';
 
   export default {
     components: {
@@ -53,6 +58,7 @@
       Layers,
       BaseLayer,
       Charts,
+      Language
     },
     data() {
       return {
@@ -83,5 +89,16 @@
   .custom-size {
     height: 24px;
     padding: 3px 12.4px 0 12.4px;
+  }
+  .custom-tabs{
+    height: 85%;
+  }
+  .manage-footer {
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-around;
+  }
+  .survey {
+    font-size: 12px;
   }
 </style>

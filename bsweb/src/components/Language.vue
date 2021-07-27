@@ -1,8 +1,8 @@
 <template>
   <div>
-    <b-button class="button is-info lang-selector" @click="changeLanguage()" outlined>   
+    <button class="btn-lang center" @click="changeLanguage()" >   
         <span>{{ btn }}</span>
-    </b-button>
+    </button>
   </div>
 </template>
 
@@ -13,7 +13,7 @@
     data() {
       return {
         pt: true,
-        btn: 'English'
+        btn: 'en'
       }
       
     },
@@ -21,10 +21,10 @@
       changeLanguage() {
         if(this.pt) {
           i18n.locale = 'en'
-          this.btn = 'Português'
+          this.btn = 'pt'
         } else {
           i18n.locale = 'pt-br'
-          this.btn = 'English'
+          this.btn = 'en'
         }
         this.pt = !this.pt
         localStorage.pt_br = this.pt
@@ -42,7 +42,19 @@
     z-index: 500 !important;
   }
 
-  .lang-selector {
-    padding: 8;
+  .btn-lang {
+    height: 20px;
+    cursor: pointer;
+    background-color: #fff;
+    font-size: 10px;
+    border: 1px solid #167df0;
+    color: #167df0;
+    border-radius: 12px;
+  }
+  .btn-lang:hover {
+    background-color: #eee;
+  }
+  .btn-lang:active {
+    border-color: red;
   }
 </style>

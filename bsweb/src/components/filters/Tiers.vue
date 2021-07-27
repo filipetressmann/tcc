@@ -1,14 +1,16 @@
 <template>
   <div>
     <p class="label">{{ $t('selectTiers') }}</p>
-    <b-checkbox v-for="(count, index) in tierList" v-model="shownTiers" :native-value="index" :key="index" type="is-info">
-      Tier {{ index+1 }} ({{ count }} {{ $tc('flow', count)}})
+    <b-checkbox v-show="tierList.length > 0" v-for="(count, index) in tierList" v-model="shownTiers" :native-value="index" :key="index" type="is-info">
+      {{ $t('tier') }} {{ index+1 }} ({{ count }} {{ $tc('flow', count)}})
     </b-checkbox>
+    <span v-if="tierList.length === 0">{{ $t('notFoundTiers') }}</span>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
+
   export default {
     data() {
       return {
@@ -31,9 +33,13 @@ import { mapActions } from 'vuex';
       }
     },
     computed: {
-      tierList() {
-        return this.$store.getters.tierList;
-      }
+      ...mapGetters([
+        'tierList'
+      ])
+      // tierList() {
+      //   debugger;
+      //   return this.$store.getters.tierList;
+      // }
     },
     watch: {
       shownTiers: function(value) {
