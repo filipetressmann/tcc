@@ -91,7 +91,7 @@
     padding: 3px 12.4px 0 12.4px;
   }
   .custom-tabs{
-    height: 85%;
+    min-height: 85%;
   }
   .manage-footer {
     padding: 0 10px;

@@ -14,7 +14,7 @@ const metroIcon = new L.Icon({
   iconUrl: iconMetroUrl
 });
 
-export const railway = {
+export const railway_station = {
   onEachFeature: function(feature, layer) {
     const tooltipMsg = `Linha ${feature.properties.etr_linha} - ${feature.properties.etr_nome}`;
     layer.bindPopup(tooltipMsg);
@@ -24,13 +24,27 @@ export const railway = {
   }
 }
 
-export const subway = {
+export const railway_line = {
+  onEachFeature: function(feature, layer) {
+    const tooltipMsg = `Linha ${feature.properties.ltr_numero} - ${feature.properties.ltr_nome}`;
+    layer.bindPopup(tooltipMsg);
+  }
+}
+
+export const subway_station = {
   onEachFeature: function(feature, layer) {
     const tooltipMsg = `Linha ${feature.properties.emt_linha} - ${feature.properties.emt_nome}`;
     layer.bindPopup(tooltipMsg);
   },
   pointToLayer: function (feature, latlng) {
     return L.marker(latlng, { icon: metroIcon });
+  }
+}
+
+export const subway_line = {
+  onEachFeature: function (feature, layer) {
+    const tooltipMsg = `Linha ${feature.properties.lmt_linha} - ${feature.properties.lmt_nome}`;
+    layer.bindPopup(tooltipMsg);
   }
 }
 

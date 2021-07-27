@@ -63,7 +63,7 @@ export default {
         key: "cptm_lines",
         options: {
           style: style.railway,
-          options: options.railway
+          options: options.railway_line
         }
       }
       this.addToMap(this.resourceInfo);
@@ -76,7 +76,7 @@ export default {
         key: "cptm_stations",
         options: {
           style: style.railway,
-          options: options.railway
+          options: options.railway_station
         }
       }
       this.addToMap(this.resourceInfo);
@@ -89,7 +89,7 @@ export default {
         key: "subway_lines",
         options: {
           style: style.subway,
-          options: options.subway
+          options: options.subway_line
         }
       }
       this.addToMap(this.resourceInfo);
@@ -102,7 +102,7 @@ export default {
         key: "subway_stations",
         options: {
           style: style.subway,
-          options: options.subway
+          options: options.subway_station
         }
       }
       this.addToMap(this.resourceInfo);
@@ -136,7 +136,6 @@ export default {
   },
   watch: {
     isActive: function(val) {
-      debugger;
       if (val) {
         this.addActiveLayer(this.filter);
         this.handleLayer();
