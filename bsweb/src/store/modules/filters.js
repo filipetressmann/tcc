@@ -6,7 +6,12 @@ const default_grid_size = 20;
 
 const state = {
   activeFilters: [],
-  flows: {},
+  flows: {
+    0: [],
+    1: [],
+    2: [],
+    3: []
+  },
   tripsPerTier: [],
   heatmaps: {
   },
@@ -39,7 +44,8 @@ const getters = {
   chartList: state => state.charts,
   gridSize: state => state.filters.gridSize,
   gridOffset: state => state.filters.gridOffset,
-  loading_filters: state => state.loading_filters
+  loading_filters: state => state.loading_filters,
+  flows: state => state.flows,
 };
 
 const mutations = {
@@ -56,7 +62,6 @@ const mutations = {
     Vue.delete(state.filters.params, filter.id);
   },
   addFlows: (state, { tier, flows }) => {
-    // debugger;
     Vue.set(state.flows, tier, flows);
   },
   addAttractors: (state, { attractors }) => {
@@ -71,14 +76,12 @@ const mutations = {
   updateFilterParams: (state, {id, params} ) => {
     Vue.set(state.filters.params, id, params);
   },
-  addTripsPerTier: (state, { count }) => {
-    // debugger;
-    state.tripsPerTier = [...state.tripsPerTier, count]
+  addTripsPerTier: (state, { tier, count }) => {
+    Vue.set(state.tripsPerTier, tier, count);
   },
   resetData: (state) => {
-    // debugger;
-    state.flows = {};
-    state.tripsPerTier = [];
+    // state.flows = {};
+    // state.tripsPerTier = [0, 0, 0, 0];
   },
   updateOD: (state, value) => {
     Vue.set(state.filters, "baseLayer", value);
@@ -123,10 +126,8 @@ const actions = {
         commit('addEmitters', { emitters: heatmaps['emitters']});
         commit('addCharts', { charts }) // adiciona a lista de gráficos na store
         commit('resetData');
-        // debugger;
         tiers.map(tier => {
-          // debugger;
-          commit('addTripsPerTier', { count: flows[tier].length });
+          commit('addTripsPerTier', { tier, count: flows[tier].length });
           commit('addFlows', { tier: tier, flows: flows[tier]})
         });
       })

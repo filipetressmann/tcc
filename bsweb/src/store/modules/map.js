@@ -43,16 +43,16 @@ const mutations = {
     Vue.set(state.maps[mapkey].show[category], type, {});
   },
   hideZones: (state, mapkey) => {
-    Vue.set(state.maps[mapkey].show, "zones", false);
+    Vue.set(state.maps[mapkey].show, 'zones', false);
   },
   hideGrid: (state, mapkey) => {
-    Vue.set(state.maps[mapkey].show, "grid", false);
+    Vue.set(state.maps[mapkey].show, 'grid', false);
   },
   showZones: (state, mapkey) => {
-    Vue.set(state.maps[mapkey].show, "zones", true);
+    Vue.set(state.maps[mapkey].show, 'zones', true);
   },
   showGrid: (state, mapkey) => {
-    Vue.set(state.maps[mapkey].show, "grid", true);
+    Vue.set(state.maps[mapkey].show, 'grid', true);
   },
   changeHeatmapVisibility: (state, {which, visible, mapkey}) => {
     Vue.set(state.maps[mapkey].show, which, visible);
