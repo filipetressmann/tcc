@@ -66,7 +66,7 @@
     watch: {
       setFilterParams: function(value) {
         this.updateFilterParams(value);
-        this.resetData();
+        // this.resetData();
         this.resetMapResource({ mapkey: "main", category: "flows", type: "polyline" });
         this.filterData();
       }

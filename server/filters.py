@@ -122,8 +122,9 @@ def handle_filtering(req_params):
       reasons = params['reasons']
       trips = od.trips_by_reason(trips, reasons)
   
-  charts = Charts(req_params['ut'], trips)
-  chart_list = charts.create_for_filters(filters)
+  # Commented chart: was crashing the server
+  # charts = Charts(req_params['ut'], trips)
+  # chart_list = charts.create_for_filters(filters)
   flows, heatmaps = od.coords_by_tier(trips, base_layer)
   
   return {
@@ -131,6 +132,6 @@ def handle_filtering(req_params):
     'gridOffset': offset,
     'flows': flows,
     'heatmaps': heatmaps,
-    'charts': chart_list
+    # 'charts': chart_list
   }
     

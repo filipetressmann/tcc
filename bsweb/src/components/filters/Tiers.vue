@@ -25,10 +25,10 @@ import TierController from './TierController.vue';
       ]),
     },
     mounted() {
-      this.$toastr.info('Teste Toastr')
-      this.$toastr.success('Teste Toastr')
-      this.$toastr.warning('Teste Toastr')
-      this.$toastr.error('Teste Toastr')
+      // this.$toastr.info('Teste Toastr')
+      // this.$toastr.success('Teste Toastr')
+      // this.$toastr.warning('Teste Toastr')
+      // this.$toastr.error('Teste Toastr')
       // this.$toastr.success('Message', 'Title', options);
       
     }

@@ -33,7 +33,8 @@ const state = {
     '@/assets/tmp_charts/agechart.png',
     '@/assets/tmp_charts/triplengths.png'
   ],
-  loading_filters: false
+  loading_filters: false,
+  flows_not_found: false,
 };
 
 const getters = {
@@ -46,6 +47,7 @@ const getters = {
   gridOffset: state => state.filters.gridOffset,
   loading_filters: state => state.loading_filters,
   flows: state => state.flows,
+  flowsNotFound: state => state.flows_not_found,
 };
 
 const mutations = {
@@ -74,6 +76,7 @@ const mutations = {
     Vue.set(state, 'charts', charts)
   },
   updateFilterParams: (state, {id, params} ) => {
+    debugger;
     Vue.set(state.filters.params, id, params);
   },
   addTripsPerTier: (state, { tier, count }) => {
@@ -94,6 +97,9 @@ const mutations = {
   },
   loading_filters(state, value) {
     Vue.set(state, 'loading_filters', value);
+  },
+  setFlowsNotFound(state, value) {
+    Vue.set(state, 'flows_not_found', value);
   }
 }
 
@@ -126,14 +132,26 @@ const actions = {
         commit('addEmitters', { emitters: heatmaps['emitters']});
         commit('addCharts', { charts }) // adiciona a lista de gráficos na store
         commit('resetData');
+        debugger;
         tiers.map(tier => {
           commit('addTripsPerTier', { tier, count: flows[tier].length });
-          commit('addFlows', { tier: tier, flows: flows[tier]})
+          commit('addFlows', { tier: tier, flows: flows[tier] })
+          commit('setFlowsNotFound', false);
         });
+        // if (tiers.length > 0) {
+        //   tiers.map(tier => {
+        //     commit('addTripsPerTier', { tier, count: flows[tier].length });
+        //     commit('addFlows', { tier: tier, flows: flows[tier]})
+        //     commit('setFlowsNotFound', false);
+        //   });
+        // } else {
+        //   commit('setFlowsNotFound', true);
+        // }
       })
       // .then(() => commit('loading_filters', false));
   },
   updateFilterParams: ({ commit }, args) => {
+    debugger;
     commit('updateFilterParams', args);
   },
   resetData: ({ commit }) => {
