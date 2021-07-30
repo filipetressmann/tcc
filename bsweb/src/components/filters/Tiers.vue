@@ -1,13 +1,13 @@
 <template>
   <div>
     <p class="label">{{ $t('selectTiers') }}</p>
-    <div v-show="tierList.length > 0" v-for="(count, index) in tierList" :key="index">
+    <div v-show="!flowsNotFound" v-for="(count, index) in tierList" :key="index">
       <TierController
         :tier="index"
         :count="count"
       />
     </div>
-    <span v-if="tierList.length === 0">{{ $t('notFoundTiers') }}</span>
+    <span v-if="flowsNotFound">{{ $t('notFoundTiers') }}</span>
   </div>
 </template>
 
@@ -22,7 +22,15 @@ import TierController from './TierController.vue';
     computed: {
       ...mapGetters([
         'tierList',
+        'flowsNotFound',
       ]),
+    },
+    watch: {
+      flowsNotFound: function (val) {
+        if (val) {
+          this.$toastr.warning(this.$t('toastr.emptyFlows'));
+        }
+      }
     },
     mounted() {
       // this.$toastr.info('Teste Toastr')

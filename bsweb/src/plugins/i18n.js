@@ -94,7 +94,10 @@ export const messages = {
     west: 'West',
     east: 'East',
     north: 'North',
-    south: 'South'
+    south: 'South',
+    toastr: {
+      emptyFlows: 'Flows not found. Try selecting different filters.',
+    }
   },
   'pt-br': {
     appName: 'BikeScienceWeb',
@@ -192,6 +195,9 @@ export const messages = {
     west: 'Oeste',
     east: 'Leste',
     north: 'Norte',
-    south: 'Sul'
+    south: 'Sul',
+    toastr: {
+      emptyFlows: 'Nenhum fluxo encontrado. Tente selecionar outros filtros.',
+    }
   }
 }

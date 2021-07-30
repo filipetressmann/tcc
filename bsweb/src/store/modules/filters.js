@@ -76,7 +76,7 @@ const mutations = {
     Vue.set(state, 'charts', charts)
   },
   updateFilterParams: (state, {id, params} ) => {
-    debugger;
+    // debugger;
     Vue.set(state.filters.params, id, params);
   },
   addTripsPerTier: (state, { tier, count }) => {
@@ -100,6 +100,11 @@ const mutations = {
   },
   setFlowsNotFound(state, value) {
     Vue.set(state, 'flows_not_found', value);
+  },
+  resetFlows(state) {
+    Vue.set(state, 'flows', { 0: [], 1: [], 2: [], 3: [] });
+    Vue.set(state, 'tripsPerTier', [0, 0, 0, 0]);
+    // debugger;
   }
 }
 
@@ -117,7 +122,7 @@ const actions = {
   removeActiveFilter: ({ commit }, filter) => {
     commit('removeActiveFilter', filter);
   },
-  filterData: async({ commit, getters }) => {
+  filterData: async({ commit, dispatch, getters }) => {
     // commit('loading_filters', true);
     return await axios.post(`${api_url}/filter_data`, getters.filters)
       .then(res => {
@@ -127,31 +132,29 @@ const actions = {
         let flows = response['flows']
         let heatmaps = response['heatmaps']
         let tiers = Object.keys(flows)
-        let charts = response['charts'] // filter_data -> retorna a lista de gráficos gerados no servidor
-        commit('addAttractors', { attractors: heatmaps['attractors']});
-        commit('addEmitters', { emitters: heatmaps['emitters']});
-        commit('addCharts', { charts }) // adiciona a lista de gráficos na store
+        // let charts = response['charts'] // filter_data -> retorna a lista de gráficos gerados no servidor
+        // commit('addAttractors', { attractors: heatmaps['attractors']});
+        // commit('addEmitters', { emitters: heatmaps['emitters']});
+        // commit('addCharts', { charts }) // adiciona a lista de gráficos na store
         commit('resetData');
-        debugger;
-        tiers.map(tier => {
-          commit('addTripsPerTier', { tier, count: flows[tier].length });
-          commit('addFlows', { tier: tier, flows: flows[tier] })
+        if (tiers.length > 0) {
+          // debugger;
+          tiers.map(tier => {
+            commit('addTripsPerTier', { tier, count: flows[tier].length });
+            commit('addFlows', { tier, flows: flows[tier]})
+          });
           commit('setFlowsNotFound', false);
-        });
-        // if (tiers.length > 0) {
-        //   tiers.map(tier => {
-        //     commit('addTripsPerTier', { tier, count: flows[tier].length });
-        //     commit('addFlows', { tier: tier, flows: flows[tier]})
-        //     commit('setFlowsNotFound', false);
-        //   });
-        // } else {
-        //   commit('setFlowsNotFound', true);
-        // }
+          // debugger;
+        } else {
+          debugger;
+          commit('setFlowsNotFound', true);
+          dispatch('resetFlows');
+        }
       })
       // .then(() => commit('loading_filters', false));
   },
   updateFilterParams: ({ commit }, args) => {
-    debugger;
+    // debugger;
     commit('updateFilterParams', args);
   },
   resetData: ({ commit }) => {
@@ -169,6 +172,9 @@ const actions = {
       newGridOffset[key] = value;
       commit('updateGridOffset', newGridOffset);
     }
+  },
+  resetFlows({ commit }) {
+    commit('resetFlows');
   }
 };
 

@@ -27,10 +27,11 @@ Vue.use(VueToastr2)
 
 // Toastr
 toastr.options = {
-  closeButton: true,
+  closeButton: false,
   progressBar: true,
-  showDuration: 6000,
+  showDuration: 300,
   positionClass: 'toast-top-center',
+  preventDuplicates: false,
 }
 
 
