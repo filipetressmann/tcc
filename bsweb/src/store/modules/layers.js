@@ -8,7 +8,7 @@ const state = {
   activeLayers: [],
   data: {},
   zones: {},
-  grid: {}
+  grid: {},
 };
 
 const getters = {
@@ -139,7 +139,8 @@ const actions = {
         return err;
       });
   },
-  fetchGrid: async ({commit, rootGetters}) => {
+  fetchGrid: async ({commit, dispatch, rootGetters}) => {
+    dispatch('resetFlows', null, { root: true });
     const gridSize = rootGetters['gridSize'];
     const gridOffset = rootGetters['gridOffset'];
     return await axios.post(`${api_url}/grid_layer`, { gridSize, gridOffset })

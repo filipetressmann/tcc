@@ -102,7 +102,8 @@ export default {
       'fetchZones',
       'fetchGrid',
       'resetMapResource',
-      'updateGridOffset'
+      'updateGridSize',
+      'updateGridOffset',
     ]),
     ...mapActions('loading', ['setLoading', 'unsetLoading']),
   },
@@ -112,7 +113,7 @@ export default {
         return this.$store.state.filters.filters.gridSize;
       },
       set(value) {
-        this.$store.commit('updateGridSize', value);
+        this.updateGridSize(value);
         this.reloadGrid();
       }
     },

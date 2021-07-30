@@ -90,7 +90,7 @@ const mutations = {
     Vue.set(state.filters, "baseLayer", value);
   },
   updateGridSize(state, gridSize) {
-    Vue.set(state.filters, "gridSize", Number(gridSize));
+    Vue.set(state.filters, 'gridSize', gridSize);
   },
   updateGridOffset(state, value) {
     Vue.set(state.filters, 'gridOffset', value);
@@ -162,6 +162,9 @@ const actions = {
   },
   updateOD: ({ commit }, value) => {
     commit('updateOD', value);
+  },
+  updateGridSize({ commit }, gridSize) {
+    commit('updateGridSize', Number(gridSize));
   },
   setToken: ({ commit }, value) => {
     commit('setToken', value);
