@@ -11,7 +11,7 @@
       </div>
     </div>
   </div>
-  <Loading :isActive="active" />
+  <Loading :isActive="active || loading_filters" />
 </div>
 </template>
 
