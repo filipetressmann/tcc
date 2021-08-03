@@ -36,7 +36,8 @@
       </b-tab-item>
     </b-tabs>
     <div class="manage-footer">
-      <a class="survey" href="">{{ $t('survey') }}</a>
+      <router-link :to="'/about'" target='_blank'>{{ $t('footer.about') }}</router-link>
+      <a href="">{{ $t('footer.survey') }}</a>
       <Language />
     </div>
   </div>
@@ -97,8 +98,6 @@
     padding: 0 10px;
     display: flex;
     justify-content: space-around;
-  }
-  .survey {
     font-size: 12px;
   }
 </style>

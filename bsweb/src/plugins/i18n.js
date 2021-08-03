@@ -91,8 +91,11 @@ export const messages = {
     publicTransportDistance: 'Long trip in public transport',
     crowdedPublicTransport: 'Crowded public transport',
     fitness: 'Fitness',
-    survey: 'Survey',
     others: 'Others',
+    footer: {
+      about: 'About',
+      survey: 'Survey',
+    },
     // Grid editor
     gridOptions: {
       size: 'Size',
@@ -198,8 +201,11 @@ export const messages = {
     publicTransportDistance: 'Viagem muito demorada',
     crowdedPublicTransport: 'Transporte público lotado',
     fitness: 'Atividade física',
-    survey: 'Pesquisa de opinião',
     others: 'Outros',
+    footer: {
+      about: 'Sobre',
+      survey: 'Pesquisa de opinião',
+    },
     // Grid editor
     gridOptions: {
       size: 'Tamanho',
