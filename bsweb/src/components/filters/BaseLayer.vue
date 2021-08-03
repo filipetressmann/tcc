@@ -3,10 +3,10 @@
     <div>
       <span class="label">{{ $t('baseLayer') }}</span>
       <b-radio v-model="od" name="Grid" native-value="grid" type="is-info">
-        {{ $t('grid') }}
+        <span class="view-option">{{ $t('grid') }}</span>
       </b-radio>
       <b-radio v-model="od" name="Zonas OD" native-value="zones" type="is-info">
-        {{ $t('zones') }}
+        <span class="view-option">{{ $t('zones') }}</span>
       </b-radio>
     </div>
     <div v-if="od == 'grid'">
@@ -70,5 +70,10 @@ import GridForm from '@/components/filters/forms/GridForm';
 </script>
 
 <style scoped>
-
+  .label {
+    font-size: 12px;
+  }
+  .view-option {
+    font-size: 12px;
+  }
 </style>

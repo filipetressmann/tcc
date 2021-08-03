@@ -7,7 +7,7 @@
         :count="count"
       />
     </div>
-    <span v-if="flowsNotFound">{{ $t('notFoundTiers') }}</span>
+    <span class="not-found" v-if="flowsNotFound">{{ $t('notFoundTiers') }}</span>
   </div>
 </template>
 
@@ -42,3 +42,12 @@ import TierController from './TierController.vue';
     }
   }
 </script>
+
+<style scoped>
+  .label {
+    font-size: 12px;
+  }
+  .not-found {
+    font-size: 12px;
+  }
+</style>

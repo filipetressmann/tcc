@@ -152,7 +152,7 @@ export default {
   .filter-name {
     margin: 0 5px;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 12px;
   }
 
   input {

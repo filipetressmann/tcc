@@ -1,7 +1,7 @@
 <template>
   <div v-show="count > 0">
     <b-checkbox v-model="isActive" :native-value="tier" type="is-info">
-      {{ $t('tier') }} {{ tier+1 }} ({{ count }} {{ $tc('flow', count)}})
+      <span class="tier-option">{{ $t('tier') }} {{ tier+1 }} ({{ count }} {{ $tc('flow', count)}})</span>
     </b-checkbox>
   </div>
 </template>
@@ -57,3 +57,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .tier-option {
+    font-size: 12px;
+  }
+</style>

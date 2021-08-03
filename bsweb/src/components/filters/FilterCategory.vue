@@ -43,26 +43,25 @@ export default {
 </script>
 
 <style scoped>
-  .category-wrapper{
+  .category-name {
+    font-size: 12px;
+  }
+  .category-wrapper {
     margin-bottom: 10px;
   }
-
   .category-toggle {
     cursor: pointer;
     display: flex;
   }
-
   .category-options {
     margin-left: 8px;
   }
-
   .arrow {
     transition: all ease-in-out 0.2s;
     transform: rotate(-90deg);
     width: 12px;
     margin-right: 4px;
   }
-
   .arrow.active {
     transform: none
   }

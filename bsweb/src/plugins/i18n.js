@@ -17,6 +17,10 @@ export const messages = {
     populationFilters: 'Demographic filters',
     tripFilters: 'Trip filters',
     geographicFilters: 'Geographic filters',
+    tabs: {
+      filters: 'Filters',
+      layers: 'Layers',
+    },
     // Layers
     layers_highCapacityTransport: 'High capacity transports',
     layers_bikelanes: 'Bikelanes',
@@ -90,11 +94,13 @@ export const messages = {
     survey: 'Survey',
     others: 'Others',
     // Grid editor
-    size: 'Size',
-    west: 'West',
-    east: 'East',
-    north: 'North',
-    south: 'South',
+    gridOptions: {
+      size: 'Size',
+      west: 'West',
+      east: 'East',
+      north: 'North',
+      south: 'South',
+    },
     toastr: {
       emptyFlows: 'Flows not found. Try selecting different filters.',
     }
@@ -117,10 +123,14 @@ export const messages = {
     populationFilters: 'Filtros demográficos',
     tripFilters: 'Filtros de viagem',
     geographicFilters: 'Filtros geográficos',
+    tabs: {
+      filters: 'Filtros',
+      layers: 'Camadas',
+    },
     // Layers
     layers_highCapacityTransport: 'Transportes de alta capacidade',
     layers_bikelanes: 'Infraestrutura cicloviária',
-    layers_accidents: 'Acidentes',
+    layers_accidents: 'Ocorrências de trânsito',
     spRailwayLines: 'Linhas da CPTM',
     spSubwayLines: 'Linhas do Metrô',
     spRailwayStations: 'Estações da CPTM',
@@ -129,7 +139,7 @@ export const messages = {
     sp_bikelane_ciclovia: 'Ciclovias',
     sp_bikelane_ciclofaixa: 'Ciclofaixas',
     sp_bikelane_ciclorrota: 'Ciclorrotas',
-    sp_accidents: 'Acidentes com bicicletas',
+    sp_accidents: 'Ocorrências com bicicletas',
     // Filters (time)
     start_time: 'Horário de início',
     finish_time: 'Horário de término',
@@ -191,11 +201,13 @@ export const messages = {
     survey: 'Pesquisa de opinião',
     others: 'Outros',
     // Grid editor
-    size: 'Tamanho',
-    west: 'Oeste',
-    east: 'Leste',
-    north: 'Norte',
-    south: 'Sul',
+    gridOptions: {
+      size: 'Tamanho',
+      west: 'Oeste',
+      east: 'Leste',
+      north: 'Norte',
+      south: 'Sul',
+    },
     toastr: {
       emptyFlows: 'Nenhum fluxo encontrado. Tente selecionar outros filtros.',
     }

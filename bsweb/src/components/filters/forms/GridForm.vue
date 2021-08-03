@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="slider-container">
-      <span class="label">{{ $t('size') }}</span>
+      <span class="label">{{ $t('gridOptions.size') }}</span>
       <b-slider
         v-model="gridSize"
         type="is-success"
@@ -15,7 +15,7 @@
       <div class="value">{{gridSize}}</div>
     </div>
     <div class="slider-container">
-      <span class="label">{{ $t('west') }}</span>
+      <span class="label">{{ $t('gridOptions.west') }}</span>
       <b-slider
         v-model="grid_west"
         type="is-info"
@@ -29,7 +29,7 @@
       <div class="value">{{grid_west}}</div>
     </div>
     <div class="slider-container">
-      <span class="label">{{ $t('east') }}</span>
+      <span class="label">{{ $t('gridOptions.east') }}</span>
       <b-slider
         v-model="grid_east"
         type="is-info"
@@ -43,7 +43,7 @@
       <div class="value">{{grid_east}}</div>
     </div>
     <div class="slider-container">
-      <span class="label">{{ $t('north') }}</span>
+      <span class="label">{{ $t('gridOptions.north') }}</span>
       <b-slider
         v-model="grid_north"
         type="is-info"
@@ -57,7 +57,7 @@
       <div class="value">{{grid_north}}</div>
     </div>
     <div class="slider-container">
-      <span class="label">{{ $t('south') }}</span>
+      <span class="label">{{ $t('gridOptions.south') }}</span>
       <b-slider
         v-model="grid_south"
         type="is-info"
@@ -173,14 +173,17 @@ export default {
     display: flex;
     align-items: center;
     justify-content: right;
+    font-size: 12px;
   }
   .slider-container {
     display: flex;
     align-items: center;
+    height: 28px;
   }
 
   .label {
     min-width: 72px;
-    font-weight: bold;
+    font-weight: normal;
+    font-size: 12px;
   }
 </style>

@@ -34,7 +34,7 @@ export const railway = function(data) {
       break;
   }
 
-  return { color };
+  return { color, weight: 1.5 };
 }
 
 export const subway = function(data) {
@@ -69,7 +69,7 @@ export const subway = function(data) {
       break;
   }
 
-  return {color};
+  return { color, weight: 1.5 };
 }
 
 export const bikelane = function(data) {
@@ -85,7 +85,7 @@ export const bikelane = function(data) {
         break;
         case 'ciclorrota':
         color = '#ff781f';
-        dashArray = '10,6';
+        dashArray = '10,10';
         break;
       default:
         color = '#999';
