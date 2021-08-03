@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import BikeScienceWeb from '@/pages/BikeScienceWeb';
-import About from '@/pages/About';
+import About from '@/pages/about';
 
 Vue.use(Router);
 

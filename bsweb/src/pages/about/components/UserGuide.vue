@@ -1,17 +1,11 @@
 <template>
   <div>
-    <h1>About</h1>
-    <p>Teste Pena</p>
+    <h2>Guia</h2>
   </div>
 </template>
 
 <script>
   export default {
-
+    
   }
 </script>
-
-<style scoped>
-
-</style>
-
