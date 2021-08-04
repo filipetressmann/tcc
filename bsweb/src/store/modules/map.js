@@ -9,6 +9,7 @@ const state = {
         center: [-23.550164466, -46.633664132],
         // tile_layer_url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png'
         tile_layer_url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png'
+        // tile_layer_url: 'https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=ajQurp8FqZX9pYwNKnIv'
       },
       show: {
         /* this object stores keys to access data user wants to show */
