@@ -33,7 +33,7 @@ export const messages = {
     sp_bikelane_ciclovia: 'Ciclovias',
     sp_bikelane_ciclofaixa: 'Ciclofaixas',
     sp_bikelane_ciclorrota: 'Ciclorrotas',
-    sp_accidents: 'Acidentes com bicicletas',
+    sp_accidents: 'Bike accidents',
     // Filters (time)
     start_time: 'Start time',
     finish_time: 'Finish time',
@@ -68,7 +68,7 @@ export const messages = {
     sat: 'Saturday',
     sun: 'Sunday',
     filterBtn: 'Filter',
-    selectTiers: 'Show tiers:',
+    selectTiers: 'Show flows:',
     tier: 'Tier',
     notFoundTiers: 'No results found',
     flow: 'flow | flows',
@@ -106,7 +106,11 @@ export const messages = {
     },
     toastr: {
       emptyFlows: 'Flows not found. Try selecting different filters.',
-    }
+    },
+    buttons: {
+      getFlows: 'Recalculate flows',
+      gridEditMode: 'Edit grid'
+    },
   },
   'pt-br': {
     appName: 'BikeScienceWeb',
@@ -180,7 +184,7 @@ export const messages = {
     sat: 'Sábado',
     sun: 'Domingo',
     filterBtn: 'Filtrar',
-    selectTiers: 'Mostrar quartis:',
+    selectTiers: 'Mostrar fluxos:',
     tier: 'Quartil',
     notFoundTiers: 'Nenhum resultado encontrado',
     flow: 'fluxo | fluxos',
@@ -216,6 +220,10 @@ export const messages = {
     },
     toastr: {
       emptyFlows: 'Nenhum fluxo encontrado. Tente selecionar outros filtros.',
-    }
+    },
+    buttons: {
+      getFlows: 'Recalcular fluxos',
+      gridEditMode: 'Editar grid'
+    },
   }
 }

@@ -71,7 +71,7 @@
       <div class="value">{{grid_south}}</div>
     </div>
     <div class="get-flows-button" @click="getFlows()">
-      <span>Recalcular fluxos</span>
+      <span>{{ $t('buttons.getFlows' )}}</span>
     </div>
   </div>
 </template>
