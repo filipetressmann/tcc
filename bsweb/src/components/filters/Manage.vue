@@ -37,7 +37,7 @@
     </b-tabs>
     <div class="manage-footer">
       <router-link :to="'/about'" target='_blank'>{{ $t('footer.about') }}</router-link>
-      <a href="">{{ $t('footer.survey') }}</a>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSd1Fjuc4g1T141XFIzVHor1tSpG2MBQbA2PPI3GSuIybeq3MQ/viewform">{{ $t('footer.survey') }}</a>
       <Language />
     </div>
   </div>
