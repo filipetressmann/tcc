@@ -1,7 +1,7 @@
 <template>
   <div class="about-container">
-    <h1 class="bsw center">BikeScienceWeb</h1>
-    <div class="about-selector">
+    <h1 class="bsw">BikeScienceWeb</h1>
+    <div class="about-selector center">
       <ButtonAbout
         :text="'Sobre'"
         :isActive="activeSection[0]"
@@ -23,7 +23,7 @@
         @click.native="select(3)"
       />
     </div>
-    <div class="content">
+    <div class="about-content">
       <About v-if="activeSection[0]" />
       <Features v-if="activeSection[1]" />
       <Team v-if="activeSection[2]" />
@@ -63,18 +63,30 @@
 
 <style scoped>
   .about-container {
-    padding: 40px 40px;
+    padding: 0 15%;
+    height: 100vh;
+    overflow: scroll;
   }
   .bsw {
     font-size: 36px;
     color: #363636;
     font-weight: 600;
     line-height: 1.125;
-    margin-bottom: 40px;
+    margin: 40px 0;
+    text-align: center;
   }
   .about-selector {
     display: flex;
     justify-content: center;
   }
+  .about-content {
+    margin: 40px 0;
+  }
+
+  @media only screen and (max-width: 768px) {
+  .about-selector {
+    flex-direction: column;
+  }
+}
 </style>
 
