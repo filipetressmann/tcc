@@ -10,7 +10,7 @@
       </b-radio>
     </div>
     <div v-if="od == 'grid'">
-      <div class="edit-grid-button" @click="setGridEditModeOn()" v-if="!gridEditMode">
+      <div class="edit-grid-button" @click="setGridEditModeOn()" v-if="!gridEditMode" :title="this.$t('onHover.gridEditMode')">
         <span>{{ $t('buttons.gridEditMode') }}</span>
       </div>
       <div v-if="gridEditMode">

@@ -111,6 +111,9 @@ export const messages = {
       getFlows: 'Recalculate flows',
       gridEditMode: 'Edit grid'
     },
+    onHover: {
+      gridEditMode: 'Change grid settings',
+    }
   },
   'pt-br': {
     appName: 'BikeScienceWeb',
@@ -225,5 +228,8 @@ export const messages = {
       getFlows: 'Recalcular fluxos',
       gridEditMode: 'Editar grid'
     },
+    onHover: {
+      gridEditMode: 'Alterar configurações do grid',
+    }
   }
 }
