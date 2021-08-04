@@ -70,7 +70,9 @@
       />
       <div class="value">{{grid_south}}</div>
     </div>
-    <button type="button" @click="getFlows">Calcular fluxos</button>
+    <div class="get-flows-button" @click="getFlows()">
+      <span>Recalcular fluxos</span>
+    </div>
   </div>
 </template>
 
@@ -87,6 +89,7 @@ export default {
         .then(() => {
           // this.unsetLoading();
         });
+      this.setGridEditModeOff();
     },
     reloadGrid() {
       // this.setLoading();
@@ -95,6 +98,7 @@ export default {
         // .then(() => {
           // this.unsetLoading();
         // });
+    
     },
     ...mapActions([
       'resetData',
@@ -104,6 +108,7 @@ export default {
       'resetMapResource',
       'updateGridSize',
       'updateGridOffset',
+      'setGridEditModeOff',
     ]),
     ...mapActions('loading', ['setLoading', 'unsetLoading']),
   },
@@ -185,5 +190,22 @@ export default {
     min-width: 72px;
     font-weight: normal;
     font-size: 12px;
+  }
+
+  .get-flows-button {
+    cursor: pointer;
+    border: 1px solid #167df0;
+    border-radius: 5px;
+    width: 115px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    font-size: 12px;
+    color: #167df0;
+  }
+  .get-flows-button:hover {
+    color: #363636;
+    background-color: #ddd;
   }
 </style>

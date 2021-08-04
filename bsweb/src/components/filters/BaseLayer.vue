@@ -9,7 +9,10 @@
         <span class="view-option">{{ $t('zones') }}</span>
       </b-radio>
     </div>
-    <div v-if="od == 'grid'">
+    <div class="edit-grid-button" @click="setGridEditModeOn()" v-if="!gridEditMode">
+      <span>Editar grid</span>
+    </div>
+    <div v-if="od == 'grid' && gridEditMode">
       <GridForm />
     </div>
   </div>
@@ -30,7 +33,8 @@ import GridForm from '@/components/filters/forms/GridForm';
     },
     computed: {
       ...mapGetters({
-        filterParams: 'filters'
+        filterParams: 'filters',
+        gridEditMode: 'gridEditMode',
       })
     },
     methods: {
@@ -39,6 +43,7 @@ import GridForm from '@/components/filters/forms/GridForm';
         'updateOD',
         'resetMapResource',
         'filterData',
+        'setGridEditModeOn',
       ]),
       ...mapMutations([
         'showZones',
@@ -75,5 +80,22 @@ import GridForm from '@/components/filters/forms/GridForm';
   }
   .view-option {
     font-size: 12px;
+  }
+
+  .edit-grid-button {
+    cursor: pointer;
+    border: 1px solid #167df0;
+    border-radius: 5px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    font-size: 12px;
+    color: #167df0;
+  }
+  .edit-grid-button:hover {
+    color: #363636;
+    background-color: #ddd;
   }
 </style>

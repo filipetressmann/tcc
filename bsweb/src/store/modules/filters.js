@@ -35,6 +35,7 @@ const state = {
   ],
   loading_filters: false,
   flows_not_found: false,
+  gridEditMode: false,
 };
 
 const getters = {
@@ -48,6 +49,7 @@ const getters = {
   loading_filters: state => state.loading_filters,
   flows: state => state.flows,
   flowsNotFound: state => state.flows_not_found,
+  gridEditMode: state => state.gridEditMode,
 };
 
 const mutations = {
@@ -105,7 +107,10 @@ const mutations = {
     Vue.set(state, 'flows', { 0: [], 1: [], 2: [], 3: [] });
     Vue.set(state, 'tripsPerTier', [0, 0, 0, 0]);
     // debugger;
-  }
+  },
+  setGridEditMode(state, value) {
+    Vue.set(state, 'gridEditMode', value);
+  },
 }
 
 const actions = {
@@ -178,7 +183,13 @@ const actions = {
   },
   resetFlows({ commit }) {
     commit('resetFlows');
-  }
+  },
+  setGridEditModeOn({ commit }) {
+    commit('setGridEditMode', true);
+  },
+  setGridEditModeOff({ commit }, value) {
+    commit('setGridEditMode', false);
+  },
 };
 
 export default {

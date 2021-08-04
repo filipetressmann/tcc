@@ -7,7 +7,7 @@
           <span class="custom-size">{{ $t('flows') }}</span>
         </template>
         <BaseLayer />
-        <Tiers />
+        <Tiers v-show="!gridEditMode"/>
         <hr>
       </b-tab-item>
       <b-tab-item>
@@ -64,12 +64,18 @@
     data() {
       return {
         isOpen: -1,
-        activeTab: 0
+        activeTab: 0,
       };
     },
     methods: {
       changeTab(tab) {
         this.activeTab = tab;
+      },
+      hideTiers() {
+        this.gridEditMode = true;
+      },
+      showTiers() {
+        this.gridEditMode = false;
       }
     },
     computed: {
@@ -78,6 +84,7 @@
         'activeFilters',
         'activeLayers',
         'chartList',
+        'gridEditMode',
       ])
     }
   }
