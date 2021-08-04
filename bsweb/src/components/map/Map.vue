@@ -83,8 +83,10 @@
             this.filterData();
             this.unsetLoading();
           });
-        this.fetchZones(this.$http);
-        this.renderZones = true;
+        this.fetchZones(this.$http)
+          .then(() => {
+            this.renderZones = true;
+          });
       }
     },
     computed: {

@@ -9,11 +9,13 @@
         <span class="view-option">{{ $t('zones') }}</span>
       </b-radio>
     </div>
-    <div class="edit-grid-button" @click="setGridEditModeOn()" v-if="!gridEditMode">
-      <span>{{ $t('buttons.gridEditMode') }}</span>
-    </div>
-    <div v-if="od == 'grid' && gridEditMode">
-      <GridForm />
+    <div v-if="od == 'grid'">
+      <div class="edit-grid-button" @click="setGridEditModeOn()" v-if="!gridEditMode">
+        <span>{{ $t('buttons.gridEditMode') }}</span>
+      </div>
+      <div v-if="gridEditMode">
+        <GridForm />
+      </div>
     </div>
   </div>
 </template>
@@ -44,6 +46,7 @@ import GridForm from '@/components/filters/forms/GridForm';
         'resetMapResource',
         'filterData',
         'setGridEditModeOn',
+        'resetFlows',
       ]),
       ...mapMutations([
         'showZones',
@@ -62,6 +65,7 @@ import GridForm from '@/components/filters/forms/GridForm';
           category: "flows",
           type: "polyline"
         });
+        this.resetFlows();
         if (value == "zones") {
           this.showZones("main");
           this.hideGrid("main");
@@ -69,6 +73,7 @@ import GridForm from '@/components/filters/forms/GridForm';
           this.showGrid("main");
           this.hideZones("main");
         }
+        this.filterData();
       }
     }
   }

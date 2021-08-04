@@ -92,13 +92,12 @@ export default {
       this.setGridEditModeOff();
     },
     reloadGrid() {
-      // this.setLoading();
+      this.setLoading();
       this.resetData();
       this.fetchGrid()
-        // .then(() => {
-          // this.unsetLoading();
-        // });
-    
+        .then(() => {
+          this.unsetLoading();
+        });
     },
     ...mapActions([
       'resetData',
