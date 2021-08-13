@@ -11,6 +11,7 @@
       </div>
     </div>
   </div>
+  <About />
   <Loading :isActive="active || loading_filters" />
 </div>
 </template>
@@ -21,6 +22,7 @@
   import { uuid } from 'vue-uuid';
   import { mapActions, mapGetters } from 'vuex';
   import Loading from '../components/Loading';
+  import About from '../components/modals/About.vue';
   // import SelectorsVue from './components/filters/Selectors.vue';
 
   export default {
@@ -28,7 +30,8 @@
       Manage,
       // selectors: SelectorsVue,
       appMap: MapVue,
-      Loading
+      About,
+      Loading,
     },
     methods: {
       ...mapActions([
