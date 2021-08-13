@@ -47,6 +47,8 @@
       "parser": "babel-eslint"
     },
     "rules": {
+      "no-debugger": "warn",
+      "no-console": "warn",
       "indent": ["error", 2],
       "semi": ["error", "always"],
       "quotes": ["error", "single"],
