@@ -1,26 +1,35 @@
 <template>
-  <div class="container" id="filter-container">
-    <p class="title is-5">{{ $t('appName') }}</p>
-    <b-tabs v-model="activeTab" size="is-small" multiline expanded position="is-centered" class="custom-tabs">
+  <div id="filter-container" class="container">
+    <p class="title is-5">
+      {{ $t('appName') }}
+    </p>
+    <b-tabs
+      v-model="activeTab"
+      size="is-small"
+      multiline
+      expanded
+      position="is-centered"
+      class="custom-tabs"
+    >
       <b-tab-item>
         <template slot="header">
           <span class="custom-size">{{ $t('flows') }}</span>
         </template>
         <BaseLayer />
-        <Tiers v-show="!gridEditMode"/>
+        <Tiers v-show="!gridEditMode" />
         <hr>
       </b-tab-item>
       <b-tab-item>
         <template slot="header">
           <span>{{ $t('filters') }}<b-tag rounded>{{ activeFilters.length }}</b-tag></span>
         </template>
-        <Filters v-on:tab-changed="changeTab" />
+        <Filters @tab-changed="changeTab" />
       </b-tab-item>
       <b-tab-item>
         <template slot="header">
           <span>{{ $t('layers') }}<b-tag rounded>{{ activeLayers.length }}</b-tag></span>
         </template>
-        <Layers v-on:tab-changed="changeTab" />
+        <Layers @tab-changed="changeTab" />
       </b-tab-item>
       <b-tab-item v-if="false">
         <template slot="header">
@@ -36,58 +45,61 @@
       </b-tab-item>
     </b-tabs>
     <div class="manage-footer">
-      <router-link :to="'/about'" target='_blank'>{{ $t('footer.about') }}</router-link>
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSd1Fjuc4g1T141XFIzVHor1tSpG2MBQbA2PPI3GSuIybeq3MQ/viewform">{{ $t('footer.survey') }}</a>
+      <div class="about-button" @click="open('about')">
+        {{ $t('footer.about') }}
+      </div>
+      <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSd1Fjuc4g1T141XFIzVHor1tSpG2MBQbA2PPI3GSuIybeq3MQ/viewform">{{ $t('footer.survey') }}</a>
       <Language />
     </div>
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
-  import BaseLayer from './BaseLayer.vue';
-  import Tiers from './Tiers.vue';
-  import Filters from './Filters.vue';
-  import Layers from './Layers.vue';
-  import Charts from '../charts/Charts';
-  import Language from '../Language.vue';
+import { mapGetters, mapActions } from 'vuex';
+import BaseLayer from './BaseLayer.vue';
+import Tiers from './Tiers.vue';
+import Filters from './Filters.vue';
+import Layers from './Layers.vue';
+import Charts from '../charts/Charts';
+import Language from '../Language.vue';
 
-  export default {
-    components: {
-      Filters,
-      Tiers,
-      Layers,
-      BaseLayer,
-      Charts,
-      Language
+export default {
+  components: {
+    Filters,
+    Tiers,
+    Layers,
+    BaseLayer,
+    Charts,
+    Language,
+  },
+  data() {
+    return {
+      isOpen: -1,
+      activeTab: 0,
+    };
+  },
+  methods: {
+    ...mapActions('modals', ['open']),
+    changeTab(tab) {
+      this.activeTab = tab;
     },
-    data() {
-      return {
-        isOpen: -1,
-        activeTab: 0,
-      };
+    hideTiers() {
+      this.gridEditMode = true;
     },
-    methods: {
-      changeTab(tab) {
-        this.activeTab = tab;
-      },
-      hideTiers() {
-        this.gridEditMode = true;
-      },
-      showTiers() {
-        this.gridEditMode = false;
-      }
+    showTiers() {
+      this.gridEditMode = false;
     },
-    computed: {
-      ...mapGetters([
-        'tierList',
-        'activeFilters',
-        'activeLayers',
-        'chartList',
-        'gridEditMode',
-      ])
-    }
-  }
+  },
+  computed: {
+    ...mapGetters([
+      'tierList',
+      'activeFilters',
+      'activeLayers',
+      'chartList',
+      'gridEditMode'
+    ]),
+  },
+};
 </script>
 
 <style scoped>
@@ -106,5 +118,16 @@
     display: flex;
     justify-content: space-around;
     font-size: 12px;
+  }
+  .about-button {
+    cursor: pointer;
+    color: #7957d5;
+  }
+  .about-button:hover {
+    cursor: pointer;
+    color: #167df0;
+  }
+  .manage-footer > a:hover {
+    color: #167df0;
   }
 </style>

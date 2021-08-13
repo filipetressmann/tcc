@@ -4,7 +4,7 @@ const api_url = process.env.VUE_APP_API_URL;
 
 const state = {
   layers: [],
-  filters: []
+  filters: [],
 };
 
 const getters = {
@@ -24,9 +24,9 @@ const mutations = {
       .then(response => {
         state.layers = response.data.filter(item => item.category_name.includes('layers'));
         state.filters = response.data.filter(item => !item.category_name.includes('layers'));
-      })
+      });
   },
-}
+};
 
 export default {
   state,

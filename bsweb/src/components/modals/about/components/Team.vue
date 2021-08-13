@@ -1,6 +1,6 @@
 <template>
   <div>
-  <h2>Equipe BikeScience</h2>
+    <h2>Equipe BikeScience</h2>
     <div class="team-member">
       <span>Prof. Fabio Kon</span>
       <span>IME/USP</span>
@@ -30,9 +30,9 @@
 </template>
 
 <script>
-  export default {
+export default {
     
-  }
+};
 </script>
 
 <style scoped>

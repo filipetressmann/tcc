@@ -2,23 +2,23 @@
   <div class="modal" :class="{'is-active': isActive}">
     <div class="modal-content">
       <div class="sk-chase">
-        <div class="sk-chase-dot"></div>
-        <div class="sk-chase-dot"></div>
-        <div class="sk-chase-dot"></div>
-        <div class="sk-chase-dot"></div>
-        <div class="sk-chase-dot"></div>
-        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot" />
+        <div class="sk-chase-dot" />
+        <div class="sk-chase-dot" />
+        <div class="sk-chase-dot" />
+        <div class="sk-chase-dot" />
+        <div class="sk-chase-dot" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  export default {
-    props: {
-      isActive: Boolean
-    }
-  }
+export default {
+  props: {
+    isActive: Boolean,
+  },
+};
 </script>
 
 <style scoped>
