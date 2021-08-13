@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h2>Guia do usuário</h2>
+    <h2>Guia do usuário</h2>
     <article>
       <h3>Fluxos</h3>
       <p>
@@ -48,9 +48,9 @@
 </template>
 
 <script>
-  export default {
+export default {
     
-  }
+};
 </script>
 
 <style scoped>
