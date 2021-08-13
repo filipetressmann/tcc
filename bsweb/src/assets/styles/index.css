@@ -60,7 +60,7 @@ body{
 #filter-container {
   padding-top: 9%;
   border-right: 1px solid #bbb;
-  overflow: auto;
+  overflow: hidden;
   height: 100%;
 }
 

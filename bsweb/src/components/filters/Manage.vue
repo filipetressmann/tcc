@@ -78,6 +78,15 @@ export default {
       activeTab: 0,
     };
   },
+  computed: {
+    ...mapGetters([
+      'tierList',
+      'activeFilters',
+      'activeLayers',
+      'chartList',
+      'gridEditMode'
+    ]),
+  },
   methods: {
     ...mapActions('modals', ['open']),
     changeTab(tab) {
@@ -89,15 +98,6 @@ export default {
     showTiers() {
       this.gridEditMode = false;
     },
-  },
-  computed: {
-    ...mapGetters([
-      'tierList',
-      'activeFilters',
-      'activeLayers',
-      'chartList',
-      'gridEditMode'
-    ]),
   },
 };
 </script>
