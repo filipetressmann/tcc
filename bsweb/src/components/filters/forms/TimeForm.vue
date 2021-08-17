@@ -6,17 +6,17 @@
       </b-checkbox>
     </div>
     <div class="field">
-      <b-checkbox v-model="periods" native-value="afternoon"  type="is-info">
+      <b-checkbox v-model="periods" native-value="afternoon" type="is-info">
         {{ $t('afternoon') }}
       </b-checkbox>
     </div>
     <div class="field">
-      <b-checkbox v-model="periods" native-value="evening"  type="is-info">
+      <b-checkbox v-model="periods" native-value="evening" type="is-info">
         {{ $t('evening') }}
       </b-checkbox>
     </div>
     <div class="field">
-      <b-checkbox v-model="specific"  type="is-info">
+      <b-checkbox v-model="specific" type="is-info">
         {{ $t('specificTime') }}
       </b-checkbox>
     </div>
@@ -32,40 +32,42 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex';
+import { mapActions } from 'vuex';
   
-  export default {
-    props: ["fid"],
-    data() {
+export default {
+  props: {
+    fid: { type: Number, required: true },
+  },
+  data() {
+    return {
+      periods: [],
+      specific: false,
+      minTime: new Date(2020, 1, 1, 4, 0, 0),
+      maxTime: new Date(2020, 1, 1, 13, 0, 0),
+    };
+  },
+  computed: {
+    filterData() {
       return {
-        periods: [],
-        specific: false,
-        minTime: new Date(2020, 1, 1, 4, 0, 0),
-        maxTime: new Date(2020, 1, 1, 13, 0, 0)
+        id: this.fid,
+        params: {
+          periods: this.periods,
+          specific: this.specific,
+          minHours: this.minTime.getHours(),
+          maxHours: this.maxTime.getHours(),
+        },
       };
     },
-    computed: {
-      filterData() {
-        return {
-          id: this.fid,
-          params: {
-            periods: this.periods,
-            specific: this.specific,
-            minHours: this.minTime.getHours(),
-            maxHours: this.maxTime.getHours()
-          }
-        }
-      }
+  },
+  watch: {
+    filterData: function(value) {
+      this.updateFilterParams(value);
     },
-    methods: {
-      ...mapActions([
-        'updateFilterParams'
-      ])
-    },
-    watch: {
-      filterData: function(value) {
-        this.updateFilterParams(value);
-      }
-    }
-  }
+  },
+  methods: {
+    ...mapActions([
+      'updateFilterParams'
+    ]),
+  },
+};
 </script>

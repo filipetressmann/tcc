@@ -5,13 +5,13 @@ import iconMetroUrl from '@/assets/svg/icon-metro.svg';
 const cptmIcon = new L.Icon({
   iconSize: [11, 11],
   popupAnchor: [0, -10],
-  iconUrl: iconCptmUrl
+  iconUrl: iconCptmUrl,
 });
 
 const metroIcon = new L.Icon({
   iconSize: [11, 11],
   popupAnchor: [0, -10],
-  iconUrl: iconMetroUrl
+  iconUrl: iconMetroUrl,
 });
 
 export const railway_station = {
@@ -21,15 +21,15 @@ export const railway_station = {
   },
   pointToLayer: function (feature, latlng) {
     return L.marker(latlng, { icon: cptmIcon });
-  }
-}
+  },
+};
 
 export const railway_line = {
   onEachFeature: function(feature, layer) {
     const tooltipMsg = `Linha ${feature.properties.ltr_numero} - ${feature.properties.ltr_nome}`;
     layer.bindPopup(tooltipMsg);
-  }
-}
+  },
+};
 
 export const subway_station = {
   onEachFeature: function(feature, layer) {
@@ -38,15 +38,15 @@ export const subway_station = {
   },
   pointToLayer: function (feature, latlng) {
     return L.marker(latlng, { icon: metroIcon });
-  }
-}
+  },
+};
 
 export const subway_line = {
   onEachFeature: function (feature, layer) {
     const tooltipMsg = `Linha ${feature.properties.lmt_linha} - ${feature.properties.lmt_nome}`;
     layer.bindPopup(tooltipMsg);
-  }
-}
+  },
+};
 
 export const bikeLane = {
   onEachFeature: function (feature, layer) {
@@ -55,8 +55,8 @@ export const bikeLane = {
     const newDate = `${day}/${month}/${year}`;
     tooltipMsg = `${feature.properties.rc_nome}<br>Extensão: ${feature.properties.rc_extensa} m<br>Data de implantação: ${newDate}`;
     layer.bindPopup(tooltipMsg);
-  }
-}
+  },
+};
 
 export const accidents = {
   onEachFeature: function (feature, layer) {
@@ -74,18 +74,18 @@ export const accidents = {
     const newDate = `${day}/${month}/${year}`;
 
     let modais = [
-      {type: 'automóvel', val: automovel},
-      {type: 'bicicleta', val: bicicleta},
-      {type: 'caminhão', val: caminhao},
-      {type: 'motocicleta', val: motocicleta},
-      {type: 'ônibus', val: onibus},
-      {type: 'pedestre', val: pedestre},
+      { type: 'automóvel', val: automovel },
+      { type: 'bicicleta', val: bicicleta },
+      { type: 'caminhão', val: caminhao },
+      { type: 'motocicleta', val: motocicleta },
+      { type: 'ônibus', val: onibus },
+      { type: 'pedestre', val: pedestre }
     ].filter(item => item.val > 0).map(item => item.type).join(', ');
     
     let tooltipMsg = `Data do acidente: ${newDate}<br>Modais envolvidos: ${modais}`;
     layer.bindPopup(tooltipMsg);
   },
   pointToLayer: function (feature, latlng) {
-    return L.circleMarker(latlng, {radius: 3, opacity: 0.6, fillOpacity: 0.6, fillColor: "#bb0000", color: "#bb0000"})
-  }
-}
+    return L.circleMarker(latlng, { radius: 3, opacity: 0.6, fillOpacity: 0.6, fillColor: '#bb0000', color: '#bb0000' });
+  },
+};

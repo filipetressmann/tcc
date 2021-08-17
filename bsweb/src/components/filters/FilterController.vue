@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="checkbox" :value="filter.id" v-model="isActive" />
+    <input v-model="isActive" type="checkbox" :value="filter.id">
     <label class="filter-name">{{ $t(filter.filter_name) }}</label>
     <div v-if="isActive">
       <div class="options">
@@ -12,26 +12,19 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import FilterFormField from './FilterFormField'
+import FilterFormField from './FilterFormField';
 
 export default {
   components: {
     FilterFormField,
   },
-  props: ['filter'],
+  props: {
+    filter: { type: Object, required: true },
+  },
   data() {
     return {
-      isActive: false
-    }
-  },
-  methods: {
-    ...mapActions([
-      'addActiveFilter',
-      'removeActiveFilter',
-      'resetData',
-      'resetMapResource',
-      'filterData',
-    ]),
+      isActive: false,
+    };
   },
   watch: {
     isActive: function(val) {
@@ -40,12 +33,21 @@ export default {
       } else {
         this.removeActiveFilter(this.filter);
         this.resetData();
-        this.resetMapResource({ mapkey: "main", category: "flows", type: "polyline" });
+        this.resetMapResource({ mapkey: 'main', category: 'flows', type: 'polyline' });
         this.filterData();
       }
-    }
-  }
-}
+    },
+  },
+  methods: {
+    ...mapActions([
+      'addActiveFilter',
+      'removeActiveFilter',
+      'resetData',
+      'resetMapResource',
+      'filterData'
+    ]),
+  },
+};
 </script>
 
 <style scoped>

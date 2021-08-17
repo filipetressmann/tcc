@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="(sex, index) in sexes" :key="index">
-      <input  type="checkbox" :value="index+1" v-model="selectedSexes" />
+      <input v-model="selectedSexes" type="checkbox" :value="index+1">
       <label>{{ $t(sex) }}</label>
     </div>
   </div>
@@ -9,44 +9,46 @@
 
 <script>
 import { mapActions } from 'vuex';
-  export default {
-    props: ['fid'],
-    data() {
+export default {
+  props: {
+    fid: { type: Number, required: true },
+  },
+  data() {
+    return {
+      sexes: [
+        'male',
+        'female'
+      ],
+      selectedSexes: [],
+    };
+  },
+  computed: {
+    setFilterParams() {
       return {
-        sexes: [
-          'male',
-          'female',
-        ],
-        selectedSexes: []
+        id: this.fid,
+        params: {
+          sexes: this.selectedSexes,
+        },
       };
     },
-    computed: {
-      setFilterParams() {
-        return {
-          id: this.fid,
-          params: {
-            sexes: this.selectedSexes
-          }
-        };
-      }
+  },
+  watch: {
+    setFilterParams: function(value) {
+      this.updateFilterParams(value);
+      this.resetData();
+      this.resetMapResource({ mapkey: 'main', category: 'flows', type: 'polyline' });
+      this.filterData();
     },
-    methods: {
-      ...mapActions([
-        'updateFilterParams',
-        'resetData',
-        'resetMapResource',
-        'filterData',
-      ])
-    },
-    watch: {
-      setFilterParams: function(value) {
-        this.updateFilterParams(value);
-        this.resetData();
-        this.resetMapResource({ mapkey: "main", category: "flows", type: "polyline" });
-        this.filterData();
-      }
-    }
-  }
+  },
+  methods: {
+    ...mapActions([
+      'updateFilterParams',
+      'resetData',
+      'resetMapResource',
+      'filterData'
+    ]),
+  },
+};
 </script>
 
 <style scoped>

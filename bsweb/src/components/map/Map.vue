@@ -1,137 +1,141 @@
 <template>
   <div id="map">
-    <l-map :zoom="properties.zoom" :center="properties.center" :ref="mapkey">
+    <l-map :ref="mapkey" :zoom="properties.zoom" :center="properties.center">
       <l-tile-layer :url="properties.tile_layer_url" />
-        <span v-if="renderZones">
-          <l-geo-json 
-            :geojson="zones.geometry"
-            :optionsStyle="zones.style"
-            :visible="showZones" />
-        </span>
-        <span v-if="renderGrid">
-          <l-geo-json
-            :geojson="grid.geometry"
-            :optionsStyle="grid.style"
-            :visible="showGrid" />
-        </span>
+      <span v-if="renderZones">
+        <l-geo-json 
+          :geojson="zones.geometry"
+          :options-style="zones.style"
+          :visible="showZones"
+        />
+      </span>
+      <span v-if="renderGrid">
         <l-geo-json
-          v-for="key in Object.keys(layersGeojson)"
-          :geojson="layers[key].geometry"
-          :optionsStyle="layersGeojson[key].style"
-          :options="layersGeojson[key].options"
-          :key="key"
-          />
-        <l-feature-group v-for="tier in Object.keys(arrowTiers)" :key="tier">
-          <l-polyline
-            v-for="(arrow, index) in flows[tier]"
-            :key="`${tier}-${index}`"
-            :lat-lngs="arrow['coords']"
-            :color="'blue'"
-            :weight="0.4*arrow['weight']">
-            <l-tooltip>{{ arrow['total_trips']}} {{ $t('trips') }}</l-tooltip>
-          </l-polyline>
-          <polyline-decorator
-            v-for="(arrow, index) in flows[tier]"
-            :paths="arrow['coords'][arrow['coords'].length - 1]"
-            :key="`${tier}-${index}-decorator`"
-            :patterns="[
-                  {offset: '100%', repeat: 0, symbol: symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true, color: 'blue', weight: 0.4*arrow['weight']}})}
-              ]"
-          >
-          </polyline-decorator>
-        </l-feature-group>
+          :geojson="grid.geometry"
+          :options-style="grid.style"
+          :visible="showGrid"
+        />
+      </span>
+      <l-geo-json
+        v-for="key in Object.keys(layersGeojson)"
+        :key="key"
+        :geojson="layers[key].geometry"
+        :options-style="layersGeojson[key].style"
+        :options="layersGeojson[key].options"
+      />
+      <l-feature-group v-for="tier in Object.keys(arrowTiers)" :key="tier">
+        <l-polyline
+          v-for="(arrow, index) in flows[tier]"
+          :key="`${tier}-${index}`"
+          :lat-lngs="arrow['coords']"
+          :color="'blue'"
+          :weight="0.4*arrow['weight']"
+        >
+          <l-tooltip>{{ arrow['total_trips'] }} {{ $t('trips') }}</l-tooltip>
+        </l-polyline>
+        <polyline-decorator
+          v-for="(arrow, index) in flows[tier]"
+          :key="`${tier}-${index}-decorator`"
+          :paths="arrow['coords'][arrow['coords'].length - 1]"
+          :patterns="[
+            {offset: '100%', repeat: 0, symbol: symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true, color: 'blue', weight: 0.4*arrow['weight']}})}
+          ]"
+        />
+      </l-feature-group>
     </l-map>
   </div>
 </template>
 
 <script>
-  import L from 'leaflet';
-  import { LMap, LTileLayer, LGeoJson, LPolyline, LFeatureGroup, LTooltip } from 'vue2-leaflet';
-  import Vue2LeafletPolylineDecorator from 'vue2-leaflet-polylinedecorator';
-  import { mapState, mapActions, mapGetters } from 'vuex';
+import L from 'leaflet';
+import { LMap, LTileLayer, LGeoJson, LPolyline, LFeatureGroup, LTooltip } from 'vue2-leaflet';
+import Vue2LeafletPolylineDecorator from 'vue2-leaflet-polylinedecorator';
+import { mapState, mapActions, mapGetters } from 'vuex';
 
-  export default {
-    props: ['mapkey'],
-    components: {
-      LMap,
-      LTileLayer,
-      LGeoJson,
-      LPolyline,
-      LTooltip,
-      'polyline-decorator': Vue2LeafletPolylineDecorator,
-      LFeatureGroup,
+export default {
+  components: {
+    LMap,
+    LTileLayer,
+    LGeoJson,
+    LPolyline,
+    LTooltip,
+    'polyline-decorator': Vue2LeafletPolylineDecorator,
+    LFeatureGroup,
+  },
+  props: {
+    mapkey: { type: String, required: true },
+  },
+  data() {
+    return{
+      symbol: L.Symbol,
+      renderZones: false,
+      renderGrid: false,
+    };
+  },
+  computed: {
+    ...mapGetters([
+      'grid'
+    ]),
+    ...mapState({
+      properties(state) {
+        return state.map.maps[this.mapkey].properties;
+      },
+      layersGeojson(state) {
+        return state.map.maps[this.mapkey].show.layers['geojson'];
+      },
+      layersPolylines(state) {
+        return state.map.maps[this.mapkey].show.layers['polyline'];
+      },
+      layersDecorators(state) {
+        return state.map.maps[this.mapkey].show.layers['decorators'];
+      },
+      arrowTiers(state) {
+        return state.map.maps[this.mapkey].show.flows['polyline'];
+      },
+      flows: state => state.filters.flows,
+      layers: state => state.layers.data,
+      zones: state => state.layers.zones,
+      attractors: state => state.filters.heatmaps.attractors,
+      emitters: state => state.filters.heatmaps.emitters,
+      showAttractors(state) {
+        return state.map.maps[this.mapkey].show.attractors;
+      },
+      showEmitters(state) {
+        return state.map.maps[this.mapkey].show.emitters;
+      },
+      showZones(state) {
+        return state.map.maps[this.mapkey].show.zones;
+      },
+      showGrid(state) {
+        return state.map.maps[this.mapkey].show.grid;
+      },
+    }),
+  },
+  mounted() {
+    this.loadBaseLayers();
+  },
+  methods: {
+    ...mapActions('loading', ['setLoading', 'unsetLoading']),
+    ...mapActions([
+      'fetchZones',
+      'fetchGrid',
+      'filterData'
+    ]),
+    async loadBaseLayers() {
+      this.setLoading();
+      await this.fetchGrid()
+        .then(() => {
+          this.renderGrid = true;
+          this.filterData();
+          this.unsetLoading();
+        });
+      this.fetchZones(this.$http)
+        .then(() => {
+          this.renderZones = true;
+        });
     },
-    data() {
-      return{
-        symbol: L.Symbol,
-        renderZones: false,
-        renderGrid: false,
-      };
-    },
-    methods: {
-      ...mapActions('loading', ['setLoading', 'unsetLoading']),
-      ...mapActions([
-        'fetchZones',
-        'fetchGrid',
-        'filterData'
-      ]),
-      async loadBaseLayers() {
-        this.setLoading();
-        await this.fetchGrid()
-          .then(() => {
-            this.renderGrid = true;
-            this.filterData();
-            this.unsetLoading();
-          });
-        this.fetchZones(this.$http)
-          .then(() => {
-            this.renderZones = true;
-          });
-      }
-    },
-    computed: {
-      ...mapGetters([
-        'grid'
-      ]),
-      ...mapState({
-        properties(state) {
-          return state.map.maps[this.mapkey].properties
-        },
-        layersGeojson(state) {
-          return state.map.maps[this.mapkey].show.layers["geojson"];
-        },
-        layersPolylines(state) {
-          return state.map.maps[this.mapkey].show.layers["polyline"]
-        },
-        layersDecorators(state) {
-          return state.map.maps[this.mapkey].show.layers["decorators"]
-        },
-        arrowTiers(state) {
-          return state.map.maps[this.mapkey].show.flows["polyline"]
-        },
-        flows: state => state.filters.flows,
-        layers: state => state.layers.data,
-        zones: state => state.layers.zones,
-        attractors: state => state.filters.heatmaps.attractors,
-        emitters: state => state.filters.heatmaps.emitters,
-        showAttractors(state) {
-          return state.map.maps[this.mapkey].show.attractors;
-        },
-        showEmitters(state) {
-          return state.map.maps[this.mapkey].show.emitters;
-        },
-        showZones(state) {
-          return state.map.maps[this.mapkey].show.zones
-        },
-        showGrid(state) {
-          return state.map.maps[this.mapkey].show.grid
-        }
-      }),
-    },
-    mounted() {
-      this.loadBaseLayers();
-    }
-  }
+  },
+};
 </script>
 
 <style scoped>

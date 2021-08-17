@@ -1,18 +1,18 @@
 const state = {
-  active: false
+  active: false,
 };
 
 const getters = {
   active: state => {
     return state.active;
-  }
+  },
 };
 
 const actions = {
-  setLoading: (context) => {
+  setLoading: context => {
     context.commit('setLoading');
   },
-  unsetLoading: (context) => {
+  unsetLoading: context => {
     context.commit('unsetLoading');
   },
 };
@@ -31,5 +31,5 @@ export default {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 };

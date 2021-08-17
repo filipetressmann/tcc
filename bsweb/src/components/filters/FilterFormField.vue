@@ -16,36 +16,38 @@
   </div>
 </template>
 <script>
-  import AgeForm from './forms/AgeForm';
-  import TimeForm from './forms/TimeForm';
-  import StartTimeForm from './forms/StartTimeForm';
-  import FinishTimeForm from './forms/FinishTimeForm';
-  import WeekdayForm from './forms/WeekdayForm';
-  import MonthForm from './forms/MonthForm';
-  import DurationForm from './forms/DurationForm';
-  import SexForm from './forms/SexForm';
-  import IncomeForm from './forms/IncomeForm'
-  import DistanceForm from './forms/DistanceForm'
-  import AttractorForm from './forms/AttractorForm'
-  import SpeedForm from './forms/SpeedForm'
-  import ReasonForm from './forms/ReasonForm'
+import AgeForm from './forms/AgeForm';
+import TimeForm from './forms/TimeForm';
+import StartTimeForm from './forms/StartTimeForm';
+import FinishTimeForm from './forms/FinishTimeForm';
+import WeekdayForm from './forms/WeekdayForm';
+import MonthForm from './forms/MonthForm';
+import DurationForm from './forms/DurationForm';
+import SexForm from './forms/SexForm';
+import IncomeForm from './forms/IncomeForm';
+import DistanceForm from './forms/DistanceForm';
+import AttractorForm from './forms/AttractorForm';
+import SpeedForm from './forms/SpeedForm';
+import ReasonForm from './forms/ReasonForm';
   
-  export default {
-    components: {
-      AgeForm,
-      TimeForm,
-      StartTimeForm,
-      FinishTimeForm,
-      WeekdayForm,
-      MonthForm,
-      DurationForm,
-      SexForm,
-      IncomeForm,
-      DistanceForm,
-      AttractorForm,
-      SpeedForm,
-      ReasonForm
-    },
-    props: ['filter'],
-  }
+export default {
+  components: {
+    AgeForm,
+    TimeForm,
+    StartTimeForm,
+    FinishTimeForm,
+    WeekdayForm,
+    MonthForm,
+    DurationForm,
+    SexForm,
+    IncomeForm,
+    DistanceForm,
+    AttractorForm,
+    SpeedForm,
+    ReasonForm,
+  },
+  props: {
+    filter: { type: Object, required: true },
+  },
+};
 </script>

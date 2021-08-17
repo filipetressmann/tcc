@@ -1,7 +1,7 @@
 <template>
   <div v-show="count > 0">
     <b-checkbox v-model="isActive" :native-value="tier" type="is-info">
-      <span class="tier-option">{{ $t('tier') }} {{ tier+1 }} ({{ count }} {{ $tc('flow', count)}})</span>
+      <span class="tier-option">{{ $t('tier') }} {{ tier+1 }} ({{ count }} {{ $tc('flow', count) }})</span>
     </b-checkbox>
   </div>
 </template>
@@ -10,33 +10,27 @@
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
-  props: [
-    'tier',
-    'count',
-  ],
+  props: {
+    tier: { type: Number, required: true },
+    count: { type: Number, required: true },
+  },
   data() {
     return {
       isActive: false,
     };
   },
-  methods: {
-    ...mapActions([
-      'addToMap',
-      'removeFromMap',
-    ]),
-  },
   computed: {
     flow() {
       return this.$store.state.filters.flows[this.tier];
-    }
+    },
   },
   watch: {
     isActive: function(value) {
       const data = {
-        mapkey: "main",
-        category: "flows",
-        type: "polyline",
-        key: this.tier
+        mapkey: 'main',
+        category: 'flows',
+        type: 'polyline',
+        key: this.tier,
       };
       if (value) {
         this.addToMap(data);
@@ -47,15 +41,21 @@ export default {
     flow() {
       if (this.isActive) {
         this.addToMap({
-          mapkey: "main",
-          category: "flows",
-          type: "polyline",
-          key: this.tier
+          mapkey: 'main',
+          category: 'flows',
+          type: 'polyline',
+          key: this.tier,
         });
       }
-    }
-  }
-}
+    },
+  },
+  methods: {
+    ...mapActions([
+      'addToMap',
+      'removeFromMap'
+    ]),
+  },
+};
 </script>
 
 <style scoped>

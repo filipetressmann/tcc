@@ -2,7 +2,7 @@
   <div>
     <b-field>
       {{ $t('ageField') }}
-      ({{ ageRange[0]}} {{ $t('to') }} {{ ageRange[1] }} {{ $t('years') }})
+      ({{ ageRange[0] }} {{ $t('to') }} {{ ageRange[1] }} {{ $t('years') }})
     </b-field>
     <b-slider
       v-model="ageRange"
@@ -10,45 +10,48 @@
       :min="1"
       :max="71"
       :step="1"
-      type="is-info" />
+      type="is-info"
+    />
   </div>
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex';
-  export default {
-    props: ['fid'],
-    data() {
+import { mapActions, mapGetters } from 'vuex';
+export default {
+  props: {
+    fid: { type: Number, required: true },
+  },
+  data() {
+    return {
+      ageRange: [1, 71],
+    };
+  },
+  computed: {
+    ageLabel() {
+      return `${$t(ageField)} ${this.ageRange[0]} - ${this.ageRange[1]}`;
+    },
+    setFilterParams() {
       return {
-        ageRange: [1, 71]
-      }
+        id: this.fid,
+        params: {
+          ageRange: this.ageRange,
+        },
+      };
     },
-    computed: {
-      ageLabel() {
-        return `${$t(ageField)} ${this.ageRange[0]} - ${this.ageRange[1]}`
-      },
-      setFilterParams() {
-        return {
-          id: this.fid,
-          params: {
-            ageRange: this.ageRange
-          }
-        }
-      }
+  },
+  watch: {
+    setFilterParams: function(value) {
+      this.updateFilterParams(value);
+      this.resetMapResource({ mapkey: 'main', category: 'flows', type: 'polyline' });
+      this.filterData();
     },
-    methods: {
-      ...mapActions([
-        'updateFilterParams',
-        'resetMapResource',
-        'filterData',
-      ])
-    },
-    watch: {
-      setFilterParams: function(value) {
-        this.updateFilterParams(value);
-        this.resetMapResource({ mapkey: "main", category: "flows", type: "polyline" });
-        this.filterData();
-      }
-    }
-  }
+  },
+  methods: {
+    ...mapActions([
+      'updateFilterParams',
+      'resetMapResource',
+      'filterData'
+    ]),
+  },
+};
 </script>

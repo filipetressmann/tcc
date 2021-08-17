@@ -5,7 +5,8 @@
 </template>
 
 <script>
-  export default {
-    props: ['chart']
-  }
+export default {
+  // eslint-disable-next-line vue/require-prop-types
+  props: ['chart'],
+};
 </script>

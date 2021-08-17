@@ -1,22 +1,32 @@
 <template>
-<div class="select-container" tabindex="-1" @blur="close">
-  <div class="select-button-container" @click="toggle">
+  <div class="select-container" tabindex="-1" @blur="close">
+    <div class="select-button-container" @click="toggle">
       <div class="select-button">
         <span class="select-title">{{ $t(title) }}</span>
       </div>
       <div class="arrow">
-        <img :src="iconArrow" :class="[{ active: isActive }]"/>
+        <img :src="iconArrow" :class="[{ active: isActive }]">
       </div>
-  </div>
-    <div class="select-dropdown" v-if="isActive">
+    </div>
+    <div v-if="isActive" class="select-dropdown">
       <ul>
-        <li v-for="option in options" :key="option.id" :class="{ active: resourceIsActive(option)}" @click.self="handleOptionClick(option)">
+        <li
+          v-for="option in options"
+          :key="option.id"
+          :class="{ active: resourceIsActive(option)}"
+          @click.self="handleOptionClick(option)"
+        >
           {{ $t(option.filter_name) }}
-          <img v-if="resourceIsActive(option)" :src="iconClose" :class="[{ active: resourceIsActive(option) }]" @click="handleClickRemove(option)"/>
+          <img
+            v-if="resourceIsActive(option)"
+            :src="iconClose"
+            :class="[{ active: resourceIsActive(option) }]"
+            @click="handleClickRemove(option)"
+          >
         </li>
       </ul>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
@@ -25,19 +35,19 @@ import iconClose from '@/assets/svg/icon-close.svg';
 import { mapGetters } from 'vuex';
 
 export default ({
-  props: [
-    'category',
-    'title',
-    'options',
-    'selectResource',
-    'deselectResource'
-  ],
+  props: {
+    category: { type: String, required: true },
+    title: { type: String, required: true },
+    options: { type: Array, required: true },
+    selectResource: { type: Function, required: true },
+    deselectResource: { type: Function, required: true },
+  },
   data() {
     return {
       iconArrow,
       iconClose,
-      isActive: false
-    }
+      isActive: false,
+    };
   },
   methods: {
     ...mapGetters(['activeFilters', 'activeLayers']),
@@ -58,7 +68,7 @@ export default ({
     },
     resourceIsActive(resource) {
       let category = this.title;
-      if (category != "layers") {
+      if (category != 'layers') {
         const activeFiltersIds = this.activeFilters().map(resource => resource.id);
         return activeFiltersIds.includes(resource.id);
       } else {
@@ -67,7 +77,7 @@ export default ({
       }
     },
   },
-})
+});
 </script>
 
 <style scoped>

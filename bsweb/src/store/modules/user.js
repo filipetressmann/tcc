@@ -2,8 +2,8 @@ import Vue from 'vue';
 
 const state = {
   user: {
-    token: ''
-  }
+    token: '',
+  },
 };
 
 const getters = {
@@ -13,11 +13,11 @@ const getters = {
 const mutations = {
   set_user_token: (state, token) => {
     Vue.set(state.user.token, token);
-  }
+  },
 };
 
 export default {
   state,
   getters,
-  mutations
+  mutations,
 };

@@ -1,15 +1,17 @@
 <template>
   <div class="category-wrapper">
     <div class="category-toggle" @click="toggleCategory">
-      <img :src="iconArrow" :class="['arrow', { active: isActive }]"/>
-      <h3 class="category-name">{{ $t(category.category_name) }}</h3>
+      <img :src="iconArrow" :class="['arrow', { active: isActive }]">
+      <h3 class="category-name">
+        {{ $t(category.category_name) }}
+      </h3>
     </div>
     <div v-show="isActive" class="category-options">
       <div v-for="filter in category.filters" :key="filter.id">
         <LayerController
-        :filter="filter"
-        :type="'layer'"
-      />
+          :filter="filter"
+          :type="'layer'"
+        />
       </div>
     </div>
   </div>
@@ -22,25 +24,27 @@ import iconArrow from '@/assets/svg/icon-arrow-dropdown.svg';
 
 export default {
   components: {
-    LayerController
+    LayerController,
   },
-  props: ['category'],
+  props: {
+    category: { type: Object, required: true },
+  },
   data() {
     return {
       checkboxes: [],
       isActive: false,
       iconArrow,
-    }
+    };
   },
   computed: {
     ...mapGetters(['allFilters']),
   },
   methods: {
     toggleCategory() {
-      this.isActive = !this.isActive
+      this.isActive = !this.isActive;
     },
   },
-}
+};
 </script>
 
 <style scoped>

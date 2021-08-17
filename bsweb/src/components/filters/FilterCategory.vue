@@ -1,8 +1,10 @@
 <template>
   <div class="category-wrapper">
     <div class="category-toggle" @click="toggleCategory">
-      <img :src="iconArrow" :class="['arrow', { active: isActive }]"/>
-      <h3 class="category-name">{{ $t(category.category_name) }}</h3>
+      <img :src="iconArrow" :class="['arrow', { active: isActive }]">
+      <h3 class="category-name">
+        {{ $t(category.category_name) }}
+      </h3>
     </div>
     <div v-show="isActive" class="category-options">
       <div v-for="filter in category.filters" :key="filter.id">
@@ -21,24 +23,26 @@ import iconArrow from '@/assets/svg/icon-arrow-dropdown.svg';
 
 export default {
   components: {
-    FilterController
+    FilterController,
   },
-  props: ['category'],
+  props: {
+    category: { type: Object, required: true },
+  },
   data() {
     return {
       isActive: false,
       iconArrow,
-    }
+    };
   },
   computed: {
     ...mapGetters(['allFilters']),
   },
   methods: {
     toggleCategory() {
-      this.isActive = !this.isActive
+      this.isActive = !this.isActive;
     },
-  }
-}
+  },
+};
 
 </script>
 

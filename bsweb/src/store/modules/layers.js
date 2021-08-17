@@ -15,7 +15,7 @@ const getters = {
   activeLayers: state => state.activeLayers,
   activeLayersIds: state => state.activeLayers.map(l => l.id),
   grid: state => state.grid,
-}
+};
 
 const mutations = {
   addLayer: (state, resource) => {
@@ -28,17 +28,17 @@ const mutations = {
     state.activeLayers.push(layer);
   },
   removeActiveLayer: (state, layer) => {
-    state.activeLayers = state.activeLayers.filter((activeLayer) => layer.id !== activeLayer.id);
+    state.activeLayers = state.activeLayers.filter(activeLayer => layer.id !== activeLayer.id);
   },
   loadZones: (state, layer) => {
-    Vue.set(state.zones, "geometry", layer);
-    Vue.set(state.zones, "style", style.zones);
+    Vue.set(state.zones, 'geometry', layer);
+    Vue.set(state.zones, 'style', style.zones);
   },
   loadGrid: (state, layer) => {
-    Vue.set(state.grid, "geometry", layer);
-    Vue.set(state.grid, "style", style.grid);
+    Vue.set(state.grid, 'geometry', layer);
+    Vue.set(state.grid, 'style', style.grid);
   },
-}
+};
 
 const actions = {
   addLayer: ({ commit }, resource) => {
@@ -53,82 +53,82 @@ const actions = {
   removeActiveLayer: ({ commit }, layer) => {
     commit('removeActiveLayer', layer);
   },
-  fetchCPTM_lines: async (context) => {
+  fetchCPTM_lines: async context => {
     return await axios.get(`${api_url}/load_railway_lines_data`)
       .then(response => {
         const resource = {
           data: {
-            geometry: JSON.parse(response.data)
+            geometry: JSON.parse(response.data),
           },
-          key: "cptm_lines"
+          key: 'cptm_lines',
         };
         context.commit('addLayer', resource);
       });
   },
-  fetchCPTM_stations: async (context) => {
+  fetchCPTM_stations: async context => {
     return await axios.get(`${api_url}/load_railway_stations_data`)
       .then(response => {
         const resource = {
           data: {
-            geometry: JSON.parse(response.data)
+            geometry: JSON.parse(response.data),
           },
-          key: "cptm_stations"
+          key: 'cptm_stations',
         };
         context.commit('addLayer', resource);
       });
   },
-  fetchSubway_lines: async (context) => {
+  fetchSubway_lines: async context => {
     return await axios.get(`${api_url}/load_metro_lines_data`)
       .then(response => { 
         const resource = {
           data: {
-            geometry: JSON.parse(response.data)
+            geometry: JSON.parse(response.data),
           },
-          key: "subway_lines"
+          key: 'subway_lines',
         };
         context.commit('addLayer', resource);
       });
   },
-  fetchSubway_stations: async (context) => {
+  fetchSubway_stations: async context => {
     return await axios.get(`${api_url}/load_metro_stations_data`)
       .then(response => { 
         const resource = {
           data: {
-            geometry: JSON.parse(response.data)
+            geometry: JSON.parse(response.data),
           },
-          key: "subway_stations"
+          key: 'subway_stations',
         };
         context.commit('addLayer', resource);
       });
   },
-  fetchBikelane: async (context) => {
+  fetchBikelane: async context => {
     return await axios.get(`${api_url}/load_bikelane_data`)
       .then(response => {
         const bikelanes = JSON.parse(response.data);
         for (const type in bikelanes) {
           const resource = {
             data: {
-              geometry: JSON.parse(bikelanes[type])
+              geometry: JSON.parse(bikelanes[type]),
             },
-            key: type
+            key: type,
           };
           context.commit('addLayer', resource);
         }
-      })
+      });
   },
-  fetchAccidents: async (context) => {
+  fetchAccidents: async context => {
     return await axios.get(`${api_url}/load_accidents`)
       .then(response => {
         const resource = {
           data: {
-            geometry: JSON.parse(response.data)
+            geometry: JSON.parse(response.data),
           },
-          key: "sp_accidents"
+          key: 'sp_accidents',
         };
         context.commit('addLayer', resource);
       });
   },
-  fetchZones: async (context) => {
+  fetchZones: async context => {
     return await axios.get(`${api_url}/load_zones`)
       .then(response => {
         let zones = JSON.parse(response.data);
@@ -139,7 +139,7 @@ const actions = {
         return err;
       });
   },
-  fetchGrid: async ({commit, dispatch, rootGetters}) => {
+  fetchGrid: async ({ commit, dispatch, rootGetters }) => {
     dispatch('resetFlows', null, { root: true });
     const gridSize = rootGetters['gridSize'];
     const gridOffset = rootGetters['gridOffset'];
@@ -149,15 +149,14 @@ const actions = {
         return res.data;
       })
       .catch(err => {
-        console.error(err);
         return err;
       });
-  }
+  },
 };
 
 export default {
   state,
   mutations,
   actions,
-  getters
+  getters,
 };

@@ -1,36 +1,36 @@
 <template>
   <div>
-    <button class="btn-lang center" @click="changeLanguage()" >   
-        <span>{{ btn }}</span>
+    <button class="btn-lang center" @click="changeLanguage()">   
+      <span>{{ btn }}</span>
     </button>
   </div>
 </template>
 
 <script>
-  import { i18n } from '../main.js'
+import { i18n } from '../main.js';
 
-  export default {
-    data() {
-      return {
-        pt: true,
-        btn: 'en'
-      }
+export default {
+  data() {
+    return {
+      pt: true,
+      btn: 'en',
+    };
       
-    },
-    methods: {
-      changeLanguage() {
-        if(this.pt) {
-          i18n.locale = 'en'
-          this.btn = 'pt'
-        } else {
-          i18n.locale = 'pt-br'
-          this.btn = 'en'
-        }
-        this.pt = !this.pt
-        localStorage.pt_br = this.pt
+  },
+  methods: {
+    changeLanguage() {
+      if(this.pt) {
+        i18n.locale = 'en';
+        this.btn = 'pt';
+      } else {
+        i18n.locale = 'pt-br';
+        this.btn = 'en';
       }
-    }  
-  }
+      this.pt = !this.pt;
+      localStorage.pt_br = this.pt;
+    },
+  },  
+};
 </script>
 
 <style>

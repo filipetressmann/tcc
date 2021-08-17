@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-field>
-      {{ distanceRange[0]}} km {{ $t('to') }} {{ distanceRange[1] }} km
+      {{ distanceRange[0] }} km {{ $t('to') }} {{ distanceRange[1] }} km
     </b-field>
     <b-slider
       v-model="distanceRange"
@@ -10,45 +10,48 @@
       :max="51"
       :step="0.5"
       :custom-formatter="value => `${value} km`"
-      type="is-info" />
+      type="is-info"
+    />
   </div>
 </template>
 
 <script>
-  import { mapActions } from 'vuex';
-  export default {
-    props: ['fid'],
-    data() {
+import { mapActions } from 'vuex';
+export default {
+  props: {
+    fid: { type: Number, required: true },
+  },
+  data() {
+    return {
+      distanceRange: [0, 51],
+    };
+  },
+  computed: {
+    ageLabel() {
+      return `${$t(ageField)} ${this.distanceRange[0]} - ${this.distanceRange[1]}`;
+    },
+    setFilterParams() {
       return {
-        distanceRange: [0, 51]
-      }
+        id: this.fid,
+        params: {
+          distanceRange: this.distanceRange,
+        },
+      };
     },
-    computed: {
-      ageLabel() {
-        return `${$t(ageField)} ${this.distanceRange[0]} - ${this.distanceRange[1]}`
-      },
-      setFilterParams() {
-        return {
-          id: this.fid,
-          params: {
-            distanceRange: this.distanceRange
-          }
-        }
-      }
+  },
+  watch: {
+    setFilterParams: function(value) {
+      this.updateFilterParams(value);
+      this.resetMapResource({ mapkey: 'main', category: 'flows', type: 'polyline' });
+      this.filterData();
     },
-    methods: {
-      ...mapActions([
-        'updateFilterParams',
-        'resetMapResource',
-        'filterData',
-      ])
-    },
-    watch: {
-      setFilterParams: function(value) {
-        this.updateFilterParams(value);
-        this.resetMapResource({ mapkey: "main", category: "flows", type: "polyline" });
-        this.filterData();
-      }
-    }
-  }
+  },
+  methods: {
+    ...mapActions([
+      'updateFilterParams',
+      'resetMapResource',
+      'filterData'
+    ]),
+  },
+};
 </script>

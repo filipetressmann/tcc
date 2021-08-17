@@ -8,7 +8,7 @@ const state = {
         zoom: 12,
         center: [-23.550164466, -46.633664132],
         // tile_layer_url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png'
-        tile_layer_url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png'
+        tile_layer_url: 'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png',
         // tile_layer_url: 'https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=ajQurp8FqZX9pYwNKnIv'
       },
       show: {
@@ -16,22 +16,22 @@ const state = {
         layers: {
           geojson: {},
           polyline: {},
-          decorators: {}
+          decorators: {},
         },
         flows: {
-          polyline: {}
+          polyline: {},
         },
         zones: false,
         grid: true,
         attractors: true,
         emitters: false,
-      }
-    }
-  }
-}
+      },
+    },
+  },
+};
 
 const getters = {
-}
+};
 
 const mutations = {
   addToMap: (state, { mapkey, category, type, key, options }) => {
@@ -55,10 +55,10 @@ const mutations = {
   showGrid: (state, mapkey) => {
     Vue.set(state.maps[mapkey].show, 'grid', true);
   },
-  changeHeatmapVisibility: (state, {which, visible, mapkey}) => {
+  changeHeatmapVisibility: (state, { which, visible, mapkey }) => {
     Vue.set(state.maps[mapkey].show, which, visible);
-  }
-}
+  },
+};
 const actions = {
   addToMap: (context, data) => {
     context.commit('addToMap', data);
@@ -68,12 +68,12 @@ const actions = {
   },
   resetMapResource: (context, data) => {
     context.commit('resetMapResource', data);
-  }
-}
+  },
+};
 
 export default {
   state,
   getters,
   mutations,
-  actions
+  actions,
 };

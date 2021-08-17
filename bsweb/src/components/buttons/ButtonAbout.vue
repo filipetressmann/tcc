@@ -1,16 +1,16 @@
 <template>
   <div :class="['button-about', 'center', {'active': isActive}]">
-    <span class='button-txt'>{{ text }}</span>
+    <span class="button-txt">{{ text }}</span>
   </div>
 </template>
 
 <script>
-  export default {
-    props: [
-      'text',
-      'isActive'
-    ]
-  }
+export default {
+  props: {
+    text: { type: String, required: true },
+    isActive: Boolean,
+  },
+};
 </script>
 
 <style scoped>
