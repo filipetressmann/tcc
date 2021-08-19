@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 import FilterFormField from './FilterFormField';
 
 export default {
@@ -53,7 +53,6 @@ export default {
 <style scoped>
   .filter-name {
     margin: 0 5px;
-    font-weight: bold;
     font-size: 12px;
   }
   input {

@@ -50,6 +50,7 @@ export default {
 <style scoped>
   .category-name {
     font-size: 12px;
+    font-weight: bold;
   }
   .category-wrapper{
     margin-bottom: 10px;
