@@ -29,7 +29,7 @@ export default {
         'thu',
         'fri',
         'sat',
-        'sun'
+        'sun',
       ],
       days: [],
     };
@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'updateFilterParams'
+      'updateFilterParams',
     ]),
   },
 };

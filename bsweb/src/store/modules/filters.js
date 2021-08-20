@@ -31,7 +31,7 @@ const state = {
   },
   chartList: [
     '@/assets/tmp_charts/agechart.png',
-    '@/assets/tmp_charts/triplengths.png'
+    '@/assets/tmp_charts/triplengths.png',
   ],
   loading_filters: false,
   flows_not_found: false,
@@ -83,10 +83,6 @@ const mutations = {
   addTripsPerTier: (state, { tier, count }) => {
     Vue.set(state.tripsPerTier, tier, count);
   },
-  resetData: state => {
-    // state.flows = {};
-    // state.tripsPerTier = [0, 0, 0, 0];
-  },
   updateOD: (state, value) => {
     Vue.set(state.filters, 'baseLayer', value);
   },
@@ -122,8 +118,10 @@ const actions = {
     // commit('loading_filters', true);
     commit('addActiveFilter', filter);
   },
-  removeActiveFilter: ({ commit }, filter) => {
+  removeActiveFilter: ({ commit, dispatch }, filter) => {
     commit('removeActiveFilter', filter);
+    dispatch('resetMapResource', { mapkey: 'main', category: 'flows', type: 'polyline' });
+    dispatch('filterData');
   },
   filterData: async({ commit, dispatch, getters }) => {
     commit('loading_filters', true);
@@ -139,7 +137,6 @@ const actions = {
         // commit('addAttractors', { attractors: heatmaps['attractors']});
         // commit('addEmitters', { emitters: heatmaps['emitters']});
         // commit('addCharts', { charts }) // adiciona a lista de gráficos na store
-        commit('resetData');
         if (tiers.length > 0) {
           tiers.map(tier => {
             commit('addTripsPerTier', { tier, count: flows[tier].length });
@@ -153,11 +150,10 @@ const actions = {
       })
       .then(() => commit('loading_filters', false));
   },
-  updateFilterParams: ({ commit }, args) => {
+  updateFilterParams: ({ commit, dispatch }, args) => {
     commit('updateFilterParams', args);
-  },
-  resetData: ({ commit }) => {
-    commit('resetData');
+    dispatch('resetMapResource', { mapkey: 'main', category: 'flows', type: 'polyline' });
+    dispatch('filterData');
   },
   updateOD: ({ commit }, value) => {
     commit('updateOD', value);

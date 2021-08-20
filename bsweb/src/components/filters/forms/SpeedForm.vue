@@ -42,15 +42,11 @@ export default {
   watch: {
     setFilterParams: function(value) {
       this.updateFilterParams(value);
-      this.resetMapResource({ mapkey: 'main', category: 'flows', type: 'polyline' });
-      this.filterData();
     },
   },
   methods: {
     ...mapActions([
       'updateFilterParams',
-      'resetMapResource',
-      'filterData'
     ]),
   },
 };

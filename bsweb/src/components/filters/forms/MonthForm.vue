@@ -35,7 +35,7 @@ export default {
         'sep',
         'oct',
         'nov',
-        'dec'
+        'dec',
       ],
       months: [],
     };

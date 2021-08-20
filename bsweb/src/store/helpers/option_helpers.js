@@ -79,7 +79,7 @@ export const accidents = {
       { type: 'caminhão', val: caminhao },
       { type: 'motocicleta', val: motocicleta },
       { type: 'ônibus', val: onibus },
-      { type: 'pedestre', val: pedestre }
+      { type: 'pedestre', val: pedestre },
     ].filter(item => item.val > 0).map(item => item.type).join(', ');
     
     let tooltipMsg = `Data do acidente: ${newDate}<br>Modais envolvidos: ${modais}`;

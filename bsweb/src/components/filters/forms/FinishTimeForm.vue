@@ -47,6 +47,7 @@ import { mapActions } from 'vuex';
 export default {
   props: {
     fid: { type: Number, required: true },
+    filter: { type: Object, required: true },
   },
   data() {
     return {
@@ -57,6 +58,9 @@ export default {
     };
   },
   computed: {
+    paramsCount() {
+      return this.periods.length + this.specific;
+    },
     setFilterParams() {
       return {
         id: this.fid,
@@ -70,19 +74,22 @@ export default {
     },
   },
   watch: {
-    setFilterParams: function(value) {
-      this.updateFilterParams(value);
-      // this.resetData();
-      this.resetMapResource({ mapkey: 'main', category: 'flows', type: 'polyline' });
-      this.filterData();
+    paramsCount: function(count, prevCount) {
+      if (count === 0) {
+        this.removeActiveFilter(this.filter);
+      } else {
+        if (prevCount === 0) {
+          this.addActiveFilter(this.filter);
+        }
+        this.updateFilterParams(this.setFilterParams);
+      }
     },
   },
   methods: {
     ...mapActions([
+      'addActiveFilter',
+      'removeActiveFilter',
       'updateFilterParams',
-      'resetData',
-      'resetMapResource',
-      'filterData'
     ]),
   },
 };

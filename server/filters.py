@@ -5,12 +5,13 @@ from charts import Charts
 
 od = OD()
 class Filter:
-  def __init__(self, filter_id, name, ftype, key, has_form):
+  def __init__(self, filter_id, name, ftype, key, has_form, has_checkbox = False):
     self.id = filter_id
     self.name = name
     self.ftype = ftype
     self.key = key
     self.has_form = has_form
+    self.has_checkbox = has_checkbox
   
   def filter_object(self):
     return {
@@ -18,7 +19,8 @@ class Filter:
       'filter_name': self.name,
       'filter_type': self.ftype,
       'filter_key': self.key,
-      'has_form': self.has_form
+      'has_form': self.has_form,
+      'has_checkbox': self.has_checkbox
     }
 
 class Category:
@@ -46,7 +48,8 @@ def initialize_filter_list():
       filter_type = f['filter_type']
       filter_name = f['filter_name']
       has_form = f['has_form']
-      categoryfilter = Filter(filter_id, filter_name, filter_type, filter_key, has_form)
+      has_checkbox = f['has_checkbox']
+      categoryfilter = Filter(filter_id, filter_name, filter_type, filter_key, has_form, has_checkbox)
       c.add_filter(categoryfilter)
     filter_data.append(c.category_object())
   return filter_data

@@ -32,7 +32,6 @@
           v-model="incomeBracket"
           type="checkbox"
           value="1"
-          @input="updateIncomeInterval"
         >
         <label>1 ({{ $t('max') }} R$ 1908)</label>
       </div>
@@ -41,7 +40,6 @@
           v-model="incomeBracket"
           type="checkbox"
           value="2"
-          @input="updateIncomeInterval"
         >
         <label>2 ({{ $t('from') }} R$ 1908 {{ $t('max') }} R$ 3816)</label>
       </div>
@@ -50,7 +48,6 @@
           v-model="incomeBracket"
           type="checkbox"
           value="3"
-          @input="updateIncomeInterval"
         >
         <label>3 ({{ $t('from') }} R$ 3816 {{ $t('max') }} R$ 7632)</label>
       </div>
@@ -59,7 +56,6 @@
           v-model="incomeBracket"
           type="checkbox"
           value="4"
-          @input="updateIncomeInterval"
         >
         <label>4 ({{ $t('from') }} R$ 7632 {{ $t('max') }} R$ 11448)</label>
       </div>
@@ -68,7 +64,6 @@
           v-model="incomeBracket"
           type="checkbox"
           value="5"
-          @input="updateIncomeInterval"
         >
         <label>5 ({{ $t('more_than') }} R$ 11488)</label>
       </div>
@@ -81,12 +76,12 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   props: {
     fid: { type: Number, required: true },
+    filter: { type: Object, required: true },
   },
   data() {
     return {
-      incomeBracket: [],
-      incomeInterval: [0, 0],
-      // interval: false,
+      incomeBracket: [], // array com checkboxes marcados
+      incomeInterval: [0, 42916],
       mode: 'brackets',
       incomeBracketBounds: {
         1: {
@@ -116,6 +111,12 @@ export default {
     interval() {
       return this.mode === 'interval';
     },
+    checkCount() {
+      return this.incomeBracket.length;
+    },
+    changedSlider() {
+      return this.incomeInterval;
+    },
     setFilterParams() {
       return {
         id: this.fid,
@@ -130,26 +131,29 @@ export default {
     },
   },
   watch: {
-    setFilterParams: function(value) {
-      this.updateFilterParams(value);
-      this.resetMapResource({ mapkey: 'main', category: 'flows', type: 'polyline' });
-      this.filterData();
+    checkCount: function(count, prevCount) {
+      if (count === 0) {
+        this.removeActiveFilter(this.filter);
+      } else {
+        if (prevCount === 0) {
+          this.addActiveFilter(this.filter);
+        }
+        this.updateFilterParams(this.setFilterParams);
+      }
+    },
+    changedSlider: function() {
+      this.updateFilterParams(this.setFilterParams);
+    },
+    interval: function() {
+      this.updateFilterParams(this.setFilterParams);
     },
   },
   methods: {
     ...mapActions([
+      'addActiveFilter',
+      'removeActiveFilter',
       'updateFilterParams',
-      'resetMapResource',
-      'filterData'
     ]),
-    updateIncomeInterval(value) {
-      let min_bracket = Math.min.apply(Math, value);
-      let max_bracket = Math.max.apply(Math, value);
-      let min_bounds = this.incomeBracketBounds[min_bracket];
-      let max_bounds = this.incomeBracketBounds[max_bracket];
-      this.incomeInterval[0] = min_bounds.min; 
-      this.incomeInterval[1] = max_bounds.max;
-    },
   },
 }; 
 </script>

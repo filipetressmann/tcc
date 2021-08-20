@@ -57,7 +57,6 @@ export default {
   watch: {
     od: function(value) {
       this.updateOD(value);
-      this.resetData();
       this.resetMapResource({
         mapkey: 'main',
         category: 'flows',
@@ -76,18 +75,17 @@ export default {
   },
   methods: {
     ...mapActions([
-      'resetData',
       'updateOD',
       'resetMapResource',
       'filterData',
       'setGridEditModeOn',
-      'resetFlows'
+      'resetFlows',
     ]),
     ...mapMutations([
       'showZones',
       'hideZones',
       'showGrid',
-      'hideGrid'
+      'hideGrid',
     ]),
     ...mapActions('loading', ['setLoading', 'unsetLoading']),
   },

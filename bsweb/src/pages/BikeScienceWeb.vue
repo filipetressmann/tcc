@@ -56,7 +56,7 @@ export default {
       'fetchCPTM_stations',
       'fetchSubway_stations',
       'fetchBikelane',
-      'fetchAccidents'
+      'fetchAccidents',
     ]),
   },
 };

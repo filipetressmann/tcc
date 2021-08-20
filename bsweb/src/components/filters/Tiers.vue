@@ -24,13 +24,15 @@ export default {
   computed: {
     ...mapGetters([
       'tierList',
-      'flowsNotFound'
+      'flowsNotFound',
     ]),
   },
   watch: {
     flowsNotFound: function (val) {
       if (val) {
         this.$toastr.warning(this.$t('toastr.emptyFlows'));
+      } else {
+        this.$toastr.remove();
       }
     },
   },

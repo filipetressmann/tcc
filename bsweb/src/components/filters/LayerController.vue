@@ -40,11 +40,10 @@ export default {
     ...mapActions([
       'addActiveLayer',
       'removeActiveLayer',
-      'resetData',
       'resetMapResource',
       'filterData',
       'removeFromMap',
-      'addToMap'
+      'addToMap',
     ]),
     isResourceActive(resource) {
       if (this.type === 'filter') {

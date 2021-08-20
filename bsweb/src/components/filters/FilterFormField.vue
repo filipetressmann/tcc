@@ -1,18 +1,18 @@
 <template>
   <div>
-    <age-form v-if="filter.filter_key == 'age'" :fid="filter.id" />
-    <time-form v-if="filter.filter_key == 'horary'" :fid="filter.id" />
-    <start-time-form v-if="filter.filter_key == 'start_time'" :fid="filter.id" />
-    <finish-time-form v-if="filter.filter_key == 'finish_time'" :fid="filter.id" />
-    <weekday-form v-if="filter.filter_key == 'weekday'" :fid="filter.id" />
-    <month-form v-if="filter.filter_key == 'months'" :fid="filter.id" />
-    <duration-form v-if="filter.filter_key == 'duration'" :fid="filter.id" />
-    <sex-form v-if="filter.filter_key == 'sex'" :fid="filter.id" />
-    <income-form v-if="filter.filter_key == 'income'" :fid="filter.id" />
-    <distance-form v-if="filter.filter_key == 'distance'" :fid="filter.id" />
+    <age-form v-if="filter.filter_key == 'age'" :fid="filter.id" :filter="filter" />
+    <time-form v-if="filter.filter_key == 'horary'" :fid="filter.id" :filter="filter" />
+    <start-time-form v-if="filter.filter_key == 'start_time'" :fid="filter.id" :filter="filter" />
+    <finish-time-form v-if="filter.filter_key == 'finish_time'" :fid="filter.id" :filter="filter" />
+    <weekday-form v-if="filter.filter_key == 'weekday'" :fid="filter.id" :filter="filter" />
+    <month-form v-if="filter.filter_key == 'months'" :fid="filter.id" :filter="filter" />
+    <duration-form v-if="filter.filter_key == 'duration'" :fid="filter.id" :filter="filter" />
+    <sex-form v-if="filter.filter_key == 'sex'" :fid="filter.id" :filter="filter" />
+    <income-form v-if="filter.filter_key == 'income'" :fid="filter.id" :filter="filter" />
+    <distance-form v-if="filter.filter_key == 'distance'" :fid="filter.id" :filter="filter" />
     <attractor-form v-if="filter.filter_key == 'attractors_emitters'" />
-    <speed-form v-if="filter.filter_key == 'speed'" :fid="filter.id" />
-    <reason-form v-if="filter.filter_key == 'reason'" :fid="filter.id" />
+    <speed-form v-if="filter.filter_key == 'speed'" :fid="filter.id" :filter="filter" />
+    <reason-form v-if="filter.filter_key == 'reason'" :fid="filter.id" :filter="filter" />
   </div>
 </template>
 <script>

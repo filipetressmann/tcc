@@ -74,7 +74,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'grid'
+      'grid',
     ]),
     ...mapState({
       properties(state) {
@@ -119,7 +119,7 @@ export default {
     ...mapActions([
       'fetchZones',
       'fetchGrid',
-      'filterData'
+      'filterData',
     ]),
     async loadBaseLayers() {
       this.setLoading();

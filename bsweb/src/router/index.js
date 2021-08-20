@@ -10,7 +10,7 @@ const router = new Router({
       path: '*',
       name: 'BikeScienceWeb',
       component: BikeScienceWeb,
-    }
+    },
   ],
   mode: 'history',
 });

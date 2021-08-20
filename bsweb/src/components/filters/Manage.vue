@@ -74,7 +74,7 @@ export default {
   },
   data() {
     return {
-      isOpen: -1,
+      // isOpen: -1,
       activeTab: 0,
     };
   },
@@ -84,7 +84,7 @@ export default {
       'activeFilters',
       'activeLayers',
       'chartList',
-      'gridEditMode'
+      'gridEditMode',
     ]),
   },
   methods: {

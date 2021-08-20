@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'updateFilterParams'
+      'updateFilterParams',
     ]),
   },
 };
