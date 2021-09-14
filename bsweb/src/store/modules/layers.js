@@ -15,6 +15,10 @@ const getters = {
   activeLayers: state => state.activeLayers,
   activeLayersIds: state => state.activeLayers.map(l => l.id),
   grid: state => state.grid,
+  // grid: state => {
+  //   debugger;
+  //   return state.grid;
+  // },
 };
 
 const mutations = {

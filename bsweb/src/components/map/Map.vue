@@ -7,6 +7,7 @@
           :geojson="zones.geometry"
           :options-style="zones.style"
           :visible="showZones"
+          :options="testeZones()"
         />
       </span>
       <span v-if="renderGrid">
@@ -14,6 +15,7 @@
           :geojson="grid.geometry"
           :options-style="grid.style"
           :visible="showGrid"
+          :options="testeGrid()"
         />
       </span>
       <l-geo-json
@@ -31,7 +33,7 @@
           :color="'blue'"
           :weight="0.4*arrow['weight']"
         >
-          <l-tooltip>{{ arrow['total_trips'] }} {{ $t('trips') }}</l-tooltip>
+          <l-tooltip>{{ arrow['total_trips'] }} {{ $t('trips') }}<br>{{ arrow['origin'] }} -> {{ arrow['destination'] }}</l-tooltip>
         </l-polyline>
         <polyline-decorator
           v-for="(arrow, index) in flows[tier]"
@@ -70,6 +72,29 @@ export default {
       symbol: L.Symbol,
       renderZones: false,
       renderGrid: false,
+      llTeste: [
+        [
+          -24.0089,
+          -46.769800000000004,
+        ],
+        [
+          -46.769800000000004,
+          -23.9764,
+        ],
+        [
+          -46.7888,
+          -23.9764,
+        ],
+        [
+          -46.7888,
+          -24.0089,
+        ],
+        [
+          -24.0089,
+          -46.769800000000004,
+        ],
+      ],
+      colorTeste: 'green',
     };
   },
   computed: {
@@ -133,6 +158,28 @@ export default {
         .then(() => {
           this.renderZones = true;
         });
+    },
+    testeGrid() {
+      return {
+        onEachFeature: function (feature, layer) {
+          const i = feature.properties.i;
+          const j = feature.properties.j;
+          layer.bindTooltip(`(${i}, ${j})`, { permanent: false, sticky: true });
+        },
+      };
+    },
+    testeZones() {
+      return {
+        onEachFeature: function (feature, layer) {
+          let tooltipMsg = '';
+          tooltipMsg += `NumeroZona: ${feature.properties.NumeroZona}<br>`;
+          tooltipMsg += `NomeZona: ${feature.properties.NomeZona}<br>`;
+          tooltipMsg += `NomeMunici: ${feature.properties.NomeMunici}<br>`;
+          // tooltipMsg += `NumDistrit: ${NumDistrit}`;
+          layer.bindPopup(tooltipMsg);
+          // layer.bindTooltip(tooltipMsg, { permanent: false, sticky: true });
+        },
+      };
     },
   },
 };

@@ -133,7 +133,7 @@ export const zones = function() {
   return {
     color: '#999',
     weight: 2,
-    fillColor: 'none',
+    // fillColor: 'none',
     opacity: 0.4,
     'z-index': 0,
   };
@@ -143,6 +143,6 @@ export const grid = function() {
   return {
     color: '#AAA',
     weight: 1.5,
-    fillColor: 'none',
+    // fillColor: 'none',
   };
 };

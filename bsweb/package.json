@@ -49,26 +49,49 @@
     "rules": {
       "no-debugger": "warn",
       "no-console": "warn",
-      "indent": ["error", 2],
-      "semi": ["error", "always"],
-      "quotes": ["error", "single"],
-      "no-multi-spaces": ["error"],
-      "comma-dangle": ["error", {
-        "arrays": "always-multiline",
-        "objects": "always-multiline",
-        "imports": "always-multiline",
-        "exports": "always-multiline",
-        "functions": "never"
-      }],
-      "object-curly-spacing": ["error", "always"],
-      "arrow-parens": ["error", "as-needed"],
-      "vue/max-attributes-per-line": ["error", {
-        "singleline": 3,
-        "multiline": {
-          "max": 1,
-          "allowFirstLine": false
+      "indent": [
+        "error",
+        2
+      ],
+      "semi": [
+        "error",
+        "always"
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "no-multi-spaces": [
+        "error"
+      ],
+      "comma-dangle": [
+        "error",
+        {
+          "arrays": "always-multiline",
+          "objects": "always-multiline",
+          "imports": "always-multiline",
+          "exports": "always-multiline",
+          "functions": "never"
         }
-      }]
+      ],
+      "object-curly-spacing": [
+        "error",
+        "always"
+      ],
+      "arrow-parens": [
+        "error",
+        "as-needed"
+      ],
+      "vue/max-attributes-per-line": [
+        "error",
+        {
+          "singleline": 3,
+          "multiline": {
+            "max": 1,
+            "allowFirstLine": false
+          }
+        }
+      ]
     }
   },
   "browserslist": [
