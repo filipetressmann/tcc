@@ -51,6 +51,13 @@
       <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSd1Fjuc4g1T141XFIzVHor1tSpG2MBQbA2PPI3GSuIybeq3MQ/viewform">{{ $t('footer.survey') }}</a>
       <Language />
     </div>
+    <div class="dev-mode manage-footer">
+      <input
+        v-model="developer_mode"
+        type="checkbox"
+      >
+      <label for="dev-mode">Modo desenvolvedor</label>
+    </div>
   </div>
 </template>
 
@@ -85,10 +92,20 @@ export default {
       'activeLayers',
       'chartList',
       'gridEditMode',
+      'developer_mode',
     ]),
+    developer_mode: {
+      get() {
+        return this.$store.state.map.developer_mode;
+      },
+      set() {
+        this.toggleDeveloperMode();
+      },
+    },
   },
   methods: {
     ...mapActions('modals', ['open']),
+    ...mapActions(['toggleDeveloperMode']),
     changeTab(tab) {
       this.activeTab = tab;
     },
@@ -129,5 +146,14 @@ export default {
   }
   .manage-footer > a:hover {
     color: #167df0;
+  }
+
+  .dev-mode {
+    font-size: 12px;
+    justify-content: center;
+  }
+
+  .dev-mode > * {
+    padding: 10px;
   }
 </style>

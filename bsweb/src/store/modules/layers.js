@@ -15,10 +15,6 @@ const getters = {
   activeLayers: state => state.activeLayers,
   activeLayersIds: state => state.activeLayers.map(l => l.id),
   grid: state => state.grid,
-  // grid: state => {
-  //   debugger;
-  //   return state.grid;
-  // },
 };
 
 const mutations = {
@@ -83,7 +79,7 @@ const actions = {
   },
   fetchSubway_lines: async context => {
     return await axios.get(`${api_url}/load_metro_lines_data`)
-      .then(response => { 
+      .then(response => {
         const resource = {
           data: {
             geometry: JSON.parse(response.data),
@@ -95,7 +91,7 @@ const actions = {
   },
   fetchSubway_stations: async context => {
     return await axios.get(`${api_url}/load_metro_stations_data`)
-      .then(response => { 
+      .then(response => {
         const resource = {
           data: {
             geometry: JSON.parse(response.data),

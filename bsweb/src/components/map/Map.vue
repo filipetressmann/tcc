@@ -1,13 +1,21 @@
 <template>
   <div id="map">
     <l-map :ref="mapkey" :zoom="properties.zoom" :center="properties.center">
-      <l-tile-layer :url="properties.tile_layer_url" />
+      <l-control-layers position="topright" />
+      <l-tile-layer
+        v-for="tile in properties.tile_layers"
+        :key="tile.id"
+        :name="tile.name"
+        :url="tile.url"
+        :visible="tile.visible"
+        layer-type="base"
+      />
       <span v-if="renderZones">
-        <l-geo-json 
+        <l-geo-json
           :geojson="zones.geometry"
           :options-style="zones.style"
           :visible="showZones"
-          :options="testeZones()"
+          :options="zonesOptions()"
         />
       </span>
       <span v-if="renderGrid">
@@ -15,7 +23,7 @@
           :geojson="grid.geometry"
           :options-style="grid.style"
           :visible="showGrid"
-          :options="testeGrid()"
+          :options="gridOptions()"
         />
       </span>
       <l-geo-json
@@ -31,12 +39,16 @@
           :key="`${tier}-${index}`"
           :lat-lngs="arrow['coords']"
           :color="'blue'"
-          :weight="0.4*arrow['weight']"
+          :weight="0.4 * arrow['weight']"
         >
           <l-tooltip :options="{ sticky: true }">
-            {{ arrow['total_trips'] }} {{ $t('trips') }}<br>{{ arrow['origin'] }} -> {{ arrow['destination'] }}
+            {{ arrow["total_trips"] }} {{ $t("trips") }}
             <br>
-            {{ arrow['trips_ids'] }}
+            <span v-if="developer_mode">
+              {{ arrow["origin"] }} -> {{ arrow["destination"] }}
+              <br>
+              ids: {{ arrow["trips_ids"] }}
+            </span>
           </l-tooltip>
         </l-polyline>
         <polyline-decorator
@@ -44,7 +56,19 @@
           :key="`${tier}-${index}-decorator`"
           :paths="arrow['coords'][arrow['coords'].length - 1]"
           :patterns="[
-            {offset: '100%', repeat: 0, symbol: symbol.arrowHead({pixelSize: 10, polygon: false, pathOptions: {stroke: true, color: 'blue', weight: 0.4*arrow['weight']}})}
+            {
+              offset: '100%',
+              repeat: 0,
+              symbol: symbol.arrowHead({
+                pixelSize: 10,
+                polygon: false,
+                pathOptions: {
+                  stroke: true,
+                  color: 'blue',
+                  weight: 0.4 * arrow['weight'],
+                },
+              }),
+            },
           ]"
         />
       </l-feature-group>
@@ -54,7 +78,15 @@
 
 <script>
 import L from 'leaflet';
-import { LMap, LTileLayer, LGeoJson, LPolyline, LFeatureGroup, LTooltip } from 'vue2-leaflet';
+import {
+  LMap,
+  LTileLayer,
+  LGeoJson,
+  LPolyline,
+  LFeatureGroup,
+  LTooltip,
+  LControlLayers,
+} from 'vue2-leaflet';
 import Vue2LeafletPolylineDecorator from 'vue2-leaflet-polylinedecorator';
 import { mapState, mapActions, mapGetters } from 'vuex';
 
@@ -67,43 +99,22 @@ export default {
     LTooltip,
     'polyline-decorator': Vue2LeafletPolylineDecorator,
     LFeatureGroup,
+    LControlLayers,
   },
   props: {
     mapkey: { type: String, required: true },
   },
   data() {
-    return{
+    return {
       symbol: L.Symbol,
       renderZones: false,
       renderGrid: false,
-      llTeste: [
-        [
-          -24.0089,
-          -46.769800000000004,
-        ],
-        [
-          -46.769800000000004,
-          -23.9764,
-        ],
-        [
-          -46.7888,
-          -23.9764,
-        ],
-        [
-          -46.7888,
-          -24.0089,
-        ],
-        [
-          -24.0089,
-          -46.769800000000004,
-        ],
-      ],
-      colorTeste: 'green',
     };
   },
   computed: {
     ...mapGetters([
       'grid',
+      'developer_mode',
     ]),
     ...mapState({
       properties(state) {
@@ -152,28 +163,25 @@ export default {
     ]),
     async loadBaseLayers() {
       this.setLoading();
-      await this.fetchGrid()
-        .then(() => {
-          this.renderGrid = true;
-          this.filterData();
-          this.unsetLoading();
-        });
-      this.fetchZones(this.$http)
-        .then(() => {
-          this.renderZones = true;
-        });
+      await this.fetchGrid().then(() => {
+        this.renderGrid = true;
+        this.filterData();
+        this.unsetLoading();
+      });
+      this.fetchZones(this.$http).then(() => {
+        this.renderZones = true;
+      });
     },
-    testeGrid() {
-      return {
-        onEachFeature: function (feature, layer) {
-          // debugger;
-          const i = feature.properties.i;
-          const j = feature.properties.j;
-          layer.bindTooltip(`(${i}, ${j})`, { permanent: false, sticky: true });
-        },
-      };
+    gridOptions() {
+      // return {
+      //   onEachFeature: function (feature, layer) {
+      //     const i = feature.properties.i;
+      //     const j = feature.properties.j;
+      //     layer.bindTooltip(`(${i}, ${j})`, { permanent: false, sticky: true });
+      //   },
+      // };
     },
-    testeZones() {
+    zonesOptions() {
       return {
         onEachFeature: function (feature, layer) {
           let tooltipMsg = '';
@@ -191,9 +199,9 @@ export default {
 </script>
 
 <style scoped>
-  #map {
-    height: 100vh;
-    margin-left: auto;
-    margin-right: auto;
-  }
+#map {
+  height: 100vh;
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>
