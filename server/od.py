@@ -109,6 +109,7 @@ class OD:
 
     # od = self.zones.remove_od_roundoff_trips(od)
     tiers_table = self.separate_in_tiers(od, trips, num_tiers)
+    tiers_table.to_csv('./pena_tiers.csv', index=False)
     globalMaximum = tiers_table.iloc[0]['top']
     flows_by_tier = {}
     origins = []
@@ -125,7 +126,11 @@ class OD:
     return flows_by_tier, heatmaps
   
   def grid_od(self, trips):
-    od = odflow.od_countings(trips, self.grid, self.zones.geodataframe(),
+    # od = odflow.od_countings(trips, self.grid, self.zones.geodataframe(),
+    #                        station_index='NumeroZona', 
+    #                        start_station_index='ZONA_O', 
+    #                        end_station_index='ZONA_D')
+    od = odflow.od_countings2(trips, self.grid, self.zones.geodataframe(),
                            station_index='NumeroZona', 
                            start_station_index='ZONA_O', 
                            end_station_index='ZONA_D')

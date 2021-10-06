@@ -7,6 +7,8 @@ from . import flow
 def separate_into_tiers(od, trips, grid_and_stations, max_tiers):
     """ ** Internal use function ** """
     flows = od['trip counts']
+    print('Número de fluxos: ' + str(len(flows)))
+    flows.to_csv('./pena_flows.csv', index=False)
     total = flows.sum()
     total = round(total, 4)
     tiers = []
@@ -105,6 +107,7 @@ def find_tiers(od, trips, grid_and_stations, stations_distances, max_tiers):
     """
     od.sort_values('trip counts', ascending=False, inplace=True)
     tiers_df, trip_tiers = separate_into_tiers(od, trips, grid_and_stations, max_tiers)
+    print(tiers_df)
     
     od['tier'] = trip_tiers
     trips_merges = merge_od_and_trips(trips, stations_distances, grid_and_stations, od)

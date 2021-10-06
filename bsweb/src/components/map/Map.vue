@@ -33,7 +33,11 @@
           :color="'blue'"
           :weight="0.4*arrow['weight']"
         >
-          <l-tooltip>{{ arrow['total_trips'] }} {{ $t('trips') }}<br>{{ arrow['origin'] }} -> {{ arrow['destination'] }}</l-tooltip>
+          <l-tooltip :options="{ sticky: true }">
+            {{ arrow['total_trips'] }} {{ $t('trips') }}<br>{{ arrow['origin'] }} -> {{ arrow['destination'] }}
+            <br>
+            {{ arrow['trips_ids'] }}
+          </l-tooltip>
         </l-polyline>
         <polyline-decorator
           v-for="(arrow, index) in flows[tier]"
@@ -162,6 +166,7 @@ export default {
     testeGrid() {
       return {
         onEachFeature: function (feature, layer) {
+          // debugger;
           const i = feature.properties.i;
           const j = feature.properties.j;
           layer.bindTooltip(`(${i}, ${j})`, { permanent: false, sticky: true });

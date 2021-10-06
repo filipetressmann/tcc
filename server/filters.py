@@ -72,7 +72,8 @@ def handle_filtering(req_params):
     south=offset['south']
   )
   trips = od.get_od_dataset()
-  trips = trips[trips['ZONA_O'] != trips['ZONA_D']]
+  #trips = trips[trips['ZONA_O'] != trips['ZONA_D']] # Pena: poderia remover? Podemos ter células menores que uma zona
+  trips.to_csv('./pena_trips.csv', index=False) # correto [104446/1710]
   base_layer = req_params['baseLayer']
   filters = req_params['params']
   flows = []
@@ -128,7 +129,8 @@ def handle_filtering(req_params):
   # Commented chart: was crashing the server
   # charts = Charts(req_params['ut'], trips)
   # chart_list = charts.create_for_filters(filters)
-  flows, heatmaps = od.coords_by_tier(trips, base_layer)
+  flows, heatmaps = od.coords_by_tier(trips, base_layer) # base_layer: 'grid']
+  # Pena: aqui não tem o trips_count 3007
   
   return {
     'gridSize': req_params['gridSize'],
