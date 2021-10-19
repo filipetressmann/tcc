@@ -36,7 +36,6 @@ def merge_grid_and_stations(grid, stations):
         grid_and_stations = gpd.sjoin(grid, stations, op='contains')
         grid_and_stations.rename(
             columns={'index_right': 'station id'}, inplace=True)
-        grid_and_stations.to_csv('pena-grid_and_stations.csv', index=False)
         last_grid = grid
         last_stations = stations
 
@@ -74,13 +73,11 @@ def merge_trips_and_cells(trips, grid, stations, cell_identifier, cell_start_ids
                                                                                                                                                       'start_lat', 'start_lon', 'lat', 'lon']]
     with_od_cells.columns = cell_start_ids + cell_end_ids + [start_station_index, end_station_index,
                                                              'trip counts', 'start_lat', 'start_lon', 'end_lat', 'end_lon']
-    with_od_cells.to_csv('./pena-with_od_cells.csv', index=False)
     return with_od_cells
 
 
 def weighted_counts(with_od_cells, cell_identifier):
     # normalizing trip counts as weights between 0 and 1
-    print('weighted_counts <<<<<< PEna')
     per_od_cells = with_od_cells.groupby(cell_identifier)
     normalized = with_od_cells
     normalized['normalized_counts'] = per_od_cells['trip counts'].transform(
@@ -100,7 +97,7 @@ def weighted_counts(with_od_cells, cell_identifier):
     od_counts = normalized.groupby(cell_identifier, as_index=False) \
                           .agg({'trip counts': 'sum', 'normalized_counts': 'sum',
                                 'start_lat': 'sum', 'start_lon': 'sum',
-                                'end_lat': 'sum', 'end_lon': 'sum', 'ID_ORDEM': ','.join})
+                                'end_lat': 'sum', 'end_lon': 'sum', 'ID_ORDEM': ', '.join})
     if (od_counts.empty):
         return od_counts
     # center of mass

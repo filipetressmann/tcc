@@ -92,7 +92,7 @@ class Zones:
             try:
                 origin = row['ZONA_O']
                 destination = row['ZONA_D']
-                trips_ids = None
+                trips_ids = row['ID_ORDEM']
             except:
                 origin = '(' + str(row['i_start']) + \
                     ', ' + str(row['j_start']) + ')'

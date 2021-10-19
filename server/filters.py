@@ -72,8 +72,6 @@ def handle_filtering(req_params):
     south=offset['south']
   )
   trips = od.get_od_dataset()
-  #trips = trips[trips['ZONA_O'] != trips['ZONA_D']] # Pena: poderia remover? Podemos ter células menores que uma zona
-  trips.to_csv('./pena_trips.csv', index=False) # correto [104446/1710]
   base_layer = req_params['baseLayer']
   filters = req_params['params']
   flows = []

@@ -33,7 +33,6 @@ def grid():
     north_offset = req_data['gridOffset']['north']
     south_offset = req_data['gridOffset']['south']
     grid = gr.create(n, west_offset, east_offset, north_offset, south_offset)
-    grid.geodataframe().to_csv('pena_grid.csv', index=False)
     return grid.geodataframe().to_json()
 
 # sanity check route

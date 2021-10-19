@@ -7,8 +7,6 @@ from . import flow
 def separate_into_tiers(od, trips, grid_and_stations, max_tiers):
     """ ** Internal use function ** """
     flows = od['trip counts']
-    print('Número de fluxos: ' + str(len(flows)))
-    flows.to_csv('./pena_flows.csv', index=False)
     total = flows.sum()
     total = round(total, 4)
     tiers = []
