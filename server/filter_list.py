@@ -103,22 +103,22 @@ FILTERS = [
   {
     'category_name': 'tripFilters',
     'filters': [
-      {
-        'id': 3,
-        'filter_key': 'distance',
-        'filter_type': 'polyline',
-        'filter_name': 'tripDistance',
-        'has_form': True,
-        'has_checkbox': True
-      },
-      {
-        'id': 4,
-        'filter_key': 'speed',
-        'filter_type': 'polyline',
-        'filter_name': 'avgSpeed',
-        'has_form': True,
-        'has_checkbox': True
-      },
+      # {
+      #   'id': 3,
+      #   'filter_key': 'distance',
+      #   'filter_type': 'polyline',
+      #   'filter_name': 'tripDistance',
+      #   'has_form': True,
+      #   'has_checkbox': True
+      # },
+      # {
+      #   'id': 4,
+      #   'filter_key': 'speed',
+      #   'filter_type': 'polyline',
+      #   'filter_name': 'avgSpeed',
+      #   'has_form': True,
+      #   'has_checkbox': True
+      # },
       {
         'id': 5,
         'filter_key': 'duration',
