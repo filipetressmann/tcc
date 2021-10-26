@@ -6,22 +6,22 @@
       </h1>
       <div class="about-selector center">
         <ButtonAbout
-          :text="'Sobre'"
+          :text="$t('aboutPage.buttons.about')"
           :is-active="activeSection[0]"
           @click.native="select(0)"
         />
         <ButtonAbout
-          :text="'Funcionalidades'"
+          :text="$t('aboutPage.buttons.features')"
           :is-active="activeSection[1]"
           @click.native="select(1)"
         />
         <ButtonAbout
-          :text="'Equipe'"
+          :text="$t('aboutPage.buttons.team')"
           :is-active="activeSection[2]"
           @click.native="select(2)"
         />
         <ButtonAbout
-          :text="'Guia do Usuário'"
+          :text="$t('aboutPage.buttons.guide')"
           :is-active="activeSection[3]"
           @click.native="select(3)"
         />

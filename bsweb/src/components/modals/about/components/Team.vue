@@ -1,6 +1,11 @@
 <template>
   <div>
-    <h2>Equipe BikeScience</h2>
+    <h2 v-if="$i18n.locale == 'pt-br'">
+      Equipe BikeScience
+    </h2>
+    <h2 v-else-if="$i18n.locale == 'en'">
+      BikeScience Team
+    </h2>
     <div class="team-member">
       <span>Prof. Fabio Kon</span>
       <span>IME/USP</span>
@@ -21,7 +26,12 @@
       <span>Pedro Gigeck Freire</span>
       <span>IME/USP</span>
     </div>
-    <h2>Membros Antigos</h2>
+    <h2 v-if="$i18n.locale == 'pt-br'">
+      Membros Antigos
+    </h2>
+    <h2 v-else-if="$i18n.locale == 'en'">
+      Past members
+    </h2>
     <div class="team-member">
       <span>Éderson Cássio</span>
       <span>BCC-IME-USP, 2019</span>

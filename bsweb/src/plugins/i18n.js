@@ -94,6 +94,7 @@ export const messages = {
     others: 'Others',
     footer: {
       about: 'About',
+      userGuide: 'User guide',
       survey: 'Survey',
     },
     // Grid editor
@@ -113,6 +114,14 @@ export const messages = {
     },
     onHover: {
       gridEditMode: 'Change grid settings',
+    },
+    aboutPage: {
+      buttons: {
+        about: 'About',
+        features: 'Features',
+        team: 'Team',
+        guide: 'User Guide',
+      },
     },
   },
   'pt-br': {
@@ -211,6 +220,7 @@ export const messages = {
     others: 'Outros',
     footer: {
       about: 'Sobre',
+      userGuide: 'Guia do usuário',
       survey: 'Pesquisa de opinião',
     },
     // Grid editor
@@ -230,6 +240,14 @@ export const messages = {
     },
     onHover: {
       gridEditMode: 'Alterar configurações do grid',
+    },
+    aboutPage: {
+      buttons: {
+        about: 'Sobre',
+        features: 'Funcionalidades',
+        team: 'Equipe',
+        guide: 'Guia do Usuário',
+      },
     },
   },
 };
