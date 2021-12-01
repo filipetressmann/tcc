@@ -17,7 +17,7 @@
               área, não são exibidos no mapa. Por isso, a quantidade de fluxos
               gerados depende da forma que dividimos o mapa. Quanto menores as
               áreas, mais fluxos são gerados, o que permite análises mais
-              detalhadas, mas pode dificultar a visualização.
+              detalhadas, mas que eventualmente pode dificultar a visualização.
             </p>
             <div class="img-container center">
               <div class="img">
@@ -32,10 +32,13 @@
         <h3>Camada de visualização</h3>
         <span>Define a forma geométrica das áreas de divisão do mapa:</span>
         <ul>
-          <li><strong>Grid: </strong>área retangular personalizável.</li>
           <li>
-            <strong>Zonas OD: </strong>áreas geográficas utilizadas na pesquisa
-            Origem e Destino 2017 do Metrô de São Paulo.
+            <strong>Grid: </strong>área retangular personalizável com <i>n</i> x
+            <i>n</i> células.
+          </li>
+          <li>
+            <strong>Zonas OD17: </strong>áreas geográficas utilizadas na
+            pesquisa Origem Destino 2017 do Metrô de São Paulo.
           </li>
         </ul>
         <div class="img-container center">
@@ -53,11 +56,11 @@
       <article>
         <h3>Edição do grid</h3>
         <p>
-          Altera as configurações do grid. O tamanho define em quantos
-          retângulos vamos dividir o grid, por exemplo, o tamanho 10 divide o
-          grid em 10x10 retângulos. Os demais parâmetros definem os limites do
-          grid para as direções oeste, leste, norte e sul. Os valores padrão
-          cobrem toda área da cidade de São Paulo.
+          Altera as configurações do grid. A opção Tamanho define em quantos
+          retângulos (células) vamos dividir o grid. Por exemplo, o tamanho 10
+          divide o grid em 10x10 células. Os demais parâmetros definem os
+          limites do grid para as direções oeste, leste, norte e sul. Os valores
+          padrão cobrem toda área da cidade de São Paulo.
         </p>
         <p>Após alterar o grid é necessário recalcular os fluxos.</p>
         <div class="img-container center">
@@ -70,8 +73,9 @@
       <article>
         <h3>Filtros</h3>
         <p>
-          Um filtro permite visualizar uma fração das viagens para analisar o
-          comportamento de um subconjunto delas.
+          Opções para filtrar os fluxos de viagens por tempo, condições de
+          viagem e por dados demográficos. Podemos usar esses filtros para
+          analisar os fluxos de viagens de acrdo com cenários específicos.
         </p>
         <ol>
           <li>Selecione a aba <strong>Filtros</strong>.</li>

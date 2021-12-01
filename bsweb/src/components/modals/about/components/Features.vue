@@ -27,26 +27,25 @@
     </div>
     <div v-else-if="$i18n.locale == 'en'">
       <h2>Features</h2>
-      <p>The tool features are divided in three groups:</p>
+      <p>The tool features are organized into three groups:</p>
       <ol>
         <li>
-          <strong>Flows:</strong> includes options for defining and adjusting
-          the map grid in which the flows will be calculated. The flows are
-          divided in 4 quartiles, each one of them containing 25% of the total
-          trip count. The first quartile contains the flows representing most of
-          the trips, that is a few flows with most of the trips. The last
-          quartile contains many flows, each one of them with just a few trips.
+          <strong>Flows:</strong> options for setting the map grid where the
+          flows are shown. Each flow represents all trips that go from a cell to
+          another. The flows are split into quartiles (tiers), each containing
+          25% of the total trips. The first tier has a few flows, each of them
+          with many trips. Conversely, the fourth tier has many flows, each one
+          with few trips.
         </li>
         <li>
-          <strong>Filters:</strong> includes options of time filters, trip
-          conditions and demographic filters to be applied on the flows. By
-          selecting a filter category it's options are shown. When an option is
-          activated the flows are automatically filtered.
+          <strong>Filters:</strong> options to filter the trip flows by time,
+          trip conditions, and demographics. The flows are automatically
+          recalculated after selecting a filter option.
         </li>
         <li>
-          <strong>Layers:</strong> includes visual layers options for
-          tranportation infrastructure, cycling infrastructure e traffic
-          accidents.
+          <strong>Layers:</strong> visual layers options include cycling and
+          public transport infrastructure, and also traffic accidents involving
+          bicycles.
         </li>
       </ol>
     </div>

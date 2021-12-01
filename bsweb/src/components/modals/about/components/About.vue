@@ -4,31 +4,35 @@
     <p>
       A BikeScienceWeb é uma ferramenta desenvolvida pelo INCT da Internet do
       Futuro para Cidades Inteligentes, sediado no IME-USP. Seu objetivo é
-      facilitar o acesso a informações analíticas úteis a partir de dados sobre
-      mobilidade por bicicleta. A ideia é que as informações possam ser
-      acessadas virtualmente e sem a necessidade de conhecimentos específicos
-      sobre linguagens de programação.
+      facilitar o acesso a informações analíticas visuais sobre dados de
+      mobilidade de bicicleta. A ideia é que as pessoas interessadas em tais
+      informações possam acessá-las através de um navegador sem precisar de
+      conhecimentos específicos sobre linguagens de programação.
     </p>
     <p>
-      Em sua versão atual, estamos disponibilizando dados de fluxos de ciclistas
-      resultantes do processamento de dados da pesquisa de Origem-Destino
-      realizada pelo Metrô de São Paulo; em versões futuras, novas fontes de
-      dados serão incorporadas.
+      Em sua versão atual, estamos disponibilizando um mapa com os fluxos de
+      viagens de bicicleta da pesquisa Origem-Destino 2017 de São Paulo,
+      realizada pelo Metrô. Há vários opções de filtragem para visualizar como
+      as viagens ocorrem em situações distintas. Em versões futuras, iremos
+      adicionar novas fontes de dados e tipos diferentes de análises.
     </p>
   </div>
   <div v-else-if="$i18n.locale == 'en'">
     <h2>About</h2>
     <p>
-      BikeScienceWeb is a tool developed by INCT of Internet Future for Smart
-      Cities hosted at IME-USP. It's main goal is to facilitate access to
-      usefull anlytical analysis from bycicle mobility data. The idea is that
-      the information can be accessed via web without the need of specific
-      knowledge about programming languages.
+      BikeScienceWeb is a tool developed by
+      <a href="https://interscity.org">InterSCity</a>
+      , the Future Internet for Smart Cities Project hosted at IME-USP. Its main
+      goal is to ease access to visual analysis of bicycle mobility data. Thus,
+      people interested in such information use the tool through a Web browser
+      without the need for specific knowledge about programming languages.
     </p>
     <p>
-      In it's current version, we're providing cyclists flow data resulting of
-      the data processing of the Origin-Destination survey performed by São
-      Paulo's Subway; in future versions, new data sources will be added.
+      In the current version, we're providing a map with bicycle trip flows from
+      São Paulo's 2017 Origin-Destination survey. There are several filter
+      options to visualize how bike trips occur in different situations. In
+      future versions, we will add new data sources and different kinds of
+      analyses.
     </p>
   </div>
 </template>
