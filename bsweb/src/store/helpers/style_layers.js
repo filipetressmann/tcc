@@ -141,6 +141,8 @@ export const zones = function() {
 export const grid = function() {
   return {
     color: '#AAA',
+    fillColor: '#eee',
     weight: 1.5,
+    interactive: false,
   };
 };

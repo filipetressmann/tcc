@@ -51,9 +51,9 @@ export const subway_line = {
 export const bikeLane = {
   onEachFeature: function (feature, layer) {
     let tooltipMsg = '';
-    const [year, month, day] = feature.properties.rc_inaugur.split('-');
+    const [year, month, day] = feature.properties.rc_inauguracao.split('-');
     const newDate = `${day}/${month}/${year}`;
-    tooltipMsg = `${feature.properties.rc_nome}<br>Extensão: ${feature.properties.rc_extensa} m<br>Data de implantação: ${newDate}`;
+    tooltipMsg = `${feature.properties.rc_nome}<br>Extensão: ${feature.properties.rc_extensao} m<br>Data de implantação: ${newDate}`;
     layer.bindPopup(tooltipMsg);
   },
 };

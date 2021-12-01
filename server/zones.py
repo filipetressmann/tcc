@@ -78,7 +78,6 @@ class Zones:
         return od_df[od_df[start_zone_identifier] != od_df[end_zone_identifier]]
 
     def apply_od_flows(self, filter_data, minimum, maximum, globalMaximum):
-        print(str(minimum) + " - " + str(maximum))
         total_trips = filter_data['trip counts'].sum()
         # select the tier to filter data
         filtered_trips = filter_data[(filter_data['trip counts'] >= minimum) & (
