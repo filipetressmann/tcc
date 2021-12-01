@@ -4,7 +4,7 @@
       <l-control-layers position="topright" />
       <l-tile-layer
         v-for="tile in properties.tile_layers"
-        :key="tile.id"
+        :key="`tile-${tile.id}`"
         :name="tile.name"
         :url="tile.url"
         :visible="tile.visible"
@@ -28,7 +28,7 @@
       </span>
       <l-geo-json
         v-for="key in Object.keys(layersGeojson)"
-        :key="key"
+        :key="`layers-${key}`"
         :geojson="layers[key].geometry"
         :options-style="layersGeojson[key].style"
         :options="layersGeojson[key].options"
@@ -189,8 +189,8 @@ export default {
           tooltipMsg += `NomeZona: ${feature.properties.NomeZona}<br>`;
           tooltipMsg += `NomeMunici: ${feature.properties.NomeMunici}<br>`;
           // tooltipMsg += `NumDistrit: ${NumDistrit}`;
-          layer.bindPopup(tooltipMsg);
-          // layer.bindTooltip(tooltipMsg, { permanent: false, sticky: true });
+          // layer.bindPopup(tooltipMsg);
+          layer.bindTooltip(tooltipMsg, { permanent: false, sticky: true });
         },
       };
     },

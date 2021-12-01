@@ -132,9 +132,10 @@ export const accidents = function (data) {
 export const zones = function() {
   return {
     color: '#999',
+    fillColor: '#eee',
     weight: 2,
     opacity: 0.4,
-    'z-index': 0,
+    interactive: false,
   };
 };
 
