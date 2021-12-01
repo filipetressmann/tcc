@@ -127,8 +127,7 @@ def handle_filtering(req_params):
   # Commented chart: was crashing the server
   # charts = Charts(req_params['ut'], trips)
   # chart_list = charts.create_for_filters(filters)
-  flows, heatmaps = od.coords_by_tier(trips, base_layer) # base_layer: 'grid']
-  # Pena: aqui não tem o trips_count 3007
+  flows, heatmaps = od.coords_by_tier(trips, base_layer)
   
   return {
     'gridSize': req_params['gridSize'],
