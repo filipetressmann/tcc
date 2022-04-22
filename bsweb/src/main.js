@@ -15,9 +15,10 @@ import { Icon } from 'leaflet';
 import VueToastr2 from 'vue-toastr-2';
 import 'vue-toastr-2/dist/vue-toastr-2.min.css';
 import router from './router';
+import Oruga from '@oruga-ui/oruga';
+import '@oruga-ui/oruga/dist/oruga.css';
 
 window.toastr = require('toastr');
-
 
 Vue.use(UUID);
 Vue.use(LoadScript);
@@ -25,6 +26,7 @@ Vue.use(VueI18n);
 Vue.use(Buefy);
 Vue.use(VueResource);
 Vue.use(VueToastr2);
+Vue.use(Oruga);
 
 // Toastr
 toastr.options = {

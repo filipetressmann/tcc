@@ -5,8 +5,13 @@
         <div v-show="true" class="column left manage">
           <Manage id="filter-container" />
         </div>
-        <div id="main-column" class="column is-full">
-          <app-map mapkey="main" />
+        <div id="main-column" class="column is-full is-flex">
+          <div id="main-map" class="column p-0 is-half">
+            <Map mapkey="main" />
+          </div>
+          <div id="second-map" class="column p-0 is-half" style="border-left: 2px solid #167CF0;">
+            <Map mapkey="second" />
+          </div>
         </div>
       </div>
     </div>
@@ -17,7 +22,7 @@
 
 <script>
 import Manage from '../components/filters/Manage.vue';
-import MapVue from '../components/map/Map.vue';
+import Map from '../components/map/Map.vue';
 import { uuid } from 'vue-uuid';
 import { mapActions, mapGetters } from 'vuex';
 import Loading from '../components/Loading';
@@ -26,7 +31,7 @@ import AboutModal from '../components/modals/about';
 export default {
   components: {
     Manage,
-    appMap: MapVue,
+    Map,
     Loading,
     AboutModal,
   },

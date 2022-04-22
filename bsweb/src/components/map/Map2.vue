@@ -3,10 +3,10 @@
     <l-map
       :ref="mapkey"
       :zoom="zoom"
-      :center="center"
-      :inertia-deceleration="10000"
+      :center="sharedCenter"
       @update:zoom="zoomUpdated"
-      @update:center="centerUpdated"
+
+      @update:bounds="boundsUpdated"
     >
       <l-control-layers position="topright" />
       <l-tile-layer
@@ -117,7 +117,7 @@ export default {
       renderZones: false,
       renderGrid: false,
       zoom: 12, // @@@ default
-      center: { lat: -23.550164466, lng: -46.633664132 },
+      center: [-23.550164466, -46.633664132], // @@@ default
     };
   },
   computed: {
@@ -125,13 +125,19 @@ export default {
       'grid',
       'developer_mode',
       'sharedControls',
-      'centerMain',
-      'centerSecond',
-      'zoomMain',
-      'zoomSecond',
+      'sharedCenter',
     ]),
     ...mapState({
+      // center: state => state.map.maps['main'].properties.center,
       properties(state) {
+        // console.log('this.sharedControls :>> ', this.sharedControls);
+        // console.log('this.mapkey :>> ', this.mapkey);
+        // console.log('main :>> ', state.map.maps['main'].properties.center);
+        // if (this.sharedControls && this.mapkey === 'second') {
+        //   this.$nextTick(() => {
+        //     return state.map.maps['main'].properties;
+        //   });
+        // }
         return state.map.maps[this.mapkey].properties;
       },
       layersGeojson(state) {
@@ -166,26 +172,17 @@ export default {
     }),
   },
   watch: {
-    centerMain: function(value) {
-      if (this.mapkey === 'main' && 
-          this.centerMain.lat !== this.centerSecond.lat && 
-          this.centerMain.lng !== this.centerSecond.lng)
-        this.center = value;
-    },
-    centerSecond: function(value) {
-      if (this.mapkey === 'second' &&
-          this.centerMain.lat !== this.centerSecond.lat &&
-          this.centerMain.lng !== this.centerSecond.lng)
-        this.center = value;
-    },
-    zoomMain: function(value) {
-      if (this.mapkey === 'main') this.zoom = value;
-    },
-    zoomSecond: function(value) {
-      if (this.mapkey === 'second') this.zoom = value;
+    sharedCenter: function() {
+      this.center = this.sharedCenter;
     },
   },
   mounted() {
+    this.$nextTick(() => {
+      const tmp = this.$refs.second.mapObject;
+      console.log('tmp :>> ', tmp, this.mapkey);
+      console.log('this.$refs :>> ', this.$refs);
+      // debugger;
+    });
     this.loadBaseLayers();
   },
   methods: {
@@ -195,7 +192,6 @@ export default {
       'fetchGrid',
       'filterData',
       'updateCenter',
-      'updateZoom',
     ]),
     async loadBaseLayers() {
       this.setLoading();
@@ -209,11 +205,16 @@ export default {
       });
     },
     zoomUpdated(zoom) {
-      this.updateZoom({ mapkey: this.mapkey, zoom });
+      // this.zoom = zoom;
+      // console.log('zoom :>> ', zoom);
     },
-    centerUpdated(center) {
-      this.updateCenter({ mapkey: this.mapkey, center });
-    },
+    // centerUpdated(center) {
+    //   // this.center = center;
+    //   // debugger;
+    //   console.log(`update center ${this.mapkey} :>> ${center}, ${typeof center}, ${JSON.stringify(center)}`);
+    //   console.log(`properties ${this.mapkey} :>> ${JSON.stringify(this.properties.center)}`);
+    //   this.updateCenter(center);
+    // },
     boundsUpdated(bounds) {
       // this.bounds = bounds;
       // console.log('bounds :>> ', bounds);
