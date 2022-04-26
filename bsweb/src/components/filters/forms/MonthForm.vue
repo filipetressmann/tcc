@@ -42,6 +42,7 @@ export default {
   },
   computed: {
     filterData() {
+      debugger;
       return {
         id: this.fid,
         params: {

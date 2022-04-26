@@ -223,12 +223,9 @@ const mutations = {
     }
   },
   updateZoom: (state, { mapkey, zoom }) => {
-    console.log('mutation');
     if (mapkey === 'main') {
-      debugger;
       state.maps.second.properties.zoom = zoom;
     } else {
-      debugger;
       state.maps.main.properties.zoom = zoom;
     }
   },

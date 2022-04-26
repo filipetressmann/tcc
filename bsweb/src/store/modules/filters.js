@@ -5,28 +5,50 @@ const api_url = process.env.VUE_APP_API_URL;
 const default_grid_size = 20;
 
 const state = {
-  activeFilters: [],
-  flows: {
-    0: [],
-    1: [],
-    2: [],
-    3: [],
+  main: {
+    activeFilters: [],
+    flows: {
+      0: [],
+      1: [],
+      2: [],
+      3: [],
+    },
+    tripsPerTier: [0, 0, 0, 0],
+    /* Stores active filters' parameters */
+    filters: {
+      ut: '',
+      params: {},
+      baseLayer: 'grid',
+      gridSize: default_grid_size,
+      gridOffset: {
+        west: -0.15,
+        east: 0.23,
+        north: 0.19,
+        south: -0.46,
+      },
+    },
   },
-  tripsPerTier: [],
-  heatmaps: {
-  },
-  charts: [],
-  /* Stores active filters' parameters */
-  filters: {
-    ut: '',
-    params: {},
-    baseLayer: 'grid',
-    gridSize: default_grid_size,
-    gridOffset: {
-      west: -0.15,
-      east: 0.23,
-      north: 0.19,
-      south: -0.46,
+  second: {
+    activeFilters: [],
+    flows: {
+      0: [],
+      1: [],
+      2: [],
+      3: [],
+    },
+    tripsPerTier: [0, 0, 0, 0],
+    /* Stores active filters' parameters */
+    filters: {
+      ut: '',
+      params: {},
+      baseLayer: 'grid',
+      gridSize: default_grid_size,
+      gridOffset: {
+        west: -0.15,
+        east: 0.23,
+        north: 0.19,
+        south: -0.46,
+      },
     },
   },
   chartList: [
@@ -36,18 +58,29 @@ const state = {
   loading_filters: false,
   flows_not_found: false,
   gridEditMode: false,
+  doubleControl: true,
 };
 
 const getters = {
-  activeFilters: state => state.activeFilters,
-  activeFiltersIds: state => state.activeFilters.map(f => f.id),
-  filters: state => state.filters,
-  tierList: state => state.tripsPerTier,
-  chartList: state => state.charts,
-  gridSize: state => state.filters.gridSize,
-  gridOffset: state => state.filters.gridOffset,
+  activeFilters: state => state.main.activeFilters,
+  activeFiltersIds: state => state.main.activeFilters.map(f => f.id),
+  filters: state => state.main.filters,
+  flows: state => state.main.flows,
+  tierList: state => state.main.tripsPerTier,
+  chartList: state => state.main.charts,
+  gridSize: state => state.main.filters.gridSize,
+  gridOffset: state => state.main.filters.gridOffset,
+  //
+  activeFilters2: state => state.second.activeFilters,
+  activeFiltersIds2: state => state.second.activeFilters.map(f => f.id),
+  filters2: state => state.second.filters,
+  flows2: state => state.second.flows,
+  tierList2: state => state.second.tripsPerTier,
+  chartList2: state => state.second.charts,
+  gridSize2: state => state.second.filters.gridSize,
+  gridOffset2: state => state.second.filters.gridOffset,
+  //
   loading_filters: state => state.loading_filters,
-  flows: state => state.flows,
   flowsNotFound: state => state.flows_not_found,
   gridEditMode: state => state.gridEditMode,
 };
@@ -65,8 +98,8 @@ const mutations = {
     state.activeFilters = state.activeFilters.filter(activeFilter => filter.id !== activeFilter.id);
     Vue.delete(state.filters.params, filter.id);
   },
-  addFlows: (state, { tier, flows }) => {
-    Vue.set(state.flows, tier, flows);
+  addFlows: (state, { tier, flows, mapkey }) => {
+    Vue.set(state[mapkey].flows, tier, flows);
   },
   addAttractors: (state, { attractors }) => {
     Vue.set(state.heatmaps, 'attractors', attractors);
@@ -77,14 +110,14 @@ const mutations = {
   addCharts: (state, { charts }) => {
     Vue.set(state, 'charts', charts);
   },
-  updateFilterParams: (state, { id, params } ) => {
-    Vue.set(state.filters.params, id, params);
+  updateFilterParams: (state, { id, params, mapkey } ) => {
+    Vue.set(state[mapkey].filters.params, id, params);
   },
-  addTripsPerTier: (state, { tier, count }) => {
-    Vue.set(state.tripsPerTier, tier, count);
+  addTripsPerTier: (state, { tier, count, mapkey }) => {
+    Vue.set(state[mapkey].tripsPerTier, tier, count);
   },
-  updateOD: (state, value) => {
-    Vue.set(state.filters, 'baseLayer', value);
+  updateOD: (state, value, mapkey) => {
+    Vue.set(state[mapkey].filters, 'baseLayer', value);
   },
   updateGridSize(state, gridSize) {
     Vue.set(state.filters, 'gridSize', gridSize);
@@ -98,9 +131,9 @@ const mutations = {
   setFlowsNotFound(state, value) {
     Vue.set(state, 'flows_not_found', value);
   },
-  resetFlows(state) {
-    Vue.set(state, 'flows', { 0: [], 1: [], 2: [], 3: [] });
-    Vue.set(state, 'tripsPerTier', [0, 0, 0, 0]);
+  resetFlows(state, mapkey) {
+    Vue.set(state[mapkey], 'flows', { 0: [], 1: [], 2: [], 3: [] });
+    Vue.set(state[mapkey], 'tripsPerTier', [0, 0, 0, 0]);
   },
   setGridEditMode(state, value) {
     Vue.set(state, 'gridEditMode', value);
@@ -123,7 +156,8 @@ const actions = {
     dispatch('resetMapResource', { mapkey: 'main', category: 'flows', type: 'polyline' });
     dispatch('filterData');
   },
-  filterData: async({ commit, dispatch, getters }) => {
+  filterData: async({ commit, dispatch, getters }, mapkey) => {
+    // debugger;
     commit('loading_filters', true);
     return await axios.post(`${api_url}/filter_data`, getters.filters)
       .then(res => {
@@ -131,21 +165,16 @@ const actions = {
       })
       .then(response => {
         let flows = response['flows'];
-        let heatmaps = response['heatmaps'];
         let tiers = Object.keys(flows);
-        // let charts = response['charts'] // filter_data -> retorna a lista de gráficos gerados no servidor
-        // commit('addAttractors', { attractors: heatmaps['attractors']});
-        // commit('addEmitters', { emitters: heatmaps['emitters']});
-        // commit('addCharts', { charts }) // adiciona a lista de gráficos na store
         if (tiers.length > 0) {
           tiers.map(tier => {
-            commit('addTripsPerTier', { tier, count: flows[tier].length });
-            commit('addFlows', { tier, flows: flows[tier] });
+            commit('addTripsPerTier', { tier, count: flows[tier].length, mapkey });
+            commit('addFlows', { tier, flows: flows[tier], mapkey });
           });
           commit('setFlowsNotFound', false);
         } else {
           commit('setFlowsNotFound', true);
-          dispatch('resetFlows');
+          dispatch('resetFlows', mapkey);
         }
       })
       .then(() => commit('loading_filters', false));
@@ -171,8 +200,8 @@ const actions = {
       commit('updateGridOffset', newGridOffset);
     }
   },
-  resetFlows({ commit }) {
-    commit('resetFlows');
+  resetFlows({ commit }, mapkey) {
+    commit('resetFlows', mapkey);
   },
   setGridEditModeOn({ commit }) {
     commit('setGridEditMode', true);

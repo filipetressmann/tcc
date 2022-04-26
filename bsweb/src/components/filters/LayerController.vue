@@ -41,7 +41,6 @@ export default {
       'addActiveLayer',
       'removeActiveLayer',
       'resetMapResource',
-      'filterData',
       'removeFromMap',
       'addToMap',
     ]),

@@ -140,7 +140,7 @@ const actions = {
       });
   },
   fetchGrid: async ({ commit, dispatch, rootGetters }) => {
-    dispatch('resetFlows', null, { root: true });
+    dispatch('resetFlows', 'main', { root: true }); // @@@ alterar para o mapa correto
     const gridSize = rootGetters['gridSize'];
     const gridOffset = rootGetters['gridOffset'];
     return await axios.post(`${api_url}/grid_layer`, { gridSize, gridOffset })

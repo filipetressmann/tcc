@@ -146,17 +146,29 @@ export default {
       arrowTiers(state) {
         return state.map.maps[this.mapkey].show.flows['polyline'];
       },
-      flows: state => state.filters.flows,
+      // flows: state => state.filters[this.mapkey].flows,
+      flows(state) {
+        return state.filters[this.mapkey].flows;
+      },
+      // flows: state => {
+      //   debugger;
+      //   if (state.filters[this.mapkey] == undefined) {
+      //     debugger;
+      //     console.log('UNDEFINED');
+      //   }
+      //   return state.filters[this.mapkey].flows;
+      // },
+      // flows: state => state.filters[this.mapkey].flows,
       layers: state => state.layers.data,
       zones: state => state.layers.zones,
-      attractors: state => state.filters.heatmaps.attractors,
-      emitters: state => state.filters.heatmaps.emitters,
-      showAttractors(state) {
-        return state.map.maps[this.mapkey].show.attractors;
-      },
-      showEmitters(state) {
-        return state.map.maps[this.mapkey].show.emitters;
-      },
+      // attractors: state => state.filters.heatmaps.attractors,
+      // emitters: state => state.filters.heatmaps.emitters,
+      // showAttractors(state) {
+      //   return state.map.maps[this.mapkey].show.attractors;
+      // },
+      // showEmitters(state) {
+      //   return state.map.maps[this.mapkey].show.emitters;
+      // },
       showZones(state) {
         return state.map.maps[this.mapkey].show.zones;
       },
@@ -201,7 +213,8 @@ export default {
       this.setLoading();
       await this.fetchGrid().then(() => {
         this.renderGrid = true;
-        this.filterData();
+        this.filterData('main');
+        this.filterData('second'); // @@@ se tiver dois mapas
         this.unsetLoading();
       });
       this.fetchZones(this.$http).then(() => {

@@ -70,7 +70,8 @@ export default {
         this.showGrid('main');
         this.hideZones('main');
       }
-      this.filterData();
+      this.filterData('main');
+      this.filterData('second');
     },
   },
   methods: {

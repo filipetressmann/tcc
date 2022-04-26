@@ -3,10 +3,14 @@
     <p class="label">
       {{ $t('selectTiers') }}
     </p>
+    <p>
+      tierList: {{ tierList }}
+    </p>
     <div v-for="(count, index) in tierList" v-show="!flowsNotFound" :key="index">
       <TierController
         :tier="index"
         :count="count"
+        :mapkey="mapkey"
       />
     </div>
     <span v-if="flowsNotFound" class="not-found">{{ $t('notFoundTiers') }}</span>
@@ -21,11 +25,18 @@ export default {
   components: {
     TierController,
   },
+  props: {
+    mapkey: { type: String, required: true },
+  },
   computed: {
     ...mapGetters([
-      'tierList',
+      // 'tripsPerTier',
       'flowsNotFound',
     ]),
+    tierList() {
+      // if (this.mapkey === 'second') debugger;
+      return this.$store.state.filters[this.mapkey].tripsPerTier;
+    },
   },
   watch: {
     flowsNotFound: function (val) {
@@ -35,6 +46,15 @@ export default {
         this.$toastr.remove();
       }
     },
+    // tierList: {
+    //   handler(newValue, oldValue) {
+    //     // Note: `newValue` will be equal to `oldValue` here
+    //     // on nested mutations as long as the object itself
+    //     // hasn't been replaced.
+    //     debugger;
+    //   },
+    //   deep: true,
+    // },
   },
 };
 </script>

@@ -13,6 +13,7 @@ export default {
   props: {
     tier: { type: Number, required: true },
     count: { type: Number, required: true },
+    mapkey: { type: String, required: true },
   },
   data() {
     return {
@@ -21,13 +22,13 @@ export default {
   },
   computed: {
     flow() {
-      return this.$store.state.filters.flows[this.tier];
+      return this.$store.state.filters[this.mapkey].flows[this.tier];
     },
   },
   watch: {
     isActive: function(value) {
       const data = {
-        mapkey: 'main',
+        mapkey: this.mapkey,
         category: 'flows',
         type: 'polyline',
         key: this.tier,
@@ -40,8 +41,9 @@ export default {
     },
     flow() {
       if (this.isActive) {
+        // debugger;
         this.addToMap({
-          mapkey: 'main',
+          mapkey: this.mapkey,
           category: 'flows',
           type: 'polyline',
           key: this.tier,

@@ -16,7 +16,8 @@
           <span class="custom-size">{{ $t('flows') }}</span>
         </template>
         <BaseLayer />
-        <Tiers v-show="!gridEditMode" />
+        <Tiers v-show="!gridEditMode" :mapkey="'main'" />
+        <Tiers v-show="!gridEditMode" :mapkey="'second'" />
         <hr>
       </b-tab-item>
       <b-tab-item>
@@ -87,7 +88,6 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'tierList',
       'activeFilters',
       'activeLayers',
       'chartList',

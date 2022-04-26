@@ -43,7 +43,7 @@ export default {
     if (localStorage.ut === undefined) {
       localStorage.ut = this.$uuid.v4();
     }
-    this.setToken(localStorage.ut);
+    // this.setToken(localStorage.ut);
     this.fetchCategories();
     this.fetchCPTM_lines();
     this.fetchSubway_lines();
