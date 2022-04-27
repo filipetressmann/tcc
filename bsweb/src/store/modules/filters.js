@@ -116,7 +116,7 @@ const mutations = {
   addTripsPerTier: (state, { tier, count, mapkey }) => {
     Vue.set(state[mapkey].tripsPerTier, tier, count);
   },
-  updateOD: (state, value, mapkey) => {
+  updateOD: (state, { value, mapkey }) => {
     Vue.set(state[mapkey].filters, 'baseLayer', value);
   },
   updateGridSize(state, gridSize) {
@@ -159,7 +159,12 @@ const actions = {
   filterData: async({ commit, dispatch, getters }, mapkey) => {
     // debugger;
     commit('loading_filters', true);
-    return await axios.post(`${api_url}/filter_data`, getters.filters)
+    let filters;
+    if (mapkey == 'main')
+      filters = getters.filters;
+    else filters = getters.filters2;
+
+    return await axios.post(`${api_url}/filter_data`, filters)
       .then(res => {
         return res.data;
       })
@@ -184,8 +189,8 @@ const actions = {
     dispatch('resetMapResource', { mapkey: 'main', category: 'flows', type: 'polyline' });
     dispatch('filterData');
   },
-  updateOD: ({ commit }, value) => {
-    commit('updateOD', value);
+  updateOD: ({ commit }, data) => {
+    commit('updateOD', data);
   },
   updateGridSize({ commit }, gridSize) {
     commit('updateGridSize', Number(gridSize));

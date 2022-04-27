@@ -3,9 +3,6 @@
     <p class="label">
       {{ $t('selectTiers') }}
     </p>
-    <p>
-      tierList: {{ tierList }}
-    </p>
     <div v-for="(count, index) in tierList" v-show="!flowsNotFound" :key="index">
       <TierController
         :tier="index"
@@ -46,15 +43,6 @@ export default {
         this.$toastr.remove();
       }
     },
-    // tierList: {
-    //   handler(newValue, oldValue) {
-    //     // Note: `newValue` will be equal to `oldValue` here
-    //     // on nested mutations as long as the object itself
-    //     // hasn't been replaced.
-    //     debugger;
-    //   },
-    //   deep: true,
-    // },
   },
 };
 </script>

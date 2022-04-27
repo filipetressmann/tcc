@@ -247,7 +247,6 @@ const actions = {
     commit('updateCenter', { mapkey, center });
   },
   updateZoom: ({ commit }, { mapkey, zoom }) => {
-    console.log('action');
     commit('updateZoom', { mapkey, zoom });
   },
 };

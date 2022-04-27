@@ -4,7 +4,7 @@
       <span class="label">{{ $t('baseLayer') }}</span>
       <b-radio
         v-model="od"
-        name="Grid"
+        :name="mapkey"
         native-value="grid"
         type="is-info"
       >
@@ -12,7 +12,7 @@
       </b-radio>
       <b-radio
         v-model="od"
-        name="Zonas OD"
+        :name="mapkey"
         native-value="zones"
         type="is-info"
       >
@@ -43,6 +43,9 @@ export default {
   components: {
     GridForm,
   },
+  props: {
+    mapkey: { type: String, required: true },
+  },
   data() {
     return {
       od: 'grid',
@@ -56,22 +59,21 @@ export default {
   },
   watch: {
     od: function(value) {
-      this.updateOD(value);
+      this.updateOD({ value, mapkey: this.mapkey });
       this.resetMapResource({
-        mapkey: 'main',
+        mapkey: this.mapkey,
         category: 'flows',
         type: 'polyline',
       });
-      this.resetFlows();
+      this.resetFlows(this.mapkey);
       if (value == 'zones') {
-        this.showZones('main');
-        this.hideGrid('main');
+        this.showZones(this.mapkey);
+        this.hideGrid(this.mapkey);
       } else if (value == 'grid') {
-        this.showGrid('main');
-        this.hideZones('main');
+        this.showGrid(this.mapkey);
+        this.hideZones(this.mapkey);
       }
-      this.filterData('main');
-      this.filterData('second');
+      this.filterData(this.mapkey);
     },
   },
   methods: {

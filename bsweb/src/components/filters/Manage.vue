@@ -15,7 +15,8 @@
         <template slot="header">
           <span class="custom-size">{{ $t('flows') }}</span>
         </template>
-        <BaseLayer />
+        <BaseLayer :mapkey="'main'" />
+        <BaseLayer :mapkey="'second'" />
         <Tiers v-show="!gridEditMode" :mapkey="'main'" />
         <Tiers v-show="!gridEditMode" :mapkey="'second'" />
         <hr>
