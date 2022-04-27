@@ -2,7 +2,7 @@
   <div>
     <b-radio
       v-model="mode"
-      name="mode"
+      :name="`income-radio-${mapkey}`"
       native-value="brackets"
       type="is-info"
     >
@@ -10,7 +10,7 @@
     </b-radio>
     <b-radio
       v-model="mode"
-      name="mode"
+      :name="`income-radio-${mapkey}`"
       native-value="interval"
       type="is-info"
     >
@@ -72,11 +72,12 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 export default {
   props: {
     fid: { type: Number, required: true },
     filter: { type: Object, required: true },
+    mapkey: { type: String, required: true },
   },
   data() {
     return {
@@ -133,19 +134,19 @@ export default {
   watch: {
     checkCount: function(count, prevCount) {
       if (count === 0) {
-        this.removeActiveFilter(this.filter);
+        this.removeActiveFilter({ filter: this.filter, mapkey: this.mapkey });
       } else {
         if (prevCount === 0) {
-          this.addActiveFilter(this.filter);
+          this.addActiveFilter({ filter: this.filter, mapkey: this.mapkey });
         }
-        this.updateFilterParams(this.setFilterParams);
+        this.updateFilterParams({ filter: this.setFilterParams, mapkey: this.mapkey });
       }
     },
     changedSlider: function() {
-      this.updateFilterParams(this.setFilterParams);
+      this.updateFilterParams({ filter: this.setFilterParams, mapkey: this.mapkey });
     },
     interval: function() {
-      this.updateFilterParams(this.setFilterParams);
+      this.updateFilterParams({ filter: this.setFilterParams, mapkey: this.mapkey });
     },
   },
   methods: {

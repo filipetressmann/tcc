@@ -27,11 +27,9 @@ export default {
   },
   computed: {
     ...mapGetters([
-      // 'tripsPerTier',
       'flowsNotFound',
     ]),
     tierList() {
-      // if (this.mapkey === 'second') debugger;
       return this.$store.state.filters[this.mapkey].tripsPerTier;
     },
   },

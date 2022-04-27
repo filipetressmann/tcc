@@ -63,22 +63,22 @@ const state = {
 
 const getters = {
   activeFilters: state => state.main.activeFilters,
-  activeFiltersIds: state => state.main.activeFilters.map(f => f.id),
+  // activeFiltersIds: state => state.main.activeFilters.map(f => f.id),
   filters: state => state.main.filters,
-  flows: state => state.main.flows,
-  tierList: state => state.main.tripsPerTier,
-  chartList: state => state.main.charts,
+  // flows: state => state.main.flows,
+  // tierList: state => state.main.tripsPerTier,
+  // chartList: state => state.main.charts,
   gridSize: state => state.main.filters.gridSize,
   gridOffset: state => state.main.filters.gridOffset,
   //
   activeFilters2: state => state.second.activeFilters,
-  activeFiltersIds2: state => state.second.activeFilters.map(f => f.id),
+  // activeFiltersIds2: state => state.second.activeFilters.map(f => f.id),
   filters2: state => state.second.filters,
-  flows2: state => state.second.flows,
-  tierList2: state => state.second.tripsPerTier,
-  chartList2: state => state.second.charts,
-  gridSize2: state => state.second.filters.gridSize,
-  gridOffset2: state => state.second.filters.gridOffset,
+  // flows2: state => state.second.flows,
+  // tierList2: state => state.second.tripsPerTier,
+  // chartList2: state => state.second.charts,
+  // gridSize2: state => state.second.filters.gridSize,
+  // gridOffset2: state => state.second.filters.gridOffset,
   //
   loading_filters: state => state.loading_filters,
   flowsNotFound: state => state.flows_not_found,
@@ -87,16 +87,16 @@ const getters = {
 
 const mutations = {
   /* The purpose of the two following mutations is to update the filter list at the DOM */
-  addActiveFilter: (state, filter) => {
-    state.activeFilters.push(filter);
+  addActiveFilter: (state, { filter, mapkey }) => {
+    state[mapkey].activeFilters.push(filter);
     // Vue.set(state, 'loading_filters', false);
   },
   setToken: (state, token) => {
     Vue.set(state.filters, 'ut', token);
   },
-  removeActiveFilter: (state, filter) => {
-    state.activeFilters = state.activeFilters.filter(activeFilter => filter.id !== activeFilter.id);
-    Vue.delete(state.filters.params, filter.id);
+  removeActiveFilter: (state, { filter, mapkey }) => {
+    state[mapkey].activeFilters = state[mapkey].activeFilters.filter(activeFilter => filter.id !== activeFilter.id);
+    Vue.delete(state[mapkey].filters.params, filter.id);
   },
   addFlows: (state, { tier, flows, mapkey }) => {
     Vue.set(state[mapkey].flows, tier, flows);
@@ -110,7 +110,7 @@ const mutations = {
   addCharts: (state, { charts }) => {
     Vue.set(state, 'charts', charts);
   },
-  updateFilterParams: (state, { id, params, mapkey } ) => {
+  updateFilterParams: (state, { filter: { id, params }, mapkey } ) => {
     Vue.set(state[mapkey].filters.params, id, params);
   },
   addTripsPerTier: (state, { tier, count, mapkey }) => {
@@ -144,20 +144,20 @@ const actions = {
   addFilter: ({ commit }, filter) => {
     commit('addFilter', filter);
   },
-  removeFilter: ({ commit }, filter) => {
-    commit('removeActiveFilter', filter);
+  removeFilter: ({ commit }, data) => {
+    commit('removeActiveFilter', data);
   },
-  addActiveFilter: ({ commit }, filter) => {
+  addActiveFilter: ({ commit }, data) => {
     // commit('loading_filters', true);
-    commit('addActiveFilter', filter);
+    commit('addActiveFilter', data);
   },
-  removeActiveFilter: ({ commit, dispatch }, filter) => {
-    commit('removeActiveFilter', filter);
-    dispatch('resetMapResource', { mapkey: 'main', category: 'flows', type: 'polyline' });
-    dispatch('filterData');
+  removeActiveFilter: ({ commit, dispatch }, data) => {
+    const { mapkey } = data;
+    commit('removeActiveFilter', data);
+    dispatch('resetMapResource', { mapkey, category: 'flows', type: 'polyline' }); // @@@
+    dispatch('filterData', mapkey);
   },
   filterData: async({ commit, dispatch, getters }, mapkey) => {
-    // debugger;
     commit('loading_filters', true);
     let filters;
     if (mapkey == 'main')
@@ -184,10 +184,10 @@ const actions = {
       })
       .then(() => commit('loading_filters', false));
   },
-  updateFilterParams: ({ commit, dispatch }, args) => {
-    commit('updateFilterParams', args);
-    dispatch('resetMapResource', { mapkey: 'main', category: 'flows', type: 'polyline' });
-    dispatch('filterData');
+  updateFilterParams: ({ commit, dispatch }, { filter, mapkey }) => {
+    commit('updateFilterParams', { filter, mapkey });
+    dispatch('resetMapResource', { mapkey, category: 'flows', type: 'polyline' });
+    dispatch('filterData', mapkey);
   },
   updateOD: ({ commit }, data) => {
     commit('updateOD', data);

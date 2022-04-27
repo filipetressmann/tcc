@@ -15,17 +15,19 @@
         <template slot="header">
           <span class="custom-size">{{ $t('flows') }}</span>
         </template>
-        <BaseLayer :mapkey="'main'" />
-        <BaseLayer :mapkey="'second'" />
-        <Tiers v-show="!gridEditMode" :mapkey="'main'" />
-        <Tiers v-show="!gridEditMode" :mapkey="'second'" />
+        <BaseLayer mapkey="main" />
+        <BaseLayer mapkey="second" />
+        <Tiers v-show="!gridEditMode" mapkey="main" />
+        <Tiers v-show="!gridEditMode" mapkey="second" />
         <hr>
       </b-tab-item>
       <b-tab-item>
         <template slot="header">
           <span>{{ $t('filters') }}<b-tag rounded>{{ activeFilters.length }}</b-tag></span>
         </template>
-        <Filters @tab-changed="changeTab" />
+        <Filters mapkey="main" @tab-changed="changeTab" />
+        <hr>
+        <Filters mapkey="second" @tab-changed="changeTab" />
       </b-tab-item>
       <b-tab-item>
         <template slot="header">

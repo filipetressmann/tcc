@@ -4,6 +4,7 @@
       v-for="category in allFilters"
       :key="category.id"
       :category="category"
+      :mapkey="mapkey"
     />
   </div>
 </template>
@@ -15,6 +16,9 @@ import FilterCategory from './FilterCategory';
 export default {
   components: {
     FilterCategory,
+  },
+  props: {
+    mapkey: { type: String, required: true },
   },
   computed: {
     ...mapGetters(['allFilters']),

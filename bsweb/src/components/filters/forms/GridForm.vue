@@ -150,12 +150,10 @@ export default {
     getFlows() {
       // this.setLoading();
       this.resetMapResource({ mapkey: 'main', category: 'flows', type: 'polyline' });
-      debugger;
       this.filterData()
         .then(() => {
           // this.unsetLoading();
         });
-      debugger;
       this.setGridEditModeOff();
     },
     reloadGrid() {

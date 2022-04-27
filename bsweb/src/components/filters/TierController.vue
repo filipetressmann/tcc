@@ -41,7 +41,6 @@ export default {
     },
     flow() {
       if (this.isActive) {
-        // debugger;
         this.addToMap({
           mapkey: this.mapkey,
           category: 'flows',

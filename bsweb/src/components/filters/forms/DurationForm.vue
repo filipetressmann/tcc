@@ -16,10 +16,11 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 export default {
   props: {
     fid: { type: Number, required: true },
+    mapkey: { type: String, required: true },
   },
   data() {
     return {
@@ -37,8 +38,8 @@ export default {
     },
   },
   watch: {
-    setFilterParams: function(value) {
-      this.updateFilterParams(value);
+    setFilterParams: function(filter) {
+      this.updateFilterParams({ filter, mapkey: this.mapkey });
     },
   },
   methods: {

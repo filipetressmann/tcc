@@ -42,6 +42,7 @@ export default {
   props: {
     fid: { type: Number, required: true },
     filter: { type: Object, required: true },
+    mapkey: { type: String, required: true },
   },
   data() {
     return {
@@ -64,12 +65,12 @@ export default {
   watch: {
     paramsCount: function(count, prevCount) {
       if (count === 0) {
-        this.removeActiveFilter(this.filter);
+        this.removeActiveFilter({ filter: this.filter, mapkey: this.mapkey });
       } else {
         if (prevCount === 0) {
-          this.addActiveFilter(this.filter);
+          this.addActiveFilter({ filter: this.filter, mapkey: this.mapkey });
         }
-        this.updateFilterParams(this.setFilterParams);
+        this.updateFilterParams({ filter: this.setFilterParams, mapkey: this.mapkey });
       }
     },
   },
