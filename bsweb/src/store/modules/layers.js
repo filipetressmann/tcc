@@ -5,15 +5,21 @@ import * as style from '../helpers/style_layers';
 const api_url = process.env.VUE_APP_API_URL;
 
 const state = {
-  activeLayers: [],
+  main: {
+    activeLayers: [],
+  },
+  second: {
+    activeLayers: [],
+  },
   data: {},
   zones: {},
   grid: {},
 };
 
 const getters = {
-  activeLayers: state => state.activeLayers,
-  activeLayersIds: state => state.activeLayers.map(l => l.id),
+  activeLayers: state => state.main.activeLayers,
+  // activeLayers2: state => state.second.activeLayers,
+  // activeLayersIds: state => state.activeLayers.map(l => l.id),
   grid: state => state.grid,
 };
 
@@ -24,11 +30,11 @@ const mutations = {
   removeLayer: (state, resource) => {
     delete state.data[resource.key];
   },
-  addActiveLayer: (state, layer) => {
-    state.activeLayers.push(layer);
+  addActiveLayer: (state, { layer, mapkey }) => {
+    state[mapkey].activeLayers.push(layer);
   },
-  removeActiveLayer: (state, layer) => {
-    state.activeLayers = state.activeLayers.filter(activeLayer => layer.id !== activeLayer.id);
+  removeActiveLayer: (state, { layer, mapkey }) => {
+    state[mapkey].activeLayers = state[mapkey].activeLayers.filter(activeLayer => layer.id !== activeLayer.id);
   },
   loadZones: (state, layer) => {
     Vue.set(state.zones, 'geometry', layer);
@@ -44,14 +50,14 @@ const actions = {
   addLayer: ({ commit }, resource) => {
     commit('addLayer', resource);
   },
-  removeLayer: ({ commit }, layer) => {
-    commit('removeLayer', layer);
+  removeLayer: ({ commit }, data) => {
+    commit('removeLayer', data);
   },
-  addActiveLayer: ({ commit }, layer) => {
-    commit('addActiveLayer', layer);
+  addActiveLayer: ({ commit }, data) => {
+    commit('addActiveLayer', data);
   },
-  removeActiveLayer: ({ commit }, layer) => {
-    commit('removeActiveLayer', layer);
+  removeActiveLayer: ({ commit }, data) => {
+    commit('removeActiveLayer', data);
   },
   fetchCPTM_lines: async context => {
     return await axios.get(`${api_url}/load_railway_lines_data`)

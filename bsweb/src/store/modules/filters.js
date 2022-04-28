@@ -86,7 +86,6 @@ const getters = {
 };
 
 const mutations = {
-  /* The purpose of the two following mutations is to update the filter list at the DOM */
   addActiveFilter: (state, { filter, mapkey }) => {
     state[mapkey].activeFilters.push(filter);
     // Vue.set(state, 'loading_filters', false);

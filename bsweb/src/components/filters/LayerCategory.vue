@@ -11,6 +11,7 @@
         <LayerController
           :filter="filter"
           :type="'layer'"
+          :mapkey="mapkey"
         />
       </div>
     </div>
@@ -28,6 +29,7 @@ export default {
   },
   props: {
     category: { type: Object, required: true },
+    mapkey: { type: String, required: true },
   },
   data() {
     return {

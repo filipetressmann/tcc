@@ -16,6 +16,7 @@ export default {
   props: {
     filter: { type: Object, required: true },
     type: { type: String, required: true },
+    mapkey: { type: String, required: true },
   },
   data() {
     return {
@@ -28,11 +29,11 @@ export default {
   watch: {
     isActive: function(val) {
       if (val) {
-        this.addActiveLayer(this.filter);
+        this.addActiveLayer({ layer: this.filter, mapkey: this.mapkey });
         this.handleLayer();
       } else {
-        this.removeFromMap({ mapkey: 'main', category: 'layers', type: this.filter.filter_type, key: this.filter.filter_key });
-        this.removeActiveLayer(this.filter);
+        this.removeFromMap({ mapkey: this.mapkey, category: 'layers', type: this.filter.filter_type, key: this.filter.filter_key });
+        this.removeActiveLayer({ layer: this.filter, mapkey: this.mapkey });
       }
     },
   },
@@ -44,13 +45,13 @@ export default {
       'removeFromMap',
       'addToMap',
     ]),
-    isResourceActive(resource) {
-      if (this.type === 'filter') {
-        return this.activeFiltersIds.includes(resource.id);
-      } else if (this.type === 'layer') {
-        return this.activeLayersIds.includes(resource.id);
-      }
-    },
+    // isResourceActive(resource) {
+    //   if (this.type === 'filter') {
+    //     return this.activeFiltersIds.includes(resource.id);
+    //   } else if (this.type === 'layer') {
+    //     return this.activeLayersIds.includes(resource.id);
+    //   }
+    // },
     handleLayer() {
       const resource = this.filter;
       if (resource.id == 14) {
@@ -71,7 +72,7 @@ export default {
       this.resourceInfo = {
         category: 'layers',
         type: 'geojson',
-        mapkey: 'main',
+        mapkey: this.mapkey,
         key: 'cptm_lines',
         options: {
           style: style.railway,
@@ -84,7 +85,7 @@ export default {
       this.resourceInfo = {
         category: 'layers',
         type: 'geojson',
-        mapkey: 'main',
+        mapkey: this.mapkey,
         key: 'cptm_stations',
         options: {
           style: style.railway,
@@ -97,7 +98,7 @@ export default {
       this.resourceInfo = {
         category: 'layers',
         type: 'geojson',
-        mapkey: 'main',
+        mapkey: this.mapkey,
         key: 'subway_lines',
         options: {
           style: style.subway,
@@ -110,7 +111,7 @@ export default {
       this.resourceInfo = {
         category: 'layers',
         type: 'geojson',
-        mapkey: 'main',
+        mapkey: this.mapkey,
         key: 'subway_stations',
         options: {
           style: style.subway,
@@ -123,7 +124,7 @@ export default {
       this.resourceInfo = {
         category: 'layers',
         type: 'geojson',
-        mapkey: 'main',
+        mapkey: this.mapkey,
         key,
         options: {
           style: style.bikelane,
@@ -136,7 +137,7 @@ export default {
       this.resourceInfo = {
         category: 'layers',
         type: 'geojson',
-        mapkey: 'main',
+        mapkey: this.mapkey,
         key: 'sp_accidents',
         options: {
           style: style.accidents,

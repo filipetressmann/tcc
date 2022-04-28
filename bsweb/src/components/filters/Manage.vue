@@ -33,7 +33,9 @@
         <template slot="header">
           <span>{{ $t('layers') }}<b-tag rounded>{{ activeLayers.length }}</b-tag></span>
         </template>
-        <Layers @tab-changed="changeTab" />
+        <Layers mapkey="main" @tab-changed="changeTab" />
+        <hr>
+        <Layers mapkey="second" @tab-changed="changeTab" />
       </b-tab-item>
       <b-tab-item v-if="false">
         <template slot="header">
