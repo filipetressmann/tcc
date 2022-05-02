@@ -122,7 +122,6 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'grid',
       'developer_mode',
       'sharedControls',
       'centerMain',
@@ -131,6 +130,9 @@ export default {
       'zoomSecond',
     ]),
     ...mapState({
+      grid(state) {
+        return state.layers[this.mapkey].grid;
+      },
       properties(state) {
         return state.map.maps[this.mapkey].properties;
       },
@@ -211,10 +213,9 @@ export default {
     ]),
     async loadBaseLayers() {
       this.setLoading();
-      await this.fetchGrid().then(() => {
+      await this.fetchGrid(this.mapkey).then(() => { // Ideia -> fazer um fetchGrid independente do mapkey e um outro que chama e dá load
         this.renderGrid = true;
-        this.filterData('main');
-        this.filterData('second'); // @@@ se tiver dois mapas
+        this.filterData(this.mapkey);
         this.unsetLoading();
       });
       this.fetchZones(this.$http).then(() => {

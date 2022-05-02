@@ -7,20 +7,20 @@ const api_url = process.env.VUE_APP_API_URL;
 const state = {
   main: {
     activeLayers: [],
+    grid: {},
   },
   second: {
     activeLayers: [],
+    grid: {},
   },
   data: {},
   zones: {},
-  grid: {},
 };
 
 const getters = {
   activeLayers: state => state.main.activeLayers,
-  // activeLayers2: state => state.second.activeLayers,
+  activeLayers2: state => state.second.activeLayers,
   // activeLayersIds: state => state.activeLayers.map(l => l.id),
-  grid: state => state.grid,
 };
 
 const mutations = {
@@ -40,9 +40,9 @@ const mutations = {
     Vue.set(state.zones, 'geometry', layer);
     Vue.set(state.zones, 'style', style.zones);
   },
-  loadGrid: (state, layer) => {
-    Vue.set(state.grid, 'geometry', layer);
-    Vue.set(state.grid, 'style', style.grid);
+  loadGrid: (state, { layer, mapkey }) => {
+    Vue.set(state[mapkey].grid, 'geometry', layer);
+    Vue.set(state[mapkey].grid, 'style', style.grid);
   },
 };
 
@@ -145,13 +145,15 @@ const actions = {
         return err;
       });
   },
-  fetchGrid: async ({ commit, dispatch, rootGetters }) => {
-    dispatch('resetFlows', 'main', { root: true }); // @@@ alterar para o mapa correto
-    const gridSize = rootGetters['gridSize'];
-    const gridOffset = rootGetters['gridOffset'];
+  fetchGrid: async ({ commit, dispatch, rootGetters, rootState }, mapkey) => {
+    // dispatch('resetFlows', mapkey, { root: true });
+    const gridSize = rootState.filters[mapkey].filters.gridSize;
+    const gridOffset = rootState.filters[mapkey].filters.gridOffset;
+    // const gridSize = rootGetters['gridSize'];
+    // const gridOffset = rootGetters['gridOffset'];
     return await axios.post(`${api_url}/grid_layer`, { gridSize, gridOffset })
       .then(res => {
-        commit('loadGrid', res.data);
+        commit('loadGrid', { layer: res.data, mapkey });
         return res.data;
       })
       .catch(err => {

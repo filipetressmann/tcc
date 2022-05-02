@@ -77,8 +77,8 @@ const getters = {
   // flows2: state => state.second.flows,
   // tierList2: state => state.second.tripsPerTier,
   // chartList2: state => state.second.charts,
-  // gridSize2: state => state.second.filters.gridSize,
-  // gridOffset2: state => state.second.filters.gridOffset,
+  gridSize2: state => state.second.filters.gridSize,
+  gridOffset2: state => state.second.filters.gridOffset,
   //
   loading_filters: state => state.loading_filters,
   flowsNotFound: state => state.flows_not_found,
@@ -118,11 +118,11 @@ const mutations = {
   updateOD: (state, { value, mapkey }) => {
     Vue.set(state[mapkey].filters, 'baseLayer', value);
   },
-  updateGridSize(state, gridSize) {
-    Vue.set(state.filters, 'gridSize', gridSize);
+  updateGridSize(state, { gridSize, mapkey }) {
+    Vue.set(state[mapkey].filters, 'gridSize', gridSize);
   },
-  updateGridOffset(state, value) {
-    Vue.set(state.filters, 'gridOffset', value);
+  updateGridOffset(state, { gridOffset, mapkey }) {
+    Vue.set(state[mapkey].filters, 'gridOffset', gridOffset);
   },
   loading_filters(state, value) {
     Vue.set(state, 'loading_filters', value);
@@ -191,17 +191,22 @@ const actions = {
   updateOD: ({ commit }, data) => {
     commit('updateOD', data);
   },
-  updateGridSize({ commit }, gridSize) {
-    commit('updateGridSize', Number(gridSize));
+  updateGridSize({ commit }, { gridSize, mapkey }) {
+    commit('updateGridSize', { gridSize: Number(gridSize), mapkey });
   },
   setToken: ({ commit }, value) => {
     commit('setToken', value);
   },
-  updateGridOffset({ commit, getters }, { key, value }) {
-    if (getters.gridOffset[key] !== value) {
-      let newGridOffset = { ...getters.gridOffset };
+  updateGridOffset({ commit, getters }, { key, value, mapkey }) {
+    let gridOffset;
+    if (mapkey == 'main')
+      gridOffset = getters.gridOffset;
+    else gridOffset = getters.gridOffset2;
+
+    if (gridOffset[key] !== value) {
+      let newGridOffset = { ...gridOffset };
       newGridOffset[key] = value;
-      commit('updateGridOffset', newGridOffset);
+      commit('updateGridOffset', { gridOffset: newGridOffset, mapkey });
     }
   },
   resetFlows({ commit }, mapkey) {

@@ -29,7 +29,7 @@
         <span>{{ $t('buttons.gridEditMode') }}</span>
       </div>
       <div v-if="gridEditMode">
-        <GridForm />
+        <GridForm :mapkey="mapkey" />
       </div>
     </div>
   </div>
