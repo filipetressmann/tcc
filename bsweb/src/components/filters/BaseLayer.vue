@@ -24,7 +24,7 @@
         v-if="!gridEditMode"
         class="edit-grid-button"
         :title="this.$t('onHover.gridEditMode')"
-        @click="setGridEditModeOn()"
+        @click="setGridEditModeOn(mapkey)"
       >
         <span>{{ $t('buttons.gridEditMode') }}</span>
       </div>
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from 'vuex';
+import { mapGetters, mapActions, mapMutations, mapState } from 'vuex';
 import GridForm from '@/components/filters/forms/GridForm';
 
 export default {
@@ -54,7 +54,11 @@ export default {
   computed: {
     ...mapGetters({
       filterParams: 'filters',
-      gridEditMode: 'gridEditMode',
+    }),
+    ...mapState({
+      gridEditMode(state) {
+        return state.filters[this.mapkey].gridEditMode;
+      },
     }),
   },
   watch: {

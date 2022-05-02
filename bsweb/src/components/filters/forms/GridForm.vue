@@ -153,11 +153,11 @@ export default {
     getFlows() {
       // this.setLoading();
       this.resetMapResource({ mapkey: 'main', category: 'flows', type: 'polyline' });
-      this.filterData()
+      this.filterData(this.mapkey)
         .then(() => {
           // this.unsetLoading();
         });
-      this.setGridEditModeOff();
+      this.setGridEditModeOff(this.mapkey);
     },
     reloadGrid() {
       this.setLoading();

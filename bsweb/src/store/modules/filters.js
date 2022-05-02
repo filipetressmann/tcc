@@ -27,6 +27,7 @@ const state = {
         south: -0.46,
       },
     },
+    gridEditMode: false,
   },
   second: {
     activeFilters: [],
@@ -50,6 +51,7 @@ const state = {
         south: -0.46,
       },
     },
+    gridEditMode: false,
   },
   chartList: [
     '@/assets/tmp_charts/agechart.png',
@@ -57,7 +59,6 @@ const state = {
   ],
   loading_filters: false,
   flows_not_found: false,
-  gridEditMode: false,
   doubleControl: true,
 };
 
@@ -134,8 +135,8 @@ const mutations = {
     Vue.set(state[mapkey], 'flows', { 0: [], 1: [], 2: [], 3: [] });
     Vue.set(state[mapkey], 'tripsPerTier', [0, 0, 0, 0]);
   },
-  setGridEditMode(state, value) {
-    Vue.set(state, 'gridEditMode', value);
+  setGridEditMode(state, { value, mapkey }) {
+    Vue.set(state[mapkey], 'gridEditMode', value);
   },
 };
 
@@ -212,11 +213,12 @@ const actions = {
   resetFlows({ commit }, mapkey) {
     commit('resetFlows', mapkey);
   },
-  setGridEditModeOn({ commit }) {
-    commit('setGridEditMode', true);
+  setGridEditModeOn({ commit }, mapkey) {
+    commit('resetFlows', mapkey);
+    commit('setGridEditMode', { value: true, mapkey });
   },
-  setGridEditModeOff({ commit }, value) {
-    commit('setGridEditMode', false);
+  setGridEditModeOff({ commit }, mapkey) {
+    commit('setGridEditMode', { value: false, mapkey });
   },
 };
 
