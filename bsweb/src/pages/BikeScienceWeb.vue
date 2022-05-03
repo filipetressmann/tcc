@@ -6,10 +6,15 @@
           <Manage id="filter-container" />
         </div>
         <div id="main-column" class="column is-full is-flex">
-          <div id="main-map" class="column p-0 is-half">
+          <div id="main-map" :class="['column p-0', { 'is-half': secondMapIsActive }]">
             <Map mapkey="main" />
           </div>
-          <div id="second-map" class="column p-0 is-half" style="border-left: 2px solid #167CF0;">
+          <div
+            v-if="secondMapIsActive"
+            id="second-map"
+            class="column p-0 is-half"
+            style="border-left: 2px solid #167CF0;"
+          >
             <Map mapkey="second" />
           </div>
         </div>
@@ -37,7 +42,7 @@ export default {
   },
   computed: {
     ...mapGetters('loading', ['active']),
-    ...mapGetters(['loading_filters']),
+    ...mapGetters(['loading_filters', 'secondMapIsActive']),
   },
   created() {
     if (localStorage.ut === undefined) {

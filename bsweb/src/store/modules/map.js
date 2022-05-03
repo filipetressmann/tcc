@@ -176,6 +176,7 @@ const state = {
     },
   },
   developer_mode: false,
+  secondMapIsActive: false,
 };
 
 const getters = {
@@ -185,6 +186,7 @@ const getters = {
   centerSecond: state => state.maps.second.properties.center,
   zoomMain: state => state.maps.main.properties.zoom,
   zoomSecond: state => state.maps.second.properties.zoom,
+  secondMapIsActive: state => state.secondMapIsActive,
 };
 
 const mutations = {
@@ -229,6 +231,9 @@ const mutations = {
       state.maps.main.properties.zoom = zoom;
     }
   },
+  toggleSecondMap: state => {
+    Vue.set(state, 'secondMapIsActive', !state.secondMapIsActive);
+  },
 };
 const actions = {
   addToMap: (context, data) => {
@@ -248,6 +253,9 @@ const actions = {
   },
   updateZoom: ({ commit }, { mapkey, zoom }) => {
     commit('updateZoom', { mapkey, zoom });
+  },
+  toggleSecondMap: ({ commit }) => {
+    commit('toggleSecondMap');
   },
 };
 

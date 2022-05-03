@@ -37,11 +37,11 @@
         <hr>
         <Layers mapkey="second" @tab-changed="changeTab" />
       </b-tab-item>
-      <b-tab-item v-if="false">
+      <b-tab-item>
         <template slot="header">
           <span>{{ $t('maps') }}<b-tag rounded>1</b-tag></span>
         </template>
-        Select maps to filter; Select maps that will be rendered;
+        <TabMaps />
       </b-tab-item>
       <b-tab-item v-if="false">
         <template slot="header">
@@ -75,6 +75,7 @@ import Filters from './Filters.vue';
 import Layers from './Layers.vue';
 import Charts from '../charts/Charts';
 import Language from '../Language.vue';
+import TabMaps from '../tabs/TabMaps.vue';
 
 export default {
   components: {
@@ -84,6 +85,7 @@ export default {
     BaseLayer,
     Charts,
     Language,
+    TabMaps,
   },
   data() {
     return {

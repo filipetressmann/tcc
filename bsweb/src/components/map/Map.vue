@@ -200,6 +200,9 @@ export default {
     },
   },
   mounted() {
+    if (this.keymap === 'second') {
+      this.updateCenter({ mapkey: 'second', center: centerMain });
+    }
     this.loadBaseLayers();
   },
   methods: {
