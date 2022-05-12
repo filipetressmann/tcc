@@ -126,3 +126,7 @@ body{
   justify-content: center;
   align-items: center;
 }
+
+.o-modal {
+  z-index: 2000 !important;
+}

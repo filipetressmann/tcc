@@ -1,5 +1,6 @@
 <template>
   <div>
+    <TwoMapsManager />
     <div id="main-content">
       <div id="columns-content" class="columns is-mobile">
         <div v-show="true" class="column left manage">
@@ -22,6 +23,27 @@
     </div>
     <AboutModal />
     <Loading :is-active="active || loading_filters" />
+    <o-modal :active.sync="isImageModalActive">
+      <p style="text-align: center">
+        <img src="https://avatars2.githubusercontent.com/u/66300512?s=200&v=4">
+      </p>
+    </o-modal>
+    <o-sidebar
+      :fullheight="false"
+      :fullwidth="false"
+      :overlay="true"
+      :right="true"
+      :open.sync="open"
+      :can-cancel="true"
+    >
+      <h3>Example</h3>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+      <p>a</p>
+    </o-sidebar>
   </div>
 </template>
 
@@ -32,6 +54,7 @@ import { uuid } from 'vue-uuid';
 import { mapActions, mapGetters } from 'vuex';
 import Loading from '../components/Loading';
 import AboutModal from '../components/modals/about';
+import TwoMapsManager from '../components/twomapsmanager/TwoMapsManager.vue';
 
 export default {
   components: {
@@ -39,6 +62,13 @@ export default {
     Map,
     Loading,
     AboutModal,
+    TwoMapsManager,
+  },
+  data() {
+    return {
+      isImageModalActive: false, // Temp para possível modal
+      open: false,
+    };
   },
   computed: {
     ...mapGetters('loading', ['active']),

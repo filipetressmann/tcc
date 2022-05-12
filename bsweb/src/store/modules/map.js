@@ -176,7 +176,7 @@ const state = {
     },
   },
   developer_mode: false,
-  secondMapIsActive: false,
+  mapControl: 'main',
 };
 
 const getters = {
@@ -234,6 +234,9 @@ const mutations = {
   toggleSecondMap: state => {
     Vue.set(state, 'secondMapIsActive', !state.secondMapIsActive);
   },
+  changeMapControl: (state, value) => {
+    Vue.set(state, 'mapControl', value);
+  },
 };
 const actions = {
   addToMap: (context, data) => {
@@ -256,6 +259,9 @@ const actions = {
   },
   toggleSecondMap: ({ commit }) => {
     commit('toggleSecondMap');
+  },
+  changeMapControl: ({ commit }, value) => {
+    commit('changeMapControl', value);
   },
 };
 
