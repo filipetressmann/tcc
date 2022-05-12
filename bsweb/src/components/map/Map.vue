@@ -178,6 +178,11 @@ export default {
         return state.map.maps[this.mapkey].show.grid;
       },
     }),
+    secondMapIsActive: {
+      get() {
+        return this.$store.state.map.secondMapIsActive;
+      },
+    },
   },
   watch: {
     centerMain: function(value) {
@@ -197,6 +202,11 @@ export default {
     },
     zoomSecond: function(value) {
       if (this.mapkey === 'second') this.zoom = value;
+    },
+    secondMapIsActive: function(value) {
+      if (this.mapkey === 'main') {
+        this.$refs['main'].mapObject.invalidateSize();
+      }
     },
   },
   mounted() {

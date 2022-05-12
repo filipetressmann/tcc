@@ -6,8 +6,6 @@
         <span class="view-option">Ativar mapa adicional</span>
       </b-checkbox>
     </b-field>
-    <p>centarMain: {{ centerMain }}</p>
-    <p>centarSecond: {{ centerSecond }}</p>
   </div>
 </template>
 
@@ -15,14 +13,6 @@
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  components: {
-    // LayerCategory,
-  },
-  data() {
-    return {
-      // twoMaps: false,
-    };
-  },
   computed: {
     ...mapGetters(['secondMapIsActive', 'centerMain', 'centerSecond']),
     secondMapIsActive: {
