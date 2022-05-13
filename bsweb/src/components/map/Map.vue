@@ -128,6 +128,7 @@ export default {
       'centerSecond',
       'zoomMain',
       'zoomSecond',
+      'mapControl',
     ]),
     ...mapState({
       grid(state) {
@@ -236,10 +237,16 @@ export default {
       });
     },
     zoomUpdated(zoom) {
-      this.updateZoom({ mapkey: this.mapkey, zoom });
+      if (this.mapControl === 'both')
+        this.updateZoom({ mapkey: 'main', zoom });
+      else
+        this.updateZoom({ mapkey: this.mapkey, zoom });
     },
     centerUpdated(center) {
-      this.updateCenter({ mapkey: this.mapkey, center });
+      if (this.mapControl === 'both')
+        this.updateCenter({ mapkey: 'main', center });
+      else
+        this.updateCenter({ mapkey: this.mapkey, center });
     },
     boundsUpdated(bounds) {
       // this.bounds = bounds;

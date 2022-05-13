@@ -16,7 +16,7 @@
             class="column p-0 is-half"
             style="border-left: 2px solid #167CF0;"
           >
-            <Map mapkey="second" />
+            <Map :mapkey="mapControl === 'both' ? 'main' : 'second'" />
           </div>
         </div>
       </div>
@@ -28,22 +28,6 @@
         <img src="https://avatars2.githubusercontent.com/u/66300512?s=200&v=4">
       </p>
     </o-modal>
-    <o-sidebar
-      :fullheight="false"
-      :fullwidth="false"
-      :overlay="true"
-      :right="true"
-      :open.sync="open"
-      :can-cancel="true"
-    >
-      <h3>Example</h3>
-      <p>a</p>
-      <p>a</p>
-      <p>a</p>
-      <p>a</p>
-      <p>a</p>
-      <p>a</p>
-    </o-sidebar>
   </div>
 </template>
 
@@ -72,7 +56,7 @@ export default {
   },
   computed: {
     ...mapGetters('loading', ['active']),
-    ...mapGetters(['loading_filters', 'secondMapIsActive']),
+    ...mapGetters(['loading_filters', 'secondMapIsActive', 'mapControl']),
   },
   created() {
     if (localStorage.ut === undefined) {

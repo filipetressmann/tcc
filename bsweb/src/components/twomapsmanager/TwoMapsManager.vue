@@ -3,7 +3,7 @@
     <div class="content">
       <div class="field">
         <b-radio
-          v-model="radio"
+          v-model="mapControl"
           native-value="main"
           type="is-info"
           name="twomaps"
@@ -14,7 +14,7 @@
       </div>
       <div class="field">
         <b-radio
-          v-model="radio"
+          v-model="mapControl"
           native-value="second"
           type="is-info"
           name="twomaps"
@@ -25,7 +25,7 @@
       </div>
       <div class="fieldasd">
         <b-radio
-          v-model="radio"
+          v-model="mapControl"
           native-value="both"
           type="is-info"
           name="twomaps"
@@ -42,14 +42,14 @@
 import { mapActions } from 'vuex';
 
 export default {
-  data() {
-    return {
-      radio: 'main',
-    };
-  },
-  watch: {
-    radio: function(value) {
-      this.changeMapControl(value);
+  computed: {
+    mapControl: {
+      get() {
+        return this.$store.state.map.mapControl;
+      },
+      set(value) {
+        this.changeMapControl(value);
+      },
     },
   },
   methods: {

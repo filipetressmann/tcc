@@ -176,7 +176,8 @@ const state = {
     },
   },
   developer_mode: false,
-  mapControl: 'main',
+  mapControl: 'both',
+  secondMapIsActive: true,
 };
 
 const getters = {
@@ -187,6 +188,7 @@ const getters = {
   zoomMain: state => state.maps.main.properties.zoom,
   zoomSecond: state => state.maps.second.properties.zoom,
   secondMapIsActive: state => state.secondMapIsActive,
+  mapControl: state => state.mapControl,
 };
 
 const mutations = {
@@ -218,14 +220,20 @@ const mutations = {
     Vue.set(state, 'developer_mode', !state.developer_mode);
   },
   updateCenter: (state, { mapkey, center }) => {
-    if (mapkey === 'main') {
+    if (state.mapControl === 'both') {
+      state.maps.main.properties.center = center;
+    }
+    else if (mapkey === 'main') {
       state.maps.second.properties.center = center;
     } else {
       state.maps.main.properties.center = center;
     }
   },
   updateZoom: (state, { mapkey, zoom }) => {
-    if (mapkey === 'main') {
+    if (state.mapControl === 'both') {
+      state.maps.main.properties.zoom = zoom;
+    }
+    else if (mapkey === 'main') {
       state.maps.second.properties.zoom = zoom;
     } else {
       state.maps.main.properties.zoom = zoom;
