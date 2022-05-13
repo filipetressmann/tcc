@@ -25,7 +25,7 @@
           :options="zonesOptions()"
         />
       </span>
-      <span v-if="renderGrid">
+      <span v-if="renderGrid && grid.geometry">
         <l-geo-json
           :geojson="grid.geometry"
           :options-style="grid.style"
@@ -207,6 +207,11 @@ export default {
     secondMapIsActive: function(value) {
       if (this.mapkey === 'main') {
         this.$refs['main'].mapObject.invalidateSize();
+      }
+    },
+    mapControl: function(newValue, oldValue) {
+      if (oldValue === 'both' && this.mapkey === 'second') {
+        this.loadBaseLayers();
       }
     },
   },
