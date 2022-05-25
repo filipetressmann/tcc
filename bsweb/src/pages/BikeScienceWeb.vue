@@ -7,13 +7,13 @@
           <Manage id="filter-container" />
         </div>
         <div id="main-column" class="column is-full is-flex">
-          <div id="main-map" :class="['column p-0', { 'is-half': secondMapIsActive }]">
+          <div id="main-map" :class="['main-map column', { 'is-half': secondMapIsActive }]">
             <Map mapkey="main" />
           </div>
           <div
             v-if="secondMapIsActive"
             id="second-map"
-            class="column p-0 is-half"
+            class="second-map column is-half"
             style="border-left: 2px solid #167CF0;"
           >
             <Map :mapkey="mapControl === 'both' ? 'main' : 'second'" />
@@ -85,3 +85,18 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.main-map.is-half {
+  padding-top: 0;
+  padding-left: 0;
+  padding-bottom: 0;
+  padding-right: 10px;
+}
+.second-map {
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 10px;
+}
+</style>

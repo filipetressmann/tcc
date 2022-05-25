@@ -9,7 +9,7 @@
           name="twomaps"
           size="is-small"
         >
-          <span class="label">Trabalhar no mapa principal</span>
+          <span class="label">Trabalhar no mapa da esquerda</span>
         </b-radio>
       </div>
       <div class="field">
@@ -20,7 +20,7 @@
           name="twomaps"
           size="is-small"
         >
-          <span class="label">Trabalhar no segundo mapa</span>
+          <span class="label">Trabalhar no mapa da direita</span>
         </b-radio>
       </div>
       <div class="fieldasd">

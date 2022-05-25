@@ -39,7 +39,7 @@
       </b-tab-item>
       <b-tab-item>
         <template slot="header">
-          <span>{{ $t('maps') }}<b-tag rounded>1</b-tag></span>
+          <span class="custom-size2">{{ $t('maps') }}</span>
         </template>
         <TabMaps />
       </b-tab-item>
@@ -133,6 +133,10 @@ export default {
   .custom-size {
     height: 24px;
     padding: 3px 12.4px 0 12.4px;
+  }
+  .custom-size2 {
+    height: 24px;
+    padding-top: 3px;
   }
   .custom-tabs{
     min-height: 85%;
