@@ -36,6 +36,7 @@
         <Layers mapkey="main" @tab-changed="changeTab" />
         <hr>
         <Layers mapkey="second" @tab-changed="changeTab" />
+        <LayersMapController />
       </b-tab-item>
       <b-tab-item>
         <template slot="header">
@@ -76,6 +77,7 @@ import Layers from './Layers.vue';
 import Charts from '../charts/Charts';
 import Language from '../Language.vue';
 import TabMaps from '../tabs/TabMaps.vue';
+import LayersMapController from '../twomapsmanager/LayersMapController.vue';
 
 export default {
   components: {
@@ -86,6 +88,7 @@ export default {
     Charts,
     Language,
     TabMaps,
+    LayersMapController,
   },
   data() {
     return {

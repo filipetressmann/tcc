@@ -16,7 +16,7 @@
             class="second-map column is-half"
             style="border-left: 2px solid #167CF0;"
           >
-            <Map :mapkey="mapControl === 'both' ? 'main' : 'second'" />
+            <Map mapkey="second" />
           </div>
         </div>
       </div>

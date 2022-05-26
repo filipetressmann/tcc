@@ -4,34 +4,23 @@
       <div class="field">
         <b-radio
           v-model="mapControl"
-          native-value="main"
+          native-value="independent"
           type="is-info"
           name="twomaps"
           size="is-small"
         >
-          <span class="label">Trabalhar no mapa da esquerda</span>
-        </b-radio>
-      </div>
-      <div class="field">
-        <b-radio
-          v-model="mapControl"
-          native-value="second"
-          type="is-info"
-          name="twomaps"
-          size="is-small"
-        >
-          <span class="label">Trabalhar no mapa da direita</span>
+          <span class="label">Mover os mapas separadamente</span>
         </b-radio>
       </div>
       <div class="fieldasd">
         <b-radio
           v-model="mapControl"
-          native-value="both"
+          native-value="same"
           type="is-info"
           name="twomaps"
           size="is-small"
         >
-          <span class="label">Trabalhar nos dois mapas</span>
+          <span class="label">Mover os mapas simultaneamente</span>
         </b-radio>
       </div>
     </div>

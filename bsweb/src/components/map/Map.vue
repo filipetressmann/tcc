@@ -1,5 +1,6 @@
 <template>
   <div id="map">
+    <p>aL {{ activeLayersKeys }}</p>
     <l-map
       :ref="mapkey"
       :zoom="zoom"
@@ -33,13 +34,13 @@
           :options="gridOptions()"
         />
       </span>
-      <l-geo-json
-        v-for="key in Object.keys(layersGeojson)"
-        :key="`layers-${key}`"
-        :geojson="layers[key].geometry"
-        :options-style="layersGeojson[key].style"
-        :options="layersGeojson[key].options"
-      />
+      <div v-for="layer_key in activeLayersKeys" :key="`layers-${layer_key}`">
+        <l-geo-json
+          :geojson="layers[layer_key].geometry"
+          :options-style="layers[layer_key].style"
+          :options="layers[layer_key].options"
+        />
+      </div>
       <l-feature-group v-for="tier in Object.keys(arrowTiers)" :key="tier">
         <l-polyline
           v-for="(arrow, index) in flows[tier]"
@@ -129,17 +130,22 @@ export default {
       'zoomMain',
       'zoomSecond',
       'mapControl',
+      'layers',
+      // 'activeLayers',
     ]),
     ...mapState({
+      activeLayersKeys(state) {
+        return state.layers[this.mapkey].activeLayersKeys;
+      },
       grid(state) {
         return state.layers[this.mapkey].grid;
       },
       properties(state) {
         return state.map.maps[this.mapkey].properties;
       },
-      layersGeojson(state) {
-        return state.map.maps[this.mapkey].show.layers['geojson'];
-      },
+      // layersGeojson(state) {
+      //   return state.map.maps[this.mapkey].show.layers['geojson'];
+      // },
       layersPolylines(state) {
         return state.map.maps[this.mapkey].show.layers['polyline'];
       },
@@ -162,7 +168,6 @@ export default {
       //   return state.filters[this.mapkey].flows;
       // },
       // flows: state => state.filters[this.mapkey].flows,
-      layers: state => state.layers.data,
       zones: state => state.layers.zones,
       // attractors: state => state.filters.heatmaps.attractors,
       // emitters: state => state.filters.heatmaps.emitters,
@@ -242,15 +247,11 @@ export default {
       });
     },
     zoomUpdated(zoom) {
-      if (this.mapControl === 'both')
-        this.updateZoom({ mapkey: 'main', zoom });
-      else
+      if (this.mapControl === 'same')
         this.updateZoom({ mapkey: this.mapkey, zoom });
     },
     centerUpdated(center) {
-      if (this.mapControl === 'both')
-        this.updateCenter({ mapkey: 'main', center });
-      else
+      if (this.mapControl === 'same')
         this.updateCenter({ mapkey: this.mapkey, center });
     },
     boundsUpdated(bounds) {

@@ -141,13 +141,14 @@ const mutations = {
 };
 
 const actions = {
-  addFilter: ({ commit }, filter) => {
+  addFilter: ({ commit, getters }, filter) => {
+    debugger;
     commit('addFilter', filter);
   },
   removeFilter: ({ commit }, data) => {
     commit('removeActiveFilter', data);
   },
-  addActiveFilter: ({ commit }, data) => {
+  addActiveFilter: ({ commit, getters }, data) => {
     // commit('loading_filters', true);
     commit('addActiveFilter', data);
   },

@@ -6,11 +6,11 @@ const api_url = process.env.VUE_APP_API_URL;
 
 const state = {
   main: {
-    activeLayers: [],
+    activeLayersKeys: [],
     grid: {},
   },
   second: {
-    activeLayers: [],
+    activeLayersKeys: [],
     grid: {},
   },
   data: {},
@@ -18,9 +18,10 @@ const state = {
 };
 
 const getters = {
-  activeLayers: state => state.main.activeLayers,
-  activeLayers2: state => state.second.activeLayers,
-  // activeLayersIds: state => state.activeLayers.map(l => l.id),
+  layers: state => state.data,
+  activeLayers: state => state.main.activeLayersKeys,
+  activeLayers2: state => state.second.activeLayersKeys,
+  // activeLayersKeys: state => state.activeLayers.map(l => l.id),
 };
 
 const mutations = {
@@ -30,11 +31,23 @@ const mutations = {
   removeLayer: (state, resource) => {
     delete state.data[resource.key];
   },
-  addActiveLayer: (state, { layer, mapkey }) => {
-    state[mapkey].activeLayers.push(layer);
+  addActiveLayer: (state, { layer_key, mapkey, bothMaps }) => {
+    if (bothMaps) {
+      // state.data[layer_key]['main'] = true;
+      // state.data[layer_key]['second'] = true;
+    } else {
+      state.main.activeLayersKeys.push(layer_key);
+      // state.data[layer_key][mapkey] = true;
+    }
   },
-  removeActiveLayer: (state, { layer, mapkey }) => {
-    state[mapkey].activeLayers = state[mapkey].activeLayers.filter(activeLayer => layer.id !== activeLayer.id);
+  removeActiveLayer: (state, { layer_key, mapkey, bothMaps }) => {
+    if (bothMaps) {
+    } else {
+      const index = state.main.activeLayersKeys.indexOf(layer_key);
+      if (index >= 0) {
+        state.main.activeLayersKeys.splice(index, 1);
+      }
+    }
   },
   loadZones: (state, layer) => {
     Vue.set(state.zones, 'geometry', layer);
@@ -53,11 +66,11 @@ const actions = {
   removeLayer: ({ commit }, data) => {
     commit('removeLayer', data);
   },
-  addActiveLayer: ({ commit }, data) => {
-    commit('addActiveLayer', data);
+  addActiveLayer: ({ commit, getters }, data) => {
+    commit('addActiveLayer', { ...data, bothMaps: getters.mirrorLayerControl });
   },
-  removeActiveLayer: ({ commit }, data) => {
-    commit('removeActiveLayer', data);
+  removeActiveLayer: ({ commit, getters }, data) => {
+    commit('removeActiveLayer', { ...data, bothMaps: getters.mirrorLayerControl });
   },
   fetchCPTM_lines: async context => {
     return await axios.get(`${api_url}/load_railway_lines_data`)

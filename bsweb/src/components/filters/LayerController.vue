@@ -29,11 +29,11 @@ export default {
   watch: {
     isActive: function(val) {
       if (val) {
-        this.addActiveLayer({ layer: this.filter, mapkey: this.mapkey });
+        this.addActiveLayer({ layer_key: this.filter.filter_key, mapkey: this.mapkey });
         this.handleLayer();
       } else {
         this.removeFromMap({ mapkey: this.mapkey, category: 'layers', type: this.filter.filter_type, key: this.filter.filter_key });
-        this.removeActiveLayer({ layer: this.filter, mapkey: this.mapkey });
+        this.removeActiveLayer({ layer_key: this.filter.filter_key, mapkey: this.mapkey });
       }
     },
   },
@@ -44,6 +44,7 @@ export default {
       'resetMapResource',
       'removeFromMap',
       'addToMap',
+      'mirrorLayerControl',
     ]),
     // isResourceActive(resource) {
     //   if (this.type === 'filter') {

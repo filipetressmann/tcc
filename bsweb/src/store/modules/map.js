@@ -176,8 +176,10 @@ const state = {
     },
   },
   developer_mode: false,
-  mapControl: 'both',
-  secondMapIsActive: true,
+  secondMapIsActive: false,
+  mapControl: 'independent',
+  mirrorLayerControl: false,
+  hideAdditionalLayerControl: false,
 };
 
 const getters = {
@@ -189,6 +191,8 @@ const getters = {
   zoomSecond: state => state.maps.second.properties.zoom,
   secondMapIsActive: state => state.secondMapIsActive,
   mapControl: state => state.mapControl,
+  mirrorLayerControl: state => state.mirrorLayerControl,
+  hideAdditionalLayerControl: state => state.hideAdditionalLayerControl,
 };
 
 const mutations = {
@@ -220,30 +224,32 @@ const mutations = {
     Vue.set(state, 'developer_mode', !state.developer_mode);
   },
   updateCenter: (state, { mapkey, center }) => {
-    if (state.mapControl === 'both') {
-      state.maps.main.properties.center = center;
-    }
-    else if (mapkey === 'main') {
-      state.maps.second.properties.center = center;
-    } else {
-      state.maps.main.properties.center = center;
-    }
+    if (state.mapControl === 'same')
+      if (mapkey === 'main') {
+        state.maps.second.properties.center = center;
+      } else {
+        state.maps.main.properties.center = center;
+      }
   },
   updateZoom: (state, { mapkey, zoom }) => {
-    if (state.mapControl === 'both') {
-      state.maps.main.properties.zoom = zoom;
-    }
-    else if (mapkey === 'main') {
-      state.maps.second.properties.zoom = zoom;
-    } else {
-      state.maps.main.properties.zoom = zoom;
-    }
+    if (state.mapControl == 'same')
+      if (mapkey === 'main') {
+        state.maps.second.properties.zoom = zoom;
+      } else {
+        state.maps.main.properties.zoom = zoom;
+      }
   },
   toggleSecondMap: state => {
     Vue.set(state, 'secondMapIsActive', !state.secondMapIsActive);
   },
   changeMapControl: (state, value) => {
     Vue.set(state, 'mapControl', value);
+  },
+  toggleMirrorLayerControl: state => {
+    Vue.set(state, 'mirrorLayerControl', !state.mirrorLayerControl);
+  },
+  toggleAdditionalLayerControl: state => {
+    Vue.set(state, 'hideAdditionalLayerControl', !state.hideAdditionalLayerControl);
   },
 };
 const actions = {
@@ -270,6 +276,12 @@ const actions = {
   },
   changeMapControl: ({ commit }, value) => {
     commit('changeMapControl', value);
+  },
+  toggleMirrorLayerControl: ({ commit }) => {
+    commit('toggleMirrorLayerControl');
+  },
+  toggleAdditionalLayerControl: ({ commit }) => {
+    commit('toggleAdditionalLayerControl');
   },
 };
 
