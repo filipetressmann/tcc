@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   props: {
@@ -15,7 +15,6 @@ export default {
     mapkey: { type: String, required: true },
   },
   computed: {
-    ...mapGetters(['activeFilters', 'activeFiltersIds', 'activeLayersIds']),
     isActive: {
       get() {
         return this.$store.state.layers[this.mapkey].activeLayersKeys.includes(this.filter.filter_key);

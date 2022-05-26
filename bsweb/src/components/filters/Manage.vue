@@ -33,9 +33,6 @@
         <template slot="header">
           <span>{{ $t('layers') }}<b-tag rounded>{{ activeLayersCount }}</b-tag></span>
         </template>
-        <Layers mapkey="main" @tab-changed="changeTab" />
-        <hr>
-        <Layers mapkey="second" @tab-changed="changeTab" />
         <LayersMapController />
       </b-tab-item>
       <b-tab-item>
@@ -73,7 +70,6 @@ import { mapGetters, mapActions } from 'vuex';
 import BaseLayer from './BaseLayer.vue';
 import Tiers from './Tiers.vue';
 import Filters from './Filters.vue';
-import Layers from './Layers.vue';
 import Charts from '../charts/Charts';
 import Language from '../Language.vue';
 import TabMaps from '../tabs/TabMaps.vue';
@@ -83,7 +79,6 @@ export default {
   components: {
     Filters,
     Tiers,
-    Layers,
     BaseLayer,
     Charts,
     Language,

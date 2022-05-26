@@ -178,8 +178,6 @@ const state = {
   developer_mode: false,
   secondMapIsActive: false,
   mapControl: 'independent',
-  mirrorLayerControl: false,
-  hideAdditionalLayerControl: false,
 };
 
 const getters = {
@@ -191,8 +189,6 @@ const getters = {
   zoomSecond: state => state.maps.second.properties.zoom,
   secondMapIsActive: state => state.secondMapIsActive,
   mapControl: state => state.mapControl,
-  mirrorLayerControl: state => state.mirrorLayerControl,
-  hideAdditionalLayerControl: state => state.hideAdditionalLayerControl,
 };
 
 const mutations = {
@@ -245,13 +241,8 @@ const mutations = {
   changeMapControl: (state, value) => {
     Vue.set(state, 'mapControl', value);
   },
-  toggleMirrorLayerControl: state => {
-    Vue.set(state, 'mirrorLayerControl', !state.mirrorLayerControl);
-  },
-  toggleAdditionalLayerControl: state => {
-    Vue.set(state, 'hideAdditionalLayerControl', !state.hideAdditionalLayerControl);
-  },
 };
+
 const actions = {
   addToMap: (context, data) => {
     context.commit('addToMap', data);
@@ -276,12 +267,6 @@ const actions = {
   },
   changeMapControl: ({ commit }, value) => {
     commit('changeMapControl', value);
-  },
-  toggleMirrorLayerControl: ({ commit }) => {
-    commit('toggleMirrorLayerControl');
-  },
-  toggleAdditionalLayerControl: ({ commit }) => {
-    commit('toggleAdditionalLayerControl');
   },
 };
 

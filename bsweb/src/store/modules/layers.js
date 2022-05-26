@@ -16,11 +16,15 @@ const state = {
   },
   data: {},
   zones: {},
+  mirrorLayerControl: false,
+  hideSecondMapLayerControl: false,
 };
 
 const getters = {
   layers: state => state.data,
   activeLayersCount: state => state.main.activeLayersKeys.length + state.second.activeLayersKeys.length,
+  mirrorLayerControl: state => state.mirrorLayerControl,
+  hideSecondMapLayerControl: state => state.hideSecondMapLayerControl,
 };
 
 const mutations = {
@@ -62,6 +66,12 @@ const mutations = {
   loadGrid: (state, { layer, mapkey }) => {
     Vue.set(state[mapkey].grid, 'geometry', layer);
     Vue.set(state[mapkey].grid, 'style', style.grid);
+  },
+  toggleMirrorLayerControl: state => {
+    Vue.set(state, 'mirrorLayerControl', !state.mirrorLayerControl);
+  },
+  sethideSecondMapLayerControl: (state, value) => {
+    Vue.set(state, 'hideSecondMapLayerControl', value);
   },
 };
 
@@ -188,6 +198,12 @@ const actions = {
       .catch(err => {
         return err;
       });
+  },
+  toggleMirrorLayerControl: ({ commit }) => {
+    commit('toggleMirrorLayerControl');
+  },
+  sethideSecondMapLayerControl: ({ commit }, value) => {
+    commit('sethideSecondMapLayerControl', value);
   },
 };
 
