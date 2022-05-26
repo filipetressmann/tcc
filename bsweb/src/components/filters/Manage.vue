@@ -31,7 +31,7 @@
       </b-tab-item>
       <b-tab-item>
         <template slot="header">
-          <span>{{ $t('layers') }}<b-tag rounded>{{ activeLayers.length }}</b-tag></span>
+          <span>{{ $t('layers') }}<b-tag rounded>{{ activeLayersCount }}</b-tag></span>
         </template>
         <Layers mapkey="main" @tab-changed="changeTab" />
         <hr>
@@ -103,6 +103,7 @@ export default {
       'chartList',
       'gridEditMode',
       'developer_mode',
+      'activeLayersCount',
     ]),
     developer_mode: {
       get() {

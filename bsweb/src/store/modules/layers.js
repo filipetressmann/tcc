@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import axios from 'axios';
 import * as style from '../helpers/style_layers';
+import * as options from '../helpers/option_helpers';
 
 const api_url = process.env.VUE_APP_API_URL;
 
@@ -19,9 +20,7 @@ const state = {
 
 const getters = {
   layers: state => state.data,
-  activeLayers: state => state.main.activeLayersKeys,
-  activeLayers2: state => state.second.activeLayersKeys,
-  // activeLayersKeys: state => state.activeLayers.map(l => l.id),
+  activeLayersCount: state => state.main.activeLayersKeys.length + state.second.activeLayersKeys.length,
 };
 
 const mutations = {
@@ -33,19 +32,26 @@ const mutations = {
   },
   addActiveLayer: (state, { layer_key, mapkey, bothMaps }) => {
     if (bothMaps) {
-      // state.data[layer_key]['main'] = true;
-      // state.data[layer_key]['second'] = true;
+      if (!state['main'].activeLayersKeys.includes(layer_key))
+        state['main'].activeLayersKeys.push(layer_key);
+      if (!state['second'].activeLayersKeys.includes(layer_key))
+        state['second'].activeLayersKeys.push(layer_key);
     } else {
-      state.main.activeLayersKeys.push(layer_key);
-      // state.data[layer_key][mapkey] = true;
+      state[mapkey].activeLayersKeys.push(layer_key);
     }
   },
   removeActiveLayer: (state, { layer_key, mapkey, bothMaps }) => {
     if (bothMaps) {
+      const indexMain = state[mapkey].activeLayersKeys.indexOf(layer_key);
+      const indexSecond = state[mapkey].activeLayersKeys.indexOf(layer_key);
+      if (indexMain >= 0)
+        state['main'].activeLayersKeys.splice(indexMain, 1);
+      if (indexSecond >= 0)
+        state['second'].activeLayersKeys.splice(indexSecond, 1);
     } else {
-      const index = state.main.activeLayersKeys.indexOf(layer_key);
+      const index = state[mapkey].activeLayersKeys.indexOf(layer_key);
       if (index >= 0) {
-        state.main.activeLayersKeys.splice(index, 1);
+        state[mapkey].activeLayersKeys.splice(index, 1);
       }
     }
   },
@@ -78,6 +84,8 @@ const actions = {
         const resource = {
           data: {
             geometry: JSON.parse(response.data),
+            style: style.railway,
+            options: options.railway_line,
           },
           key: 'cptm_lines',
         };
@@ -90,6 +98,8 @@ const actions = {
         const resource = {
           data: {
             geometry: JSON.parse(response.data),
+            style: style.railway,
+            options: options.railway_station,
           },
           key: 'cptm_stations',
         };
@@ -102,6 +112,8 @@ const actions = {
         const resource = {
           data: {
             geometry: JSON.parse(response.data),
+            style: style.subway,
+            options: options.subway_line,
           },
           key: 'subway_lines',
         };
@@ -114,6 +126,8 @@ const actions = {
         const resource = {
           data: {
             geometry: JSON.parse(response.data),
+            style: style.subway,
+            options: options.subway_station,
           },
           key: 'subway_stations',
         };
@@ -128,6 +142,8 @@ const actions = {
           const resource = {
             data: {
               geometry: JSON.parse(bikelanes[type]),
+              style: style.bikelane,
+              options: options.bikeLane,
             },
             key: type,
           };
@@ -141,6 +157,8 @@ const actions = {
         const resource = {
           data: {
             geometry: JSON.parse(response.data),
+            style: style.accidents,
+            options: options.accidents,
           },
           key: 'sp_accidents',
         };
@@ -162,8 +180,6 @@ const actions = {
     // dispatch('resetFlows', mapkey, { root: true });
     const gridSize = rootState.filters[mapkey].filters.gridSize;
     const gridOffset = rootState.filters[mapkey].filters.gridOffset;
-    // const gridSize = rootGetters['gridSize'];
-    // const gridOffset = rootGetters['gridOffset'];
     return await axios.post(`${api_url}/grid_layer`, { gridSize, gridOffset })
       .then(res => {
         commit('loadGrid', { layer: res.data, mapkey });
