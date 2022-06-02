@@ -1,6 +1,5 @@
 <template>
   <div id="map">
-    <p>aL {{ activeLayersKeys }}</p>
     <l-map
       :ref="mapkey"
       :zoom="zoom"

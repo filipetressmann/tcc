@@ -59,36 +59,47 @@ const state = {
   ],
   loading_filters: false,
   flows_not_found: false,
-  doubleControl: true,
+  mirrorControl: false,
+  hideSecondMapControl: false,
 };
 
 const getters = {
   activeFilters: state => state.main.activeFilters,
-  // activeFiltersIds: state => state.main.activeFilters.map(f => f.id),
   filters: state => state.main.filters,
-  // flows: state => state.main.flows,
-  // tierList: state => state.main.tripsPerTier,
-  // chartList: state => state.main.charts,
   gridSize: state => state.main.filters.gridSize,
   gridOffset: state => state.main.filters.gridOffset,
-  //
+  
   activeFilters2: state => state.second.activeFilters,
-  // activeFiltersIds2: state => state.second.activeFilters.map(f => f.id),
   filters2: state => state.second.filters,
-  // flows2: state => state.second.flows,
-  // tierList2: state => state.second.tripsPerTier,
-  // chartList2: state => state.second.charts,
   gridSize2: state => state.second.filters.gridSize,
   gridOffset2: state => state.second.filters.gridOffset,
-  //
+  
   loading_filters: state => state.loading_filters,
   flowsNotFound: state => state.flows_not_found,
   gridEditMode: state => state.gridEditMode,
+  activeFiltersCount: state => state.main.activeFilters.length + state.second.activeFilters.length,
+  mirrorFilterControl: state => state.mirrorControl,
+  hideSecondMapFilterControl: state => state.hideSecondMapControl,
 };
 
 const mutations = {
-  addActiveFilter: (state, { filter, mapkey }) => {
-    state[mapkey].activeFilters.push(filter);
+  // addActiveLayer: (state, { layer_key, mapkey, bothMaps }) => {
+  //   if (bothMaps) {
+  //     if (!state['main'].activeLayersKeys.includes(layer_key))
+  //       state['main'].activeLayersKeys.push(layer_key);
+  //     if (!state['second'].activeLayersKeys.includes(layer_key))
+  //       state['second'].activeLayersKeys.push(layer_key);
+  //   } else {
+  //     state[mapkey].activeLayersKeys.push(layer_key);
+  //   }
+  // },
+  addActiveFilter: (state, { filter, mapkey, bothMaps }) => {
+    if (bothMaps) {
+      state['main'].activeFilters.push(filter);
+      state['second'].activeFilters.push(filter);
+    } else {
+      state[mapkey].activeFilters.push(filter);
+    }
     // Vue.set(state, 'loading_filters', false);
   },
   setToken: (state, token) => {
@@ -110,8 +121,13 @@ const mutations = {
   addCharts: (state, { charts }) => {
     Vue.set(state, 'charts', charts);
   },
-  updateFilterParams: (state, { filter: { id, params }, mapkey } ) => {
-    Vue.set(state[mapkey].filters.params, id, params);
+  updateFilterParams: (state, { filter: { id, params }, mapkey, bothMaps } ) => {
+    if (bothMaps) {
+      Vue.set(state['main'].filters.params, id, params);
+      Vue.set(state['second'].filters.params, id, params);
+    } else {
+      Vue.set(state[mapkey].filters.params, id, params);
+    }
   },
   addTripsPerTier: (state, { tier, count, mapkey }) => {
     Vue.set(state[mapkey].tripsPerTier, tier, count);
@@ -138,24 +154,33 @@ const mutations = {
   setGridEditMode(state, { value, mapkey }) {
     Vue.set(state[mapkey], 'gridEditMode', value);
   },
+  toggleMirrorFilterControl: state => {
+    Vue.set(state, 'mirrorControl', !state.mirrorControl);
+  },
+  sethideSecondMapFilterControl: (state, value) => {
+    Vue.set(state, 'hideSecondMapControl', value);
+  },
 };
 
 const actions = {
   addFilter: ({ commit, getters }, filter) => {
-    debugger;
     commit('addFilter', filter);
   },
   removeFilter: ({ commit }, data) => {
     commit('removeActiveFilter', data);
   },
+  // addActiveLayer: ({ commit, getters }, data) => {
+  //   commit('addActiveLayer', { ...data, bothMaps: getters.mirrorLayerControl });
+  // },
   addActiveFilter: ({ commit, getters }, data) => {
     // commit('loading_filters', true);
-    commit('addActiveFilter', data);
+    commit('addActiveFilter', { ...data, bothMaps: getters.mirrorFilterControl });
   },
-  removeActiveFilter: ({ commit, dispatch }, data) => {
+  removeActiveFilter: ({ commit, dispatch, getters }, data) => {
     const { mapkey } = data;
-    commit('removeActiveFilter', data);
-    dispatch('resetMapResource', { mapkey, category: 'flows', type: 'polyline' }); // @@@
+    const bothMaps = getters.mirrorFilterControl;
+    commit('removeActiveFilter', { ...data, bothMaps }); // checking
+    dispatch('resetMapResource', { mapkey, category: 'flows', type: 'polyline', bothMaps }); // @@@
     dispatch('filterData', mapkey);
   },
   filterData: async({ commit, dispatch, getters }, mapkey) => {
@@ -185,9 +210,10 @@ const actions = {
       })
       .then(() => commit('loading_filters', false));
   },
-  updateFilterParams: ({ commit, dispatch }, { filter, mapkey }) => {
-    commit('updateFilterParams', { filter, mapkey });
-    dispatch('resetMapResource', { mapkey, category: 'flows', type: 'polyline' });
+  updateFilterParams: ({ commit, dispatch, getters }, { filter, mapkey }) => {
+    const bothMaps = getters.mirrorFilterControl;
+    commit('updateFilterParams', { filter, mapkey, bothMaps });
+    dispatch('resetMapResource', { mapkey, category: 'flows', type: 'polyline', bothMaps });
     dispatch('filterData', mapkey);
   },
   updateOD: ({ commit }, data) => {
@@ -220,6 +246,12 @@ const actions = {
   },
   setGridEditModeOff({ commit }, mapkey) {
     commit('setGridEditMode', { value: false, mapkey });
+  },
+  toggleMirrorFilterControl: ({ commit }) => {
+    commit('toggleMirrorFilterControl');
+  },
+  sethideSecondMapFilterControl: ({ commit }, value) => {
+    commit('sethideSecondMapFilterControl', value);
   },
 };
 

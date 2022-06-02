@@ -1,7 +1,6 @@
 import Vue from 'vue';
 const state = {
   maps: {
-    sharedControls: true,
     // sharedCenter: { lat: -23.550164466, lng: -46.633664132 },
     sharedZoom: 12,
     /* This object contains info about maps being plotted in the application. Each map object contains a 'properties' object
@@ -176,8 +175,8 @@ const state = {
     },
   },
   developer_mode: false,
-  secondMapIsActive: false,
-  mapControl: 'independent',
+  secondMapIsActive: true,
+  mapControl: 'independent', // { independent, same }
 };
 
 const getters = {
@@ -198,8 +197,14 @@ const mutations = {
   removeFromMap: (state, { mapkey, category, type, key }) => {
     Vue.delete(state.maps[mapkey].show[category][type], key);
   },
-  resetMapResource: (state, { mapkey, category, type }) => {
-    Vue.set(state.maps[mapkey].show[category], type, {});
+  // dispatch('resetMapResource', { mapkey, category: 'flows', type: 'polyline', bothMaps });
+  resetMapResource: (state, { mapkey, category, type, bothMaps }) => {
+    if (bothMaps) {
+      Vue.set(state.maps['main'].show[category], type, {});
+      Vue.set(state.maps['second'].show[category], type, {});
+    } else {
+      Vue.set(state.maps[mapkey].show[category], type, {});
+    }
   },
   hideZones: (state, mapkey) => {
     Vue.set(state.maps[mapkey].show, 'zones', false);

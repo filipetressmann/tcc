@@ -35,7 +35,6 @@ export default {
       'resetMapResource',
       'removeFromMap',
       'addToMap',
-      'mirrorLayerControl',
     ]),
   },
 };

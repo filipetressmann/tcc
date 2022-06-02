@@ -25,9 +25,7 @@
         <template slot="header">
           <span>{{ $t('filters') }}<b-tag rounded>{{ activeFilters.length }}</b-tag></span>
         </template>
-        <Filters mapkey="main" @tab-changed="changeTab" />
-        <hr>
-        <Filters mapkey="second" @tab-changed="changeTab" />
+        <FiltersMapController />
       </b-tab-item>
       <b-tab-item>
         <template slot="header">
@@ -73,16 +71,17 @@ import Filters from './Filters.vue';
 import Charts from '../charts/Charts';
 import Language from '../Language.vue';
 import TabMaps from '../tabs/TabMaps.vue';
-import LayersMapController from '../twomapsmanager/LayersMapController.vue';
+import FiltersMapController from '../tabs/FiltersMapController.vue';
+import LayersMapController from '../tabs/LayersMapController.vue';
 
 export default {
   components: {
-    Filters,
     Tiers,
     BaseLayer,
     Charts,
     Language,
     TabMaps,
+    FiltersMapController,
     LayersMapController,
   },
   data() {

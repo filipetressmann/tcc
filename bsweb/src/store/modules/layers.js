@@ -16,15 +16,15 @@ const state = {
   },
   data: {},
   zones: {},
-  mirrorLayerControl: false,
-  hideSecondMapLayerControl: false,
+  mirrorControl: false,
+  hideSecondMapControl: false,
 };
 
 const getters = {
   layers: state => state.data,
   activeLayersCount: state => state.main.activeLayersKeys.length + state.second.activeLayersKeys.length,
-  mirrorLayerControl: state => state.mirrorLayerControl,
-  hideSecondMapLayerControl: state => state.hideSecondMapLayerControl,
+  mirrorLayerControl: state => state.mirrorControl,
+  hideSecondMapLayerControl: state => state.hideSecondMapControl,
 };
 
 const mutations = {
@@ -46,8 +46,8 @@ const mutations = {
   },
   removeActiveLayer: (state, { layer_key, mapkey, bothMaps }) => {
     if (bothMaps) {
-      const indexMain = state[mapkey].activeLayersKeys.indexOf(layer_key);
-      const indexSecond = state[mapkey].activeLayersKeys.indexOf(layer_key);
+      const indexMain = state['main'].activeLayersKeys.indexOf(layer_key);
+      const indexSecond = state['second'].activeLayersKeys.indexOf(layer_key);
       if (indexMain >= 0)
         state['main'].activeLayersKeys.splice(indexMain, 1);
       if (indexSecond >= 0)
@@ -68,10 +68,10 @@ const mutations = {
     Vue.set(state[mapkey].grid, 'style', style.grid);
   },
   toggleMirrorLayerControl: state => {
-    Vue.set(state, 'mirrorLayerControl', !state.mirrorLayerControl);
+    Vue.set(state, 'mirrorControl', !state.mirrorControl);
   },
   sethideSecondMapLayerControl: (state, value) => {
-    Vue.set(state, 'hideSecondMapLayerControl', value);
+    Vue.set(state, 'hideSecondMapControl', value);
   },
 };
 

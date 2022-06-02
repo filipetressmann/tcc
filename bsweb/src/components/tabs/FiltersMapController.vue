@@ -3,19 +3,19 @@
     <div v-if="secondMapIsActive" class="map-title">
       Mapa da esquerda
     </div>
-    <Layers mapkey="main" />
-    <div v-show="secondMapIsActive && !hideSecondMapLayerControl">
+    <Filters mapkey="main" />
+    <div v-show="secondMapIsActive && !hideSecondMapControl">
       <hr>
       <div class="map-title">
         Mapa da direita
       </div>
-      <Layers mapkey="second" />
+      <Filters mapkey="second" />
     </div>
     <div v-if="secondMapIsActive" class="options">
-      <b-checkbox v-model="mirrorLayerControl" :native-value="mirrorLayerControl" type="is-info">
+      <b-checkbox v-model="mirrorControl" :native-value="mirrorControl" type="is-info">
         <span>Espelhar alterações</span>
       </b-checkbox>
-      <b-checkbox v-model="hideSecondMapLayerControl" :native-value="hideSecondMapLayerControl" type="is-info">
+      <b-checkbox v-model="hideSecondMapControl" :native-value="hideSecondMapControl" type="is-info">
         <span>Ocultar controles da direita</span>
       </b-checkbox>
     </div>
@@ -24,35 +24,35 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import Layers from '../filters/Layers.vue';
+import Filters from '../filters/Filters.vue';
 
 export default {
   components: {
-    Layers,
+    Filters,
   },
   computed: {
     ...mapGetters(['secondMapIsActive']),
-    mirrorLayerControl: {
+    mirrorControl: {
       get() {
-        return this.$store.state.map.mirrorLayerControl;
+        return this.$store.state.filters.mirrorControl;
       },
       set(value) {
-        this.toggleMirrorLayerControl();
+        this.toggleMirrorFilterControl();
       },
     },
-    hideSecondMapLayerControl: {
+    hideSecondMapControl: {
       get() {
-        return this.$store.state.layers.hideSecondMapLayerControl;
+        return this.$store.state.filters.hideSecondMapControl;
       },
       set(value) {
-        this.sethideSecondMapLayerControl(value);
+        this.sethideSecondMapFilterControl(value);
       },
     },
   },
   methods: {
     ...mapActions([
-      'toggleMirrorLayerControl',
-      'sethideSecondMapLayerControl',
+      'toggleMirrorFilterControl',
+      'sethideSecondMapFilterControl',
     ]),
   },
 };
