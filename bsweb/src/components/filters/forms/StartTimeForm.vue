@@ -35,6 +35,8 @@
           icon="clock"
           size="is-small"
           class="timepicker"
+          locale="pt-BR"
+          hour-format="24"
         />
       </div>
     </div>

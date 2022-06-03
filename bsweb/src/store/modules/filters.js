@@ -17,7 +17,24 @@ const state = {
     /* Stores active filters' parameters */
     filters: {
       ut: '',
-      params: {},
+      params: {
+        0: { // StartTimeForm
+          periods: [],
+          specific: false,
+          minTime: new Date(2020, 1, 1, 4, 0, 0),
+          maxTime: new Date(2020, 1, 1, 13, 0, 0),
+          minHours: 4,
+          maxHours: 13,
+        },
+        17: { // FinishTimeForm
+          periods: [],
+          specific: false,
+          minTime: new Date(2020, 1, 1, 4, 0, 0),
+          maxTime: new Date(2020, 1, 1, 13, 0, 0),
+          minHours: 4,
+          maxHours: 13,
+        },
+      },
       baseLayer: 'grid',
       gridSize: default_grid_size,
       gridOffset: {
