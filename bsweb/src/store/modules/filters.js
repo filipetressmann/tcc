@@ -1,10 +1,12 @@
 import Vue from 'vue';
 import axios from 'axios';
+import selectors from '../helpers/default_selectors';
 
 const api_url = process.env.VUE_APP_API_URL;
 const default_grid_size = 20;
 
 const state = {
+  selectors,
   main: {
     activeFilters: [],
     flows: {
@@ -17,24 +19,7 @@ const state = {
     /* Stores active filters' parameters */
     filters: {
       ut: '',
-      params: {
-        0: { // StartTimeForm
-          periods: [],
-          specific: false,
-          minTime: new Date(2020, 1, 1, 4, 0, 0),
-          maxTime: new Date(2020, 1, 1, 13, 0, 0),
-          minHours: 4,
-          maxHours: 13,
-        },
-        17: { // FinishTimeForm
-          periods: [],
-          specific: false,
-          minTime: new Date(2020, 1, 1, 4, 0, 0),
-          maxTime: new Date(2020, 1, 1, 13, 0, 0),
-          minHours: 4,
-          maxHours: 13,
-        },
-      },
+      params: {},
       baseLayer: 'grid',
       gridSize: default_grid_size,
       gridOffset: {
@@ -97,6 +82,7 @@ const getters = {
   activeFiltersCount: state => state.main.activeFilters.length + state.second.activeFilters.length,
   mirrorFilterControl: state => state.mirrorControl,
   hideSecondMapFilterControl: state => state.hideSecondMapControl,
+  selectors: state => state.selectors,
 };
 
 const mutations = {

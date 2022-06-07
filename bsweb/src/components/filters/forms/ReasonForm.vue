@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
   
 export default {
   props: {
@@ -44,12 +44,16 @@ export default {
     filter: { type: Object, required: true },
     mapkey: { type: String, required: true },
   },
-  data() {
-    return {
-      reasons: [],
-    };
-  },
   computed: {
+    ...mapGetters(['selectors']),
+    reasons: {
+      get() {
+        return this.selectors[this.mapkey][this.fid].reasons;
+      },
+      set(value) {
+        this.selectors[this.mapkey][this.fid].reasons = value;
+      },
+    },
     paramsCount() {
       return this.reasons.length;
     },

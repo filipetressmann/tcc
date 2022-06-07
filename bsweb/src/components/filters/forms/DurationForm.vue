@@ -16,18 +16,23 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
   props: {
     fid: { type: Number, required: true },
     mapkey: { type: String, required: true },
   },
-  data() {
-    return {
-      durationRange: [1, 180],
-    };
-  },
   computed: {
+    ...mapGetters(['selectors']),
+    durationRange: {
+      get() {
+        return this.selectors[this.mapkey][this.fid].durationRange;
+      },
+      set(value) {
+        this.selectors[this.mapkey][this.fid].durationRange = value;
+      },
+    },
     setFilterParams() {
       return {
         id: this.fid,

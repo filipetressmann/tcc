@@ -25,6 +25,8 @@
           icon="clock"
           size="is-small"
           class="timepicker"
+          locale="pt-BR"
+          hour-format="24"
         />
       </div>
       <div class="flex">
@@ -35,6 +37,8 @@
           icon="clock"
           size="is-small"
           class="timepicker"
+          locale="pt-BR"
+          hour-format="24"
         />
       </div>
     </div>
@@ -42,7 +46,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
   
 export default {
   props: {
@@ -50,15 +54,40 @@ export default {
     filter: { type: Object, required: true },
     mapkey: { type: String, required: true },
   },
-  data() {
-    return {
-      periods: [],
-      specific: false,
-      minTime: new Date(2020, 1, 1, 4, 0, 0),
-      maxTime: new Date(2020, 1, 1, 13, 0, 0),
-    };
-  },
   computed: {
+    ...mapGetters(['selectors']),
+    periods: {
+      get() {
+        return this.selectors[this.mapkey][this.fid].periods;
+      },
+      set(value) {
+        this.selectors[this.mapkey][this.fid].periods = value;
+      },
+    },
+    specific: {
+      get() {
+        return this.selectors[this.mapkey][this.fid].specific;
+      },
+      set(value) {
+        this.selectors[this.mapkey][this.fid].specific = value;
+      },
+    },
+    minTime: {
+      get() {
+        return this.selectors[this.mapkey][this.fid].minTime;
+      },
+      set(value) {
+        this.selectors[this.mapkey][this.fid].minTime = value;
+      },
+    },
+    maxTime: {
+      get() {
+        return this.selectors[this.mapkey][this.fid].maxTime;
+      },
+      set(value) {
+        this.selectors[this.mapkey][this.fid].maxTime = value;
+      },
+    },
     paramsCount() {
       return this.periods.length + this.specific;
     },

@@ -16,18 +16,23 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
   props: {
     fid: { type: Number, required: true },
     mapkey: { type: String, required: true },
   },
-  data() {
-    return {
-      ageRange: [1, 71],
-    };
-  },
   computed: {
+    ...mapGetters(['selectors']),
+    ageRange: {
+      get() {
+        return this.selectors[this.mapkey][this.fid].ageRange;
+      },
+      set(value) {
+        this.selectors[this.mapkey][this.fid].ageRange = value;
+      },
+    },
     ageLabel() {
       return `${$t(ageField)} ${this.ageRange[0]} - ${this.ageRange[1]}`;
     },

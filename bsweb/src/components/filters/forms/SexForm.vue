@@ -8,23 +8,32 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
   props: {
     fid: { type: Number, required: true },
     filter: { type: Object, required: true },
     mapkey: { type: String, required: true },
   },
-  data() {
-    return {
-      sexes: [
-        'male',
-        'female',
-      ],
-      selectedSexes: [],
-    };
-  },
   computed: {
+    ...mapGetters(['selectors']),
+    sexes: {
+      get() {
+        return this.selectors[this.mapkey][this.fid].sexes;
+      },
+      set(value) {
+        this.selectors[this.mapkey][this.fid].sexes = value;
+      },
+    },
+    selectedSexes: {
+      get() {
+        return this.selectors[this.mapkey][this.fid].selectedSexes;
+      },
+      set(value) {
+        this.selectors[this.mapkey][this.fid].selectedSexes = value;
+      },
+    },
     paramsCount() {
       return this.selectedSexes.length;
     },
