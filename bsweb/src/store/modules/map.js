@@ -197,14 +197,9 @@ const mutations = {
   removeFromMap: (state, { mapkey, category, type, key }) => {
     Vue.delete(state.maps[mapkey].show[category][type], key);
   },
-  // dispatch('resetMapResource', { mapkey, category: 'flows', type: 'polyline', bothMaps });
-  resetMapResource: (state, { mapkey, category, type, bothMaps }) => {
-    if (bothMaps) {
-      Vue.set(state.maps['main'].show[category], type, {});
-      Vue.set(state.maps['second'].show[category], type, {});
-    } else {
-      Vue.set(state.maps[mapkey].show[category], type, {});
-    }
+  // dispatch('resetMapResource', { mapkey, category: 'flows', type: 'polyline' }); // Para referência @@@ (apagar)
+  resetMapResource: (state, { mapkey, category, type }) => {
+    Vue.set(state.maps[mapkey].show[category], type, {});
   },
   hideZones: (state, mapkey) => {
     Vue.set(state.maps[mapkey].show, 'zones', false);

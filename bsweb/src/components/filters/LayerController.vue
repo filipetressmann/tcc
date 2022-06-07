@@ -32,7 +32,6 @@ export default {
     ...mapActions([
       'addActiveLayer',
       'removeActiveLayer',
-      'resetMapResource',
       'removeFromMap',
       'addToMap',
     ]),

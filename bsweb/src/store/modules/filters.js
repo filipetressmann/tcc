@@ -128,7 +128,12 @@ const mutations = {
     if (bothMaps) {
       Vue.set(state['main'].filters.params, id, params);
       Vue.set(state['second'].filters.params, id, params);
+
+      debugger;
+      const mapkey2 = mapkey === 'main' ? 'second' : 'main';
+      state.selectors[mapkey2][id] = state.selectors[mapkey][id];
     } else {
+      debugger;
       Vue.set(state[mapkey].filters.params, id, params);
     }
   },
@@ -182,8 +187,8 @@ const actions = {
   removeActiveFilter: ({ commit, dispatch, getters }, data) => {
     const { mapkey } = data;
     const bothMaps = getters.mirrorFilterControl;
-    commit('removeActiveFilter', { ...data, bothMaps }); // checking
-    dispatch('resetMapResource', { mapkey, category: 'flows', type: 'polyline', bothMaps }); // @@@
+    commit('removeActiveFilter', { ...data, bothMaps });
+    dispatch('resetMapResource', { mapkey, category: 'flows', type: 'polyline' });
     dispatch('filterData', mapkey);
   },
   filterData: async({ commit, dispatch, getters }, mapkey) => {
@@ -215,9 +220,18 @@ const actions = {
   },
   updateFilterParams: ({ commit, dispatch, getters }, { filter, mapkey }) => {
     const bothMaps = getters.mirrorFilterControl;
+    
+    debugger;
     commit('updateFilterParams', { filter, mapkey, bothMaps });
-    dispatch('resetMapResource', { mapkey, category: 'flows', type: 'polyline', bothMaps });
-    dispatch('filterData', mapkey);
+    if (bothMaps) {
+      dispatch('resetMapResource', { mapkey: 'main', category: 'flows', type: 'polyline' });
+      dispatch('resetMapResource', { mapkey: 'second', category: 'flows', type: 'polyline' });
+      dispatch('filterData', 'main');
+      dispatch('filterData', 'second');
+    } else {
+      dispatch('resetMapResource', { mapkey, category: 'flows', type: 'polyline' });
+      dispatch('filterData', mapkey);
+    }
   },
   updateOD: ({ commit }, data) => {
     commit('updateOD', data);

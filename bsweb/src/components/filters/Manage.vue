@@ -67,7 +67,6 @@
 import { mapGetters, mapActions } from 'vuex';
 import BaseLayer from './BaseLayer.vue';
 import Tiers from './Tiers.vue';
-import Filters from './Filters.vue';
 import Charts from '../charts/Charts';
 import Language from '../Language.vue';
 import TabMaps from '../tabs/TabMaps.vue';
