@@ -9,14 +9,6 @@ const state = {
   selectors,
   main: {
     activeFilters: [],
-    flows: {
-      0: [],
-      1: [],
-      2: [],
-      3: [],
-    },
-    tripsPerTier: [0, 0, 0, 0],
-    /* Stores active filters' parameters */
     filters: {
       ut: '',
       params: {},
@@ -33,14 +25,6 @@ const state = {
   },
   second: {
     activeFilters: [],
-    flows: {
-      0: [],
-      1: [],
-      2: [],
-      3: [],
-    },
-    tripsPerTier: [0, 0, 0, 0],
-    /* Stores active filters' parameters */
     filters: {
       ut: '',
       params: {},
@@ -70,12 +54,12 @@ const getters = {
   filters: state => state.main.filters,
   gridSize: state => state.main.filters.gridSize,
   gridOffset: state => state.main.filters.gridOffset,
-  
+
   activeFilters2: state => state.second.activeFilters,
   filters2: state => state.second.filters,
   gridSize2: state => state.second.filters.gridSize,
   gridOffset2: state => state.second.filters.gridOffset,
-  
+
   loading_filters: state => state.loading_filters,
   flowsNotFound: state => state.flows_not_found,
   gridEditMode: state => state.gridEditMode,
@@ -86,16 +70,6 @@ const getters = {
 };
 
 const mutations = {
-  // addActiveLayer: (state, { layer_key, mapkey, bothMaps }) => {
-  //   if (bothMaps) {
-  //     if (!state['main'].activeLayersKeys.includes(layer_key))
-  //       state['main'].activeLayersKeys.push(layer_key);
-  //     if (!state['second'].activeLayersKeys.includes(layer_key))
-  //       state['second'].activeLayersKeys.push(layer_key);
-  //   } else {
-  //     state[mapkey].activeLayersKeys.push(layer_key);
-  //   }
-  // },
   addActiveFilter: (state, { filter, mapkey, bothMaps }) => {
     if (bothMaps) {
       state['main'].activeFilters.push(filter);
@@ -112,9 +86,6 @@ const mutations = {
     state[mapkey].activeFilters = state[mapkey].activeFilters.filter(activeFilter => filter.id !== activeFilter.id);
     Vue.delete(state[mapkey].filters.params, filter.id);
   },
-  addFlows: (state, { tier, flows, mapkey }) => {
-    Vue.set(state[mapkey].flows, tier, flows);
-  },
   addAttractors: (state, { attractors }) => {
     Vue.set(state.heatmaps, 'attractors', attractors);
   },
@@ -124,21 +95,16 @@ const mutations = {
   addCharts: (state, { charts }) => {
     Vue.set(state, 'charts', charts);
   },
-  updateFilterParams: (state, { filter: { id, params }, mapkey, bothMaps } ) => {
+  updateFilterParams: (state, { filter: { id, params }, mapkey, bothMaps }) => {
     if (bothMaps) {
       Vue.set(state['main'].filters.params, id, params);
       Vue.set(state['second'].filters.params, id, params);
 
-      debugger;
       const mapkey2 = mapkey === 'main' ? 'second' : 'main';
       state.selectors[mapkey2][id] = state.selectors[mapkey][id];
     } else {
-      debugger;
       Vue.set(state[mapkey].filters.params, id, params);
     }
-  },
-  addTripsPerTier: (state, { tier, count, mapkey }) => {
-    Vue.set(state[mapkey].tripsPerTier, tier, count);
   },
   updateOD: (state, { value, mapkey }) => {
     Vue.set(state[mapkey].filters, 'baseLayer', value);
@@ -154,10 +120,6 @@ const mutations = {
   },
   setFlowsNotFound(state, value) {
     Vue.set(state, 'flows_not_found', value);
-  },
-  resetFlows(state, mapkey) {
-    Vue.set(state[mapkey], 'flows', { 0: [], 1: [], 2: [], 3: [] });
-    Vue.set(state[mapkey], 'tripsPerTier', [0, 0, 0, 0]);
   },
   setGridEditMode(state, { value, mapkey }) {
     Vue.set(state[mapkey], 'gridEditMode', value);
@@ -177,9 +139,6 @@ const actions = {
   removeFilter: ({ commit }, data) => {
     commit('removeActiveFilter', data);
   },
-  // addActiveLayer: ({ commit, getters }, data) => {
-  //   commit('addActiveLayer', { ...data, bothMaps: getters.mirrorLayerControl });
-  // },
   addActiveFilter: ({ commit, getters }, data) => {
     // commit('loading_filters', true);
     commit('addActiveFilter', { ...data, bothMaps: getters.mirrorFilterControl });
@@ -191,7 +150,7 @@ const actions = {
     dispatch('resetMapResource', { mapkey, category: 'flows', type: 'polyline' });
     dispatch('filterData', mapkey);
   },
-  filterData: async({ commit, dispatch, getters }, mapkey) => {
+  filterData: async ({ commit, dispatch, getters }, mapkey) => {
     commit('loading_filters', true);
     let filters;
     if (mapkey == 'main')
@@ -207,21 +166,22 @@ const actions = {
         let tiers = Object.keys(flows);
         if (tiers.length > 0) {
           tiers.map(tier => {
-            commit('addTripsPerTier', { tier, count: flows[tier].length, mapkey });
-            commit('addFlows', { tier, flows: flows[tier], mapkey });
+            // commit('addTripsPerTier', { tier, count: flows[tier].length, mapkey });
+            // commit('addFlows', { tier, flows: flows[tier], mapkey });
+            dispatch('flows/addTripsPerTier', { tier, count: flows[tier].length, mapkey }, { root: true });
+            dispatch('flows/addFlows', { tier, flows: flows[tier], mapkey }, { root: true });
           });
           commit('setFlowsNotFound', false);
         } else {
           commit('setFlowsNotFound', true);
-          dispatch('resetFlows', mapkey);
+          // dispatch('resetFlows', mapkey);
+          dispatch('flows/resetFlows', mapkey, { root: true });
         }
       })
       .then(() => commit('loading_filters', false));
   },
   updateFilterParams: ({ commit, dispatch, getters }, { filter, mapkey }) => {
     const bothMaps = getters.mirrorFilterControl;
-    
-    debugger;
     commit('updateFilterParams', { filter, mapkey, bothMaps });
     if (bothMaps) {
       dispatch('resetMapResource', { mapkey: 'main', category: 'flows', type: 'polyline' });
@@ -253,9 +213,6 @@ const actions = {
       newGridOffset[key] = value;
       commit('updateGridOffset', { gridOffset: newGridOffset, mapkey });
     }
-  },
-  resetFlows({ commit }, mapkey) {
-    commit('resetFlows', mapkey);
   },
   setGridEditModeOn({ commit }, mapkey) {
     commit('resetFlows', mapkey);

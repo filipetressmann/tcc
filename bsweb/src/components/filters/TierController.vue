@@ -21,8 +21,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters('flows', ['flows']),
     flow() {
-      return this.$store.state.filters[this.mapkey].flows[this.tier];
+      return this.flows[this.mapkey][this.tier];
     },
   },
   watch: {

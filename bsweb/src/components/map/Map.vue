@@ -130,7 +130,6 @@ export default {
       'zoomSecond',
       'mapControl',
       'layers',
-      // 'activeLayers',
     ]),
     ...mapState({
       activeLayersKeys(state) {
@@ -156,17 +155,8 @@ export default {
       },
       // flows: state => state.filters[this.mapkey].flows,
       flows(state) {
-        return state.filters[this.mapkey].flows;
+        return state.flows.flows[this.mapkey];
       },
-      // flows: state => {
-      //   debugger;
-      //   if (state.filters[this.mapkey] == undefined) {
-      //     debugger;
-      //     console.log('UNDEFINED');
-      //   }
-      //   return state.filters[this.mapkey].flows;
-      // },
-      // flows: state => state.filters[this.mapkey].flows,
       zones: state => state.layers.zones,
       // attractors: state => state.filters.heatmaps.attractors,
       // emitters: state => state.filters.heatmaps.emitters,

@@ -26,11 +26,10 @@ export default {
     mapkey: { type: String, required: true },
   },
   computed: {
-    ...mapGetters([
-      'flowsNotFound',
-    ]),
+    ...mapGetters(['flowsNotFound']),
+    ...mapGetters('flows', ['tripsPerTier']),
     tierList() {
-      return this.$store.state.filters[this.mapkey].tripsPerTier;
+      return this.tripsPerTier[this.mapkey];
     },
   },
   watch: {
