@@ -211,8 +211,9 @@ const actions = {
       commit('updateGridOffset', { gridOffset: newGridOffset, mapkey });
     }
   },
-  setGridEditModeOn({ commit }, mapkey) {
-    commit('resetFlows', mapkey);
+  setGridEditModeOn({ commit, dispatch }, mapkey) {
+    // commit('resetFlows', mapkey);
+    dispatch('flows/resetFlows', mapkey, { root: true });
     commit('setGridEditMode', { value: true, mapkey });
   },
   setGridEditModeOff({ commit }, mapkey) {
