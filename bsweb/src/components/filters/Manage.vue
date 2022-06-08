@@ -159,6 +159,8 @@ export default {
   .dev-mode {
     font-size: 12px;
     justify-content: center;
+    display: flex;
+    align-items: center;;
   }
 
   .dev-mode > * {

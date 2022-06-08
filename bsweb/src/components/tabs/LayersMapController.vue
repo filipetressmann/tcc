@@ -45,14 +45,14 @@ export default {
         return this.$store.state.layers.hideSecondMapControl;
       },
       set(value) {
-        this.sethideSecondMapLayerControl(value);
+        this.setHideSecondMapLayerControl(value);
       },
     },
   },
   methods: {
     ...mapActions([
       'toggleMirrorLayerControl',
-      'sethideSecondMapLayerControl',
+      'setHideSecondMapLayerControl',
     ]),
   },
 };

@@ -26,33 +26,24 @@ export default {
       },
       set() {
         this.toggleSelector({ mapkey: this.mapkey, tier: this.tier });
-        // this.selectors[this.mapkey][this.tier] = value;
       },
     },
   },
-  // watch:{ myComputedProperty : { handler(newVal){ //do something when change happens
-  // }, deep: true}}
   watch: {
-    isActive: {
-      handler(value) {
-        console.log('isActive changed', value);
-        // debugger;
-        const data = {
-          mapkey: this.mapkey,
-          category: 'flows',
-          type: 'polyline',
-          key: this.tier,
-        };
-        if (value) {
-          this.addToMap(data);
-        } else {
-          this.removeFromMap(data);
-        }
-      },
-      deep: true,
+    isActive(value) {
+      const data = {
+        mapkey: this.mapkey,
+        category: 'flows',
+        type: 'polyline',
+        key: this.tier,
+      };
+      if (value) {
+        this.addToMap(data);
+      } else {
+        this.removeFromMap(data);
+      }
     },
     flow() {
-      console.log('flow changed');
       if (this.isActive) {
         this.addToMap({
           mapkey: this.mapkey,

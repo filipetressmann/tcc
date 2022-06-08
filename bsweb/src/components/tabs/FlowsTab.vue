@@ -42,17 +42,17 @@ export default {
     },
     hideSecondMapControl: {
       get() {
-        return this.$store.state.flows.hideSecondMapControl;
+        return this.$store.state.flows.hideSecondMapFlowsControl;
       },
       set(value) {
-        this.sethideSecondMapFlowsControl(value);
+        this.setHideSecondMapFlowsControl(value);
       },
     },
   },
   methods: {
     ...mapActions('flows', [
       'toggleMirrorFlowsControl',
-      'sethideSecondMapFlowsControl',
+      'setHideSecondMapFlowsControl',
     ]),
   },
 };

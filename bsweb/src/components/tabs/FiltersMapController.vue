@@ -45,14 +45,14 @@ export default {
         return this.$store.state.filters.hideSecondMapControl;
       },
       set(value) {
-        this.sethideSecondMapFilterControl(value);
+        this.setHideSecondMapFilterControl(value);
       },
     },
   },
   methods: {
     ...mapActions([
       'toggleMirrorFilterControl',
-      'sethideSecondMapFilterControl',
+      'setHideSecondMapFilterControl',
     ]),
   },
 };

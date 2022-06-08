@@ -23,7 +23,7 @@ const state = {
     main: [false, false, false, false],
     second: [false, false, false, false],
   },
-  mirrorControl: false,
+  mirrorControl: true,
   hideSecondMapControl: false,
   mirrorFlowsControl: state => state.mirrorControl,
   hideSecondMapFlowsControl: state => state.hideSecondMapControl,
@@ -51,6 +51,9 @@ const actions = {
   toggleSelector: ({ commit }, data) => {
     commit('toggleSelector', data);
   },
+  setHideSecondMapFlowsControl: ({ commit }, value) => {
+    commit('setHideSecondMapFlowsControl', value);
+  },
 };
 
 const mutations = {
@@ -65,11 +68,19 @@ const mutations = {
     Vue.set(state.tripsPerTier, mapkey, [0, 0, 0, 0]);
   },
   toggleSelector: (state, { mapkey, tier }) => {
-    const value = state.selectors[mapkey][tier];
-    Vue.set(state.selectors[mapkey], tier, !value);
+    const newValue = !state.selectors[mapkey][tier];
+    if (state.mirrorControl) {
+      Vue.set(state.selectors['main'], tier, newValue);
+      Vue.set(state.selectors['second'], tier, newValue);
+    } else {
+      Vue.set(state.selectors[mapkey], tier, newValue);
+    }
   },
   toggleMirrorFlowsControl: state => {
     Vue.set(state, 'mirrorControl', !state.mirrorControl);
+  },
+  setHideSecondMapFlowsControl: (state, value) => {
+    Vue.set(state, 'hideSecondMapFlowsControl', value);
   },
 };
 

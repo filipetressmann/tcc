@@ -1,7 +1,7 @@
-import Vue from 'vue';
 import axios from 'axios';
-import * as style from '../helpers/style_layers';
+import Vue from 'vue';
 import * as options from '../helpers/option_helpers';
+import * as style from '../helpers/style_layers';
 
 const api_url = process.env.VUE_APP_API_URL;
 
@@ -70,7 +70,7 @@ const mutations = {
   toggleMirrorLayerControl: state => {
     Vue.set(state, 'mirrorControl', !state.mirrorControl);
   },
-  sethideSecondMapLayerControl: (state, value) => {
+  setHideSecondMapLayerControl: (state, value) => {
     Vue.set(state, 'hideSecondMapControl', value);
   },
 };
@@ -202,8 +202,8 @@ const actions = {
   toggleMirrorLayerControl: ({ commit }) => {
     commit('toggleMirrorLayerControl');
   },
-  sethideSecondMapLayerControl: ({ commit }, value) => {
-    commit('sethideSecondMapLayerControl', value);
+  setHideSecondMapLayerControl: ({ commit }, value) => {
+    commit('setHideSecondMapLayerControl', value);
   },
 };
 

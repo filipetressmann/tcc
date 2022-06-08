@@ -127,7 +127,7 @@ const mutations = {
   toggleMirrorFilterControl: state => {
     Vue.set(state, 'mirrorControl', !state.mirrorControl);
   },
-  sethideSecondMapFilterControl: (state, value) => {
+  setHideSecondMapFilterControl: (state, value) => {
     Vue.set(state, 'hideSecondMapControl', value);
   },
 };
@@ -221,8 +221,8 @@ const actions = {
   toggleMirrorFilterControl: ({ commit }) => {
     commit('toggleMirrorFilterControl');
   },
-  sethideSecondMapFilterControl: ({ commit }, value) => {
-    commit('sethideSecondMapFilterControl', value);
+  setHideSecondMapFilterControl: ({ commit }, value) => {
+    commit('setHideSecondMapFilterControl', value);
   },
 };
 
