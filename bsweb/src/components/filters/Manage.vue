@@ -17,8 +17,7 @@
         </template>
         <BaseLayer mapkey="main" />
         <BaseLayer mapkey="second" />
-        <Tiers v-show="!gridEditMode" mapkey="main" />
-        <Tiers v-show="!gridEditMode" mapkey="second" />
+        <FlowsTab />
         <hr>
       </b-tab-item>
       <b-tab-item>
@@ -72,16 +71,17 @@ import Language from '../Language.vue';
 import TabMaps from '../tabs/TabMaps.vue';
 import FiltersMapController from '../tabs/FiltersMapController.vue';
 import LayersMapController from '../tabs/LayersMapController.vue';
+import FlowsTab from '../tabs/FlowsTab.vue';
 
 export default {
   components: {
-    Tiers,
     BaseLayer,
     Charts,
     Language,
     TabMaps,
     FiltersMapController,
     LayersMapController,
+    FlowsTab,
   },
   data() {
     return {

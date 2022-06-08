@@ -15,32 +15,44 @@ export default {
     count: { type: Number, required: true },
     mapkey: { type: String, required: true },
   },
-  data() {
-    return {
-      isActive: false,
-    };
-  },
   computed: {
-    ...mapGetters('flows', ['flows']),
+    ...mapGetters('flows', ['flows', 'selectors']),
     flow() {
       return this.flows[this.mapkey][this.tier];
     },
+    isActive: {
+      get() {
+        return this.selectors[this.mapkey][this.tier];
+      },
+      set() {
+        this.toggleSelector({ mapkey: this.mapkey, tier: this.tier });
+        // this.selectors[this.mapkey][this.tier] = value;
+      },
+    },
   },
+  // watch:{ myComputedProperty : { handler(newVal){ //do something when change happens
+  // }, deep: true}}
   watch: {
-    isActive: function(value) {
-      const data = {
-        mapkey: this.mapkey,
-        category: 'flows',
-        type: 'polyline',
-        key: this.tier,
-      };
-      if (value) {
-        this.addToMap(data);
-      } else {
-        this.removeFromMap(data);
-      }
+    isActive: {
+      handler(value) {
+        console.log('isActive changed', value);
+        // debugger;
+        const data = {
+          mapkey: this.mapkey,
+          category: 'flows',
+          type: 'polyline',
+          key: this.tier,
+        };
+        if (value) {
+          this.addToMap(data);
+        } else {
+          this.removeFromMap(data);
+        }
+      },
+      deep: true,
     },
     flow() {
+      console.log('flow changed');
       if (this.isActive) {
         this.addToMap({
           mapkey: this.mapkey,
@@ -56,6 +68,7 @@ export default {
       'addToMap',
       'removeFromMap',
     ]),
+    ...mapActions('flows', ['toggleSelector']),
   },
 };
 </script>
