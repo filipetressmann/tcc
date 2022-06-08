@@ -1,5 +1,5 @@
-import Vue from 'vue';
 import axios from 'axios';
+import Vue from 'vue';
 import selectors from '../helpers/default_selectors';
 
 const api_url = process.env.VUE_APP_API_URL;
@@ -166,15 +166,12 @@ const actions = {
         let tiers = Object.keys(flows);
         if (tiers.length > 0) {
           tiers.map(tier => {
-            // commit('addTripsPerTier', { tier, count: flows[tier].length, mapkey });
-            // commit('addFlows', { tier, flows: flows[tier], mapkey });
             dispatch('flows/addTripsPerTier', { tier, count: flows[tier].length, mapkey }, { root: true });
             dispatch('flows/addFlows', { tier, flows: flows[tier], mapkey }, { root: true });
           });
           commit('setFlowsNotFound', false);
         } else {
           commit('setFlowsNotFound', true);
-          // dispatch('resetFlows', mapkey);
           dispatch('flows/resetFlows', mapkey, { root: true });
         }
       })
