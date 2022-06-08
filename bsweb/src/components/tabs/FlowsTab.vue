@@ -18,6 +18,11 @@
       <b-checkbox v-model="hideSecondMapControl" :native-value="hideSecondMapControl" type="is-info">
         <span>Ocultar controles da direita</span>
       </b-checkbox>
+      <Button
+        text="Copiar"
+        title="Copiar configurações entre os mapas"
+        :handle-click="teste"
+      />
     </div>
   </div>
 </template>
@@ -25,10 +30,12 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import Tiers from '../filters/Tiers.vue';
+import Button from '@/components/buttons/Button.vue';
 
 export default {
   components: {
     Tiers,
+    Button,
   },
   computed: {
     ...mapGetters(['gridEditMode', 'secondMapIsActive']),
@@ -42,7 +49,7 @@ export default {
     },
     hideSecondMapControl: {
       get() {
-        return this.$store.state.flows.hideSecondMapFlowsControl;
+        return this.$store.state.flows.hideSecondMapControl;
       },
       set(value) {
         this.setHideSecondMapFlowsControl(value);
@@ -54,6 +61,9 @@ export default {
       'toggleMirrorFlowsControl',
       'setHideSecondMapFlowsControl',
     ]),
+    teste() {
+      console.log('teste');
+    },
   },
 };
 </script>
@@ -70,4 +80,5 @@ export default {
 .options span {
     font-size: 12px;
   }
+  
 </style>

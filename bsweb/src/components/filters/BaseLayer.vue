@@ -20,13 +20,12 @@
       </b-radio>
     </div>
     <div v-if="od == 'grid'">
-      <div
-        v-if="!gridEditMode"
-        class="edit-grid-button"
-        :title="this.$t('onHover.gridEditMode')"
-        @click="setGridEditModeOn(mapkey)"
-      >
-        <span>{{ $t("buttons.gridEditMode") }}</span>
+      <div v-if="!gridEditMode">
+        <Button
+          :text="this.$t('buttons.gridEditMode')"
+          :title="this.$t('onHover.gridEditMode')"
+          :handle-click="() => setGridEditModeOn(mapkey)"
+        />
       </div>
       <div v-if="gridEditMode">
         <GridForm :mapkey="mapkey" />
@@ -38,10 +37,12 @@
 <script>
 import { mapGetters, mapActions, mapMutations, mapState } from 'vuex';
 import GridForm from '@/components/filters/forms/GridForm';
+import Button from '@/components/buttons/Button.vue';
 
 export default {
   components: {
     GridForm,
+    Button,
   },
   props: {
     mapkey: { type: String, required: true },
@@ -102,20 +103,4 @@ export default {
   font-size: 12px;
 }
 
-.edit-grid-button {
-  cursor: pointer;
-  border: 1px solid #167df0;
-  border-radius: 5px;
-  width: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 20px 0;
-  font-size: 12px;
-  color: #167df0;
-}
-.edit-grid-button:hover {
-  color: #363636;
-  background-color: #ddd;
-}
 </style>

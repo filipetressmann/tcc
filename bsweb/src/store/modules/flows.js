@@ -23,16 +23,16 @@ const state = {
     main: [false, false, false, false],
     second: [false, false, false, false],
   },
-  mirrorControl: true,
+  mirrorControl: false,
   hideSecondMapControl: false,
-  mirrorFlowsControl: state => state.mirrorControl,
-  hideSecondMapFlowsControl: state => state.hideSecondMapControl,
 };
 
 const getters = {
   flows: state => state.flows,
   tripsPerTier: state => state.tripsPerTier,
   selectors: state => state.selectors,
+  mirrorFlowsControl: state => state.mirrorControl,
+  hideSecondMapFlowsControl: state => state.hideSecondMapControl,
 };
 
 const actions = {
@@ -80,7 +80,7 @@ const mutations = {
     Vue.set(state, 'mirrorControl', !state.mirrorControl);
   },
   setHideSecondMapFlowsControl: (state, value) => {
-    Vue.set(state, 'hideSecondMapFlowsControl', value);
+    Vue.set(state, 'hideSecondMapControl', value);
   },
 };
 
