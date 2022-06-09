@@ -2,20 +2,20 @@
   <div v-if="secondMapIsActive">
     <div v-if="!copying">
       <Button
-        text="Copiar fluxos selecionados"
-        title="Copiar fluxos entre os mapas"
+        text="Copiar camadas selecionadas"
+        title="Copiar camadas entre os mapas"
         :handle-click="activate"
       />
     </div>
     <div v-if="copying">
       <Button
         text="Da esquerda para a direita"
-        title="Copiar fluxos selecionados do mapa da esquerda para o da direita"
+        title="Copiar camadas selecionadas do mapa da esquerda para o da direita"
         :handle-click="() => copyTo('second')"
       />
       <Button
         text="Da direita para a esquerda"
-        title="Copiar fluxos selecionados do mapa da direita para o da esquerda"
+        title="Copiar camadas selecionadas do mapa da direita para o da esquerda"
         :handle-click="() => copyTo('main')"
       />
     </div>
@@ -35,22 +35,21 @@ export default {
       copying: false,
     };
   },
+  computed: {
+    ...mapGetters(['secondMapIsActive']),
+  },
   methods: {
-    ...mapActions('flows', ['copySelectedFlowsTo']),
+    ...mapActions(['copySelectedLayersTo']),
     copyTo(mapkey) {
-      this.copySelectedFlowsTo(mapkey);
+      this.copySelectedLayersTo(mapkey);
       this.copying = false;
     },
     activate() {
       this.copying = true;
     },
   },
-  computed: {
-    ...mapGetters(['secondMapIsActive']),
-  },
 };
 </script>
 
 <style scoped>
-
 </style>

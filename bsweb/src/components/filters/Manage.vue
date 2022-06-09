@@ -30,13 +30,13 @@
         <template slot="header">
           <span>{{ $t('layers') }}<b-tag rounded>{{ activeLayersCount }}</b-tag></span>
         </template>
-        <LayersMapController />
+        <LayersTab />
       </b-tab-item>
       <b-tab-item>
         <template slot="header">
           <span class="custom-size2">{{ $t('maps') }}</span>
         </template>
-        <TabMaps />
+        <MapsTab />
       </b-tab-item>
       <b-tab-item v-if="false">
         <template slot="header">
@@ -68,9 +68,9 @@ import BaseLayer from './BaseLayer.vue';
 import Tiers from './Tiers.vue';
 import Charts from '../charts/Charts';
 import Language from '../Language.vue';
-import TabMaps from '../tabs/TabMaps.vue';
+import MapsTab from '../tabs/MapsTab.vue';
 import FiltersMapController from '../tabs/FiltersMapController.vue';
-import LayersMapController from '../tabs/LayersMapController.vue';
+import LayersTab from '../tabs/LayersTab.vue';
 import FlowsTab from '../tabs/FlowsTab.vue';
 
 export default {
@@ -78,9 +78,9 @@ export default {
     BaseLayer,
     Charts,
     Language,
-    TabMaps,
+    MapsTab,
     FiltersMapController,
-    LayersMapController,
+    LayersTab,
     FlowsTab,
   },
   data() {

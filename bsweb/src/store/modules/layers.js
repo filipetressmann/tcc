@@ -27,54 +27,6 @@ const getters = {
   hideSecondMapLayerControl: state => state.hideSecondMapControl,
 };
 
-const mutations = {
-  addLayer: (state, resource) => {
-    Vue.set(state.data, resource.key, resource.data);
-  },
-  removeLayer: (state, resource) => {
-    delete state.data[resource.key];
-  },
-  addActiveLayer: (state, { layer_key, mapkey, bothMaps }) => {
-    if (bothMaps) {
-      if (!state['main'].activeLayersKeys.includes(layer_key))
-        state['main'].activeLayersKeys.push(layer_key);
-      if (!state['second'].activeLayersKeys.includes(layer_key))
-        state['second'].activeLayersKeys.push(layer_key);
-    } else {
-      state[mapkey].activeLayersKeys.push(layer_key);
-    }
-  },
-  removeActiveLayer: (state, { layer_key, mapkey, bothMaps }) => {
-    if (bothMaps) {
-      const indexMain = state['main'].activeLayersKeys.indexOf(layer_key);
-      const indexSecond = state['second'].activeLayersKeys.indexOf(layer_key);
-      if (indexMain >= 0)
-        state['main'].activeLayersKeys.splice(indexMain, 1);
-      if (indexSecond >= 0)
-        state['second'].activeLayersKeys.splice(indexSecond, 1);
-    } else {
-      const index = state[mapkey].activeLayersKeys.indexOf(layer_key);
-      if (index >= 0) {
-        state[mapkey].activeLayersKeys.splice(index, 1);
-      }
-    }
-  },
-  loadZones: (state, layer) => {
-    Vue.set(state.zones, 'geometry', layer);
-    Vue.set(state.zones, 'style', style.zones);
-  },
-  loadGrid: (state, { layer, mapkey }) => {
-    Vue.set(state[mapkey].grid, 'geometry', layer);
-    Vue.set(state[mapkey].grid, 'style', style.grid);
-  },
-  toggleMirrorLayerControl: state => {
-    Vue.set(state, 'mirrorControl', !state.mirrorControl);
-  },
-  setHideSecondMapLayerControl: (state, value) => {
-    Vue.set(state, 'hideSecondMapControl', value);
-  },
-};
-
 const actions = {
   addLayer: ({ commit }, resource) => {
     commit('addLayer', resource);
@@ -204,6 +156,61 @@ const actions = {
   },
   setHideSecondMapLayerControl: ({ commit }, value) => {
     commit('setHideSecondMapLayerControl', value);
+  },
+  copySelectedLayersTo: ({ commit }, mapkey) => {
+    commit('copySelectedLayersTo', mapkey);
+  },
+};
+
+const mutations = {
+  addLayer: (state, resource) => {
+    Vue.set(state.data, resource.key, resource.data);
+  },
+  removeLayer: (state, resource) => {
+    delete state.data[resource.key];
+  },
+  addActiveLayer: (state, { layer_key, mapkey, bothMaps }) => {
+    if (bothMaps) {
+      if (!state['main'].activeLayersKeys.includes(layer_key))
+        state['main'].activeLayersKeys.push(layer_key);
+      if (!state['second'].activeLayersKeys.includes(layer_key))
+        state['second'].activeLayersKeys.push(layer_key);
+    } else {
+      state[mapkey].activeLayersKeys.push(layer_key);
+    }
+  },
+  removeActiveLayer: (state, { layer_key, mapkey, bothMaps }) => {
+    if (bothMaps) {
+      const indexMain = state['main'].activeLayersKeys.indexOf(layer_key);
+      const indexSecond = state['second'].activeLayersKeys.indexOf(layer_key);
+      if (indexMain >= 0)
+        state['main'].activeLayersKeys.splice(indexMain, 1);
+      if (indexSecond >= 0)
+        state['second'].activeLayersKeys.splice(indexSecond, 1);
+    } else {
+      const index = state[mapkey].activeLayersKeys.indexOf(layer_key);
+      if (index >= 0) {
+        state[mapkey].activeLayersKeys.splice(index, 1);
+      }
+    }
+  },
+  loadZones: (state, layer) => {
+    Vue.set(state.zones, 'geometry', layer);
+    Vue.set(state.zones, 'style', style.zones);
+  },
+  loadGrid: (state, { layer, mapkey }) => {
+    Vue.set(state[mapkey].grid, 'geometry', layer);
+    Vue.set(state[mapkey].grid, 'style', style.grid);
+  },
+  toggleMirrorLayerControl: state => {
+    Vue.set(state, 'mirrorControl', !state.mirrorControl);
+  },
+  setHideSecondMapLayerControl: (state, value) => {
+    Vue.set(state, 'hideSecondMapControl', value);
+  },
+  copySelectedLayersTo: ({ commit }, mapkey) => {
+    const mapkeyFrom = mapkey === 'main' ? 'second' : 'main';
+    Vue.set(state[mapkey], 'activeLayersKeys', [...state[mapkeyFrom].activeLayersKeys]);
   },
 };
 

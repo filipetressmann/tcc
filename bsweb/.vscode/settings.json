@@ -1,0 +1,11 @@
+{
+  "editor.tabSize": 2,
+  "editor.codeActionsOnSave": [
+      "source.organizeImports",
+      "source.fixAll.eslint",
+  ],
+  "eslint.validate": [
+      "javascript",
+  ],
+  "javascript.updateImportsOnFileMove.enabled": "always",
+}

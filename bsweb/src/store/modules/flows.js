@@ -54,8 +54,8 @@ const actions = {
   setHideSecondMapFlowsControl: ({ commit }, value) => {
     commit('setHideSecondMapFlowsControl', value);
   },
-  copyFlowsTo: ({ commit }, mapkey) => {
-    commit('copyFlowsTo', mapkey);
+  copySelectedFlowsTo: ({ commit }, mapkey) => {
+    commit('copySelectedFlowsTo', mapkey);
   },
 };
 
@@ -85,7 +85,7 @@ const mutations = {
   setHideSecondMapFlowsControl: (state, value) => {
     Vue.set(state, 'hideSecondMapControl', value);
   },
-  copyFlowsTo: (state, mapkey) => {
+  copySelectedFlowsTo: (state, mapkey) => {
     const mapkeyFrom = mapkey === 'main' ? 'second' : 'main';
     Vue.set(state.selectors, mapkey, { ...state.selectors[mapkeyFrom] });
   },
