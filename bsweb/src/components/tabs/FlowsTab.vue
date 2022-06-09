@@ -18,11 +18,7 @@
       <b-checkbox v-model="hideSecondMapControl" :native-value="hideSecondMapControl" type="is-info">
         <span>Ocultar controles da direita</span>
       </b-checkbox>
-      <Button
-        text="Copiar"
-        title="Copiar configurações entre os mapas"
-        :handle-click="teste"
-      />
+      <CopyFlows />
     </div>
   </div>
 </template>
@@ -30,12 +26,12 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import Tiers from '../filters/Tiers.vue';
-import Button from '@/components/buttons/Button.vue';
+import CopyFlows from '@/components/buttons/copy-settings/CopyFlows.vue';
 
 export default {
   components: {
     Tiers,
-    Button,
+    CopyFlows,
   },
   computed: {
     ...mapGetters(['gridEditMode', 'secondMapIsActive']),

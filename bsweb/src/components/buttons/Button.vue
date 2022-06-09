@@ -23,11 +23,12 @@ export default {
   cursor: pointer;
   border: 1px solid #167df0;
   border-radius: 5px;
-  width: 80px;
+  width: fit-content;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 20px 0;
+  padding: 0 5px;
   font-size: 12px;
   color: #167df0;
 }
