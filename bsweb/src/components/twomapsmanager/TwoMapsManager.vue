@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div v-if="secondMapIsActive" class="wrapper">
     <div class="content">
       <div class="field">
         <b-radio
@@ -12,7 +12,7 @@
           <span class="label">Mover os mapas separadamente</span>
         </b-radio>
       </div>
-      <div class="fieldasd">
+      <div class="field">
         <b-radio
           v-model="mapControl"
           native-value="same"
@@ -28,10 +28,11 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   computed: {
+    ...mapGetters(['secondMapIsActive']),
     mapControl: {
       get() {
         return this.$store.state.map.mapControl;

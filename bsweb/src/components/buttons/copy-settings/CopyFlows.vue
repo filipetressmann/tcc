@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="secondMapIsActive">
     <div v-if="!copying">
       <Button
         text="Copiar fluxos selecionados"
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import Button from '@/components/buttons/Button.vue';
 
 export default {
@@ -44,6 +44,9 @@ export default {
     activate() {
       this.copying = true;
     },
+  },
+  computed: {
+    ...mapGetters(['secondMapIsActive']),
   },
 };
 </script>
