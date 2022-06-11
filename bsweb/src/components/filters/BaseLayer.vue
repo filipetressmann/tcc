@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-show="mapkey === 'main' || (secondMapIsActive && !hideSecondMapFlowsControl)">
     <div>
       <span class="label">{{ $t("baseLayer") }}</span>
       <b-radio
@@ -56,6 +56,8 @@ export default {
     ...mapGetters({
       filterParams: 'filters',
     }),
+    ...mapGetters(['secondMapIsActive']),
+    ...mapGetters('flows', ['hideSecondMapFlowsControl']),
     ...mapState({
       gridEditMode(state) {
         return state.filters[this.mapkey].gridEditMode;
