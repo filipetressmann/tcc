@@ -93,6 +93,7 @@ export default {
     ]),
     ...mapMutations(['showZones', 'hideZones', 'showGrid', 'hideGrid']),
     ...mapActions('loading', ['setLoading', 'unsetLoading']),
+    ...mapActions('flows', ['resetFlows']),
   },
 };
 </script>
