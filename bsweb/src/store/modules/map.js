@@ -175,7 +175,7 @@ const state = {
     },
   },
   developer_mode: false,
-  secondMapIsActive: false,
+  secondMapIsActive: true,
   mapControl: 'independent', // { independent, same }
 };
 
@@ -190,6 +190,34 @@ const getters = {
   mapControl: state => state.mapControl,
 };
 
+const actions = {
+  addToMap: (context, data) => {
+    context.commit('addToMap', data);
+  },
+  removeFromMap: (context, data) => {
+    context.commit('removeFromMap', data);
+  },
+  resetMapResource: (context, data) => {
+    debugger;
+    context.commit('resetMapResource', data);
+  },
+  toggleDeveloperMode: ({ commit }) => {
+    commit('toggleDeveloperMode');
+  },
+  updateCenter: ({ commit }, { mapkey, center }) => {
+    commit('updateCenter', { mapkey, center });
+  },
+  updateZoom: ({ commit }, { mapkey, zoom }) => {
+    commit('updateZoom', { mapkey, zoom });
+  },
+  toggleSecondMap: ({ commit }) => {
+    commit('toggleSecondMap');
+  },
+  changeMapControl: ({ commit }, value) => {
+    commit('changeMapControl', value);
+  },
+};
+
 const mutations = {
   addToMap: (state, { mapkey, category, type, key, options }) => {
     Vue.set(state.maps[mapkey].show[category][type], key, options);
@@ -197,8 +225,8 @@ const mutations = {
   removeFromMap: (state, { mapkey, category, type, key }) => {
     Vue.delete(state.maps[mapkey].show[category][type], key);
   },
-  // dispatch('resetMapResource', { mapkey, category: 'flows', type: 'polyline' }); // Para referência @@@ (apagar)
   resetMapResource: (state, { mapkey, category, type }) => {
+    debugger;
     Vue.set(state.maps[mapkey].show[category], type, {});
   },
   hideZones: (state, mapkey) => {
@@ -243,36 +271,9 @@ const mutations = {
   },
 };
 
-const actions = {
-  addToMap: (context, data) => {
-    context.commit('addToMap', data);
-  },
-  removeFromMap: (context, data) => {
-    context.commit('removeFromMap', data);
-  },
-  resetMapResource: (context, data) => {
-    context.commit('resetMapResource', data);
-  },
-  toggleDeveloperMode: ({ commit }) => {
-    commit('toggleDeveloperMode');
-  },
-  updateCenter: ({ commit }, { mapkey, center }) => {
-    commit('updateCenter', { mapkey, center });
-  },
-  updateZoom: ({ commit }, { mapkey, zoom }) => {
-    commit('updateZoom', { mapkey, zoom });
-  },
-  toggleSecondMap: ({ commit }) => {
-    commit('toggleSecondMap');
-  },
-  changeMapControl: ({ commit }, value) => {
-    commit('changeMapControl', value);
-  },
-};
-
 export default {
   state,
   getters,
-  mutations,
   actions,
+  mutations,
 };

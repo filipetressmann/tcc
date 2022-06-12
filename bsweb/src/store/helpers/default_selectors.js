@@ -115,4 +115,64 @@ const selectors = {
   },
 };
 
+export const copySelector = selector => {
+  return {
+    0: { // StartTimeForm
+      periods: selector['0'].periods,
+      specific: selector['0'].specific,
+      minTime: selector['0'].minTime,
+      maxTime: selector['0'].maxTime,
+    },
+    5: { // Duration
+      durationRange: selector['5'].durationRange,
+    },
+    6: { // Reasons
+      reasons: selector['6'].reasons,
+    },
+    7: { // Sexes
+      sexes: [
+        'male',
+        'female',
+      ],
+      selectedSexes: selector['7'].selectedSexes,
+    },
+    8: {
+      ageRange: selector['8'].ageRange, // Age range
+    },
+    9: { // Income
+      incomeBracket: selector['9'].incomeBracket, // array com checkboxes marcados
+      incomeInterval: selector['9'].incomeBracket,
+      mode: selector['9'].mode,
+      incomeBracketBounds: {
+        1: {
+          min: 0,
+          max: 1908,
+        },
+        2: {
+          min: 1908,
+          max: 3816,
+        },
+        3: {
+          min: 3816,
+          max: 7632,
+        },
+        4: {
+          min: 7632,
+          max: 11488,
+        },
+        5: {
+          min: 11448,
+          max: 42916,
+        },
+      },
+    },
+    17: { // FinishTimeForm
+      periods: selector['17'].periods,
+      specific: selector['17'].specific,
+      minTime: selector['17'].minTime,
+      maxTime: selector['17'].maxTime,
+    },
+  };
+};
+
 export default selectors;

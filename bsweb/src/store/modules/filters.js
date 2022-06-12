@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Vue from 'vue';
-import selectors from '../helpers/default_selectors';
+import selectors, { copySelector } from '../helpers/default_selectors';
 
 const api_url = process.env.VUE_APP_API_URL;
 const default_grid_size = 20;
@@ -47,6 +47,7 @@ const state = {
   flows_not_found: false,
   mirrorControl: false,
   hideSecondMapControl: false,
+  freezeUpdates: false,
 };
 
 const getters = {
@@ -69,69 +70,6 @@ const getters = {
   selectors: state => state.selectors,
 };
 
-const mutations = {
-  addActiveFilter: (state, { filter, mapkey, bothMaps }) => {
-    if (bothMaps) {
-      state['main'].activeFilters.push(filter);
-      state['second'].activeFilters.push(filter);
-    } else {
-      state[mapkey].activeFilters.push(filter);
-    }
-    // Vue.set(state, 'loading_filters', false);
-  },
-  setToken: (state, token) => {
-    Vue.set(state.filters, 'ut', token);
-  },
-  removeActiveFilter: (state, { filter, mapkey }) => {
-    state[mapkey].activeFilters = state[mapkey].activeFilters.filter(activeFilter => filter.id !== activeFilter.id);
-    Vue.delete(state[mapkey].filters.params, filter.id);
-  },
-  addAttractors: (state, { attractors }) => {
-    Vue.set(state.heatmaps, 'attractors', attractors);
-  },
-  addEmitters: (state, { emitters }) => {
-    Vue.set(state.heatmaps, 'emitters', emitters);
-  },
-  addCharts: (state, { charts }) => {
-    Vue.set(state, 'charts', charts);
-  },
-  updateFilterParams: (state, { filter: { id, params }, mapkey, bothMaps }) => {
-    if (bothMaps) {
-      Vue.set(state['main'].filters.params, id, params);
-      Vue.set(state['second'].filters.params, id, params);
-
-      const mapkey2 = mapkey === 'main' ? 'second' : 'main';
-      state.selectors[mapkey2][id] = state.selectors[mapkey][id];
-    } else {
-      Vue.set(state[mapkey].filters.params, id, params);
-    }
-  },
-  updateOD: (state, { value, mapkey }) => {
-    Vue.set(state[mapkey].filters, 'baseLayer', value);
-  },
-  updateGridSize(state, { gridSize, mapkey }) {
-    Vue.set(state[mapkey].filters, 'gridSize', gridSize);
-  },
-  updateGridOffset(state, { gridOffset, mapkey }) {
-    Vue.set(state[mapkey].filters, 'gridOffset', gridOffset);
-  },
-  loading_filters(state, value) {
-    Vue.set(state, 'loading_filters', value);
-  },
-  setFlowsNotFound(state, value) {
-    Vue.set(state, 'flows_not_found', value);
-  },
-  setGridEditMode(state, { value, mapkey }) {
-    Vue.set(state[mapkey], 'gridEditMode', value);
-  },
-  toggleMirrorFilterControl: state => {
-    Vue.set(state, 'mirrorControl', !state.mirrorControl);
-  },
-  setHideSecondMapFilterControl: (state, value) => {
-    Vue.set(state, 'hideSecondMapControl', value);
-  },
-};
-
 const actions = {
   addFilter: ({ commit, getters }, filter) => {
     commit('addFilter', filter);
@@ -147,6 +85,7 @@ const actions = {
     const { mapkey } = data;
     const bothMaps = getters.mirrorFilterControl;
     commit('removeActiveFilter', { ...data, bothMaps });
+    debugger;
     dispatch('resetMapResource', { mapkey, category: 'flows', type: 'polyline' });
     dispatch('filterData', mapkey);
   },
@@ -177,15 +116,23 @@ const actions = {
       })
       .then(() => commit('loading_filters', false));
   },
-  updateFilterParams: ({ commit, dispatch, getters }, { filter, mapkey }) => {
+  updateFilterParams: ({ commit, dispatch, getters, state }, { filter, mapkey }) => {
+    debugger;
+    const { freezeUpdates } = state;
+    if (freezeUpdates) {
+      debugger;
+      return;
+    }
     const bothMaps = getters.mirrorFilterControl;
     commit('updateFilterParams', { filter, mapkey, bothMaps });
     if (bothMaps) {
+      debugger;
       dispatch('resetMapResource', { mapkey: 'main', category: 'flows', type: 'polyline' });
       dispatch('resetMapResource', { mapkey: 'second', category: 'flows', type: 'polyline' });
       dispatch('filterData', 'main');
       dispatch('filterData', 'second');
     } else {
+      debugger;
       dispatch('resetMapResource', { mapkey, category: 'flows', type: 'polyline' });
       dispatch('filterData', mapkey);
     }
@@ -224,6 +171,87 @@ const actions = {
   },
   setHideSecondMapFilterControl: ({ commit }, value) => {
     commit('setHideSecondMapFilterControl', value);
+  },
+  copySelectedFiltersTo: ({ commit, ...rest }, mapkey) => {
+    debugger;
+    commit('copySelectedFiltersTo', mapkey);
+  },
+};
+
+const mutations = {
+  addActiveFilter: (state, { filter, mapkey, bothMaps }) => {
+    if (bothMaps) {
+      state['main'].activeFilters.push(filter);
+      state['second'].activeFilters.push(filter);
+    } else {
+      state[mapkey].activeFilters.push(filter);
+    }
+    // Vue.set(state, 'loading_filters', false);
+  },
+  setToken: (state, token) => {
+    Vue.set(state.filters, 'ut', token);
+  },
+  removeActiveFilter: (state, { filter, mapkey }) => {
+    state[mapkey].activeFilters = state[mapkey].activeFilters.filter(activeFilter => filter.id !== activeFilter.id);
+    Vue.delete(state[mapkey].filters.params, filter.id);
+  },
+  addAttractors: (state, { attractors }) => {
+    Vue.set(state.heatmaps, 'attractors', attractors);
+  },
+  addEmitters: (state, { emitters }) => {
+    Vue.set(state.heatmaps, 'emitters', emitters);
+  },
+  addCharts: (state, { charts }) => {
+    Vue.set(state, 'charts', charts);
+  },
+  updateFilterParams: (state, { filter: { id, params }, mapkey, bothMaps }) => {
+    debugger;
+    if (bothMaps) {
+      Vue.set(state['main'].filters.params, id, params);
+      Vue.set(state['second'].filters.params, id, params);
+
+      const mapkey2 = mapkey === 'main' ? 'second' : 'main';
+      state.selectors[mapkey2][id] = state.selectors[mapkey][id];
+    } else {
+      Vue.set(state[mapkey].filters.params, id, params);
+    }
+  },
+  updateOD: (state, { value, mapkey }) => {
+    Vue.set(state[mapkey].filters, 'baseLayer', value);
+  },
+  updateGridSize(state, { gridSize, mapkey }) {
+    Vue.set(state[mapkey].filters, 'gridSize', gridSize);
+  },
+  updateGridOffset(state, { gridOffset, mapkey }) {
+    Vue.set(state[mapkey].filters, 'gridOffset', gridOffset);
+  },
+  loading_filters(state, value) {
+    Vue.set(state, 'loading_filters', value);
+  },
+  setFlowsNotFound(state, value) {
+    Vue.set(state, 'flows_not_found', value);
+  },
+  setGridEditMode(state, { value, mapkey }) {
+    Vue.set(state[mapkey], 'gridEditMode', value);
+  },
+  toggleMirrorFilterControl: state => {
+    Vue.set(state, 'mirrorControl', !state.mirrorControl);
+  },
+  setHideSecondMapFilterControl: (state, value) => {
+    Vue.set(state, 'hideSecondMapControl', value);
+  },
+  copySelectedFiltersTo: (state, mapkey) => {
+    debugger;
+    Vue.set(state, 'freezeUpdates', true);
+    const mapkeyFrom = mapkey === 'main' ? 'second' : 'main';
+    console.log('copySelectedFiltersTo');
+    // debugger;
+    const selectorsCopy = copySelector(state.selectors[mapkeyFrom]);
+    Vue.set(state.selectors, mapkey, selectorsCopy);
+    // Vue.set(state[mapkey], 'activeFilters', [...state[mapkeyFrom].activeFilters]);
+    // Vue.set(state[mapkey].filters, 'params', state[mapkeyFrom].filters.params);
+    // Vue.set(state[mapkey], 'activeLayersKeys', [...state[mapkeyFrom].activeLayersKeys]);
+    Vue.set(state, 'freezeUpdates', false);
   },
 };
 

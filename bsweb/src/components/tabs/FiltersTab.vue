@@ -19,16 +19,19 @@
         <span>Ocultar controles da direita</span>
       </b-checkbox>
     </div>
+    <CopyFilters />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import Filters from '../filters/Filters.vue';
+import CopyFilters from '@/components/buttons/copy-settings/CopyFilters.vue';
 
 export default {
   components: {
     Filters,
+    CopyFilters,
   },
   computed: {
     ...mapGetters(['secondMapIsActive']),

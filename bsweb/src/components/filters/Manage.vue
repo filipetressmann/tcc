@@ -24,7 +24,7 @@
         <template slot="header">
           <span>{{ $t('filters') }}<b-tag rounded>{{ activeFilters.length }}</b-tag></span>
         </template>
-        <FiltersMapController />
+        <FiltersTab />
       </b-tab-item>
       <b-tab-item>
         <template slot="header">
@@ -69,7 +69,7 @@ import Tiers from './Tiers.vue';
 import Charts from '../charts/Charts';
 import Language from '../Language.vue';
 import MapsTab from '../tabs/MapsTab.vue';
-import FiltersMapController from '../tabs/FiltersMapController.vue';
+import FiltersTab from '../tabs/FiltersTab.vue';
 import LayersTab from '../tabs/LayersTab.vue';
 import FlowsTab from '../tabs/FlowsTab.vue';
 
@@ -79,7 +79,7 @@ export default {
     Charts,
     Language,
     MapsTab,
-    FiltersMapController,
+    FiltersTab,
     LayersTab,
     FlowsTab,
   },
