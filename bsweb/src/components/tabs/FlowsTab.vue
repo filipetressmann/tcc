@@ -57,9 +57,6 @@ export default {
       'toggleMirrorFlowsControl',
       'setHideSecondMapFlowsControl',
     ]),
-    teste() {
-      console.log('teste');
-    },
   },
 };
 </script>

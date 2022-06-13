@@ -198,7 +198,6 @@ const actions = {
     context.commit('removeFromMap', data);
   },
   resetMapResource: (context, data) => {
-    debugger;
     context.commit('resetMapResource', data);
   },
   toggleDeveloperMode: ({ commit }) => {
@@ -226,7 +225,6 @@ const mutations = {
     Vue.delete(state.maps[mapkey].show[category][type], key);
   },
   resetMapResource: (state, { mapkey, category, type }) => {
-    debugger;
     Vue.set(state.maps[mapkey].show[category], type, {});
   },
   hideZones: (state, mapkey) => {

@@ -85,7 +85,6 @@ const actions = {
     const { mapkey } = data;
     const bothMaps = getters.mirrorFilterControl;
     commit('removeActiveFilter', { ...data, bothMaps });
-    debugger;
     dispatch('resetMapResource', { mapkey, category: 'flows', type: 'polyline' });
     dispatch('filterData', mapkey);
   },
@@ -117,22 +116,16 @@ const actions = {
       .then(() => commit('loading_filters', false));
   },
   updateFilterParams: ({ commit, dispatch, getters, state }, { filter, mapkey }) => {
-    debugger;
     const { freezeUpdates } = state;
-    if (freezeUpdates) {
-      debugger;
-      return;
-    }
+    if (freezeUpdates) return;
     const bothMaps = getters.mirrorFilterControl;
     commit('updateFilterParams', { filter, mapkey, bothMaps });
     if (bothMaps) {
-      debugger;
       dispatch('resetMapResource', { mapkey: 'main', category: 'flows', type: 'polyline' });
       dispatch('resetMapResource', { mapkey: 'second', category: 'flows', type: 'polyline' });
       dispatch('filterData', 'main');
       dispatch('filterData', 'second');
     } else {
-      debugger;
       dispatch('resetMapResource', { mapkey, category: 'flows', type: 'polyline' });
       dispatch('filterData', mapkey);
     }
@@ -172,9 +165,20 @@ const actions = {
   setHideSecondMapFilterControl: ({ commit }, value) => {
     commit('setHideSecondMapFilterControl', value);
   },
-  copySelectedFiltersTo: ({ commit, ...rest }, mapkey) => {
-    debugger;
+  freezeUpdates: ({ commit }) => {
+    commit('freezeUpdates');
+  },
+  unfreezeUpdates: ({ commit }) => {
+    commit('unfreezeUpdates');
+  },
+  copySelectedFiltersTo: ({ commit, dispatch }, mapkey) => {
+    commit('freezeUpdates');
     commit('copySelectedFiltersTo', mapkey);
+    Vue.nextTick(() => {
+      commit('unfreezeUpdates');
+      dispatch('filterData', mapkey);
+    }
+    );
   },
 };
 
@@ -205,7 +209,6 @@ const mutations = {
     Vue.set(state, 'charts', charts);
   },
   updateFilterParams: (state, { filter: { id, params }, mapkey, bothMaps }) => {
-    debugger;
     if (bothMaps) {
       Vue.set(state['main'].filters.params, id, params);
       Vue.set(state['second'].filters.params, id, params);
@@ -240,18 +243,17 @@ const mutations = {
   setHideSecondMapFilterControl: (state, value) => {
     Vue.set(state, 'hideSecondMapControl', value);
   },
-  copySelectedFiltersTo: (state, mapkey) => {
-    debugger;
+  freezeUpdates: state => {
     Vue.set(state, 'freezeUpdates', true);
+  },
+  unfreezeUpdates: state => {
+    Vue.set(state, 'freezeUpdates', false);
+  },
+  copySelectedFiltersTo: (state, mapkey) => {
     const mapkeyFrom = mapkey === 'main' ? 'second' : 'main';
-    console.log('copySelectedFiltersTo');
-    // debugger;
     const selectorsCopy = copySelector(state.selectors[mapkeyFrom]);
     Vue.set(state.selectors, mapkey, selectorsCopy);
-    // Vue.set(state[mapkey], 'activeFilters', [...state[mapkeyFrom].activeFilters]);
-    // Vue.set(state[mapkey].filters, 'params', state[mapkeyFrom].filters.params);
-    // Vue.set(state[mapkey], 'activeLayersKeys', [...state[mapkeyFrom].activeLayersKeys]);
-    Vue.set(state, 'freezeUpdates', false);
+    Vue.set(state[mapkey].filters, 'params', state[mapkeyFrom].filters.params);
   },
 };
 
