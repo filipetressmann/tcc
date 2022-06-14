@@ -1,0 +1,141 @@
+<template>
+  <div class="wrapper">
+    <p>Suba aqui seus arquivos de Shapefiles</p>
+    <form @submit.prevent="submitFiles">
+      <input
+        id="files"
+        type="file"
+        name="files"
+        multiple
+      >
+      
+      <b-radio
+        v-model="type"
+        name="upload-type"
+        native-value="trips"
+        type="is-info"
+      >
+        <span class="view-option">Viagens</span>
+      </b-radio>
+      <b-radio
+        v-model="type"
+        name="upload-type"
+        native-value="layer"
+        type="is-info"
+      >
+        <span class="view-option">Camada</span>
+      </b-radio>
+
+      <div class="columns">
+        <div class="column label-wrapper">
+          <label class="custom-label">Nome</label>
+        </div>
+        <div class="column is-two-thirds is-flex is-align-items-center">
+          <input
+            v-model="name"
+            type="text"
+            class="input is-info"
+          >
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column label-wrapper">
+          <label class="custom-label">Espessura (px)</label>
+        </div>
+        <div class="column is-two-thirds is-flex is-align-items-center">
+          <input
+            v-model="width"
+            type="number"
+            class="input is-info"
+            min="0"
+            step="0.1"
+          >
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column label-wrapper">
+          <label class="custom-label">Opacidade</label>
+        </div>
+        <div class="column is-two-thirds is-flex is-align-items-center">
+          <input
+            v-model="opacity"
+            type="number"
+            class="input is-info"
+            min="0"
+            max="1"
+            step="0.01"
+          >
+        </div>
+      </div>
+
+      <input type="submit">
+    </form>
+  </div>
+</template>
+
+<script>
+import { mapActions, mapGetters } from 'vuex';
+import Layers from '../filters/Layers.vue';
+import CopyLayers from '@/components/buttons/copy-settings/CopyLayers.vue';
+
+export default {
+  components: {
+    // Layers,
+    // CopyLayers,
+  },
+  data() {
+    return {
+      type: 'layer',
+      name: '',
+      width: 1,
+      opacity: 0.9,
+    };
+  },
+  computed: {
+    ...mapGetters(['secondMapIsActive']),
+    mirrorControl: {
+      get() {
+        return this.$store.state.layers.mirrorControl;
+      },
+      set(value) {
+        this.toggleMirrorLayerControl();
+      },
+    },
+  },
+  methods: {
+    ...mapActions([
+      'toggleMirrorLayerControl',
+      'setHideSecondMapLayerControl',
+    ]),
+    submitFiles() {
+      console.log('submitFiles()');
+    },
+  },
+};
+</script>
+
+<style scoped>
+.label-wrapper {
+  display: flex;
+  justify-content: right;
+}
+.custom-label {
+  font-size: 12px;
+  width: fit-content;
+  text-align: right !important;
+}
+input {
+  /* width: 100px; */
+  /* height: 14px; */
+}
+
+.field-label {
+  text-align: right;
+  width: 300px;
+}
+.view-option {
+  font-size: 12px;
+}
+</style>

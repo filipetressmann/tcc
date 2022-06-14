@@ -38,6 +38,12 @@
         </template>
         <MapsTab />
       </b-tab-item>
+      <b-tab-item>
+        <template slot="header">
+          <span class="custom-size2">Upload</span>
+        </template>
+        <UploadsTab />
+      </b-tab-item>
       <b-tab-item v-if="false">
         <template slot="header">
           <span>{{ $t('charts') }}<b-tag rounded>{{ chartList.length }}</b-tag></span>
@@ -64,24 +70,23 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import BaseLayer from './BaseLayer.vue';
-import Tiers from './Tiers.vue';
-import Charts from '../charts/Charts';
-import Language from '../Language.vue';
-import MapsTab from '../tabs/MapsTab.vue';
-import FiltersTab from '../tabs/FiltersTab.vue';
-import LayersTab from '../tabs/LayersTab.vue';
-import FlowsTab from '../tabs/FlowsTab.vue';
+import BaseLayer from './filters/BaseLayer.vue';
+import Language from './Language.vue';
+import MapsTab from './tabs/MapsTab.vue';
+import FiltersTab from './tabs/FiltersTab.vue';
+import LayersTab from './tabs/LayersTab.vue';
+import FlowsTab from './tabs/FlowsTab.vue';
+import UploadsTab from './tabs/UploadsTab.vue';
 
 export default {
   components: {
     BaseLayer,
-    Charts,
     Language,
     MapsTab,
     FiltersTab,
     LayersTab,
     FlowsTab,
+    UploadsTab,
   },
   data() {
     return {

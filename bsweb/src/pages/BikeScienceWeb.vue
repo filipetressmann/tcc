@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import Manage from '../components/filters/Manage.vue';
+import Manage from '../components/Manage.vue';
 import Map from '../components/map/Map.vue';
 import { uuid } from 'vue-uuid';
 import { mapActions, mapGetters } from 'vuex';
