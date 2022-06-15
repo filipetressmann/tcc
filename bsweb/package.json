@@ -17,6 +17,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "jquery": "^3.6.0",
     "leaflet": "^1.7.1",
+    "shpjs": "^4.0.2",
     "toastr": "^2.1.4",
     "vue": "^2.6.11",
     "vue-i18n": "^8.21.1",

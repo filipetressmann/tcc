@@ -5,8 +5,8 @@
       <input
         id="files"
         type="file"
-        name="files"
         multiple
+        @change="onFileChange"
       >
       
       <b-radio
@@ -77,8 +77,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import Layers from '../filters/Layers.vue';
-import CopyLayers from '@/components/buttons/copy-settings/CopyLayers.vue';
 
 export default {
   components: {
@@ -91,6 +89,7 @@ export default {
       name: '',
       width: 1,
       opacity: 0.9,
+      files: null,
     };
   },
   computed: {
@@ -109,8 +108,22 @@ export default {
       'toggleMirrorLayerControl',
       'setHideSecondMapLayerControl',
     ]),
-    submitFiles() {
-      console.log('submitFiles()');
+    ...mapActions('user_shapefiles', [
+      'shapefileToGeoJson',
+    ]),
+    onFileChange(e) {
+      const files = e.target.files || e.dataTransfer.files;
+      if (!files.length)
+        return;
+      this.files = files;
+    },
+    submitFiles () {
+      console.log('files :>> ', this.files);
+      const formData = new FormData();
+      formData.append('name', 'NomePena');
+      // formData.append('file', this.files[0]);
+      formData.append('files', this.files);
+      this.shapefileToGeoJson(formData);
     },
   },
 };
