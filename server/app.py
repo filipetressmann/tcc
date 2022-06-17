@@ -1,3 +1,7 @@
+import sys 
+import os
+sys.path.append(os.path.normpath("."))
+
 from flask import Flask, jsonify, request, send_file, url_for
 from flask_restful import Api
 from flask_cors import CORS
@@ -7,7 +11,6 @@ import filter_list as filter_list
 from charts import Charts
 import pandas as pd
 import bikescience.sp_grid as gr
-import os
 
 # configuration
 DEBUG = True
