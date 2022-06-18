@@ -121,8 +121,16 @@ export default {
       console.log('files :>> ', this.files);
       const formData = new FormData();
       formData.append('name', 'NomePena');
-      // formData.append('file', this.files[0]);
-      formData.append('files', this.files);
+
+      // @@@ Validação
+      const cpg = [...this.files].filter(n => /.+\.cpg$/.test(n.name))[0];
+      const dbf = [...this.files].filter(n => /.+\.dbf$/.test(n.name))[0];
+      const shp = [...this.files].filter(n => /.+\.shp$/.test(n.name))[0];
+      const shx = [...this.files].filter(n => /.+\.shx$/.test(n.name))[0];
+      formData.append('cpg', cpg);
+      formData.append('dbf', dbf);
+      formData.append('shp', shp);
+      formData.append('shx', shx);
       this.shapefileToGeoJson(formData);
     },
   },

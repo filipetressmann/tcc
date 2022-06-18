@@ -1,0 +1,158 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "id": "0",
+      "type": "Feature",
+      "properties": {
+        "ats_conces": "Essencis",
+        "ats_endere": "Rodovia dos Bandeirantes, km 33",
+        "ats_nome": "UVS Caieiras",
+        "ats_status": "Ativo"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          318270.2098340222,
+          7416711.6379283015
+        ]
+      }
+    },
+    {
+      "id": "1",
+      "type": "Feature",
+      "properties": {
+        "ats_conces": "EcoUrbis",
+        "ats_endere": "Estrada de Sapopemba, 23.325",
+        "ats_nome": "Central de Tratamento  de Res\u00edduos Leste - CTL",
+        "ats_status": "Ativo"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          354664.9791408935,
+          7386416.467425254
+        ]
+      }
+    },
+    {
+      "id": "2",
+      "type": "Feature",
+      "properties": {
+        "ats_conces": "Veolia",
+        "ats_endere": "Estrada de Servid\u00e3o da Pedreira",
+        "ats_nome": "CDR Pedreira",
+        "ats_status": "Ativo"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          340354.84924785484,
+          7410126.634439091
+        ]
+      }
+    },
+    {
+      "id": "3",
+      "type": "Feature",
+      "properties": {
+        "ats_conces": "Loga",
+        "ats_endere": "Rua Mogeiro, 1580 (Rodovia dos Bandeirantes, km 26)",
+        "ats_nome": "Bandeirantes",
+        "ats_status": "Desativado"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          320493.03799156833,
+          7408988.863101456
+        ]
+      }
+    },
+    {
+      "id": "4",
+      "type": "Feature",
+      "properties": {
+        "ats_conces": "Loga",
+        "ats_endere": "Rua Capit\u00e3o Jos\u00e9 Aguirre de Camargo, 400",
+        "ats_nome": "Vila Albertina",
+        "ats_status": "Desativado"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          335611.7184424877,
+          7406549.101965827
+        ]
+      }
+    },
+    {
+      "id": "5",
+      "type": "Feature",
+      "properties": {
+        "ats_conces": "EcoUrbis",
+        "ats_endere": "Avenida Miguel Yunes, 343",
+        "ats_nome": "Santo Amaro",
+        "ats_status": "Desativado"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          327884.43642640655,
+          7378704.862589152
+        ]
+      }
+    },
+    {
+      "id": "6",
+      "type": "Feature",
+      "properties": {
+        "ats_conces": "EcoUrbis",
+        "ats_endere": "Estrada de Sapopemba, 23.325",
+        "ats_nome": "S\u00e3o Jo\u00e3o",
+        "ats_status": "Desativado"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          354466.66281404486,
+          7385505.623267943
+        ]
+      }
+    },
+    {
+      "id": "7",
+      "type": "Feature",
+      "properties": {
+        "ats_conces": "Grupo LARA",
+        "ats_endere": "Avenida Guaraciaba, 430 - Mau\u00e1",
+        "ats_nome": "Lara Central de Tratamento de Res\u00edduos",
+        "ats_status": "Ativo"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          349778.4504019267,
+          7377570.371227289
+        ]
+      }
+    },
+    {
+      "id": "8",
+      "type": "Feature",
+      "properties": {
+        "ats_conces": "Grupo Boa Hora",
+        "ats_endere": "Avenida Sert\u00e3ozinho, 925 - Mau\u00e1",
+        "ats_nome": "Grupo Boa Hora",
+        "ats_status": "Ativo"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          349247.32907904254,
+          7376896.074271476
+        ]
+      }
+    }
+  ]
+}

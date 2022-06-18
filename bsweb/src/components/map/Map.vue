@@ -40,6 +40,13 @@
           :options="layers[layer_key].options"
         />
       </div>
+      <div v-for="(layer, index) in uploadedLayers" :key="`layers2-${index}`">
+        <l-geo-json
+          v-for="(feature, index) in layer.features"
+          :key="`layers21-${index}`"
+          :geojson="feature.geometry"
+        />
+      </div>
       <l-feature-group v-for="tier in Object.keys(arrowTiers)" :key="tier">
         <l-polyline
           v-for="(arrow, index) in flows[tier]"
@@ -131,6 +138,7 @@ export default {
       'mapControl',
       'layers',
     ]),
+    ...mapGetters('user_shapefiles', ['uploadedLayers']),
     ...mapState({
       activeLayersKeys(state) {
         return state.layers[this.mapkey].activeLayersKeys;
@@ -226,7 +234,7 @@ export default {
     ]),
     async loadBaseLayers() {
       this.setLoading();
-      await this.fetchGrid(this.mapkey).then(() => { // Ideia -> fazer um fetchGrid independente do mapkey e um outro que chama e dá load
+      await this.fetchGrid(this.mapkey).then(() => {
         this.renderGrid = true;
         this.filterData(this.mapkey);
         this.unsetLoading();
@@ -242,10 +250,6 @@ export default {
     centerUpdated(center) {
       if (this.mapControl === 'same')
         this.updateCenter({ mapkey: this.mapkey, center });
-    },
-    boundsUpdated(bounds) {
-      // this.bounds = bounds;
-      // console.log('bounds :>> ', bounds);
     },
     gridOptions() {
       // return {
