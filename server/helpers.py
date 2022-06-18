@@ -29,5 +29,6 @@ def convert(files):
     os.remove(data_path + '/' + id + '.shp')
     os.remove(data_path + '/' + id + '.shx')
 
-    gdf.crs = 'epsg:4326'
+    gdf.crs = 'epsg:22523'
+    gdf = gdf.to_crs('epsg:4326')
     return gdf.to_json()
