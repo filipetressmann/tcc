@@ -12,16 +12,17 @@ const getters = {
 };
 
 const actions = {
-  shapefileToGeoJson: ({ commit }, formData) => {
-    const response = axios.post(`${api_url}/shapefile_to_geojson`, formData);
-    response.then(r => {
-      if (r.status === 200) {
-        commit('saveGeoJson', r.data);
-      }
-    });
+  shapefileToGeoJson: async ({ commit }, { formData, props }) => {
+    const response = await axios.post(`${api_url}/shapefile_to_geojson`, formData);
+    if (response.status === 200) {
+      debugger;
+      commit('saveGeoJson', { ...props, ...response.data });
+    } else {
+      console.log('ERRO no upload de shapefile!');
+    }
   },
   loadSavedLayers: ({ commit }) => {
-    const customLayers = JSON.parse(localStorage.getItem('geoJson'));
+    const customLayers = JSON.parse(localStorage.getItem('geojson'));
     debugger;
     commit('loadSavedLayers', customLayers);
   },
@@ -29,14 +30,15 @@ const actions = {
 
 const mutations = {
   saveGeoJson: async (state, geojson) => {
+    debugger;
     const newLayers = [...state.layers, geojson];
-    localStorage.setItem('geoJson', JSON.stringify(newLayers));
+    localStorage.setItem('geojson', JSON.stringify(newLayers));
     Vue.set(state, 'layers', newLayers);
   },
   loadSavedLayers: (state, customLayers) => {
     debugger;
     // Vue.set(state, 'layers', customLayers);
-    state.layers = customLayers;
+    state.layers = customLayers || [];
   },
 };
 

@@ -127,11 +127,22 @@ export default {
       const dbf = [...this.files].filter(n => /.+\.dbf$/.test(n.name))[0];
       const shp = [...this.files].filter(n => /.+\.shp$/.test(n.name))[0];
       const shx = [...this.files].filter(n => /.+\.shx$/.test(n.name))[0];
+
+      const props = {
+        style: {
+          opacity: 0.8,
+          color: '#ff0000',
+          width: 2,
+        },
+        name: 'Nome da camada',
+        // "id": "?",
+      };
+
       formData.append('cpg', cpg);
       formData.append('dbf', dbf);
       formData.append('shp', shp);
       formData.append('shx', shx);
-      this.shapefileToGeoJson(formData);
+      this.shapefileToGeoJson({ formData, props });
     },
   },
 };
