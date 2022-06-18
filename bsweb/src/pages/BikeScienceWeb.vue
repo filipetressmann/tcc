@@ -82,6 +82,7 @@ export default {
       'fetchBikelane',
       'fetchAccidents',
     ]),
+    ...mapActions('user_shapefiles', ['loadSavedLayers']),
   },
 };
 </script>

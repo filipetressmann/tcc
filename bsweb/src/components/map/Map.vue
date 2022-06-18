@@ -45,6 +45,7 @@
           v-for="(feature, index) in layer.features"
           :key="`layers21-${index}`"
           :geojson="feature.geometry"
+          :options-style="{ 'background-color': '#ff0000', weight: 1.5, opacity: 0.5 }"
         />
       </div>
       <l-feature-group v-for="tier in Object.keys(arrowTiers)" :key="tier">
@@ -222,9 +223,11 @@ export default {
       this.updateCenter({ mapkey: 'second', center: centerMain });
     }
     this.loadBaseLayers();
+    this.loadSavedLayers();
   },
   methods: {
     ...mapActions('loading', ['setLoading', 'unsetLoading']),
+    ...mapActions('user_shapefiles', ['loadSavedLayers']),
     ...mapActions([
       'fetchZones',
       'fetchGrid',

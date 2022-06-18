@@ -20,14 +20,23 @@ const actions = {
       }
     });
   },
+  loadSavedLayers: ({ commit }) => {
+    const customLayers = JSON.parse(localStorage.getItem('geoJson'));
+    debugger;
+    commit('loadSavedLayers', customLayers);
+  },
 };
 
 const mutations = {
   saveGeoJson: async (state, geojson) => {
     const newLayers = [...state.layers, geojson];
-    // localStorage.setItem('geoJson', JSON.stringify(newLayers));
+    localStorage.setItem('geoJson', JSON.stringify(newLayers));
     Vue.set(state, 'layers', newLayers);
-
+  },
+  loadSavedLayers: (state, customLayers) => {
+    debugger;
+    // Vue.set(state, 'layers', customLayers);
+    state.layers = customLayers;
   },
 };
 
