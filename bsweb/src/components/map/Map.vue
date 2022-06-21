@@ -41,12 +41,15 @@
         />
       </div>
       <div v-for="(layer, index) in uploadedLayers" :key="`layers2-${index}`">
-        <l-geo-json
-          v-for="(feature, index) in layer.features"
-          :key="`layers21-${index}`"
-          :geojson="feature.geometry"
-          :options-style="{ 'background-color': '#ff0000', weight: 1.5, opacity: 0.5 }"
-        />
+        <div v-if="layer.isActive['main']">
+          <l-geo-json
+            v-for="(feature, findex) in layer.features"
+            :key="`layers21-${findex}`"
+            :geojson="feature.geometry"
+            :options-style="{ opacity: 1, weight: 1, 'color': '#ff0000', markerColour: 'red' }"
+            :options="markerOptions(layer)"
+          />
+        </div>
       </div>
       <l-feature-group v-for="tier in Object.keys(arrowTiers)" :key="tier">
         <l-polyline
@@ -270,6 +273,21 @@ export default {
           tooltipMsg += `NumeroZona: ${feature.properties.NumeroZona}<br>`;
           tooltipMsg += `NomeZona: ${feature.properties.NomeZona}<br>`;
           tooltipMsg += `NomeMunici: ${feature.properties.NomeMunici}<br>`;
+          // tooltipMsg += `NumDistrit: ${NumDistrit}`;
+          // layer.bindPopup(tooltipMsg);
+          layer.bindTooltip(tooltipMsg, { permanent: false, sticky: true });
+        },
+      };
+    },
+    markerOptions(layer) {
+      return {
+        pointToLayer: function (feature, latlng, layer) {
+          return L.circleMarker(latlng, { radius: 10, opacity: 0.6, fillOpacity: 0.6, fillColor: '#0000ff', color: '#0000ff' });
+        },
+        onEachFeature: function (feature, layer) {
+          debugger;
+          let tooltipMsg = '';
+          tooltipMsg += 'abc Pena';
           // tooltipMsg += `NumDistrit: ${NumDistrit}`;
           // layer.bindPopup(tooltipMsg);
           layer.bindTooltip(tooltipMsg, { permanent: false, sticky: true });

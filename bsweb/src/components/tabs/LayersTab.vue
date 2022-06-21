@@ -20,18 +20,21 @@
       </b-checkbox>
     </div>
     <CopyLayers />
+    <UserLayers />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import Layers from '../filters/Layers.vue';
+import UserLayers from '../filters/UserLayers.vue';
 import CopyLayers from '@/components/buttons/copy-settings/CopyLayers.vue';
 
 export default {
   components: {
     Layers,
     CopyLayers,
+    UserLayers,
   },
   computed: {
     ...mapGetters(['secondMapIsActive']),
