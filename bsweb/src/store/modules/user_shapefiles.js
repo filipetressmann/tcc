@@ -15,7 +15,11 @@ const actions = {
   shapefileToGeoJson: async ({ commit }, { formData, props }) => {
     const response = await axios.post(`${api_url}/shapefile_to_geojson`, formData);
     if (response.status === 200) {
-      commit('saveGeoJson', { ...props, ...response.data, isActive: { main: true, second: true } });
+      commit('saveGeoJson', {
+        ...props,
+        geometry: response.data,
+        isActive: { main: true, second: true },
+      });
     } else {
       console.log('ERRO no upload de shapefile!');
     }

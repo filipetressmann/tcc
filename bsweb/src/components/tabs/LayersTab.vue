@@ -27,7 +27,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import Layers from '../filters/Layers.vue';
-import UserLayers from '../filters/UserLayers.vue';
+import UserLayers from '@/components/user-layers/UserLayers.vue';
 import CopyLayers from '@/components/buttons/copy-settings/CopyLayers.vue';
 
 export default {

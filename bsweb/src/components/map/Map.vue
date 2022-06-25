@@ -40,14 +40,11 @@
           :options="layers[layer_key].options"
         />
       </div>
-      <div v-for="(layer, index) in uploadedLayers" :key="`layers2-${index}`">
+      <div v-for="(layer, index) in uploadedLayers" :key="`custom-layers-${index}`">
         <div v-if="layer.isActive['main']">
           <l-geo-json
-            v-for="(feature, findex) in layer.features"
-            :key="`layers21-${findex}`"
-            :geojson="feature.geometry"
-            :options-style="{ opacity: 1, weight: 1, 'color': '#ff0000', markerColour: 'red' }"
-            :options="markerOptions(layer)"
+            :geojson="layer.geometry"
+            :options="markerOptions(layer.style)"
           />
         </div>
       </div>
@@ -279,17 +276,24 @@ export default {
         },
       };
     },
-    markerOptions(layer) {
+    markerOptions(style) {
       return {
-        pointToLayer: function (feature, latlng, layer) {
-          return L.circleMarker(latlng, { radius: 10, opacity: 0.6, fillOpacity: 0.6, fillColor: '#0000ff', color: '#0000ff' });
+        pointToLayer: function (feature, latlng) {
+          return L.circleMarker(
+            latlng,
+            {
+              radius: 2 * style.width,
+              opacity: style.opacity,
+              fillOpacity: style.opacity,
+              fillColor: style.color,
+              color: style.color,
+            });
         },
         onEachFeature: function (feature, layer) {
-          debugger;
-          let tooltipMsg = '';
-          tooltipMsg += 'abc Pena';
-          // tooltipMsg += `NumDistrit: ${NumDistrit}`;
-          // layer.bindPopup(tooltipMsg);
+          const keys = Object.keys(feature.properties);
+          let properties = [];
+          keys.forEach(k => properties.push(`${k}: ${feature.properties[k]}`));
+          const tooltipMsg = properties.join('<br>');
           layer.bindTooltip(tooltipMsg, { permanent: false, sticky: true });
         },
       };
