@@ -31,6 +31,9 @@ const actions = {
   toggleCustomLayer: ({ commit }, data) => {
     commit('toggleCustomLayer', data);
   },
+  removeCustomLayer: ({ commit }, index) => {
+    commit('removeCustomLayer', index);
+  },
 };
 
 const mutations = {
@@ -44,6 +47,10 @@ const mutations = {
   },
   toggleCustomLayer: (state, { index, mapkey, value }) => {
     Vue.set(state.layers[index].isActive, mapkey, value);
+  },
+  removeCustomLayer: (state, index) => {
+    state.layers.splice(index, 1);
+    localStorage.setItem('geojson', JSON.stringify(state.layers));
   },
 };
 

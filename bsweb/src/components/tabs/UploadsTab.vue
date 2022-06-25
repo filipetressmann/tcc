@@ -70,6 +70,19 @@
         </div>
       </div>
 
+      <div class="columns">
+        <div class="column label-wrapper">
+          <label class="custom-label" title="Cor em hexadecimal">Cor</label>
+        </div>
+        <div class="column is-two-thirds is-flex is-align-items-center">
+          <input
+            v-model="color"
+            type="text"
+            class="input is-info"
+          >
+        </div>
+      </div>
+
       <input type="submit">
     </form>
   </div>
@@ -79,16 +92,13 @@
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  components: {
-    // Layers,
-    // CopyLayers,
-  },
   data() {
     return {
       type: 'layer',
       name: '',
       width: 1,
       opacity: 0.9,
+      color: '',
       files: null,
     };
   },
@@ -130,11 +140,11 @@ export default {
 
       const props = {
         style: {
-          opacity: 0.8,
-          color: '#ff0000',
-          width: 2,
+          opacity: this.opacity,
+          color: this.color,
+          width: this.width,
         },
-        name: 'Nome da camada',
+        name: this.name,
         // "id": "?",
       };
 

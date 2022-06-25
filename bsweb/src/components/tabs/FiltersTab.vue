@@ -12,10 +12,20 @@
       <Filters mapkey="second" />
     </div>
     <div v-if="secondMapIsActive" class="options">
-      <b-checkbox v-model="mirrorControl" :native-value="mirrorControl" type="is-info">
+      <b-checkbox
+        v-model="mirrorControl"
+        :native-value="mirrorControl"
+        type="is-info"
+        size="is-small"
+      >
         <span>Espelhar alterações</span>
       </b-checkbox>
-      <b-checkbox v-model="hideSecondMapControl" :native-value="hideSecondMapControl" type="is-info">
+      <b-checkbox
+        v-model="hideSecondMapControl"
+        :native-value="hideSecondMapControl"
+        type="is-info"
+        size="is-small"
+      >
         <span>Ocultar controles da direita</span>
       </b-checkbox>
     </div>

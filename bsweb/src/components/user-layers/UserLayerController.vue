@@ -1,18 +1,36 @@
 <template>
-  <div>
-    <input v-model="isActive" type="checkbox" :value="isActive">
-    <label class="filter-name">{{ layerName }}</label>
+  <div style="display: flex; align-items: center; justify-content: space-between">
+    <div>
+      <input v-model="isActive" type="checkbox" :value="isActive">
+      <label class="filter-name">{{ layerName }}</label>
+    </div>
+    <div>
+      <div class="icon" title="Editar camada" @click="() => {}">
+        <img :src="iconEdit" :class="['arrow', { active: isActive }]">
+      </div>
+      <div class="icon" title="Remover camada" @click="() => removeCustomLayer(index)">
+        <img :src="iconDelete" :class="['arrow', { active: isActive }]">
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import iconDelete from '@/assets/svg/delete.svg';
+import iconEdit from '@/assets/svg/edit.svg';
 
 export default {
   props: {
     layerName: { type: String, required: true },
     index: { type: Number, required: true },
     mapkey: { type: String, required: true },
+  },
+  data() {
+    return {
+      iconDelete,
+      iconEdit,
+    };
   },
   computed: {
     ...mapGetters('user_shapefiles', ['uploadedLayers']),
@@ -26,7 +44,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions('user_shapefiles', ['toggleCustomLayer']),
+    ...mapActions('user_shapefiles', ['toggleCustomLayer', 'removeCustomLayer']),
   },
 };
 </script>
@@ -39,5 +57,11 @@ export default {
 
   input {
     cursor: pointer;
+  }
+
+  .icon {
+    width: 17px;
+    cursor: pointer;
+    margin: 0 10px;
   }
 </style>
