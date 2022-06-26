@@ -34,6 +34,9 @@ const actions = {
   removeCustomLayer: ({ commit }, index) => {
     commit('removeCustomLayer', index);
   },
+  editCustomLayer: ({ commit }, { index, name, style }) => {
+    commit('editCustomLayer', { index, name, style });
+  },
 };
 
 const mutations = {
@@ -50,6 +53,11 @@ const mutations = {
   },
   removeCustomLayer: (state, index) => {
     state.layers.splice(index, 1);
+    localStorage.setItem('geojson', JSON.stringify(state.layers));
+  },
+  editCustomLayer: (state, { index, name, style }) => {
+    state.layers[index].name = name;
+    state.layers[index].style = style;
     localStorage.setItem('geojson', JSON.stringify(state.layers));
   },
 };

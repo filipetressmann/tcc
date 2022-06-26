@@ -6,7 +6,7 @@ const state = {
 };
 
 const getters = {
-  active: state => (state.open.length > 0 ? state.open[0] : null),
+  activeModal: state => (state.open.length > 0 ? state.open[0] : null),
   allOpen: state => state.open,
   editLayerIndex: state => state.data.editLayerIndex,
 };

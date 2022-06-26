@@ -45,7 +45,7 @@
         </div>
         <div class="column is-two-thirds is-flex is-align-items-center">
           <input
-            v-model="width"
+            v-model="weight"
             type="number"
             class="input is-info"
             min="0"
@@ -96,7 +96,7 @@ export default {
     return {
       type: 'layer',
       name: '',
-      width: 1,
+      weight: 1,
       opacity: 0.9,
       color: '',
       files: null,
@@ -108,7 +108,7 @@ export default {
       get() {
         return this.$store.state.layers.mirrorControl;
       },
-      set(value) {
+      set() {
         this.toggleMirrorLayerControl();
       },
     },
@@ -142,7 +142,7 @@ export default {
         style: {
           opacity: this.opacity,
           color: this.color,
-          width: this.width,
+          weight: this.weight,
         },
         name: this.name,
         // "id": "?",

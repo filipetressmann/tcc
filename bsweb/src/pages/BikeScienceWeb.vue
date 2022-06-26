@@ -22,7 +22,7 @@
       </div>
     </div>
     <AboutModal />
-    <EditCustomLayerModal />
+    <EditCustomLayerModal v-if="activeModal === 'editCustomLayer'" />
     <Loading :is-active="active || loading_filters" />
     <o-modal :active.sync="isImageModalActive">
       <p style="text-align: center">
@@ -59,6 +59,7 @@ export default {
   },
   computed: {
     ...mapGetters('loading', ['active']),
+    ...mapGetters('modals', ['activeModal']),
     ...mapGetters(['loading_filters', 'secondMapIsActive', 'mapControl']),
   },
   created() {

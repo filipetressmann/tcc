@@ -45,6 +45,7 @@
           <l-geo-json
             :geojson="layer.geometry"
             :options="markerOptions(layer.style)"
+            :options-style="layer.style"
           />
         </div>
       </div>
@@ -282,7 +283,7 @@ export default {
           return L.circleMarker(
             latlng,
             {
-              radius: 2 * style.width,
+              radius: style.weight/2,
               opacity: style.opacity,
               fillOpacity: style.opacity,
               fillColor: style.color,
