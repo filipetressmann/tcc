@@ -1,27 +1,40 @@
 const state = {
   open: [],
+  data: {
+    editLayerIndex: null,
+  },
 };
 
 const getters = {
   active: state => (state.open.length > 0 ? state.open[0] : null),
   allOpen: state => state.open,
-};
-
-const mutations = {
-  open: (state, name) => state.open.unshift(name),
-  close: (state, name) => (state.open = state.open.filter(e => e !== name)),
+  editLayerIndex: state => state.data.editLayerIndex,
 };
 
 const actions = {
   open: ({ commit }, name) => commit('open', name),
   close: ({ commit }, name) => commit('close', name),
+  setEditLayerIndex: ({ commit }, index) => commit('setEditLayerIndex', index),
+  cleanEditLayerIndex: ({ commit }, index) => commit('cleanEditLayerIndex'),
 };
+
+const mutations = {
+  open: (state, name) => state.open.unshift(name),
+  close: (state, name) => (state.open = state.open.filter(e => e !== name)),
+  setEditLayerIndex: (state, index) => {
+    state.data.editLayerIndex = index;
+  },
+  cleanEditLayerIndex: state => {
+    state.data.editLayerIndex = null;
+  },
+};
+
 
 
 export default {
   namespaced: true,
   state,
   getters,
-  mutations,
   actions,
+  mutations,
 };

@@ -22,6 +22,7 @@
       </div>
     </div>
     <AboutModal />
+    <EditCustomLayerModal />
     <Loading :is-active="active || loading_filters" />
     <o-modal :active.sync="isImageModalActive">
       <p style="text-align: center">
@@ -38,6 +39,7 @@ import { uuid } from 'vue-uuid';
 import { mapActions, mapGetters } from 'vuex';
 import Loading from '../components/Loading';
 import AboutModal from '../components/modals/about';
+import EditCustomLayerModal from '../components/modals/editCustomLayer';
 import TwoMapsManager from '../components/twomapsmanager/TwoMapsManager.vue';
 
 export default {
@@ -46,6 +48,7 @@ export default {
     Map,
     Loading,
     AboutModal,
+    EditCustomLayerModal,
     TwoMapsManager,
   },
   data() {

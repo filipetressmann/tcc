@@ -5,11 +5,11 @@
       <label class="filter-name">{{ layerName }}</label>
     </div>
     <div>
-      <div class="icon" title="Editar camada" @click="() => {}">
-        <img :src="iconEdit" :class="['arrow', { active: isActive }]">
+      <div class="icon" title="Editar camada" @click="openEditModal">
+        <img :src="iconEdit">
       </div>
       <div class="icon" title="Remover camada" @click="() => removeCustomLayer(index)">
-        <img :src="iconDelete" :class="['arrow', { active: isActive }]">
+        <img :src="iconDelete">
       </div>
     </div>
   </div>
@@ -45,6 +45,11 @@ export default {
   },
   methods: {
     ...mapActions('user_shapefiles', ['toggleCustomLayer', 'removeCustomLayer']),
+    ...mapActions('modals', ['open', 'setEditLayerIndex']),
+    openEditModal() {
+      this.setEditLayerIndex(this.index);
+      this.open('editCustomLayer');
+    },
   },
 };
 </script>
