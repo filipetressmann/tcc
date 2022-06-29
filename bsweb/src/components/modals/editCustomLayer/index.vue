@@ -64,6 +64,9 @@
 
         <input type="submit">
       </form>
+      <div v-if="error" class="error">
+        {{ error }}
+      </div>
     </div>
   </Modal>
 </template>
@@ -82,6 +85,7 @@ export default {
       color: '',
       opacity: '',
       weight: null,
+      error: null,
     };
   },
   computed: {
@@ -100,6 +104,7 @@ export default {
   methods: {
     ...mapActions('user_shapefiles', ['editCustomLayer']),
     submit() {
+      if (!this.validateFields()) return;
       const style = {
         color: this.color,
         opacity: this.opacity,
@@ -110,6 +115,29 @@ export default {
     },
     close() {
       this.$store.dispatch('modals/close', 'editCustomLayer');
+    },
+    validateFields() {
+      if (this.name.length === 0) {
+        this.error = 'Nome é obrigatório.';
+        return false;
+      }
+      if (this.weight.length === 0) {
+        this.error = 'Espessura é obrigatória.';
+        return false;
+      }
+      if (this.opacity.length === 0) {
+        this.error = 'Opacidade é obrigatória.';
+        return false;
+      }
+      if (this.color.length === 0) {
+        this.error = 'Cor é obrigatória.';
+        return false;
+      }
+      if (!/^#([0-9a-f]{3}|[0-9a-f]{6})$/gi.test(this.color)) {
+        this.error = 'Cor deve ser informada em hexadecimal, por exemplo #ffffff.';
+        return false;
+      }
+      return true;
     },
   },
 };
@@ -128,6 +156,10 @@ export default {
     margin-bottom: 40px;
     text-align: center;
   }
-
+  .error {
+    margin: 20px 0;
+    color: red;
+    font-size: 12px;
+  }
 </style>
 
