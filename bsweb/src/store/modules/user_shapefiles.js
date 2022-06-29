@@ -21,7 +21,7 @@ const actions = {
         isActive: { main: true, second: true },
       });
     } else {
-      console.log('ERRO no upload de shapefile!');
+      console.error('ERRO no upload de shapefile!');
     }
   },
   loadSavedLayers: ({ commit }) => {
