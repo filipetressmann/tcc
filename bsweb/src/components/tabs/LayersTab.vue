@@ -4,12 +4,14 @@
       Mapa da esquerda
     </div>
     <Layers mapkey="main" />
+    <UserLayers mapkey="main" />
     <div v-show="secondMapIsActive && !hideSecondMapControl">
       <hr>
       <div class="map-title">
         Mapa da direita
       </div>
       <Layers mapkey="second" />
+      <UserLayers mapkey="second" />
     </div>
     <div v-if="secondMapIsActive" class="options">
       <b-checkbox
@@ -30,7 +32,6 @@
       </b-checkbox>
     </div>
     <CopyLayers />
-    <UserLayers />
   </div>
 </template>
 

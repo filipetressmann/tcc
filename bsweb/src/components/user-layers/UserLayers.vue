@@ -15,7 +15,7 @@
           <UserLayerController
             :index="index"
             :layer-name="layer.name"
-            mapkey="main"
+            :mapkey="mapkey"
           />
         </div>
       </div>
@@ -31,6 +31,9 @@ import iconArrow from '@/assets/svg/icon-arrow-dropdown.svg';
 export default {
   components: {
     UserLayerController,
+  },
+  props: {
+    mapkey: { type: String, required: true },
   },
   data() {
     return {

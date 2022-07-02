@@ -41,7 +41,7 @@
         />
       </div>
       <div v-for="(layer, index) in uploadedLayers" :key="`custom-layers-${index}`">
-        <div v-if="layer.isActive['main']">
+        <div v-if="layer.isActive[mapkey]">
           <l-geo-json
             :geojson="layer.geometry"
             :options="markerOptions(layer.style)"
