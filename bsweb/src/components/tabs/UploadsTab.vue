@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <p>Suba aqui seus arquivos de Shapefiles</p>
+    <p>{{ $t('tabs.upload.title') }}</p>
     <form @submit.prevent="submitFiles">
       <div class="file-btn-wrapper">
         <input
@@ -14,7 +14,7 @@
 
       <div class="columns">
         <div class="column label-wrapper">
-          <label class="custom-label">Nome</label>
+          <label class="custom-label">{{ $t('tabs.upload.inputs.name') }}</label>
         </div>
         <div class="column is-two-thirds is-flex is-align-items-center">
           <input
@@ -28,7 +28,7 @@
 
       <div class="columns">
         <div class="column label-wrapper">
-          <label class="custom-label">Espessura (px)</label>
+          <label class="custom-label">{{ $t('tabs.upload.inputs.width') }}</label>
         </div>
         <div class="column is-two-thirds is-flex is-align-items-center">
           <input
@@ -44,7 +44,7 @@
 
       <div class="columns">
         <div class="column label-wrapper">
-          <label class="custom-label">Opacidade</label>
+          <label class="custom-label">{{ $t('tabs.upload.inputs.opacity') }}</label>
         </div>
         <div class="column is-two-thirds is-flex is-align-items-center">
           <input
@@ -60,7 +60,7 @@
 
       <div class="columns">
         <div class="column label-wrapper">
-          <label class="custom-label" title="Cor em hexadecimal">Cor</label>
+          <label class="custom-label" title="Cor em hexadecimal">{{ $t('tabs.upload.inputs.color') }}</label>
         </div>
         <div class="column is-two-thirds is-flex is-align-items-center">
           <input
@@ -72,11 +72,9 @@
         </div>
       </div>
       <div class="center">
-        <input
-          type="submit"
-          class="custom-btn"
-          value="Enviar"
-        >
+        <button type="submit" class="custom-btn">
+          {{ $t('tabs.upload.button') }}
+        </button>
       </div>
       <div v-if="error" class="error">
         {{ error }}
@@ -262,9 +260,6 @@ export default {
 .custom-btn:hover {
   color: #363636;
   background-color: #ddd;
-}
-.custom-btn:disabled {
-  cursor: not-allowed
 }
 .error {
   color: red;

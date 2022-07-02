@@ -2,20 +2,20 @@
   <div v-if="secondMapIsActive">
     <div v-if="!copying">
       <Button
-        text="Copiar fluxos selecionados"
-        title="Copiar fluxos entre os mapas"
+        :text="$t('twoMaps.copy.flows.main.button')"
+        :title="$t('twoMaps.copy.flows.main.title')"
         :handle-click="activate"
       />
     </div>
     <div v-if="copying">
       <Button
-        text="Da esquerda para a direita"
-        title="Copiar fluxos selecionados do mapa da esquerda para o da direita"
+        :text="$t('twoMaps.copy.flows.option1.button')"
+        :title="$t('twoMaps.copy.flows.option1.title')"
         :handle-click="() => copyTo('second')"
       />
       <Button
-        text="Da direita para a esquerda"
-        title="Copiar fluxos selecionados do mapa da direita para o da esquerda"
+        :text="$t('twoMaps.copy.flows.option2.button')"
+        :title="$t('twoMaps.copy.flows.option2.title')"
         :handle-click="() => copyTo('main')"
       />
     </div>
@@ -35,6 +35,9 @@ export default {
       copying: false,
     };
   },
+  computed: {
+    ...mapGetters(['secondMapIsActive']),
+  },
   methods: {
     ...mapActions('flows', ['copySelectedFlowsTo']),
     copyTo(mapkey) {
@@ -44,9 +47,6 @@ export default {
     activate() {
       this.copying = true;
     },
-  },
-  computed: {
-    ...mapGetters(['secondMapIsActive']),
   },
 };
 </script>

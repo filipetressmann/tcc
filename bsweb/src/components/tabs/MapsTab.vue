@@ -1,11 +1,11 @@
 <template>
   <div>
     <p class="title-options">
-      Opções para múltiplos mapas
+      {{ $t('tabs.maps.title') }}
     </p>
     <b-field>
       <b-checkbox v-model="secondMapIsActive" type="is-info" size="is-small">
-        <span class="view-option">Ativar mapa adicional</span>
+        <span class="view-option">{{ $t('tabs.maps.action') }}</span>
       </b-checkbox>
     </b-field>
   </div>

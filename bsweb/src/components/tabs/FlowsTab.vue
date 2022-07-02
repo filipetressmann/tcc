@@ -1,13 +1,13 @@
 <template>
   <div class="wrapper">
     <div v-if="secondMapIsActive" class="map-title">
-      Mapa da esquerda
+      {{ $t('twoMaps.leftMap') }}
     </div>
     <Tiers v-show="!gridEditMode" mapkey="main" />
     <div v-show="secondMapIsActive && !hideSecondMapControl">
       <hr>
       <div class="map-title">
-        Mapa da direita
+        {{ $t('twoMaps.rightMap') }}
       </div>
       <Tiers v-show="!gridEditMode" mapkey="second" />
     </div>
@@ -18,7 +18,7 @@
         type="is-info"
         size="is-small"
       >
-        <span>Espelhar alterações</span>
+        <span>{{ $t('twoMaps.mirroredChanges') }}</span>
       </b-checkbox>
       <b-checkbox
         v-model="hideSecondMapControl"
@@ -26,7 +26,7 @@
         type="is-info"
         size="is-small"
       >
-        <span>Ocultar controles da direita</span>
+        <span>{{ $t('twoMaps.hideRightControls') }}</span>
       </b-checkbox>
       <CopyFlows />
     </div>

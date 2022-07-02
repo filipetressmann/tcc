@@ -2,20 +2,20 @@
   <div v-if="secondMapIsActive">
     <div v-if="!copying">
       <Button
-        text="Copiar camadas selecionadas"
-        title="Copiar camadas entre os mapas"
+        :text="$t('twoMaps.copy.layers.main.button')"
+        :title="$t('twoMaps.copy.layers.main.title')"
         :handle-click="activate"
       />
     </div>
     <div v-if="copying">
       <Button
-        text="Da esquerda para a direita"
-        title="Copiar camadas selecionadas do mapa da esquerda para o da direita"
+        :text="$t('twoMaps.copy.layers.option1.button')"
+        :title="$t('twoMaps.copy.layers.option1.title')"
         :handle-click="() => copyTo('second')"
       />
       <Button
-        text="Da direita para a esquerda"
-        title="Copiar camadas selecionadas do mapa da direita para o da esquerda"
+        :text="$t('twoMaps.copy.layers.option2.button')"
+        :title="$t('twoMaps.copy.layers.option2.title')"
         :handle-click="() => copyTo('main')"
       />
     </div>

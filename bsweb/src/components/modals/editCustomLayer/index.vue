@@ -2,12 +2,12 @@
   <Modal name="editCustomLayer">
     <div v-if="editLayerIndex !== null" class="modal-container">
       <h1 class="modal-title">
-        Editando camada {{ layer.name }}
+        {{ $t('editModal.title') }} {{ layer.name }}
       </h1>
       <form @submit.prevent="submit">
         <div class="columns">
           <div class="column label-wrapper">
-            <label class="custom-label">Nome</label>
+            <label class="custom-label">{{ $t('editModal.inputs.name') }}</label>
           </div>
           <div class="column is-two-thirds is-flex is-align-items-center">
             <input
@@ -20,7 +20,7 @@
 
         <div class="columns">
           <div class="column label-wrapper">
-            <label class="custom-label">Espessura (px)</label>
+            <label class="custom-label">{{ $t('editModal.inputs.width') }}</label>
           </div>
           <div class="column is-two-thirds is-flex is-align-items-center">
             <input
@@ -35,7 +35,7 @@
 
         <div class="columns">
           <div class="column label-wrapper">
-            <label class="custom-label">Opacidade</label>
+            <label class="custom-label">{{ $t('editModal.inputs.opacity') }}</label>
           </div>
           <div class="column is-two-thirds is-flex is-align-items-center">
             <input
@@ -51,7 +51,7 @@
 
         <div class="columns">
           <div class="column label-wrapper">
-            <label class="custom-label" title="Cor em hexadecimal">Cor</label>
+            <label class="custom-label" title="Cor em hexadecimal">{{ $t('editModal.inputs.color') }}</label>
           </div>
           <div class="column is-two-thirds is-flex is-align-items-center">
             <input
@@ -62,7 +62,11 @@
           </div>
         </div>
 
-        <input type="submit">
+        <div class="center">
+          <button type="submit" class="custom-btn">
+            {{ $t('editModal.button') }}
+          </button>
+        </div>
       </form>
       <div v-if="error" class="error">
         {{ error }}
@@ -161,5 +165,24 @@ export default {
     color: red;
     font-size: 12px;
   }
+  .custom-btn {
+  cursor: pointer;
+  border: 1px solid #167df0;
+  border-radius: 5px;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  padding: 0 5px;
+  font-size: 12px;
+  color: #167df0;
+  height: 18px;
+  background-color: #fff
+}
+.custom-btn:hover {
+  color: #363636;
+  background-color: #ddd;
+}
 </style>
 

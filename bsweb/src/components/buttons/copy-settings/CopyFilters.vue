@@ -2,20 +2,20 @@
   <div v-if="secondMapIsActive">
     <div v-if="!copying">
       <Button
-        text="Copiar filtros selecionados"
-        title="Copiar filtros entre os mapas"
+        :text="$t('twoMaps.copy.filters.main.button')"
+        :title="$t('twoMaps.copy.filters.main.title')"
         :handle-click="activate"
       />
     </div>
     <div v-if="copying">
       <Button
-        text="Da esquerda para a direita"
-        title="Copiar filtros selecionados do mapa da esquerda para o da direita"
+        :text="$t('twoMaps.copy.filters.option1.button')"
+        :title="$t('twoMaps.copy.filters.option1.title')"
         :handle-click="() => copyTo('second')"
       />
       <Button
-        text="Da direita para a esquerda"
-        title="Copiar filtros selecionadas do mapa da direita para o da esquerda"
+        :text="$t('twoMaps.copy.filters.option2.button')"
+        :title="$t('twoMaps.copy.filters.option2.title')"
         :handle-click="() => copyTo('main')"
       />
     </div>

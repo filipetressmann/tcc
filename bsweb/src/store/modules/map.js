@@ -175,7 +175,7 @@ const state = {
     },
   },
   developer_mode: false,
-  secondMapIsActive: true,
+  secondMapIsActive: false,
   mapControl: 'independent', // { independent, same }
 };
 

@@ -63,7 +63,7 @@
         v-model="developer_mode"
         type="checkbox"
       >
-      <label for="dev-mode">Modo desenvolvedor</label>
+      <label for="dev-mode">{{ $t('footer.devMode') }}</label>
     </div>
   </div>
 </template>
