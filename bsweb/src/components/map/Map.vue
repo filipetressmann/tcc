@@ -15,6 +15,7 @@
         :name="tile.name"
         :url="tile.url"
         :visible="tile.visible"
+        :attribution="tile.attribution"
         layer-type="base"
       />
       <span v-if="renderZones">
