@@ -1,7 +1,8 @@
 <template>
   <div v-show="mapkey === 'main' || (secondMapIsActive && !hideSecondMapFlowsControl)">
     <div>
-      <span class="label">{{ $t("baseLayer") }}</span>
+      <span v-if="secondMapIsActive" class="label">{{ $t("baseLayer") }} ({{ $t(`baseLayerMap.${mapkey}`) }}):</span>
+      <span v-else class="label">{{ $t("baseLayer") }}:</span>
       <b-radio
         v-model="od"
         :name="mapkey"

@@ -15,8 +15,6 @@
         <template slot="header">
           <span class="custom-size">{{ $t('flows') }}</span>
         </template>
-        <BaseLayer mapkey="main" />
-        <BaseLayer mapkey="second" />
         <FlowsTab />
         <hr>
       </b-tab-item>
@@ -70,7 +68,6 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import BaseLayer from './filters/BaseLayer.vue';
 import Language from './Language.vue';
 import MapsTab from './tabs/MapsTab.vue';
 import FiltersTab from './tabs/FiltersTab.vue';
@@ -80,7 +77,6 @@ import UploadsTab from './tabs/UploadsTab.vue';
 
 export default {
   components: {
-    BaseLayer,
     Language,
     MapsTab,
     FiltersTab,

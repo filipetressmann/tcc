@@ -1,20 +1,28 @@
 <template>
   <div>
+    <BaseLayer mapkey="main" />
+    <BaseLayer mapkey="second" />
     <p class="title-options">
       {{ $t('tabs.maps.title') }}
     </p>
-    <b-field>
-      <b-checkbox v-model="secondMapIsActive" type="is-info" size="is-small">
-        <span class="view-option">{{ $t('tabs.maps.action') }}</span>
-      </b-checkbox>
-    </b-field>
+    <div class="my-1">
+      <b-field>
+        <b-checkbox v-model="secondMapIsActive" type="is-info" size="is-small">
+          <span class="view-option">{{ $t('tabs.maps.action') }}</span>
+        </b-checkbox>
+      </b-field>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import BaseLayer from '@/components/filters/BaseLayer.vue';
 
 export default {
+  components: {
+    BaseLayer,
+  },
   computed: {
     ...mapGetters(['secondMapIsActive', 'centerMain', 'centerSecond']),
     secondMapIsActive: {
