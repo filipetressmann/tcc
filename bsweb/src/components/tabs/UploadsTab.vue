@@ -96,6 +96,7 @@ export default {
       color: '',
       files: null,
       error: null,
+      fileType: null,
     };
   },
   computed: {
@@ -118,9 +119,11 @@ export default {
       'shapefileToGeoJson',
     ]),
     onFileChange(e) {
+      this.error = null;
       const files = e.target.files || e.dataTransfer.files;
       if (files && !files.length) {
-        this.error = 'Você deve adicionar 4 arquivos de um shapefile: .cpg, .dbf, .shp e .shx';
+        this.error = 'Você deve adicionar @@@';
+        // this.error = 'Você deve adicionar 4 arquivos de um shapefile: .cpg, .dbf, .shp e .shx';
         return;
       }
       this.files = files;
@@ -133,12 +136,23 @@ export default {
       if (!filesValidation || !fieldsValidation) return;
 
       const formData = new FormData();
-      formData.append('name', 'NomePena');
 
-      const cpg = [...this.files].filter(n => /.+\.cpg$/.test(n.name))[0];
-      const dbf = [...this.files].filter(n => /.+\.dbf$/.test(n.name))[0];
-      const shp = [...this.files].filter(n => /.+\.shp$/.test(n.name))[0];
-      const shx = [...this.files].filter(n => /.+\.shx$/.test(n.name))[0];
+      if (this.fileType === 'shp') {
+        const cpg = [...this.files].filter(n => /.+\.cpg$/.test(n.name))[0];
+        const dbf = [...this.files].filter(n => /.+\.dbf$/.test(n.name))[0];
+        const shp = [...this.files].filter(n => /.+\.shp$/.test(n.name))[0];
+        const shx = [...this.files].filter(n => /.+\.shx$/.test(n.name))[0];
+        formData.append('cpg', cpg);
+        formData.append('dbf', dbf);
+        formData.append('shp', shp);
+        formData.append('shx', shx);
+      } else if (this.fileType === 'kmz') {
+        const kmz = this.files[0];
+        formData.append('kmz', kmz);
+      } else if (this.fileType === 'zip') {
+        const zip = this.files[0];
+        formData.append('zip', zip);
+      }
 
       const props = {
         style: {
@@ -149,40 +163,49 @@ export default {
         name: this.name,
       };
 
-      formData.append('cpg', cpg);
-      formData.append('dbf', dbf);
-      formData.append('shp', shp);
-      formData.append('shx', shx);
-      this.shapefileToGeoJson({ formData, props });
+      this.shapefileToGeoJson({ formData, props, fileType: this.fileType });
     },
     validateFiles () {
       // Length validation
-      if (!this.files || this.files.length !== 4) {
-        this.error = 'Você deve adicionar 4 arquivos de um shapefile: .cpg, .dbf, .shp e .shx.';
+      if (!this.files || ![1, 4].includes(this.files.length)) {
+        this.error = 'Você deve adicionar @@@';
+        // this.error = 'Você deve adicionar 4 arquivos de um shapefile: .cpg, .dbf, .shp e .shx.';
         this.files = null;
         return false;
       }
 
-      // File name validation
-      const fileName = this.files[0].name.match('(.*)\\.')[1];
-      [...this.files].forEach(file => {
-        const name = file.name.match('(.*)\\.')[1];
-        if (name !== fileName) {
-          this.error = 'Os arquivos de um shapefile devem ter o mesmo nome.';
+      if (this.files.length == 1) {
+        if (!['.kmz', '.zip'].some(n => this.files[0].name.includes(n))) {
+          this.error = 'Formato de arquivo inválido';
           this.files = null;
           return false;
         }
-      });
+        if (this.files[0].name.includes('.kmz'))
+          this.fileType = 'kmz';
+        else this.fileType = 'zip';
+      } else { // Shapefile (cpg, dbf, shp, shx)
+        // File name validation
+        const fileName = this.files[0].name.match('(.*)\\.')[1];
+        [...this.files].forEach(file => {
+          const name = file.name.match('(.*)\\.')[1];
+          if (name !== fileName) {
+            this.error = 'Os arquivos de um shapefile devem ter o mesmo nome.';
+            this.files = null;
+            return false;
+          }
+        });
 
-      // Missing extension validation
-      const extensions = ['.cpg', '.dbf', '.shp', '.shx'];
-      for (const file of this.files) {
-        const found = extensions.some(ext => file.name.includes(ext));
-        if (!found) {
-          this.error = 'Você deve adicionar 4 arquivos de um shapefile: .cpg, .dbf, .shp e .shx.';
-          this.files = null;
-          return false;
+        // Missing extension validation
+        const extensions = ['.cpg', '.dbf', '.shp', '.shx'];
+        for (const file of this.files) {
+          const found = extensions.some(ext => file.name.includes(ext));
+          if (!found) {
+            this.error = 'Você deve adicionar 4 arquivos de um shapefile: .cpg, .dbf, .shp e .shx.';
+            this.files = null;
+            return false;
+          }
         }
+        this.fileType = 'shp';
       }
 
       this.error = null;

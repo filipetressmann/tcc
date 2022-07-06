@@ -12,8 +12,16 @@ const getters = {
 };
 
 const actions = {
-  shapefileToGeoJson: async ({ commit }, { formData, props }) => {
-    const response = await axios.post(`${api_url}/shapefile_to_geojson`, formData);
+  shapefileToGeoJson: async ({ commit }, { formData, props, fileType }) => {
+    let method = '';
+    if (fileType === 'shp')
+      method = 'shapefile_to_geojson';
+    else if (fileType === 'kmz')
+      method = 'kmz_to_geojson';
+    else if (fileType === 'zip')
+      method = 'shapefile_zip_to_geojson';
+
+    const response = await axios.post(`${api_url}/${method}`, formData);
     if (response.status === 200) {
       commit('saveGeoJson', {
         ...props,
