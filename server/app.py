@@ -70,7 +70,19 @@ def filter_data():
 @app.route('/shapefile_to_geojson', methods=['POST'])
 def shapefile_to_geojson():
     files = request.files
-    return helpers.convert(files)
+    return helpers.convert_shapefile_to_geojson(files)
+
+
+@app.route('/shapefile_zip_to_geojson', methods=['POST'])
+def shapefile_zip_to_geojson():
+    files = request.files
+    return helpers.convert_shapefile_zip_to_geojson(files)
+
+
+@app.route('/kmz_to_geojson', methods=['POST'])
+def kmz_to_geojson():
+    files = request.files
+    return helpers.convert_kmz_to_geojson(files)
 
 
 # Map layers
