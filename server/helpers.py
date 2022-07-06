@@ -87,8 +87,7 @@ def convert_kmz_to_geojson(files):
 
     rmdir(filePath)
 
-    gdf.crs = 'epsg:22523'
-    gdf = gdf.to_crs('epsg:4326')
+    gdf.crs = 'epsg:4326'
     return gdf.to_json()
 
 
