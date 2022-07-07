@@ -1,18 +1,78 @@
 <template>
   <div>
-    <age-form v-if="filter.filter_key == 'age'" :fid="filter.id" :filter="filter" />
-    <time-form v-if="filter.filter_key == 'horary'" :fid="filter.id" :filter="filter" />
-    <start-time-form v-if="filter.filter_key == 'start_time'" :fid="filter.id" :filter="filter" />
-    <finish-time-form v-if="filter.filter_key == 'finish_time'" :fid="filter.id" :filter="filter" />
-    <weekday-form v-if="filter.filter_key == 'weekday'" :fid="filter.id" :filter="filter" />
-    <month-form v-if="filter.filter_key == 'months'" :fid="filter.id" :filter="filter" />
-    <duration-form v-if="filter.filter_key == 'duration'" :fid="filter.id" :filter="filter" />
-    <sex-form v-if="filter.filter_key == 'sex'" :fid="filter.id" :filter="filter" />
-    <income-form v-if="filter.filter_key == 'income'" :fid="filter.id" :filter="filter" />
-    <distance-form v-if="filter.filter_key == 'distance'" :fid="filter.id" :filter="filter" />
-    <attractor-form v-if="filter.filter_key == 'attractors_emitters'" />
-    <speed-form v-if="filter.filter_key == 'speed'" :fid="filter.id" :filter="filter" />
-    <reason-form v-if="filter.filter_key == 'reason'" :fid="filter.id" :filter="filter" />
+    <age-form
+      v-if="filter.filter_key == 'age'"
+      :fid="filter.id"
+      :filter="filter"
+      :mapkey="mapkey"
+    />
+    <time-form
+      v-if="filter.filter_key == 'horary'"
+      :fid="filter.id"
+      :filter="filter"
+      :mapkey="mapkey"
+    />
+    <start-time-form
+      v-if="filter.filter_key == 'start_time'"
+      :fid="filter.id"
+      :filter="filter"
+      :mapkey="mapkey"
+    />
+    <finish-time-form
+      v-if="filter.filter_key == 'finish_time'"
+      :fid="filter.id"
+      :filter="filter"
+      :mapkey="mapkey"
+    />
+    <weekday-form
+      v-if="filter.filter_key == 'weekday'"
+      :fid="filter.id"
+      :filter="filter"
+      :mapkey="mapkey"
+    />
+    <month-form
+      v-if="filter.filter_key == 'months'"
+      :fid="filter.id"
+      :filter="filter"
+      :mapkey="mapkey"
+    />
+    <duration-form
+      v-if="filter.filter_key == 'duration'"
+      :fid="filter.id"
+      :filter="filter"
+      :mapkey="mapkey"
+    />
+    <sex-form
+      v-if="filter.filter_key == 'sex'"
+      :fid="filter.id"
+      :filter="filter"
+      :mapkey="mapkey"
+    />
+    <income-form
+      v-if="filter.filter_key == 'income'"
+      :fid="filter.id"
+      :filter="filter"
+      :mapkey="mapkey"
+    />
+    <distance-form
+      v-if="filter.filter_key == 'distance'"
+      :fid="filter.id"
+      :filter="filter"
+      :mapkey="mapkey"
+    />
+    <attractor-form v-if="filter.filter_key == 'attractors_emitters'" :mapkey="mapkey" />
+    <speed-form
+      v-if="filter.filter_key == 'speed'"
+      :fid="filter.id"
+      :filter="filter"
+      :mapkey="mapkey"
+    />
+    <reason-form
+      v-if="filter.filter_key == 'reason'"
+      :fid="filter.id"
+      :filter="filter"
+      :mapkey="mapkey"
+    />
   </div>
 </template>
 <script>
@@ -48,6 +108,7 @@ export default {
   },
   props: {
     filter: { type: Object, required: true },
+    mapkey: { type: String, required: true },
   },
 };
 </script>

@@ -3,9 +3,9 @@ import App from './App.vue';
 import VueResource from 'vue-resource';
 import 'leaflet/dist/leaflet.css';
 import Buefy from 'buefy';
+import './assets/styles/index.css';
 import 'buefy/dist/buefy.css';
 import 'vue-multiselect/dist/vue-multiselect.min.css';
-import './assets/styles/index.css';
 import VueI18n from 'vue-i18n';
 import { messages } from './plugins/i18n';
 import { store } from './store/store.js';
@@ -15,9 +15,10 @@ import { Icon } from 'leaflet';
 import VueToastr2 from 'vue-toastr-2';
 import 'vue-toastr-2/dist/vue-toastr-2.min.css';
 import router from './router';
+import Oruga from '@oruga-ui/oruga';
+import '@oruga-ui/oruga/dist/oruga.css';
 
 window.toastr = require('toastr');
-
 
 Vue.use(UUID);
 Vue.use(LoadScript);
@@ -25,6 +26,7 @@ Vue.use(VueI18n);
 Vue.use(Buefy);
 Vue.use(VueResource);
 Vue.use(VueToastr2);
+Vue.use(Oruga);
 
 // Toastr
 toastr.options = {

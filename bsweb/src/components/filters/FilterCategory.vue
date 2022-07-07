@@ -10,6 +10,7 @@
       <div v-for="filter in category.filters" :key="filter.id">
         <FilterController
           :filter="filter"
+          :mapkey="mapkey"
         />
       </div>
     </div>
@@ -27,6 +28,7 @@ export default {
   },
   props: {
     category: { type: Object, required: true },
+    mapkey: { type: String, required: true },
   },
   data() {
     return {

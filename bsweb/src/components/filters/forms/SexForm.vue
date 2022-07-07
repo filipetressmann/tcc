@@ -8,22 +8,32 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
+
 export default {
   props: {
     fid: { type: Number, required: true },
     filter: { type: Object, required: true },
-  },
-  data() {
-    return {
-      sexes: [
-        'male',
-        'female',
-      ],
-      selectedSexes: [],
-    };
+    mapkey: { type: String, required: true },
   },
   computed: {
+    ...mapGetters(['selectors']),
+    sexes: {
+      get() {
+        return this.selectors[this.mapkey][this.fid].sexes;
+      },
+      set(value) {
+        this.selectors[this.mapkey][this.fid].sexes = value;
+      },
+    },
+    selectedSexes: {
+      get() {
+        return this.selectors[this.mapkey][this.fid].selectedSexes;
+      },
+      set(value) {
+        this.selectors[this.mapkey][this.fid].selectedSexes = value;
+      },
+    },
     paramsCount() {
       return this.selectedSexes.length;
     },
@@ -39,12 +49,12 @@ export default {
   watch: {
     paramsCount: function(count, prevCount) {
       if (count === 0) {
-        this.removeActiveFilter(this.filter);
+        this.removeActiveFilter({ filter: this.filter, mapkey: this.mapkey });
       } else {
         if (prevCount === 0) {
-          this.addActiveFilter(this.filter);
+          this.addActiveFilter({ filter: this.filter, mapkey: this.mapkey });
         }
-        this.updateFilterParams(this.setFilterParams);
+        this.updateFilterParams({ filter: this.setFilterParams, mapkey: this.mapkey });
       }
     },
   },

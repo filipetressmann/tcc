@@ -2,7 +2,7 @@
   <div>
     <b-radio
       v-model="mode"
-      name="mode"
+      :name="`income-radio-${mapkey}`"
       native-value="brackets"
       type="is-info"
     >
@@ -10,7 +10,7 @@
     </b-radio>
     <b-radio
       v-model="mode"
-      name="mode"
+      :name="`income-radio-${mapkey}`"
       native-value="interval"
       type="is-info"
     >
@@ -73,41 +73,49 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+
 export default {
   props: {
     fid: { type: Number, required: true },
     filter: { type: Object, required: true },
-  },
-  data() {
-    return {
-      incomeBracket: [], // array com checkboxes marcados
-      incomeInterval: [0, 42916],
-      mode: 'brackets',
-      incomeBracketBounds: {
-        1: {
-          min: 0,
-          max: 1908,
-        },
-        2: {
-          min: 1908,
-          max: 3816,
-        },
-        3: {
-          min: 3816,
-          max: 7632,
-        },
-        4: {
-          min: 7632,
-          max: 11488,
-        },
-        5: {
-          min: 11448,
-          max: 42916,
-        },
-      },
-    };
+    mapkey: { type: String, required: true },
   },
   computed: {
+    ...mapGetters(['selectors']),
+    incomeBracket: {
+      get() {
+        return this.selectors[this.mapkey][this.fid].incomeBracket;
+      },
+      set(value) {
+        this.selectors[this.mapkey][this.fid].incomeBracket = value;
+      },
+    },
+    incomeInterval: {
+      get() {
+        return this.selectors[this.mapkey][this.fid].incomeInterval;
+      },
+      set(value) {
+        this.selectors[this.mapkey][this.fid].incomeInterval = value;
+      },
+    },
+    mode: {
+      get() {
+        return this.selectors[this.mapkey][this.fid].mode;
+      },
+      set(value) {
+        this.selectors[this.mapkey][this.fid].mode = value;
+      },
+    },
+    incomeBracketBounds: {
+      get() {
+        return this.selectors[this.mapkey][this.fid].incomeBracketBounds;
+      },
+      set(value) {
+        this.selectors[this.mapkey][this.fid].incomeBracketBounds = value;
+      },
+    },
+
+
     interval() {
       return this.mode === 'interval';
     },
@@ -133,19 +141,19 @@ export default {
   watch: {
     checkCount: function(count, prevCount) {
       if (count === 0) {
-        this.removeActiveFilter(this.filter);
+        this.removeActiveFilter({ filter: this.filter, mapkey: this.mapkey });
       } else {
         if (prevCount === 0) {
-          this.addActiveFilter(this.filter);
+          this.addActiveFilter({ filter: this.filter, mapkey: this.mapkey });
         }
-        this.updateFilterParams(this.setFilterParams);
+        this.updateFilterParams({ filter: this.setFilterParams, mapkey: this.mapkey });
       }
     },
     changedSlider: function() {
-      this.updateFilterParams(this.setFilterParams);
+      this.updateFilterParams({ filter: this.setFilterParams, mapkey: this.mapkey });
     },
     interval: function() {
-      this.updateFilterParams(this.setFilterParams);
+      this.updateFilterParams({ filter: this.setFilterParams, mapkey: this.mapkey });
     },
   },
   methods: {

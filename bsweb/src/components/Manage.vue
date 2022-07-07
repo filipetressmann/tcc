@@ -15,27 +15,32 @@
         <template slot="header">
           <span class="custom-size">{{ $t('flows') }}</span>
         </template>
-        <BaseLayer />
-        <Tiers v-show="!gridEditMode" />
+        <FlowsTab />
         <hr>
       </b-tab-item>
       <b-tab-item>
         <template slot="header">
           <span>{{ $t('filters') }}<b-tag rounded>{{ activeFilters.length }}</b-tag></span>
         </template>
-        <Filters @tab-changed="changeTab" />
+        <FiltersTab />
       </b-tab-item>
       <b-tab-item>
         <template slot="header">
-          <span>{{ $t('layers') }}<b-tag rounded>{{ activeLayers.length }}</b-tag></span>
+          <span>{{ $t('layers') }}<b-tag rounded>{{ activeLayersCount }}</b-tag></span>
         </template>
-        <Layers @tab-changed="changeTab" />
+        <LayersTab />
       </b-tab-item>
-      <b-tab-item v-if="false">
+      <b-tab-item>
         <template slot="header">
-          <span>{{ $t('maps') }}<b-tag rounded>1</b-tag></span>
+          <span class="custom-size2">{{ $t('maps') }}</span>
         </template>
-        Select maps to filter; Select maps that will be rendered;
+        <MapsTab />
+      </b-tab-item>
+      <b-tab-item>
+        <template slot="header">
+          <span class="custom-size2">Upload</span>
+        </template>
+        <UploadsTab />
       </b-tab-item>
       <b-tab-item v-if="false">
         <template slot="header">
@@ -56,28 +61,28 @@
         v-model="developer_mode"
         type="checkbox"
       >
-      <label for="dev-mode">Modo desenvolvedor</label>
+      <label for="dev-mode">{{ $t('footer.devMode') }}</label>
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import BaseLayer from './BaseLayer.vue';
-import Tiers from './Tiers.vue';
-import Filters from './Filters.vue';
-import Layers from './Layers.vue';
-import Charts from '../charts/Charts';
-import Language from '../Language.vue';
+import Language from './Language.vue';
+import MapsTab from './tabs/MapsTab.vue';
+import FiltersTab from './tabs/FiltersTab.vue';
+import LayersTab from './tabs/LayersTab.vue';
+import FlowsTab from './tabs/FlowsTab.vue';
+import UploadsTab from './tabs/UploadsTab.vue';
 
 export default {
   components: {
-    Filters,
-    Tiers,
-    Layers,
-    BaseLayer,
-    Charts,
     Language,
+    MapsTab,
+    FiltersTab,
+    LayersTab,
+    FlowsTab,
+    UploadsTab,
   },
   data() {
     return {
@@ -87,12 +92,12 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'tierList',
       'activeFilters',
       'activeLayers',
       'chartList',
       'gridEditMode',
       'developer_mode',
+      'activeLayersCount',
     ]),
     developer_mode: {
       get() {
@@ -127,6 +132,10 @@ export default {
     height: 24px;
     padding: 3px 12.4px 0 12.4px;
   }
+  .custom-size2 {
+    height: 24px;
+    padding-top: 3px;
+  }
   .custom-tabs{
     min-height: 85%;
   }
@@ -151,6 +160,8 @@ export default {
   .dev-mode {
     font-size: 12px;
     justify-content: center;
+    display: flex;
+    align-items: center;;
   }
 
   .dev-mode > * {

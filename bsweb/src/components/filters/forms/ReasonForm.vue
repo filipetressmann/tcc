@@ -36,19 +36,24 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
   
 export default {
   props: {
     fid: { type: Number, required: true },
     filter: { type: Object, required: true },
-  },
-  data() {
-    return {
-      reasons: [],
-    };
+    mapkey: { type: String, required: true },
   },
   computed: {
+    ...mapGetters(['selectors']),
+    reasons: {
+      get() {
+        return this.selectors[this.mapkey][this.fid].reasons;
+      },
+      set(value) {
+        this.selectors[this.mapkey][this.fid].reasons = value;
+      },
+    },
     paramsCount() {
       return this.reasons.length;
     },
@@ -64,12 +69,12 @@ export default {
   watch: {
     paramsCount: function(count, prevCount) {
       if (count === 0) {
-        this.removeActiveFilter(this.filter);
+        this.removeActiveFilter({ filter: this.filter, mapkey: this.mapkey });
       } else {
         if (prevCount === 0) {
-          this.addActiveFilter(this.filter);
+          this.addActiveFilter({ filter: this.filter, mapkey: this.mapkey });
         }
-        this.updateFilterParams(this.setFilterParams);
+        this.updateFilterParams({ filter: this.setFilterParams, mapkey: this.mapkey });
       }
     },
   },

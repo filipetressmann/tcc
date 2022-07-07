@@ -1,6 +1,13 @@
 <template>
   <div id="map">
-    <l-map :ref="mapkey" :zoom="properties.zoom" :center="properties.center">
+    <l-map
+      :ref="mapkey"
+      :zoom="zoom"
+      :center="center"
+      :inertia-deceleration="10000"
+      @update:zoom="zoomUpdated"
+      @update:center="centerUpdated"
+    >
       <l-control-layers position="topright" />
       <l-tile-layer
         v-for="tile in properties.tile_layers"
@@ -8,6 +15,7 @@
         :name="tile.name"
         :url="tile.url"
         :visible="tile.visible"
+        :attribution="tile.attribution"
         layer-type="base"
       />
       <span v-if="renderZones">
@@ -18,7 +26,7 @@
           :options="zonesOptions()"
         />
       </span>
-      <span v-if="renderGrid">
+      <span v-if="renderGrid && grid.geometry">
         <l-geo-json
           :geojson="grid.geometry"
           :options-style="grid.style"
@@ -26,13 +34,22 @@
           :options="gridOptions()"
         />
       </span>
-      <l-geo-json
-        v-for="key in Object.keys(layersGeojson)"
-        :key="`layers-${key}`"
-        :geojson="layers[key].geometry"
-        :options-style="layersGeojson[key].style"
-        :options="layersGeojson[key].options"
-      />
+      <div v-for="layer_key in activeLayersKeys" :key="`layers-${layer_key}`">
+        <l-geo-json
+          :geojson="layers[layer_key].geometry"
+          :options-style="layers[layer_key].style"
+          :options="layers[layer_key].options"
+        />
+      </div>
+      <div v-for="(layer, index) in uploadedLayers" :key="`custom-layers-${index}`">
+        <div v-if="layer.isActive[mapkey]">
+          <l-geo-json
+            :geojson="layer.geometry"
+            :options="markerOptions(layer.style)"
+            :options-style="layer.style"
+          />
+        </div>
+      </div>
       <l-feature-group v-for="tier in Object.keys(arrowTiers)" :key="tier">
         <l-polyline
           v-for="(arrow, index) in flows[tier]"
@@ -109,20 +126,35 @@ export default {
       symbol: L.Symbol,
       renderZones: false,
       renderGrid: false,
+      zoom: 12, // @@@ default
+      center: { lat: -23.550164466, lng: -46.633664132 },
     };
   },
   computed: {
     ...mapGetters([
-      'grid',
       'developer_mode',
+      'sharedControls',
+      'centerMain',
+      'centerSecond',
+      'zoomMain',
+      'zoomSecond',
+      'mapControl',
+      'layers',
     ]),
+    ...mapGetters('user_shapefiles', ['uploadedLayers']),
     ...mapState({
+      activeLayersKeys(state) {
+        return state.layers[this.mapkey].activeLayersKeys;
+      },
+      grid(state) {
+        return state.layers[this.mapkey].grid;
+      },
       properties(state) {
         return state.map.maps[this.mapkey].properties;
       },
-      layersGeojson(state) {
-        return state.map.maps[this.mapkey].show.layers['geojson'];
-      },
+      // layersGeojson(state) {
+      //   return state.map.maps[this.mapkey].show.layers['geojson'];
+      // },
       layersPolylines(state) {
         return state.map.maps[this.mapkey].show.layers['polyline'];
       },
@@ -132,17 +164,19 @@ export default {
       arrowTiers(state) {
         return state.map.maps[this.mapkey].show.flows['polyline'];
       },
-      flows: state => state.filters.flows,
-      layers: state => state.layers.data,
+      // flows: state => state.filters[this.mapkey].flows,
+      flows(state) {
+        return state.flows.flows[this.mapkey];
+      },
       zones: state => state.layers.zones,
-      attractors: state => state.filters.heatmaps.attractors,
-      emitters: state => state.filters.heatmaps.emitters,
-      showAttractors(state) {
-        return state.map.maps[this.mapkey].show.attractors;
-      },
-      showEmitters(state) {
-        return state.map.maps[this.mapkey].show.emitters;
-      },
+      // attractors: state => state.filters.heatmaps.attractors,
+      // emitters: state => state.filters.heatmaps.emitters,
+      // showAttractors(state) {
+      //   return state.map.maps[this.mapkey].show.attractors;
+      // },
+      // showEmitters(state) {
+      //   return state.map.maps[this.mapkey].show.emitters;
+      // },
       showZones(state) {
         return state.map.maps[this.mapkey].show.zones;
       },
@@ -150,27 +184,77 @@ export default {
         return state.map.maps[this.mapkey].show.grid;
       },
     }),
+    secondMapIsActive: {
+      get() {
+        return this.$store.state.map.secondMapIsActive;
+      },
+    },
+  },
+  watch: {
+    centerMain: function(value) {
+      if (this.mapkey === 'main' && 
+          this.centerMain.lat !== this.centerSecond.lat && 
+          this.centerMain.lng !== this.centerSecond.lng)
+        this.center = value;
+    },
+    centerSecond: function(value) {
+      if (this.mapkey === 'second' &&
+          this.centerMain.lat !== this.centerSecond.lat &&
+          this.centerMain.lng !== this.centerSecond.lng)
+        this.center = value;
+    },
+    zoomMain: function(value) {
+      if (this.mapkey === 'main') this.zoom = value;
+    },
+    zoomSecond: function(value) {
+      if (this.mapkey === 'second') this.zoom = value;
+    },
+    secondMapIsActive: function(value) {
+      if (this.mapkey === 'main') {
+        this.$refs['main'].mapObject.invalidateSize();
+      }
+    },
+    mapControl: function(newValue, oldValue) {
+      if (oldValue === 'both' && this.mapkey === 'second') {
+        this.loadBaseLayers();
+      }
+    },
   },
   mounted() {
+    if (this.keymap === 'second') {
+      this.updateCenter({ mapkey: 'second', center: centerMain });
+    }
     this.loadBaseLayers();
+    this.loadSavedLayers();
   },
   methods: {
     ...mapActions('loading', ['setLoading', 'unsetLoading']),
+    ...mapActions('user_shapefiles', ['loadSavedLayers']),
     ...mapActions([
       'fetchZones',
       'fetchGrid',
       'filterData',
+      'updateCenter',
+      'updateZoom',
     ]),
     async loadBaseLayers() {
       this.setLoading();
-      await this.fetchGrid().then(() => {
+      await this.fetchGrid(this.mapkey).then(() => {
         this.renderGrid = true;
-        this.filterData();
+        this.filterData(this.mapkey);
         this.unsetLoading();
       });
       this.fetchZones(this.$http).then(() => {
         this.renderZones = true;
       });
+    },
+    zoomUpdated(zoom) {
+      if (this.mapControl === 'same')
+        this.updateZoom({ mapkey: this.mapkey, zoom });
+    },
+    centerUpdated(center) {
+      if (this.mapControl === 'same')
+        this.updateCenter({ mapkey: this.mapkey, center });
     },
     gridOptions() {
       // return {
@@ -190,6 +274,28 @@ export default {
           tooltipMsg += `NomeMunici: ${feature.properties.NomeMunici}<br>`;
           // tooltipMsg += `NumDistrit: ${NumDistrit}`;
           // layer.bindPopup(tooltipMsg);
+          layer.bindTooltip(tooltipMsg, { permanent: false, sticky: true });
+        },
+      };
+    },
+    markerOptions(style) {
+      return {
+        pointToLayer: function (feature, latlng) {
+          return L.circleMarker(
+            latlng,
+            {
+              radius: style.weight/2,
+              opacity: style.opacity,
+              fillOpacity: style.opacity,
+              fillColor: style.color,
+              color: style.color,
+            });
+        },
+        onEachFeature: function (feature, layer) {
+          const keys = Object.keys(feature.properties);
+          let properties = [];
+          keys.forEach(k => properties.push(`${k}: ${feature.properties[k]}`));
+          const tooltipMsg = properties.join('<br>');
           layer.bindTooltip(tooltipMsg, { permanent: false, sticky: true });
         },
       };

@@ -1,0 +1,1 @@
+docker image build -f Dockerfile.development -t bsw_backend_only . && docker container run -t -p 9000:9000 -e FLASK_APP=app.py --rm --name bsw_backend_only -e FLASK_DEBUG=1 -v $PWD:/backend bsw_backend_only

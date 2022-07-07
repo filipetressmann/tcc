@@ -7,6 +7,7 @@
       <TierController
         :tier="index"
         :count="count"
+        :mapkey="mapkey"
       />
     </div>
     <span v-if="flowsNotFound" class="not-found">{{ $t('notFoundTiers') }}</span>
@@ -21,11 +22,15 @@ export default {
   components: {
     TierController,
   },
+  props: {
+    mapkey: { type: String, required: true },
+  },
   computed: {
-    ...mapGetters([
-      'tierList',
-      'flowsNotFound',
-    ]),
+    ...mapGetters(['flowsNotFound']),
+    ...mapGetters('flows', ['tripsPerTier']),
+    tierList() {
+      return this.tripsPerTier[this.mapkey];
+    },
   },
   watch: {
     flowsNotFound: function (val) {

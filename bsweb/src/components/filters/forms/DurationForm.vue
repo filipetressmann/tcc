@@ -17,16 +17,22 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+
 export default {
   props: {
     fid: { type: Number, required: true },
-  },
-  data() {
-    return {
-      durationRange: [1, 180],
-    };
+    mapkey: { type: String, required: true },
   },
   computed: {
+    ...mapGetters(['selectors']),
+    durationRange: {
+      get() {
+        return this.selectors[this.mapkey][this.fid].durationRange;
+      },
+      set(value) {
+        this.selectors[this.mapkey][this.fid].durationRange = value;
+      },
+    },
     setFilterParams() {
       return {
         id: this.fid,
@@ -37,8 +43,8 @@ export default {
     },
   },
   watch: {
-    setFilterParams: function(value) {
-      this.updateFilterParams(value);
+    setFilterParams: function(filter) {
+      this.updateFilterParams({ filter, mapkey: this.mapkey });
     },
   },
   methods: {

@@ -25,6 +25,8 @@
           icon="clock"
           size="is-small"
           class="timepicker"
+          locale="pt-BR"
+          hour-format="24"
         />
       </div>
       <div class="flex">
@@ -35,6 +37,8 @@
           icon="clock"
           size="is-small"
           class="timepicker"
+          locale="pt-BR"
+          hour-format="24"
         />
       </div>
     </div>
@@ -42,22 +46,48 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
   
 export default {
   props: {
     fid: { type: Number, required: true },
     filter: { type: Object, required: true },
-  },
-  data() {
-    return {
-      periods: [],
-      specific: false,
-      minTime: new Date(2020, 1, 1, 4, 0, 0),
-      maxTime: new Date(2020, 1, 1, 13, 0, 0),
-    };
+    mapkey: { type: String, required: true },
   },
   computed: {
+    ...mapGetters(['selectors']),
+    periods: {
+      get() {
+        return this.selectors[this.mapkey][this.fid].periods;
+      },
+      set(value) {
+        this.selectors[this.mapkey][this.fid].periods = value;
+      },
+    },
+    specific: {
+      get() {
+        return this.selectors[this.mapkey][this.fid].specific;
+      },
+      set(value) {
+        this.selectors[this.mapkey][this.fid].specific = value;
+      },
+    },
+    minTime: {
+      get() {
+        return this.selectors[this.mapkey][this.fid].minTime;
+      },
+      set(value) {
+        this.selectors[this.mapkey][this.fid].minTime = value;
+      },
+    },
+    maxTime: {
+      get() {
+        return this.selectors[this.mapkey][this.fid].maxTime;
+      },
+      set(value) {
+        this.selectors[this.mapkey][this.fid].maxTime = value;
+      },
+    },
     paramsCount() {
       return this.periods.length + this.specific;
     },
@@ -76,12 +106,12 @@ export default {
   watch: {
     paramsCount: function(count, prevCount) {
       if (count === 0) {
-        this.removeActiveFilter(this.filter);
+        this.removeActiveFilter({ filter: this.filter, mapkey: this.mapkey });
       } else {
         if (prevCount === 0) {
-          this.addActiveFilter(this.filter);
+          this.addActiveFilter({ filter: this.filter, mapkey: this.mapkey });
         }
-        this.updateFilterParams(this.setFilterParams);
+        this.updateFilterParams({ filter: this.setFilterParams, mapkey: this.mapkey });
       }
     },
   },

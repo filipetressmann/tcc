@@ -17,16 +17,22 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+
 export default {
   props: {
     fid: { type: Number, required: true },
-  },
-  data() {
-    return {
-      ageRange: [1, 71],
-    };
+    mapkey: { type: String, required: true },
   },
   computed: {
+    ...mapGetters(['selectors']),
+    ageRange: {
+      get() {
+        return this.selectors[this.mapkey][this.fid].ageRange;
+      },
+      set(value) {
+        this.selectors[this.mapkey][this.fid].ageRange = value;
+      },
+    },
     ageLabel() {
       return `${$t(ageField)} ${this.ageRange[0]} - ${this.ageRange[1]}`;
     },
@@ -40,8 +46,8 @@ export default {
     },
   },
   watch: {
-    setFilterParams: function(value) {
-      this.updateFilterParams(value);
+    setFilterParams: function(filter) {
+      this.updateFilterParams({ filter, mapkey: this.mapkey });
     },
   },
   methods: {

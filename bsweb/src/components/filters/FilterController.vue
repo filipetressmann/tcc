@@ -10,7 +10,7 @@
       <label class="filter-name">{{ $t(filter.filter_name) }}</label>
       <div v-if="isActive">
         <div class="options">
-          <FilterFormField :filter="filter" />
+          <FilterFormField :filter="filter" :mapkey="mapkey" />
         </div>
       </div>
     </div>
@@ -21,7 +21,7 @@
       <label class="filter-name">{{ $t(filter.filter_name) }}</label>
       <div v-show="isActive">
         <div class="options">
-          <FilterFormField :filter="filter" />
+          <FilterFormField :filter="filter" :mapkey="mapkey" />
         </div>
       </div>
     </div>
@@ -39,6 +39,7 @@ export default {
   },
   props: {
     filter: { type: Object, required: true },
+    mapkey: { type: String, required: true },
   },
   data() {
     return {
@@ -50,9 +51,9 @@ export default {
     isActive: function(val) {
       if (this.filter.has_checkbox) {
         if (val) {
-          this.addActiveFilter(this.filter);
+          this.addActiveFilter({ filter: this.filter, mapkey: this.mapkey });
         } else {
-          this.removeActiveFilter(this.filter);
+          this.removeActiveFilter({ filter: this.filter, mapkey: this.mapkey });
         }
       }
     },

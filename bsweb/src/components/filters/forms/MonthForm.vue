@@ -20,6 +20,7 @@ import { mapActions } from 'vuex';
 export default {
   props: {
     fid: { type: Number, required: true },
+    mapkey: { type: String, required: true },
   },
   data() {
     return {
@@ -51,8 +52,8 @@ export default {
     },
   },
   watch: {
-    filterData: function(value) {
-      this.updateFilterParams(value);
+    filterData: function(filter) {
+      this.updateFilterParams({ filter, mapkey: this.mapkey });
     },
   },
   methods: {

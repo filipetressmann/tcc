@@ -1,47 +1,52 @@
 <template>
-  <div>
+  <div v-show="mapkey === 'main' || (secondMapIsActive && !hideSecondMapFlowsControl)">
     <div>
-      <span class="label">{{ $t('baseLayer') }}</span>
+      <span v-if="secondMapIsActive" class="label">{{ $t("baseLayer") }} ({{ $t(`baseLayerMap.${mapkey}`) }}):</span>
+      <span v-else class="label">{{ $t("baseLayer") }}:</span>
       <b-radio
         v-model="od"
-        name="Grid"
+        :name="mapkey"
         native-value="grid"
         type="is-info"
       >
-        <span class="view-option">{{ $t('grid') }}</span>
+        <span class="view-option">{{ $t("grid") }}</span>
       </b-radio>
       <b-radio
         v-model="od"
-        name="Zonas OD"
+        :name="mapkey"
         native-value="zones"
         type="is-info"
       >
-        <span class="view-option">{{ $t('zones') }}</span>
+        <span class="view-option">{{ $t("zones") }}</span>
       </b-radio>
     </div>
     <div v-if="od == 'grid'">
-      <div
-        v-if="!gridEditMode"
-        class="edit-grid-button"
-        :title="this.$t('onHover.gridEditMode')"
-        @click="setGridEditModeOn()"
-      >
-        <span>{{ $t('buttons.gridEditMode') }}</span>
+      <div v-if="!gridEditMode">
+        <Button
+          :text="this.$t('buttons.gridEditMode')"
+          :title="this.$t('onHover.gridEditMode')"
+          :handle-click="() => setGridEditModeOn(mapkey)"
+        />
       </div>
       <div v-if="gridEditMode">
-        <GridForm />
+        <GridForm :mapkey="mapkey" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from 'vuex';
+import { mapGetters, mapActions, mapMutations, mapState } from 'vuex';
 import GridForm from '@/components/filters/forms/GridForm';
+import Button from '@/components/buttons/Button.vue';
 
 export default {
   components: {
     GridForm,
+    Button,
+  },
+  props: {
+    mapkey: { type: String, required: true },
   },
   data() {
     return {
@@ -51,26 +56,32 @@ export default {
   computed: {
     ...mapGetters({
       filterParams: 'filters',
-      gridEditMode: 'gridEditMode',
+    }),
+    ...mapGetters(['secondMapIsActive']),
+    ...mapGetters('flows', ['hideSecondMapFlowsControl']),
+    ...mapState({
+      gridEditMode(state) {
+        return state.filters[this.mapkey].gridEditMode;
+      },
     }),
   },
   watch: {
-    od: function(value) {
-      this.updateOD(value);
+    od: function (value) {
+      this.updateOD({ value, mapkey: this.mapkey });
       this.resetMapResource({
-        mapkey: 'main',
+        mapkey: this.mapkey,
         category: 'flows',
         type: 'polyline',
       });
-      this.resetFlows();
+      this.resetFlows(this.mapkey);
       if (value == 'zones') {
-        this.showZones('main');
-        this.hideGrid('main');
+        this.showZones(this.mapkey);
+        this.hideGrid(this.mapkey);
       } else if (value == 'grid') {
-        this.showGrid('main');
-        this.hideZones('main');
+        this.showGrid(this.mapkey);
+        this.hideZones(this.mapkey);
       }
-      this.filterData();
+      this.filterData(this.mapkey);
     },
   },
   methods: {
@@ -79,41 +90,21 @@ export default {
       'resetMapResource',
       'filterData',
       'setGridEditModeOn',
-      'resetFlows',
+      'flows/resetFlows',
     ]),
-    ...mapMutations([
-      'showZones',
-      'hideZones',
-      'showGrid',
-      'hideGrid',
-    ]),
+    ...mapMutations(['showZones', 'hideZones', 'showGrid', 'hideGrid']),
     ...mapActions('loading', ['setLoading', 'unsetLoading']),
+    ...mapActions('flows', ['resetFlows']),
   },
 };
 </script>
 
 <style scoped>
-  .label {
-    font-size: 12px;
-  }
-  .view-option {
-    font-size: 12px;
-  }
+.label {
+  font-size: 12px;
+}
+.view-option {
+  font-size: 12px;
+}
 
-  .edit-grid-button {
-    cursor: pointer;
-    border: 1px solid #167df0;
-    border-radius: 5px;
-    width: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 20px 0;
-    font-size: 12px;
-    color: #167df0;
-  }
-  .edit-grid-button:hover {
-    color: #363636;
-    background-color: #ddd;
-  }
 </style>

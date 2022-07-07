@@ -90,51 +90,54 @@
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
+  props: {
+    mapkey: { type: String, required: true },
+  },
   computed: {
     gridSize: {
       get() {
-        return this.$store.state.filters.filters.gridSize;
+        return this.$store.state.filters[this.mapkey].filters.gridSize;
       },
-      set(value) {
-        this.updateGridSize(value);
+      set(gridSize) {
+        this.updateGridSize({ gridSize, mapkey: this.mapkey });
         this.reloadGrid();
       },
     },
     gridOffset: {
       get() {
-        return this.$store.state.filters.filters.gridOffset;
+        return this.$store.state.filters[this.mapkey].filters.gridOffset;
       },
     },
     grid_west: {
       get() {
-        return this.$store.state.filters.filters.gridOffset.west;
+        return this.$store.state.filters[this.mapkey].filters.gridOffset.west;
       },
       set(value) {
-        this.updateGridOffset({ key: 'west', value: Number(value) });
+        this.updateGridOffset({ key: 'west', value: Number(value), mapkey: this.mapkey });
       },
     },
     grid_east: {
       get() {
-        return this.$store.state.filters.filters.gridOffset.east;
+        return this.$store.state.filters[this.mapkey].filters.gridOffset.east;
       },
       set(value) {
-        this.updateGridOffset({ key: 'east', value: Number(value) });
+        this.updateGridOffset({ key: 'east', value: Number(value), mapkey: this.mapkey });
       },
     },
     grid_north: {
       get() {
-        return this.$store.state.filters.filters.gridOffset.north;
+        return this.$store.state.filters[this.mapkey].filters.gridOffset.north;
       },
       set(value) {
-        this.updateGridOffset({ key: 'north', value: Number(value) });
+        this.updateGridOffset({ key: 'north', value: Number(value), mapkey: this.mapkey });
       },
     },
     grid_south: {
       get() {
-        return this.$store.state.filters.filters.gridOffset.south;
+        return this.$store.state.filters[this.mapkey].filters.gridOffset.south;
       },
       set(value) {
-        this.updateGridOffset({ key: 'south', value: Number(value) });
+        this.updateGridOffset({ key: 'south', value: Number(value), mapkey: this.mapkey });
       },
     },
     ...mapGetters({
@@ -150,15 +153,15 @@ export default {
     getFlows() {
       // this.setLoading();
       this.resetMapResource({ mapkey: 'main', category: 'flows', type: 'polyline' });
-      this.filterData()
+      this.filterData(this.mapkey)
         .then(() => {
           // this.unsetLoading();
         });
-      this.setGridEditModeOff();
+      this.setGridEditModeOff(this.mapkey);
     },
     reloadGrid() {
       this.setLoading();
-      this.fetchGrid()
+      this.fetchGrid(this.mapkey)
         .then(() => {
           this.unsetLoading();
         });

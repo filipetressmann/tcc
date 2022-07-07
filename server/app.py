@@ -1,13 +1,20 @@
-from flask import Flask, jsonify, request, send_file, url_for
-from flask_restful import Api
-from flask_cors import CORS
-import layers as layers
-import filters as filters
-import filter_list as filter_list
-from charts import Charts
-import pandas as pd
-import bikescience.sp_grid as gr
 import os
+import sys
+
+import pandas as pd
+from flask import Flask, jsonify, request, send_file, url_for
+from flask_cors import CORS
+from flask_restful import Api
+
+import bikescience.sp_grid as gr
+import filter_list as filter_list
+import filters as filters
+import helpers
+import layers as layers
+from charts import Charts
+
+sys.path.append(os.path.normpath("."))
+
 
 # configuration
 DEBUG = True
@@ -20,9 +27,11 @@ CORS(app, resources={r'/*': {'origins': '*'}})
 
 api = Api(app)
 
+
 @app.route('/fetchfilters', methods=['GET'])
 def fetchfilters():
     return jsonify(filters.initialize_filter_list())
+
 
 @app.route('/grid_layer', methods=['GET', 'POST'])
 def grid():
@@ -36,9 +45,12 @@ def grid():
     return grid.geodataframe().to_json()
 
 # sanity check route
+
+
 @app.route('/', methods=['GET'])
 def bsweb():
     return jsonify('This is BikeScience Web!')
+
 
 @app.route('/chart')
 def load_chart():
@@ -47,11 +59,31 @@ def load_chart():
     path = os.path.normpath("static/charts/" + ut + "/" + chart + "/")
     return send_file(path)
 
+
 @app.route('/filter_data', methods=['GET', 'POST'])
 def filter_data():
     req_data = request.get_json()
     data = filters.handle_filtering(req_data)
     return jsonify(data)
+
+
+@app.route('/shapefile_to_geojson', methods=['POST'])
+def shapefile_to_geojson():
+    files = request.files
+    return helpers.convert_shapefile_to_geojson(files)
+
+
+@app.route('/shapefile_zip_to_geojson', methods=['POST'])
+def shapefile_zip_to_geojson():
+    files = request.files
+    return helpers.convert_shapefile_zip_to_geojson(files)
+
+
+@app.route('/kmz_to_geojson', methods=['POST'])
+def kmz_to_geojson():
+    files = request.files
+    return helpers.convert_kmz_to_geojson(files)
+
 
 # Map layers
 api.add_resource(layers.CPTM_lines, '/load_railway_lines_data')

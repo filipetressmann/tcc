@@ -10,7 +10,7 @@ export const messages = {
     language: 'Language',
     english: 'en',
     portuguese: 'pt',
-    baseLayer: 'Base layer:',
+    baseLayer: 'Base layer',
     noFilters: 'No filters added yet.',
     noLayers: 'No layers added yet.',
     timeFilters: 'Time filters',
@@ -20,6 +20,79 @@ export const messages = {
     tabs: {
       filters: 'Filters',
       layers: 'Layers',
+      layersTab: {
+        userLayers: 'User layers',
+      },
+      maps: {
+        title: 'Multiple maps action',
+        action: 'Activate additional map',
+      },
+      upload: {
+        title: 'Upload your shapefiles here',
+        text: 'Accepted file extensions',
+        extensions: [
+          'shapefile in a .zip file',
+          'shapefiles (4 files: .cpg, .dbf, .shp and .shx)',
+          '.kmz',
+        ],
+        inputs: {
+          name: 'Name',
+          width: 'Width (px)',
+          opacity: 'Opacity',
+          color: 'Color',
+        },
+        button: 'Send',
+      },
+    },
+    twoMaps: {
+      leftMap: 'Left Map',
+      rightMap: 'Right Map',
+      mirroredChanges: 'Mirrored actions',
+      hideRightControls: 'Hide right controls',
+      copy: {
+        flows: {
+          main: {
+            button: 'Copy selected flows',
+            title: 'Copy selected flows between maps',
+          },
+          option1: {
+            button: 'From left to right',
+            title: 'Copy selected flows from left map to right map',
+          },
+          option2: {
+            button: 'From right to left',
+            title: 'Copy selected flows from right map to left map',
+          },
+        },
+        filters: {
+          main: {
+            button: 'Copy selected filters',
+            title: 'Copy selected filters between maps',
+          },
+          option1: {
+            button: 'From left to right',
+            title: 'Copy selected filters from left map to right map',
+          },
+          option2: {
+            button: 'From right to left',
+            title: 'Copy selected filters from right map to left map',
+          },
+        },
+        layers: {
+          main: {
+            button: 'Copy selected layers',
+            title: 'Copy selected layers between maps',
+          },
+          option1: {
+            button: 'From left to right',
+            title: 'Copy selected layers from left map to right map',
+          },
+          option2: {
+            button: 'From right to left',
+            title: 'Copy selected layers from right map to left map',
+          },
+        },
+      },
     },
     // Layers
     layers_highCapacityTransport: 'High capacity transports',
@@ -97,6 +170,7 @@ export const messages = {
       about: 'About',
       userGuide: 'User guide',
       survey: 'Survey',
+      devMode: 'Developer Mode',
     },
     // Grid editor
     gridOptions: {
@@ -124,6 +198,16 @@ export const messages = {
         guide: 'User Guide',
       },
     },
+    editModal: {
+      title: 'Editing layer',
+      inputs: {
+        name: 'Name',
+        width: 'Width (px)',
+        opacity: 'Opacity',
+        color: 'Color',
+      },
+      button: 'Send',
+    },
   },
   'pt-br': {
     appName: 'BikeScienceWeb',
@@ -136,7 +220,11 @@ export const messages = {
     language: 'Idioma',
     english: 'en',
     portuguese: 'pt',
-    baseLayer: 'Camada de visualização:',
+    baseLayer: 'Camada de visualização',
+    baseLayerMap: {
+      main: 'mapa da esquerda',
+      second: 'mapa da direita',
+    },
     noFilters: 'Nenhum filtro adicionado.',
     noLayers: 'Nenhuma camada adicionada.',
     timeFilters: 'Filtros temporais',
@@ -146,6 +234,79 @@ export const messages = {
     tabs: {
       filters: 'Filtros',
       layers: 'Camadas',
+      layersTab: {
+        userLayers: 'Camadas do usuário',
+      },
+      maps: {
+        title: 'Opções para múltiplos mapas',
+        action: 'Ativar mapa adicional',
+      },
+      upload: {
+        title: 'Suba aqui seus arquivos georeferrenciados',
+        text: 'Formatos de arquivos aceitos',
+        extensions: [
+          'shapefile em um arquivo .zip',
+          'shapefile (4 arquivos: .cpg, .dbf, .shp e .shx)',
+          '.kmz',
+        ],
+        inputs: {
+          name: 'Nome',
+          width: 'Espessura (px)',
+          opacity: 'Opacidade',
+          color: 'Cor',
+        },
+        button: 'Enviar',
+      },
+    },
+    twoMaps: {
+      leftMap: 'Mapa da Esquerda',
+      rightMap: 'Mapa da Direita',
+      mirroredChanges: 'Espelhar alterações',
+      hideRightControls: 'Ocultar controles da direita',
+      copy: {
+        flows: {
+          main: {
+            button: 'Copiar fluxos selecionados',
+            title: 'Copiar fluxos entre os mapas',
+          },
+          option1: {
+            button: 'Da esquerda para a direita',
+            title: 'Copiar fluxos selecionados do mapa da esquerda para o da direita',
+          },
+          option2: {
+            button: 'Da direita para a esquerda',
+            title: 'Copiar fluxos selecionados do mapa da direita para o da esquerda',
+          },
+        },
+        filters: {
+          main: {
+            button: 'Copiar filtros selecionados',
+            title: 'Copiar filtros entre os mapas',
+          },
+          option2: {
+            button: 'Da esquerda para a direita',
+            title: 'Copiar filtros selecionados do mapa da esquerda para o da direita',
+          },
+          option1: {
+            button: 'Da direita para a esquerda',
+            title: 'Copiar filtros selecionados do mapa da direita para o da esquerda',
+          },
+        },
+        layers: {
+          main: {
+            button: 'Copiar camadas selecionadas',
+            title: 'Copiar camadas entre os mapas',
+          },
+          option1: {
+            button: 'Da esquerda para a direita',
+            title: 'Copiar camadas selecionadas do mapa da esquerda para o da direita',
+          },
+          option2: {
+            button: 'Da direita para a esquerda',
+            title: 'Copiar camadas selecionadas do mapa da direita para o da esquerda',
+          },
+        },
+      },
     },
     // Layers
     layers_highCapacityTransport: 'Transportes de alta capacidade',
@@ -224,6 +385,7 @@ export const messages = {
       about: 'Sobre',
       userGuide: 'Guia do usuário',
       survey: 'Pesquisa de opinião',
+      devMode: 'Modo desenvolvedor',
     },
     // Grid editor
     gridOptions: {
@@ -250,6 +412,16 @@ export const messages = {
         team: 'Equipe',
         guide: 'Guia do Usuário',
       },
+    },
+    editModal: {
+      title: 'Editando camada',
+      inputs: {
+        name: 'Nome',
+        width: 'Espessura (px)',
+        opacity: 'Opacidade',
+        color: 'Cor',
+      },
+      button: 'Enviar',
     },
   },
 };

@@ -13,21 +13,26 @@ export default {
   props: {
     tier: { type: Number, required: true },
     count: { type: Number, required: true },
-  },
-  data() {
-    return {
-      isActive: false,
-    };
+    mapkey: { type: String, required: true },
   },
   computed: {
+    ...mapGetters('flows', ['flows', 'selectors']),
     flow() {
-      return this.$store.state.filters.flows[this.tier];
+      return this.flows[this.mapkey][this.tier];
+    },
+    isActive: {
+      get() {
+        return this.selectors[this.mapkey][this.tier];
+      },
+      set() {
+        this.toggleSelector({ mapkey: this.mapkey, tier: this.tier });
+      },
     },
   },
   watch: {
-    isActive: function(value) {
+    isActive(value) {
       const data = {
-        mapkey: 'main',
+        mapkey: this.mapkey,
         category: 'flows',
         type: 'polyline',
         key: this.tier,
@@ -41,7 +46,7 @@ export default {
     flow() {
       if (this.isActive) {
         this.addToMap({
-          mapkey: 'main',
+          mapkey: this.mapkey,
           category: 'flows',
           type: 'polyline',
           key: this.tier,
@@ -54,6 +59,7 @@ export default {
       'addToMap',
       'removeFromMap',
     ]),
+    ...mapActions('flows', ['toggleSelector']),
   },
 };
 </script>
