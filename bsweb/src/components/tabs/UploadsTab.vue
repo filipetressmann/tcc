@@ -99,9 +99,9 @@ export default {
     return {
       type: 'layer',
       name: '',
-      weight: 1,
+      weight: 3,
       opacity: 0.9,
-      color: '',
+      color: '#ff0000',
       files: null,
       error: null,
       fileType: null,
