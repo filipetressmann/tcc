@@ -1,6 +1,14 @@
 <template>
   <div class="wrapper">
     <p>{{ $t('tabs.upload.title') }}</p>
+    <p class="text">
+      {{ $t('tabs.upload.text') }}:
+      <ul>
+        <li v-for="extension in $t('tabs.upload.extensions')" :key="extension">
+          {{ extension }}
+        </li>
+      </ul>
+    </p>
     <form @submit.prevent="submitFiles">
       <div class="file-btn-wrapper">
         <input
@@ -287,5 +295,14 @@ export default {
 .error {
   color: red;
   font-size: 12px;
+}
+
+p.text {
+  font-size: 12px;
+}
+
+ul {
+  list-style: disc;
+  margin: 0 22px;
 }
 </style>

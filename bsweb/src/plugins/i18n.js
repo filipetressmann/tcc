@@ -29,6 +29,12 @@ export const messages = {
       },
       upload: {
         title: 'Upload your shapefiles here',
+        text: 'Accepted file extensions',
+        extensions: [
+          'shapefile in a .zip file',
+          'shapefiles (4 files: .cpg, .dbf, .shp and .shx)',
+          '.kmz',
+        ],
         inputs: {
           name: 'Name',
           width: 'Width (px)',
@@ -236,7 +242,13 @@ export const messages = {
         action: 'Ativar mapa adicional',
       },
       upload: {
-        title: 'Suba aqui seus arquivos de Shapefiles',
+        title: 'Suba aqui seus arquivos georeferrenciados',
+        text: 'Formatos de arquivos aceitos',
+        extensions: [
+          'shapefile em um arquivo .zip',
+          'shapefile (4 arquivos: .cpg, .dbf, .shp e .shx)',
+          '.kmz',
+        ],
         inputs: {
           name: 'Nome',
           width: 'Espessura (px)',
