@@ -133,10 +133,11 @@ def od_countings2(trips, grid, stations, cell_identifier=['i', 'j'],
                   station_index='station id', start_station_index='start station id', end_station_index='end station id'):
     grid = grid.geodataframe()
 
-    trips['geometry'] = trips.apply(lambda row: Point(
+    trips2 = trips.copy()
+    trips2['geometry'] = trips2.apply(lambda row: Point(
         row['orig_lon'], row['orig_lat']), axis=1)
 
-    trips_geoframe = gpd.GeoDataFrame(trips, crs='epsg:4326')
+    trips_geoframe = gpd.GeoDataFrame(trips2, crs='epsg:4326')
 
     grid_trips = gpd.sjoin(grid, trips_geoframe, op='contains')
     grid_trips.rename(columns={'i': 'i_start', 'j': 'j_start'}, inplace=True)
