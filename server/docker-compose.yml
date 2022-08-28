@@ -3,18 +3,18 @@ version: "3.9"
 
 # Docker compose for development environment
 services:
-    backend:
-        build:
-            context: .
-            dockerfile: Dockerfile.development
-        container_name: development_backend
-        restart: always
-        environment:
-            - FLASK_APP=app.py
-            - APP_NAME=FlaskApp
-            - FLASK_DEBUG=1
-            - FLASK_ENV=development
-        volumes:
-            - './:/backend'
-        ports:
-            - "5000:5000"
+  backend:
+    build:
+      context: .
+      target: development
+    container_name: backend_dev
+    restart: always
+    environment:
+      - FLASK_APP=app.py
+      - APP_NAME=FlaskApp
+      - FLASK_DEBUG=1
+      - FLASK_ENV=development
+    volumes:
+      - './:/backend'
+    ports:
+      - "5000:5000"
