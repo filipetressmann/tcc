@@ -1,5 +1,5 @@
-# build stage
-FROM node:10.16.0-alpine as build-stage
+# Build stage
+FROM node:14.20-alpine as build-stage
 
 RUN mkdir /app
 WORKDIR /app
@@ -11,11 +11,10 @@ COPY . .
 RUN npm run build
 
 # Production stage
-FROM nginx:1.16.1-alpine as production-stage
-COPY --from=build-stage /app/dist /usr/share/nginx/html/
+FROM nginx:stable-alpine as production-stage
+COPY --from=build-stage /app/dist /app
 
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/conf.d
 
-EXPOSE 80
 CMD [ "nginx", "-g", "daemon off;"]

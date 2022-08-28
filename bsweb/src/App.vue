@@ -1,10 +1,15 @@
 <template>
   <div id="app">
-    <router-view />
+    <BikeScienceWeb />
   </div>
 </template>
 
 <script>
+import BikeScienceWeb from '@/pages/BikeScienceWeb';
+
 export default {
+  components: {
+    BikeScienceWeb,
+  },
 };
 </script>

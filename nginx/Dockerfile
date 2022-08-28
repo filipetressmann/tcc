@@ -1,4 +1,4 @@
-FROM nginx:latest
+FROM nginx:stable-alpine
 
 #  copy the nginx.conf in our filesystem into the image filesystem
 RUN rm /etc/nginx/conf.d/default.conf

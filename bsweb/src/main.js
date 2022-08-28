@@ -14,7 +14,6 @@ import UUID from 'vue-uuid';
 import { Icon } from 'leaflet';
 import VueToastr2 from 'vue-toastr-2';
 import 'vue-toastr-2/dist/vue-toastr-2.min.css';
-import router from './router';
 import Oruga from '@oruga-ui/oruga';
 import '@oruga-ui/oruga/dist/oruga.css';
 
@@ -52,7 +51,6 @@ export const i18n = new VueI18n({ locale: 'pt-br', fallbackLocale: 'en', message
 
 
 new Vue({
-  router,
   i18n,
   el: '#app',
   store,

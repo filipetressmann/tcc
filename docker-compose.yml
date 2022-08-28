@@ -8,6 +8,8 @@ services:
         build: ./server
         container_name: backend
         restart: always
+        networks:
+            - bikescience_network
         # set environment variables
         environment:
             - APP_NAME=FlaskApp
@@ -22,6 +24,8 @@ services:
         build: ./bsweb
         container_name: ui
         restart: always
+        networks:
+            - bikescience_network
         expose:
             - 80
 
@@ -29,7 +33,15 @@ services:
         build: ./nginx
         container_name: nginx
         restart: always
+        networks:
+            - bikescience_network
         # port allows the host machine to link to container
         # pass 80 from host machine to 80 of the image filesystem
         ports:
             - "80:80"
+
+
+networks:
+    bikescience_network:
+        name: bikescience_network
+        driver: bridge
