@@ -57,13 +57,6 @@ body{
   height: 100%;
 }
 
-#filter-container {
-  padding-top: 9%;
-  border-right: 1px solid #bbb;
-  overflow: hidden;
-  height: 100%;
-}
-
 .multiselect {
   width: -moz-fit-content;
   width: -webkit-fit-content;

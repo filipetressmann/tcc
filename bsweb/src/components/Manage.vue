@@ -1,8 +1,14 @@
 <template>
-  <div id="filter-container" class="container">
-    <p class="title is-5">
-      {{ $t('appName') }}
-    </p>
+  <div id="filter-container">
+    <div
+      class="app-name-container"
+      style="background-color: #212529;"
+    >
+      <img :src="logoInterSCity" style="background-color: #212529; height: 35px;">
+      <span class="title is-5" style="color: #fff;">
+        {{ $t('appName') }}
+      </span>
+    </div>
     <b-tabs
       v-model="activeTab"
       size="is-small"
@@ -74,6 +80,7 @@ import FiltersTab from './tabs/FiltersTab.vue';
 import LayersTab from './tabs/LayersTab.vue';
 import FlowsTab from './tabs/FlowsTab.vue';
 import UploadsTab from './tabs/UploadsTab.vue';
+import logoInterSCity from '@/assets/logos/interscity.svg';
 
 export default {
   components: {
@@ -88,6 +95,7 @@ export default {
     return {
       // isOpen: -1,
       activeTab: 0,
+      logoInterSCity,
     };
   },
   computed: {
@@ -125,8 +133,16 @@ export default {
 </script>
 
 <style scoped>
+  .app-name-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 10px 0;
+  }
   .title {
     text-align: center;
+    margin: 0 20px;
   }
   .custom-size {
     height: 24px;
@@ -167,4 +183,11 @@ export default {
   .dev-mode > * {
     padding: 10px;
   }
+
+  #filter-container {
+  border-right: 1px solid #bbb;
+  overflow: hidden;
+  height: 100%;
+  }
+
 </style>

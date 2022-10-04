@@ -49,7 +49,7 @@ def grid():
 
 @app.route('/', methods=['GET'])
 def bsweb():
-    return jsonify('This is BikeScience Web!')
+    return jsonify('This is BikeScience Web! 2')
 
 
 @app.route('/chart')
