@@ -36,10 +36,27 @@
         analyses.
       </p>
     </div>
-    <div>
-      <img :src="logoCapes" class="logo_capes">
-      <img :src="logoCnpq" class="logo_cnpq">
-      <img :src="logoFapesp" class="logo_fapesp">
+    <div class="logos-wrapper">
+      <div>
+        <img :src="logoCapes" class="logo_capes">
+      </div>
+      <div>
+        <img :src="logoCnpq" class="logo_cnpq">
+      </div>
+      <div>
+        <img :src="logoFapesp" class="logo_fapesp">
+      </div>
+    </div>
+    <div class="logos-wrapper">
+      <div>
+        <img :src="logoCapes" class="logo_capes">
+      </div>
+      <div>
+        <img :src="logoCnpq" class="logo_cnpq">
+      </div>
+      <div>
+        <img :src="logoFapesp" class="logo_fapesp">
+      </div>
     </div>
   </div>
 </template>
@@ -75,15 +92,23 @@ p {
 }
 
 .logo_capes {
-  height: 77px;
-  margin: 0 40px;
+  height: 120px;
 }
 .logo_fapesp {
-  height: 77px;
-  margin: 0 40px;
+  height: 65px;
 }
 .logo_cnpq {
-  margin: 0 40px;
   height: 77px;
+}
+.logos-wrapper > * {
+  margin: 20px 0;
+}
+.logos-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.logos-wrapper > * {
+  display: flex;
+  justify-content: center;
 }
 </style>

@@ -1,8 +1,7 @@
 <template>
   <div id="filter-container">
     <div
-      class="app-name-container"
-      style="background-color: #212529;"
+      class="app-name-container dark-bg"
     >
       <img :src="logoInterSCity" style="background-color: #212529; height: 35px;">
       <span class="title is-5" style="color: #fff;">
@@ -56,31 +55,33 @@
       </b-tab-item>
     </b-tabs>
     <div class="manage-footer">
-      <div class="about-button" @click="open('about')">
+      <div class="about-button dark-bg" @click="open('about')">
         {{ $t('footer.about') }}
       </div>
-      <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSd1Fjuc4g1T141XFIzVHor1tSpG2MBQbA2PPI3GSuIybeq3MQ/viewform">{{ $t('footer.survey') }}</a>
-      <Language />
-    </div>
-    <div class="dev-mode manage-footer">
-      <input
-        v-model="developer_mode"
-        type="checkbox"
-      >
-      <label for="dev-mode">{{ $t('footer.devMode') }}</label>
+      <div>
+        <!-- <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSd1Fjuc4g1T141XFIzVHor1tSpG2MBQbA2PPI3GSuIybeq3MQ/viewform">{{ $t('footer.survey') }}</a> -->
+        <div class="dev-mode">
+          <input
+            v-model="developer_mode"
+            type="checkbox"
+          >
+          <label for="dev-mode">{{ $t('footer.devMode') }}</label>
+        </div>
+        <Language />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-import Language from './Language.vue';
-import MapsTab from './tabs/MapsTab.vue';
-import FiltersTab from './tabs/FiltersTab.vue';
-import LayersTab from './tabs/LayersTab.vue';
-import FlowsTab from './tabs/FlowsTab.vue';
-import UploadsTab from './tabs/UploadsTab.vue';
 import logoInterSCity from '@/assets/logos/interscity.svg';
+import { mapActions, mapGetters } from 'vuex';
+import Language from './Language.vue';
+import FiltersTab from './tabs/FiltersTab.vue';
+import FlowsTab from './tabs/FlowsTab.vue';
+import LayersTab from './tabs/LayersTab.vue';
+import MapsTab from './tabs/MapsTab.vue';
+import UploadsTab from './tabs/UploadsTab.vue';
 
 export default {
   components: {
@@ -136,13 +137,17 @@ export default {
   .app-name-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    justify-content: center;
     margin-bottom: 10px;
     padding: 10px 0;
+    flex-wrap: wrap;
+    height: 13%;
   }
   .title {
     text-align: center;
     margin: 0 20px;
+    width: 160px;
   }
   .custom-size {
     height: 24px;
@@ -153,17 +158,22 @@ export default {
     padding-top: 3px;
   }
   .custom-tabs{
-    min-height: 85%;
+    /* min-height: 72%; */
+    height: 74%;
   }
   .manage-footer {
+    /* height: 15%; */
+  }
+  .manage-footer > div {
     padding: 0 10px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     font-size: 12px;
   }
   .about-button {
     cursor: pointer;
-    color: #7957d5;
+    color: #fff;
+    margin: 5px 0;
   }
   .about-button:hover {
     cursor: pointer;
@@ -175,13 +185,12 @@ export default {
 
   .dev-mode {
     font-size: 12px;
-    justify-content: center;
-    display: flex;
-    align-items: center;;
+    align-items: center;
+    margin: 0 20px;
   }
 
   .dev-mode > * {
-    padding: 10px;
+    padding: 4px;
   }
 
   #filter-container {

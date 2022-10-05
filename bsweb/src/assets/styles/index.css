@@ -123,3 +123,7 @@ body{
 .o-modal {
   z-index: 2000 !important;
 }
+
+.dark-bg {
+  background-color: #212529;
+}
