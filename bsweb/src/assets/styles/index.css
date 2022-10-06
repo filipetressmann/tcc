@@ -124,6 +124,10 @@ body{
   z-index: 2000 !important;
 }
 
-.dark-bg {
-  background-color: #212529;
+.bg-interscity {
+  background-color: #2B303A;
+}
+
+.font1 {
+  font-family: 'Nunito Sans', sans-serif;
 }

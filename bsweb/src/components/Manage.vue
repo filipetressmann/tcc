@@ -1,10 +1,10 @@
 <template>
   <div id="filter-container">
     <div
-      class="app-name-container dark-bg"
+      class="app-name-container bg-interscity"
     >
-      <img :src="logoInterSCity" style="background-color: #212529; height: 35px;">
-      <span class="title is-5" style="color: #fff;">
+      <img :src="logoInterSCity" class="dark-bg" style="height: 35px;">
+      <span class="title is-5 font1" style="color: #fff;">
         {{ $t('appName') }}
       </span>
     </div>
@@ -55,7 +55,7 @@
       </b-tab-item>
     </b-tabs>
     <div class="manage-footer">
-      <div class="about-button dark-bg" @click="open('about')">
+      <div class="about-button bg-interscity font1" @click="open('about')">
         {{ $t('footer.about') }}
       </div>
       <div>
@@ -134,6 +134,7 @@ export default {
 </script>
 
 <style scoped>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
   .app-name-container {
     display: flex;
     align-items: center;
@@ -146,8 +147,11 @@ export default {
   }
   .title {
     text-align: center;
-    margin: 0 20px;
+    margin-left: 20px;
+    margin-right: 20px;
     width: 160px;
+    font-weight: 400;
+    margin-top: 11px;
   }
   .custom-size {
     height: 24px;
@@ -160,9 +164,6 @@ export default {
   .custom-tabs{
     /* min-height: 72%; */
     height: 74%;
-  }
-  .manage-footer {
-    /* height: 15%; */
   }
   .manage-footer > div {
     padding: 0 10px;

@@ -37,26 +37,9 @@
       </p>
     </div>
     <div class="logos-wrapper">
-      <div>
-        <img :src="logoCapes" class="logo_capes">
-      </div>
-      <div>
-        <img :src="logoCnpq" class="logo_cnpq">
-      </div>
-      <div>
-        <img :src="logoFapesp" class="logo_fapesp">
-      </div>
-    </div>
-    <div class="logos-wrapper">
-      <div>
-        <img :src="logoCapes" class="logo_capes">
-      </div>
-      <div>
-        <img :src="logoCnpq" class="logo_cnpq">
-      </div>
-      <div>
-        <img :src="logoFapesp" class="logo_fapesp">
-      </div>
+      <img :src="logoCapes" class="logo_capes">
+      <img :src="logoCnpq" class="logo_cnpq">
+      <img :src="logoFapesp" class="logo_fapesp">
     </div>
   </div>
 </template>
@@ -105,7 +88,8 @@ p {
 }
 .logos-wrapper {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 .logos-wrapper > * {
   display: flex;
