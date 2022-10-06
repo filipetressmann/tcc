@@ -14,18 +14,23 @@
           :mapkey="mapkey"
         />
       </div>
+      <div v-if="category.category_name == 'layers_bikelanes'">
+        <BikelaneSlider />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import iconArrow from '@/assets/svg/icon-arrow-dropdown.svg';
 import { mapGetters } from 'vuex';
 import LayerController from './LayerController.vue';
-import iconArrow from '@/assets/svg/icon-arrow-dropdown.svg';
+import BikelaneSlider from './bikelanes/BikelaneSlider.vue';
 
 export default {
   components: {
     LayerController,
+    BikelaneSlider,
   },
   props: {
     category: { type: Object, required: true },
