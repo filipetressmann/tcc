@@ -35,11 +35,14 @@
         />
       </span>
       <div v-for="layer_key in activeLayersKeys" :key="`layers-${layer_key}`">
-        <l-geo-json
-          :geojson="layers[layer_key].geometry"
-          :options-style="layers[layer_key].style"
-          :options="layers[layer_key].options"
-        />
+        <div v-for="year in Object.keys(layers[layer_key])" :key="`${layer_key}_${year}`">
+          <l-geo-json
+            v-if="year <= bikelaneMaxYear"
+            :geojson="layers[layer_key][year].data.geometry"
+            :options-style="layers[layer_key][year].data.style"
+            :options="layers[layer_key][year].data.options"
+          />
+        </div>
       </div>
       <div v-for="(layer, index) in uploadedLayers" :key="`custom-layers-${index}`">
         <div v-if="layer.isActive[mapkey]">
@@ -140,6 +143,7 @@ export default {
       'zoomSecond',
       'mapControl',
       'layers',
+      'bikelaneMaxYear',
     ]),
     ...mapGetters('user_shapefiles', ['uploadedLayers']),
     ...mapState({

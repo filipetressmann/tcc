@@ -83,30 +83,37 @@ class Metro_stations(Resource):
 
 class BikeLane(Resource):
     def load_bike_lane(self):
-        ciclovia = gpd.GeoDataFrame.from_file(
-            data_path + "/shapes/CET/Ciclovias.shp", encoding='latin-1')
-        ciclorrota = gpd.GeoDataFrame.from_file(
-            data_path + "/shapes/CET/Ciclorrotas.dbf", encoding='latin-1')
-        frames = [ciclovia, ciclorrota]
-        bikelanes = pd.concat(frames)
-        bikelanes['programa'] = bikelanes['programa'].apply(str)
-        bikelanes['rc_tipo'] = bikelanes.apply(
-            lambda row: getBikelaneType(row), axis=1)
-        bikelanes = bikelanes.rename(
-            columns={
-                'programa': 'rc_nome',
-                'inauguracao': 'rc_inauguracao',
-                'extensao_t': 'rc_extensao_trecho',
-                'extensao_c': 'rc_extensao',
-            })
-        types = bikelanes['rc_tipo'].unique()
+        bikelanes = gpd.GeoDataFrame.from_file(
+            data_path + "/shapes/CET/bikelanes.shp", encoding='latin-1')
+        # ciclorrota = gpd.GeoDataFrame.from_file(
+        #     data_path + "/shapes/CET/Ciclorrotas.dbf", encoding='latin-1')
+        # frames = [ciclovia, ciclorrota]
+        # bikelanes = pd.concat(frames)
+        # bikelanes['programa'] = bikelanes['programa'].apply(str)
+        # bikelanes['rc_tipo'] = bikelanes.apply(
+        #     lambda row: getBikelaneType(row), axis=1)
+        # bikelanes = bikelanes.rename(
+        #     columns={
+        #         'programa': 'rc_nome',
+        #         'inauguracao': 'rc_inauguracao',
+        #         'extensao_t': 'rc_extensao_trecho',
+        #         'extensao_c': 'rc_extensao',
+        #     })
+        types = bikelanes['tipo'].unique()
+        years = bikelanes['inaugurAno'].unique()
         out = {}
+        years.sort(axis=0)
+        out['years'] = years.astype(int).tolist()
         for type in types:
-            df = bikelanes[bikelanes['rc_tipo'] == type]
-            out['sp_bikelane_' + type] = df.to_json()
+            df = bikelanes[bikelanes['tipo'] == type]
+            o = {}
+            for year in years:
+                o[str(year)] = df[df['inaugurAno'] == year].to_json()
+            out['sp_bikelane_' + type] = o
         return out
 
     def get(self):
+        return self.load_bike_lane()
         return json.dumps(self.load_bike_lane())
 
 

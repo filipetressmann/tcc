@@ -18,6 +18,8 @@ const state = {
   zones: {},
   mirrorControl: false,
   hideSecondMapControl: false,
+  bikelaneYears: [],
+  bikelaneMaxYear: 0,
 };
 
 const getters = {
@@ -25,6 +27,8 @@ const getters = {
   activeLayersCount: state => state.main.activeLayersKeys.length + state.second.activeLayersKeys.length,
   mirrorLayerControl: state => state.mirrorControl,
   hideSecondMapLayerControl: state => state.hideSecondMapControl,
+  bikelaneYears: state => state.bikelaneYears,
+  bikelaneMaxYear: state => state.bikelaneYears[state.bikelaneMaxYear],
 };
 
 const actions = {
@@ -99,16 +103,27 @@ const actions = {
   fetchBikelane: async context => {
     return await axios.get(`${api_url}/load_bikelane_data`)
       .then(response => {
-        const bikelanes = JSON.parse(response.data);
+        const { years, ...bikelanes } = response.data;
+        context.commit('setBikelaneYears', years);
+        // debugger;
         for (const type in bikelanes) {
           const resource = {
-            data: {
-              geometry: JSON.parse(bikelanes[type]),
-              style: style.bikelane,
-              options: options.bikeLane,
-            },
             key: type,
+            style: style.bikelane,
+            options: options.bikeLane,
           };
+          for (let year in bikelanes.sp_bikelane_ciclofaixa) {
+            // debugger;
+            resource[year] = {
+              data: {
+                geometry: JSON.parse(bikelanes[type][year]),
+                style: style.bikelane,
+                options: options.bikeLane,
+              },
+              key: type,
+            };
+          }
+          // debugger;
           context.commit('addLayer', resource);
         }
       });
@@ -160,11 +175,20 @@ const actions = {
   copySelectedLayersTo: ({ commit }, mapkey) => {
     commit('copySelectedLayersTo', mapkey);
   },
+  setBikelaneMaxYear: ({ commit }, value) => {
+    commit('setBikelaneMaxYear', value);
+  },
 };
 
 const mutations = {
+  // @@@@@@@@@@@@@ corrigir para os outros casos
+  // addLayer: (state, resource) => {
+  //   debugger;
+  //   Vue.set(state.data, resource.key, resource.data);
+  // },
   addLayer: (state, resource) => {
-    Vue.set(state.data, resource.key, resource.data);
+    // debugger;
+    Vue.set(state.data, resource.key, resource);
   },
   removeLayer: (state, resource) => {
     delete state.data[resource.key];
@@ -208,9 +232,15 @@ const mutations = {
   setHideSecondMapLayerControl: (state, value) => {
     Vue.set(state, 'hideSecondMapControl', value);
   },
-  copySelectedLayersTo: ({ commit }, mapkey) => {
+  copySelectedLayersTo: (state, mapkey) => {
     const mapkeyFrom = mapkey === 'main' ? 'second' : 'main';
     Vue.set(state[mapkey], 'activeLayersKeys', [...state[mapkeyFrom].activeLayersKeys]);
+  },
+  setBikelaneYears: (state, arr) => {
+    Vue.set(state, 'bikelaneYears', arr);
+  },
+  setBikelaneMaxYear: (state, value) => {
+    Vue.set(state, 'bikelaneMaxYear', value);
   },
 };
 

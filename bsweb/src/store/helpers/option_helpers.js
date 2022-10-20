@@ -1,6 +1,6 @@
-import L from 'leaflet';
 import iconCptmUrl from '@/assets/svg/icon-cptm.svg';
 import iconMetroUrl from '@/assets/svg/icon-metro.svg';
+import L from 'leaflet';
 
 const cptmIcon = new L.Icon({
   iconSize: [11, 11],
@@ -15,7 +15,7 @@ const metroIcon = new L.Icon({
 });
 
 export const railway_station = {
-  onEachFeature: function(feature, layer) {
+  onEachFeature: function (feature, layer) {
     const tooltipMsg = `Linha ${feature.properties.etr_linha} - ${feature.properties.etr_nome}`;
     layer.bindPopup(tooltipMsg);
   },
@@ -25,14 +25,14 @@ export const railway_station = {
 };
 
 export const railway_line = {
-  onEachFeature: function(feature, layer) {
+  onEachFeature: function (feature, layer) {
     const tooltipMsg = `Linha ${feature.properties.ltr_numero} - ${feature.properties.ltr_nome}`;
     layer.bindPopup(tooltipMsg);
   },
 };
 
 export const subway_station = {
-  onEachFeature: function(feature, layer) {
+  onEachFeature: function (feature, layer) {
     const tooltipMsg = `Linha ${feature.properties.emt_linha} - ${feature.properties.emt_nome}`;
     layer.bindPopup(tooltipMsg);
   },
@@ -51,7 +51,7 @@ export const subway_line = {
 export const bikeLane = {
   onEachFeature: function (feature, layer) {
     let tooltipMsg = '';
-    const [year, month, day] = feature.properties.rc_inauguracao.split('-');
+    const [year, month, day] = feature.properties.inaugur.split('-');
     const newDate = `${day}/${month}/${year}`;
     tooltipMsg = `${feature.properties.rc_nome}<br>Extensão: ${feature.properties.rc_extensao} m<br>Data de implantação: ${newDate}`;
     layer.bindPopup(tooltipMsg);
@@ -62,7 +62,7 @@ export const accidents = {
   onEachFeature: function (feature, layer) {
     const {
       automovel,
-      bicicleta, 
+      bicicleta,
       caminhao,
       motocicleta,
       onibus,
@@ -81,7 +81,7 @@ export const accidents = {
       { type: 'ônibus', val: onibus },
       { type: 'pedestre', val: pedestre },
     ].filter(item => item.val > 0).map(item => item.type).join(', ');
-    
+
     let tooltipMsg = `Data do acidente: ${newDate}<br>Modais envolvidos: ${modais}`;
     layer.bindPopup(tooltipMsg);
   },
