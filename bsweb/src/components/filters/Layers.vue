@@ -1,6 +1,12 @@
 <template>
   <div>
     <LayerCategory
+      v-for="category in allBikelineLayers"
+      :key="category.id"
+      :category="category"
+      :mapkey="mapkey"
+    />
+    <LayerCategory
       v-for="category in allLayers"
       :key="category.id"
       :category="category"
@@ -21,7 +27,10 @@ export default {
     mapkey: { type: String, required: true },
   },
   computed: {
-    ...mapGetters(['allLayers']),
+    ...mapGetters([
+      'allLayers',
+      'allBikelineLayers',
+    ]),
   },
 };
 </script>

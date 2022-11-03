@@ -1,4 +1,4 @@
-export const railway = function(data) {
+export const railway = function (data) {
   const LINE_7_COLOR = '#b81d64';
   const LINE_8_COLOR = '#a39e8c';
   const LINE_9_COLOR = '#00caaa';
@@ -9,35 +9,35 @@ export const railway = function(data) {
   let color = '';
 
   switch (data.properties.ltr_numero) {
-  case 7:
-    color = LINE_7_COLOR;
-    break;
-  case 8:
-    color = LINE_8_COLOR;
-    break;
-  case 9:
-    color = LINE_9_COLOR;
-    break;
-  case 10:
-    color = LINE_10_COLOR;
-    break;
-  case 11:
-    color = LINE_11_COLOR;
-    break;
-  case 12:
-    color = LINE_12_COLOR;
-    break;
-  case 13:
-    color = LINE_13_COLOR;
-    break;
-  default:
-    break;
+    case 7:
+      color = LINE_7_COLOR;
+      break;
+    case 8:
+      color = LINE_8_COLOR;
+      break;
+    case 9:
+      color = LINE_9_COLOR;
+      break;
+    case 10:
+      color = LINE_10_COLOR;
+      break;
+    case 11:
+      color = LINE_11_COLOR;
+      break;
+    case 12:
+      color = LINE_12_COLOR;
+      break;
+    case 13:
+      color = LINE_13_COLOR;
+      break;
+    default:
+      break;
   }
 
   return { color, weight: 1.5 };
 };
 
-export const subway = function(data) {
+export const subway = function (data) {
   const LINE_1_COLOR = '#2a34a3';
   const LINE_2_COLOR = '#008963';
   const LINE_3_COLOR = '#f4000b';
@@ -46,49 +46,49 @@ export const subway = function(data) {
   const LINE_15_COLOR = '#858d90';
   let color = '';
 
-  switch(data.properties.lmt_linha) {
-  case 1:
-    color = LINE_1_COLOR;
-    break;
-  case 2:
-    color = LINE_2_COLOR;
-    break;
-  case 3:
-    color = LINE_3_COLOR;
-    break;
-  case 4:
-    color = LINE_4_COLOR;
-    break;
-  case 5:
-    color = LINE_5_COLOR;
-    break;
-  case 15:
-    color = LINE_15_COLOR;
-    break;
-  default:
-    break;
+  switch (data.properties.lmt_linha) {
+    case 1:
+      color = LINE_1_COLOR;
+      break;
+    case 2:
+      color = LINE_2_COLOR;
+      break;
+    case 3:
+      color = LINE_3_COLOR;
+      break;
+    case 4:
+      color = LINE_4_COLOR;
+      break;
+    case 5:
+      color = LINE_5_COLOR;
+      break;
+    case 15:
+      color = LINE_15_COLOR;
+      break;
+    default:
+      break;
   }
 
   return { color, weight: 1.5 };
 };
 
-export const bikelane = function(data) {
+export const bikelane = function (data) {
   let color = '';
   let dashArray = '';
   if (data) {
-    switch (data.properties.rc_tipo) {
-    case 'ciclovia':
-      color = '#ed2939';
-      break;
-    case 'ciclofaixa':
-      color = '#ff781f';
-      break;
-    case 'ciclorrota':
-      color = '#ff781f';
-      dashArray = '10,10';
-      break;
-    default:
-      color = '#999';
+    switch (data.properties.tipo) {
+      case 'ciclovia':
+        color = '#ed2939';
+        break;
+      case 'ciclofaixa':
+        color = '#ff781f';
+        break;
+      case 'ciclorrota':
+        color = '#ff781f';
+        dashArray = '10,10';
+        break;
+      default:
+        color = '#999';
     }
     return { color, dashArray, weight: 2 };
   }
@@ -104,32 +104,32 @@ export const accidents = function (data) {
   let color = '';
 
   switch (data.properties.lmt_linha) {
-  case 1:
-    color = LINE_1_COLOR;
-    break;
-  case 2:
-    color = LINE_2_COLOR;
-    break;
-  case 3:
-    color = LINE_3_COLOR;
-    break;
-  case 4:
-    color = LINE_4_COLOR;
-    break;
-  case 5:
-    color = LINE_5_COLOR;
-    break;
-  case 15:
-    color = LINE_15_COLOR;
-    break;
-  default:
-    break;
+    case 1:
+      color = LINE_1_COLOR;
+      break;
+    case 2:
+      color = LINE_2_COLOR;
+      break;
+    case 3:
+      color = LINE_3_COLOR;
+      break;
+    case 4:
+      color = LINE_4_COLOR;
+      break;
+    case 5:
+      color = LINE_5_COLOR;
+      break;
+    case 15:
+      color = LINE_15_COLOR;
+      break;
+    default:
+      break;
   }
 
   return { color };
 };
 
-export const zones = function() {
+export const zones = function () {
   return {
     color: '#999',
     fillColor: '#eee',
@@ -139,7 +139,7 @@ export const zones = function() {
   };
 };
 
-export const grid = function() {
+export const grid = function () {
   return {
     color: '#AAA',
     fillColor: '#eee',

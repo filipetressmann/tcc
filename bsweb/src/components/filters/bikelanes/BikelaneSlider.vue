@@ -1,15 +1,33 @@
 <template>
   <div id="tmp" class="wrapper">
     <b-slider
-      v-model="bikelaneMaxYear"
+      v-model="bikelaneRange"
       lazy
       type="is-info"
-      :min="0"
-      :max="bikelaneYears.length"
+      :min="Math.min(...bikelaneYears)"
+      :max="Math.max(...bikelaneYears)"
       :tooltip="true"
     >
-      <b-slider-tick v-for="(year, index) in bikelaneYears" :key="year" :value="index">
-        {{ year }}
+      <b-slider-tick :value="Math.min(...bikelaneYears)">
+        {{ Math.min(...bikelaneYears) }}
+      </b-slider-tick>
+      <b-slider-tick :value="Math.max(...bikelaneYears)">
+        {{ Math.max(...bikelaneYears) }}
+      </b-slider-tick>
+    </b-slider>
+    
+    <b-slider
+      v-model="bikelaneRange"
+      type="is-info"
+      :min="Math.min(...bikelaneYears)"
+      :max="Math.max(...bikelaneYears)"
+      :tooltip="true"
+    >
+      <b-slider-tick :value="Math.min(...bikelaneYears)">
+        {{ Math.min(...bikelaneYears) }}
+      </b-slider-tick>
+      <b-slider-tick :value="Math.max(...bikelaneYears)">
+        {{ Math.max(...bikelaneYears) }}
       </b-slider-tick>
     </b-slider>
   </div>
@@ -26,12 +44,12 @@ export default {
   },
   computed: {
     ...mapGetters(['bikelaneYears']),
-    bikelaneMaxYear: {
+    bikelaneRange: {
       get() {
-        return this.$store.state.layers.bikelaneMaxYear;
+        return this.$store.state.layers.bikelaneRange;
       },
       set(value) {
-        this.setBikelaneMaxYear(value);
+        this.setBikelaneRange(value);
       },
     },
     gridSize: {
@@ -45,7 +63,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['setBikelaneMaxYear']),
+    ...mapActions(['setBikelaneRange']),
   },
 };
 </script>

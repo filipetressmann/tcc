@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions,mapGetters } from 'vuex';
 
 export default {
   props: {
@@ -15,23 +15,19 @@ export default {
     mapkey: { type: String, required: true },
   },
   computed: {
+    ...mapGetters(['activeLayers']),
     isActive: {
       get() {
-        return this.$store.state.layers[this.mapkey].activeLayersKeys.includes(this.filter.filter_key);
+        return this.activeLayers[this.filter.filter_key][this.mapkey];
       },
       set(value) {
-        if (value) {
-          this.addActiveLayer({ layer_key: this.filter.filter_key, mapkey: this.mapkey });
-        } else {
-          this.removeActiveLayer({ layer_key: this.filter.filter_key, mapkey: this.mapkey });
-        }
+        this.setActiveLayer({ layer_key: this.filter.filter_key, mapkey: this.mapkey, value });
       },
     },
   },
   methods: {
     ...mapActions([
-      'addActiveLayer',
-      'removeActiveLayer',
+      'setActiveLayer',
       'removeFromMap',
       'addToMap',
     ]),

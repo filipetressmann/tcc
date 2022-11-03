@@ -68,12 +68,12 @@ export default {
     }
     // this.setToken(localStorage.ut);
     this.fetchCategories();
-    // this.fetchCPTM_lines();
-    // this.fetchSubway_lines();
-    // this.fetchCPTM_stations();
-    // this.fetchSubway_stations();
+    this.fetchCPTM_lines();
+    this.fetchSubway_lines();
+    this.fetchCPTM_stations();
+    this.fetchSubway_stations();
     this.fetchBikelane();
-    // this.fetchAccidents();
+    this.fetchAccidents();
   },
   methods: {
     ...mapActions([

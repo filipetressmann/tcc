@@ -7,52 +7,65 @@ const api_url = process.env.VUE_APP_API_URL;
 
 const state = {
   main: {
-    activeLayersKeys: [],
     grid: {},
   },
   second: {
-    activeLayersKeys: [],
     grid: {},
   },
-  data: {},
+  activeLayers: {
+    cptm_lines: { main: false, second: false },
+    cptm_stations: { main: false, second: false },
+    sp_accidents: { main: false, second: false },
+    subway_lines: { main: false, second: false },
+    subway_stations: { main: false, second: false },
+    sp_bikelane_ciclovia: { main: false, second: false },
+    sp_bikelane_ciclofaixa: { main: false, second: false },
+    sp_bikelane_ciclorrota: { main: false, second: false },
+  },
+  data: [],
+  bikelanes: [],
   zones: {},
   mirrorControl: false,
   hideSecondMapControl: false,
   bikelaneYears: [],
-  bikelaneMaxYear: 0,
+  bikelaneRange: [0, 1],
 };
 
 const getters = {
   layers: state => state.data,
-  activeLayersCount: state => state.main.activeLayersKeys.length + state.second.activeLayersKeys.length,
+  bikelaneLayers: state => state.bikelanes,
+  activeLayers: state => state.activeLayers,
+  activeLayersCount: state => {
+    let count = 0;
+    for (let key in state.activeLayers) {
+      count += state.activeLayers[key].main;
+      count += state.activeLayers[key].second;
+    }
+    return count;
+  },
   mirrorLayerControl: state => state.mirrorControl,
   hideSecondMapLayerControl: state => state.hideSecondMapControl,
   bikelaneYears: state => state.bikelaneYears,
-  bikelaneMaxYear: state => state.bikelaneYears[state.bikelaneMaxYear],
+  bikelaneRange: state => state.bikelaneRange,
 };
 
 const actions = {
   addLayer: ({ commit }, resource) => {
     commit('addLayer', resource);
   },
-  removeLayer: ({ commit }, data) => {
-    commit('removeLayer', data);
+  addBikelaneLayer: ({ commit }, data) => {
+    commit('addLayer', data);
   },
-  addActiveLayer: ({ commit, getters }, data) => {
-    commit('addActiveLayer', { ...data, bothMaps: getters.mirrorLayerControl });
-  },
-  removeActiveLayer: ({ commit, getters }, data) => {
-    commit('removeActiveLayer', { ...data, bothMaps: getters.mirrorLayerControl });
+  setActiveLayer: ({ commit, getters }, data) => {
+    commit('setActiveLayer', { ...data, bothMaps: getters.mirrorLayerControl });
   },
   fetchCPTM_lines: async context => {
     return await axios.get(`${api_url}/load_railway_lines_data`)
       .then(response => {
         const resource = {
-          data: {
-            geometry: JSON.parse(response.data),
-            style: style.railway,
-            options: options.railway_line,
-          },
+          geometry: JSON.parse(response.data),
+          style: style.railway,
+          options: options.railway_line,
           key: 'cptm_lines',
         };
         context.commit('addLayer', resource);
@@ -62,11 +75,9 @@ const actions = {
     return await axios.get(`${api_url}/load_railway_stations_data`)
       .then(response => {
         const resource = {
-          data: {
-            geometry: JSON.parse(response.data),
-            style: style.railway,
-            options: options.railway_station,
-          },
+          geometry: JSON.parse(response.data),
+          style: style.railway,
+          options: options.railway_station,
           key: 'cptm_stations',
         };
         context.commit('addLayer', resource);
@@ -76,11 +87,9 @@ const actions = {
     return await axios.get(`${api_url}/load_metro_lines_data`)
       .then(response => {
         const resource = {
-          data: {
-            geometry: JSON.parse(response.data),
-            style: style.subway,
-            options: options.subway_line,
-          },
+          geometry: JSON.parse(response.data),
+          style: style.subway,
+          options: options.subway_line,
           key: 'subway_lines',
         };
         context.commit('addLayer', resource);
@@ -90,12 +99,10 @@ const actions = {
     return await axios.get(`${api_url}/load_metro_stations_data`)
       .then(response => {
         const resource = {
-          data: {
-            geometry: JSON.parse(response.data),
-            style: style.subway,
-            options: options.subway_station,
-          },
           key: 'subway_stations',
+          geometry: JSON.parse(response.data),
+          style: style.subway,
+          options: options.subway_station,
         };
         context.commit('addLayer', resource);
       });
@@ -105,26 +112,23 @@ const actions = {
       .then(response => {
         const { years, ...bikelanes } = response.data;
         context.commit('setBikelaneYears', years);
-        // debugger;
-        for (const type in bikelanes) {
+        context.commit('setBikelaneRange', [Math.min(...years), Math.max(...years)]);
+
+        for (const bikelane in bikelanes) {
           const resource = {
-            key: type,
+            key: bikelane,
             style: style.bikelane,
             options: options.bikeLane,
+            data: [],
           };
-          for (let year in bikelanes.sp_bikelane_ciclofaixa) {
-            // debugger;
-            resource[year] = {
-              data: {
-                geometry: JSON.parse(bikelanes[type][year]),
-                style: style.bikelane,
-                options: options.bikeLane,
-              },
-              key: type,
+          for (let year in bikelanes[bikelane]) {
+            const yearData = {
+              geometry: JSON.parse(bikelanes[bikelane][year]),
+              year,
             };
+            resource.data.push(yearData);
           }
-          // debugger;
-          context.commit('addLayer', resource);
+          context.commit('addBikelaneLayer', resource);
         }
       });
   },
@@ -132,11 +136,9 @@ const actions = {
     return await axios.get(`${api_url}/load_accidents`)
       .then(response => {
         const resource = {
-          data: {
-            geometry: JSON.parse(response.data),
-            style: style.accidents,
-            options: options.accidents,
-          },
+          geometry: JSON.parse(response.data),
+          style: style.accidents,
+          options: options.accidents,
           key: 'sp_accidents',
         };
         context.commit('addLayer', resource);
@@ -175,47 +177,24 @@ const actions = {
   copySelectedLayersTo: ({ commit }, mapkey) => {
     commit('copySelectedLayersTo', mapkey);
   },
-  setBikelaneMaxYear: ({ commit }, value) => {
-    commit('setBikelaneMaxYear', value);
+  setBikelaneRange: ({ commit }, value) => {
+    commit('setBikelaneRange', value);
   },
 };
 
 const mutations = {
-  // @@@@@@@@@@@@@ corrigir para os outros casos
-  // addLayer: (state, resource) => {
-  //   debugger;
-  //   Vue.set(state.data, resource.key, resource.data);
-  // },
   addLayer: (state, resource) => {
-    // debugger;
-    Vue.set(state.data, resource.key, resource);
+    state.data.push(resource);
   },
-  removeLayer: (state, resource) => {
-    delete state.data[resource.key];
+  addBikelaneLayer: (state, resource) => {
+    state.bikelanes.push(resource);
   },
-  addActiveLayer: (state, { layer_key, mapkey, bothMaps }) => {
+  setActiveLayer: (state, { layer_key, mapkey, bothMaps, value }) => {
     if (bothMaps) {
-      if (!state['main'].activeLayersKeys.includes(layer_key))
-        state['main'].activeLayersKeys.push(layer_key);
-      if (!state['second'].activeLayersKeys.includes(layer_key))
-        state['second'].activeLayersKeys.push(layer_key);
+      state.activeLayers[layer_key].main = value;
+      state.activeLayers[layer_key].second = value;
     } else {
-      state[mapkey].activeLayersKeys.push(layer_key);
-    }
-  },
-  removeActiveLayer: (state, { layer_key, mapkey, bothMaps }) => {
-    if (bothMaps) {
-      const indexMain = state['main'].activeLayersKeys.indexOf(layer_key);
-      const indexSecond = state['second'].activeLayersKeys.indexOf(layer_key);
-      if (indexMain >= 0)
-        state['main'].activeLayersKeys.splice(indexMain, 1);
-      if (indexSecond >= 0)
-        state['second'].activeLayersKeys.splice(indexSecond, 1);
-    } else {
-      const index = state[mapkey].activeLayersKeys.indexOf(layer_key);
-      if (index >= 0) {
-        state[mapkey].activeLayersKeys.splice(index, 1);
-      }
+      state.activeLayers[layer_key][mapkey] = value;
     }
   },
   loadZones: (state, layer) => {
@@ -239,8 +218,12 @@ const mutations = {
   setBikelaneYears: (state, arr) => {
     Vue.set(state, 'bikelaneYears', arr);
   },
-  setBikelaneMaxYear: (state, value) => {
-    Vue.set(state, 'bikelaneMaxYear', value);
+  setBikelaneRange: (state, value) => {
+    Vue.set(state, 'bikelaneRange', value);
+  },
+  setDefaultBikelaneLayers: (state, value) => {
+    Vue.set(state.main, 'bikelaneLayers', value);
+    Vue.set(state.second, 'bikelaneLayers', value);
   },
 };
 
