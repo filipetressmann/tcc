@@ -2,22 +2,6 @@
   <div id="tmp" class="wrapper">
     <b-slider
       v-model="bikelaneRange"
-      lazy
-      type="is-info"
-      :min="Math.min(...bikelaneYears)"
-      :max="Math.max(...bikelaneYears)"
-      :tooltip="true"
-    >
-      <b-slider-tick :value="Math.min(...bikelaneYears)">
-        {{ Math.min(...bikelaneYears) }}
-      </b-slider-tick>
-      <b-slider-tick :value="Math.max(...bikelaneYears)">
-        {{ Math.max(...bikelaneYears) }}
-      </b-slider-tick>
-    </b-slider>
-    
-    <b-slider
-      v-model="bikelaneRange"
       type="is-info"
       :min="Math.min(...bikelaneYears)"
       :max="Math.max(...bikelaneYears)"
@@ -37,6 +21,9 @@
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
+  props: {
+    mapkey: { type: String, required: true },
+  },
   data() {
     return {
       value: 1,
@@ -46,10 +33,10 @@ export default {
     ...mapGetters(['bikelaneYears']),
     bikelaneRange: {
       get() {
-        return this.$store.state.layers.bikelaneRange;
+        return this.$store.state.layers[this.mapkey].bikelaneRange;
       },
-      set(value) {
-        this.setBikelaneRange(value);
+      set(range) {
+        this.setBikelaneRange({ range, mapkey: this.mapkey });
       },
     },
     gridSize: {

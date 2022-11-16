@@ -142,7 +142,6 @@ export default {
       'zoomSecond',
       'mapControl',
       'layers',
-      'bikelaneRange',
       'activeLayers',
       'bikelaneLayers',
     ]),
@@ -154,12 +153,12 @@ export default {
       grid(state) {
         return state.layers[this.mapkey].grid;
       },
+      bikelaneRange(state) {
+        return state.layers[this.mapkey].bikelaneRange;
+      },
       properties(state) {
         return state.map.maps[this.mapkey].properties;
       },
-      // layersGeojson(state) {
-      //   return state.map.maps[this.mapkey].show.layers['geojson'];
-      // },
       layersPolylines(state) {
         return state.map.maps[this.mapkey].show.layers['polyline'];
       },
@@ -169,7 +168,6 @@ export default {
       arrowTiers(state) {
         return state.map.maps[this.mapkey].show.flows['polyline'];
       },
-      // flows: state => state.filters[this.mapkey].flows,
       flows(state) {
         return state.flows.flows[this.mapkey];
       },

@@ -15,7 +15,7 @@
         />
       </div>
       <div v-if="category.category_name == 'layers_bikelanes'">
-        <BikelaneSlider />
+        <BikelaneSlider :mapkey="mapkey" />
       </div>
     </div>
   </div>

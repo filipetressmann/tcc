@@ -8,9 +8,11 @@ const api_url = process.env.VUE_APP_API_URL;
 const state = {
   main: {
     grid: {},
+    bikelaneRange: [0, 1], // min and max years selected for bikelanes
   },
   second: {
     grid: {},
+    bikelaneRange: [0, 1], // min and max years selected for bikelanes
   },
   activeLayers: {
     cptm_lines: { main: false, second: false },
@@ -27,8 +29,7 @@ const state = {
   zones: {},
   mirrorControl: false,
   hideSecondMapControl: false,
-  bikelaneYears: [],
-  bikelaneRange: [0, 1],
+  bikelaneYears: [], // list of all years available for bikelanes
 };
 
 const getters = {
@@ -46,7 +47,6 @@ const getters = {
   mirrorLayerControl: state => state.mirrorControl,
   hideSecondMapLayerControl: state => state.hideSecondMapControl,
   bikelaneYears: state => state.bikelaneYears,
-  bikelaneRange: state => state.bikelaneRange,
 };
 
 const actions = {
@@ -112,7 +112,10 @@ const actions = {
       .then(response => {
         const { years, ...bikelanes } = response.data;
         context.commit('setBikelaneYears', years);
-        context.commit('setBikelaneRange', [Math.min(...years), Math.max(...years)]);
+
+        const range = [Math.min(...years), Math.max(...years)];
+        context.commit('setBikelaneRange', { range, mapkey: 'main' });
+        context.commit('setBikelaneRange', { range, mapkey: 'second' });
 
         for (const bikelane in bikelanes) {
           const resource = {
@@ -218,8 +221,8 @@ const mutations = {
   setBikelaneYears: (state, arr) => {
     Vue.set(state, 'bikelaneYears', arr);
   },
-  setBikelaneRange: (state, value) => {
-    Vue.set(state, 'bikelaneRange', value);
+  setBikelaneRange: (state, { range, mapkey }) => {
+    Vue.set(state[mapkey], 'bikelaneRange', range);
   },
   setDefaultBikelaneLayers: (state, value) => {
     Vue.set(state.main, 'bikelaneLayers', value);
