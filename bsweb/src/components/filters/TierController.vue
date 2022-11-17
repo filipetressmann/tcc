@@ -2,6 +2,7 @@
   <div v-show="count > 0">
     <b-checkbox v-model="isActive" :native-value="tier" type="is-info">
       <span class="tier-option">{{ $t('tier') }} {{ tier+1 }} ({{ count }} {{ $tc('flow', count) }})</span>
+      <span v-if="flowsLimits[mapkey][tier]" class="tier-option">{{ ` [${Math.round(flowsLimits[mapkey][tier].min)}, ${Math.round(flowsLimits[mapkey][tier].max)}]` }}</span>
     </b-checkbox>
   </div>
 </template>
@@ -16,7 +17,7 @@ export default {
     mapkey: { type: String, required: true },
   },
   computed: {
-    ...mapGetters('flows', ['flows', 'selectors']),
+    ...mapGetters('flows', ['flows', 'selectors', 'flowsLimits']),
     flow() {
       return this.flows[this.mapkey][this.tier];
     },

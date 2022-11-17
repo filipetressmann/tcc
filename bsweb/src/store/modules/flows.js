@@ -15,6 +15,10 @@ const state = {
       3: [],
     },
   },
+  limits: {
+    main: {},
+    second: {},
+  },
   tripsPerTier: {
     main: [0, 0, 0, 0],
     second: [0, 0, 0, 0],
@@ -29,6 +33,7 @@ const state = {
 
 const getters = {
   flows: state => state.flows,
+  flowsLimits: state => state.limits,
   tripsPerTier: state => state.tripsPerTier,
   selectors: state => state.selectors,
   mirrorFlowsControl: state => state.mirrorControl,
@@ -56,6 +61,9 @@ const actions = {
   },
   copySelectedFlowsTo: ({ commit }, mapkey) => {
     commit('copySelectedFlowsTo', mapkey);
+  },
+  setLimits: ({ commit }, data) => {
+    commit('setLimits', data);
   },
 };
 
@@ -88,6 +96,9 @@ const mutations = {
   copySelectedFlowsTo: (state, mapkey) => {
     const mapkeyFrom = mapkey === 'main' ? 'second' : 'main';
     Vue.set(state.selectors, mapkey, { ...state.selectors[mapkeyFrom] });
+  },
+  setLimits: (state, { limits, mapkey }) => {
+    state.limits[mapkey] = limits;
   },
 };
 
