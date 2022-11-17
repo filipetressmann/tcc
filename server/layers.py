@@ -114,7 +114,6 @@ class BikeLane(Resource):
 
     def get(self):
         return self.load_bike_lane()
-        return json.dumps(self.load_bike_lane())
 
 
 class Accidents(Resource):

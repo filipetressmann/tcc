@@ -137,7 +137,8 @@ class OD:
         for index, row in tiers_table.iterrows():
             flows_by_tier[index] = self.zones.apply_od_flows(
                 od, row['min'], row['top'], globalMaximum)
-        return flows_by_tier, heatmaps
+        flow_props = tiers_table.to_dict()
+        return flows_by_tier, heatmaps, flow_props
 
     def grid_od(self, trips):
         # od = odflow.od_countings(trips, self.grid, self.zones.geodataframe(),
