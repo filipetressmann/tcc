@@ -102,6 +102,19 @@ const actions = {
       .then(response => {
         let flows = response['flows'];
         let tiers = Object.keys(flows);
+        let flows_props = response['flow_props'];
+
+        let limits = [];
+        for (let i = 0; i < 4; i++) {
+          limits.push({
+            min: flows_props.min[i],
+            max: flows_props.top[i],
+            flowsPercentage: flows_props.flows_perc[i],
+            flowsCount: flows_props.flow_counts[i],
+          });
+        }
+        dispatch('flows/setLimits', { limits, mapkey }, { root: true });
+
         if (tiers.length > 0) {
           tiers.map(tier => {
             dispatch('flows/addTripsPerTier', { tier, count: flows[tier].length, mapkey }, { root: true });

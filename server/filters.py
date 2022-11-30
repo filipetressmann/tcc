@@ -127,13 +127,14 @@ def handle_filtering(req_params):
   # Commented chart: was crashing the server
   # charts = Charts(req_params['ut'], trips)
   # chart_list = charts.create_for_filters(filters)
-  flows, heatmaps = od.coords_by_tier(trips, base_layer)
+  flows, heatmaps, flow_props = od.coords_by_tier(trips, base_layer)
   
   return {
     'gridSize': req_params['gridSize'],
     'gridOffset': offset,
     'flows': flows,
     'heatmaps': heatmaps,
+    'flow_props': flow_props
     # 'charts': chart_list
   }
     

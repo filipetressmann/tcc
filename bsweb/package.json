@@ -50,10 +50,7 @@
     "rules": {
       "no-debugger": "warn",
       "no-console": "warn",
-      "indent": [
-        "error",
-        2
-      ],
+      "indent":"off",
       "semi": [
         "error",
         "always"

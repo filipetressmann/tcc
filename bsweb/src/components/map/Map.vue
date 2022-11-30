@@ -34,19 +34,21 @@
           :options="gridOptions()"
         />
       </span>
-      <div v-for="layer_key in activeLayersKeys" :key="`layers-${layer_key}`">
+      <div v-for="layer in layers" :key="`layers-${layer.key}`">
         <l-geo-json
-          :geojson="layers[layer_key].geometry"
-          :options-style="layers[layer_key].style"
-          :options="layers[layer_key].options"
+          v-if="activeLayers[layer.key][mapkey]"
+          :geojson="layer.geometry"
+          :options-style="layer.style"
+          :options="layer.options"
         />
       </div>
-      <div v-for="(layer, index) in uploadedLayers" :key="`custom-layers-${index}`">
-        <div v-if="layer.isActive[mapkey]">
+      <div v-for="bikelaneLayer in bikelaneLayers" :key="`bikelaneLayers-${bikelaneLayer.key}`">
+        <div v-for="layer in bikelaneLayer.data" :key="`bikelaneLayers-${bikelaneLayer.key}-${layer.year}`">
           <l-geo-json
+            v-if="activeLayers[bikelaneLayer.key][mapkey] && layer.year >= bikelaneRange[0] && layer.year <= bikelaneRange[1]"
             :geojson="layer.geometry"
-            :options="markerOptions(layer.style)"
-            :options-style="layer.style"
+            :options-style="bikelaneLayer.style"
+            :options="bikelaneLayer.options"
           />
         </div>
       </div>
@@ -140,6 +142,8 @@ export default {
       'zoomSecond',
       'mapControl',
       'layers',
+      'activeLayers',
+      'bikelaneLayers',
     ]),
     ...mapGetters('user_shapefiles', ['uploadedLayers']),
     ...mapState({
@@ -149,12 +153,12 @@ export default {
       grid(state) {
         return state.layers[this.mapkey].grid;
       },
+      bikelaneRange(state) {
+        return state.layers[this.mapkey].bikelaneRange;
+      },
       properties(state) {
         return state.map.maps[this.mapkey].properties;
       },
-      // layersGeojson(state) {
-      //   return state.map.maps[this.mapkey].show.layers['geojson'];
-      // },
       layersPolylines(state) {
         return state.map.maps[this.mapkey].show.layers['polyline'];
       },
@@ -164,7 +168,6 @@ export default {
       arrowTiers(state) {
         return state.map.maps[this.mapkey].show.flows['polyline'];
       },
-      // flows: state => state.filters[this.mapkey].flows,
       flows(state) {
         return state.flows.flows[this.mapkey];
       },
