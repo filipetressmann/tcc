@@ -53,7 +53,7 @@ export const bikeLane = {
     let tooltipMsg = '';
     const [year, month, day] = feature.properties.inaugur.split('-');
     const newDate = `${day}/${month}/${year}`;
-    tooltipMsg = `${feature.properties.rc_nome}<br>Extensão: ${feature.properties.rc_extensao} m<br>Data de implantação: ${newDate}`;
+    tooltipMsg = `${feature.properties.nome}<br>Extensão: ${feature.properties.extensao_c} m<br>Data de implantação: ${newDate}`;
     layer.bindPopup(tooltipMsg);
   },
 };
