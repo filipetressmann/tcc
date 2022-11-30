@@ -16,7 +16,8 @@ pd.options.mode.chained_assignment = 'raise'
 class OD:
     def __init__(self):
         # read dataset
-        od_dataset = pd.read_csv('data/trips_od17_bikes_all_features.csv')
+        # od_dataset = pd.read_csv('data/trips_od17_bikes_all_features.csv')
+        od_dataset = pd.read_csv('data/od-2007-bike.csv')
         # remove round off trips
         od_dataset = od_dataset[od_dataset['ZONA_O'] != od_dataset['ZONA_D']]
         od_dataset_newcolumn = od_dataset.copy()
