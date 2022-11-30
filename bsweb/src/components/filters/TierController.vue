@@ -1,8 +1,7 @@
 <template>
   <div v-show="count > 0">
     <b-checkbox v-model="isActive" :native-value="tier" type="is-info">
-      <span class="tier-option">{{ $t('tier') }} {{ tier+1 }} ({{ count }} {{ $tc('flow', count) }})</span>
-      <span v-if="flowsLimits[mapkey][tier]" class="tier-option">{{ ` [${Math.round(flowsLimits[mapkey][tier].min)}, ${Math.round(flowsLimits[mapkey][tier].max)}]` }}</span>
+      <span class="tier-option" :title="hover">{{ $t('tier') }} {{ tier+1 }} ({{ count }} {{ $tc('flow', count) }})</span>
     </b-checkbox>
   </div>
 </template>
@@ -28,6 +27,14 @@ export default {
       set() {
         this.toggleSelector({ mapkey: this.mapkey, tier: this.tier });
       },
+    },
+    hover() {
+      if (this.flowsLimits[this.mapkey][this.tier]) {
+        const min = Math.round(this.flowsLimits[this.mapkey][this.tier].min);
+        const max = Math.round(this.flowsLimits[this.mapkey][this.tier].max);
+        return `Fluxos contendo entre ${min} e ${max} viagens`;
+      }
+      return null;
     },
   },
   watch: {
