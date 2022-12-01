@@ -94,8 +94,9 @@ const actions = {
     if (mapkey == 'main')
       filters = getters.filters;
     else filters = getters.filters2;
+    const year = getters['flows/odYear'][mapkey];
 
-    return await axios.post(`${api_url}/filter_data`, filters)
+    return await axios.post(`${api_url}/filter_data`, { ...filters, year })
       .then(res => {
         return res.data;
       })
