@@ -64,6 +64,7 @@ od.set_zones(zone_dataset=zones)
 def handle_filtering(req_params):
   # def set_grid(self, n, west=-0.15, east=0.23, north=0.19, south=-0.46):
   offset = req_params['gridOffset']
+  year = req_params.get('year')
   od.set_grid(
     req_params['gridSize'],
     west=offset['west'],
@@ -71,7 +72,7 @@ def handle_filtering(req_params):
     north=offset['north'],
     south=offset['south']
   )
-  trips = od.get_od_dataset()
+  trips = od.get_od_dataset(year)
   base_layer = req_params['baseLayer']
   filters = req_params['params']
   flows = []
