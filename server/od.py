@@ -15,6 +15,7 @@ pd.options.mode.chained_assignment = 'raise'
 
 class OD:
     def __init__(self):
+        ##################### OD 2017 #####################
         # read dataset
         od_dataset = pd.read_csv('data/trips_od17_bikes_all_features.csv')
         # remove round off trips
@@ -24,7 +25,18 @@ class OD:
         od_dataset_newcolumn.rename(
             columns={'FE_VIA': 'trip counts'}, inplace=True)
         od_dataset = od_dataset_newcolumn
+
+        ##################### OD 2007 #####################
+        od_dataset_2007 = pd.read_csv('data/od-2007-bike.csv')
+        od_dataset_2007 = od_dataset_2007[od_dataset_2007['ZONA_O'] != od_dataset_2007['ZONA_D']]
+        # od_dataset_newcolumn = od_dataset.copy()
+        # label FE_VIA as trip counts, for tier countings
+        od_dataset_2007.rename(
+            columns={'FE_VIA': 'trip counts'}, inplace=True)
+        # od_dataset = od_dataset_newcolumn
+
         self.od = od_dataset
+        self.od07 = od_dataset_2007
 
     def set_zones(self, zone_dataset):
         self.zones = Zones(zone_dataset)
@@ -156,5 +168,8 @@ class OD:
                                                    max_tiers=num_tiers)
         return tiers_table
 
-    def get_od_dataset(self):
+    def get_od_dataset(self, year):
+        if year == 2007: # default option
+            return self.od07
         return self.od
+        

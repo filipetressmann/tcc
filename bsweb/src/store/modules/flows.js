@@ -19,6 +19,10 @@ const state = {
     main: {},
     second: {},
   },
+  odYear: {
+    main: 2017,
+    second: 2017,
+  },
   tripsPerTier: {
     main: [0, 0, 0, 0],
     second: [0, 0, 0, 0],
@@ -38,6 +42,7 @@ const getters = {
   selectors: state => state.selectors,
   mirrorFlowsControl: state => state.mirrorControl,
   hideSecondMapFlowsControl: state => state.hideSecondMapControl,
+  odYear: state => state.odYear,
 };
 
 const actions = {
@@ -64,6 +69,9 @@ const actions = {
   },
   setLimits: ({ commit }, data) => {
     commit('setLimits', data);
+  },
+  setOdYear: ({ commit }, data) => {
+    commit('setOdYear', data);
   },
 };
 
@@ -99,6 +107,9 @@ const mutations = {
   },
   setLimits: (state, { limits, mapkey }) => {
     state.limits[mapkey] = limits;
+  },
+  setOdYear: (state, { year, mapkey }) => {
+    state.odYear[mapkey] = year;
   },
 };
 

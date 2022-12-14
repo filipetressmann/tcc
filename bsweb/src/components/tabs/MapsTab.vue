@@ -2,6 +2,8 @@
   <div>
     <BaseLayer mapkey="main" />
     <BaseLayer mapkey="second" />
+    <ODSelection mapkey="main" />
+    <ODSelection mapkey="second" />
     <p class="title-options">
       {{ $t('tabs.maps.title') }}
     </p>
@@ -18,10 +20,12 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import BaseLayer from '@/components/filters/BaseLayer.vue';
+import ODSelection from '@/components/filters/ODSelection.vue';
 
 export default {
   components: {
     BaseLayer,
+    ODSelection,
   },
   computed: {
     ...mapGetters(['secondMapIsActive', 'centerMain', 'centerSecond']),
