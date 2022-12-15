@@ -26,6 +26,7 @@ export const messages = {
       maps: {
         title: 'Multiple maps action',
         action: 'Activate additional map',
+        tripsSource: 'Trips data source',
       },
       upload: {
         title: 'Upload your shapefiles here',
@@ -42,6 +43,11 @@ export const messages = {
           color: 'Color',
         },
         button: 'Send',
+      },
+      flows: {
+        hoverText1: 'Flows with trip count between',
+        hoverText2: 'and',
+        hoverText3: '',
       },
     },
     twoMaps: {
@@ -240,6 +246,7 @@ export const messages = {
       maps: {
         title: 'Opções para múltiplos mapas',
         action: 'Ativar mapa adicional',
+        tripsSource: 'Origem dos dados das viagens',
       },
       upload: {
         title: 'Suba aqui seus arquivos georeferrenciados',
@@ -256,6 +263,11 @@ export const messages = {
           color: 'Cor',
         },
         button: 'Enviar',
+      },
+      flows: {
+        hoverText1: 'Fluxos contendo entre',
+        hoverText2: 'e',
+        hoverText3: 'viagens',
       },
     },
     twoMaps: {

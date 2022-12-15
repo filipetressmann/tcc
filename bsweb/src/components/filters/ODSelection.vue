@@ -1,8 +1,8 @@
 <template>
   <div v-show="mapkey === 'main' || secondMapIsActive">
     <div>
-      <span v-if="secondMapIsActive" class="label">Origem dos dados das viagens ({{ $t(`baseLayerMap.${mapkey}`) }}):</span>
-      <span v-else class="label">Origem dos dados das viagens:</span>
+      <span v-if="secondMapIsActive" class="label">{{ $t(`tabs.maps.tripsSource`) }} ({{ $t(`baseLayerMap.${mapkey}`) }}):</span>
+      <span v-else class="label">{{ $t(`tabs.maps.tripsSource`) }}:</span>
       <b-radio
         v-model="year"
         :name="`od-year-${mapkey}`"

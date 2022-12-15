@@ -52,6 +52,15 @@
           />
         </div>
       </div>
+      <div v-for="(layer, index) in uploadedLayers" :key="`custom-layers-${index}`">
+        <div v-if="layer.isActive[mapkey]">
+          <l-geo-json
+            :geojson="layer.geometry"
+            :options="markerOptions(layer.style)"
+            :options-style="layer.style"
+          />
+        </div>
+      </div>
       <l-feature-group v-for="tier in Object.keys(arrowTiers)" :key="tier">
         <l-polyline
           v-for="(arrow, index) in flows[tier]"
