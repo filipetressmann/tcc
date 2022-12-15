@@ -32,6 +32,7 @@ export default {
       if (this.flowsLimits[this.mapkey][this.tier]) {
         const min = Math.round(this.flowsLimits[this.mapkey][this.tier].min);
         const max = Math.round(this.flowsLimits[this.mapkey][this.tier].max);
+        return `${this.$t('tabs.flows.hoverText1')} ${min} ${this.$t('tabs.flows.hoverText2')} ${max} ${this.$t('tabs.flows.hoverText3')}`;
         return `Fluxos contendo entre ${min} e ${max} viagens`;
       }
       return null;
