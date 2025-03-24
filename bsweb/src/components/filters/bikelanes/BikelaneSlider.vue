@@ -17,42 +17,36 @@
   </div>
 </template>
 
-<script>
-import { mapGetters, mapActions } from 'vuex';
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
-  props: {
-    mapkey: { type: String, required: true },
+const props = defineProps({
+  mapkey: { type: String, required: true },
+});
+
+const store = useStore();
+
+const bikelaneYears = computed(() => store.getters.bikelaneYears);
+
+const bikelaneRange = computed({
+  get() {
+    return store.state.layers[props.mapkey].bikelaneRange;
   },
-  data() {
-    return {
-      value: 1,
-    };
+  set(range) {
+    store.dispatch('setBikelaneRange', { range, mapkey: props.mapkey });
+  }
+});
+
+const gridSize = computed({
+  get() {
+    return store.state.filters[props.mapkey].filters.gridSize;
   },
-  computed: {
-    ...mapGetters(['bikelaneYears']),
-    bikelaneRange: {
-      get() {
-        return this.$store.state.layers[this.mapkey].bikelaneRange;
-      },
-      set(range) {
-        this.setBikelaneRange({ range, mapkey: this.mapkey });
-      },
-    },
-    gridSize: {
-      get() {
-        return this.$store.state.filters[this.mapkey].filters.gridSize;
-      },
-      set(gridSize) {
-        this.updateGridSize({ gridSize, mapkey: this.mapkey });
-        this.reloadGrid();
-      },
-    },
-  },
-  methods: {
-    ...mapActions(['setBikelaneRange']),
-  },
-};
+  set(gridSize) {
+    store.dispatch('updateGridSize', { gridSize, mapkey: props.mapkey });
+    store.dispatch('reloadGrid'); 
+  }
+});
 </script>
 
 <style scoped>

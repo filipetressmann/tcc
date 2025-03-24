@@ -14,41 +14,37 @@
   </div>
 </template>
 
-<script>
-import { mapGetters } from 'vuex';
+<script setup>
+import { computed, watch } from 'vue';
+import { useStore } from 'vuex';
+import { useToast } from 'vue-toast-notification';
 import TierController from './TierController.vue';
 
-export default {
-  components: {
-    TierController,
-  },
-  props: {
-    mapkey: { type: String, required: true },
-  },
-  computed: {
-    ...mapGetters(['flowsNotFound']),
-    ...mapGetters('flows', ['tripsPerTier']),
-    tierList() {
-      return this.tripsPerTier[this.mapkey];
-    },
-  },
-  watch: {
-    flowsNotFound: function (val) {
-      if (val) {
-        this.$toastr.warning(this.$t('toastr.emptyFlows'));
-      } else {
-        this.$toastr.remove();
-      }
-    },
-  },
-};
+const props = defineProps({
+  mapkey: { type: String, required: true },
+});
+
+const store = useStore();
+const toast = useToast();
+
+const flowsNotFound = computed(() => store.getters.flowsNotFound);
+const tripsPerTier = computed(() => store.getters['flows/tripsPerTier']);
+const tierList = computed(() => tripsPerTier.value[props.mapkey]);
+
+watch(flowsNotFound, (val) => {
+  if (val) {
+    toast.warning(props.$t('toastr.emptyFlows'));
+  } else {
+    toast.clear();
+  }
+});
 </script>
 
 <style scoped>
-  .label {
-    font-size: 12px;
-  }
-  .not-found {
-    font-size: 12px;
-  }
+.label {
+  font-size: 12px;
+}
+.not-found {
+  font-size: 12px;
+}
 </style>

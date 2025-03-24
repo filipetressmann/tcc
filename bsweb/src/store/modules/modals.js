@@ -6,16 +6,16 @@ const state = {
 };
 
 const getters = {
-  activeModal: state => (state.open.length > 0 ? state.open[0] : null),
-  allOpen: state => state.open,
-  editLayerIndex: state => state.data.editLayerIndex,
+  activeModal: () => (state.open.length > 0 ? state.open[0] : null),
+  allOpen: () => state.open,
+  editLayerIndex: () => state.data.editLayerIndex,
 };
 
 const actions = {
   open: ({ commit }, name) => commit('open', name),
   close: ({ commit }, name) => commit('close', name),
-  setEditLayerIndex: ({ commit }, index) => commit('setEditLayerIndex', index),
-  cleanEditLayerIndex: ({ commit }, index) => commit('cleanEditLayerIndex'),
+  setEditLayerIndex: ({ commit }, index) => commit('setEditLayerIndex', index), 
+  cleanEditLayerIndex: ({ commit }) => commit('cleanEditLayerIndex'),
 };
 
 const mutations = {
@@ -24,12 +24,10 @@ const mutations = {
   setEditLayerIndex: (state, index) => {
     state.data.editLayerIndex = index;
   },
-  cleanEditLayerIndex: state => {
+  cleanEditLayerIndex: (state) => {
     state.data.editLayerIndex = null;
   },
 };
-
-
 
 export default {
   namespaced: true,

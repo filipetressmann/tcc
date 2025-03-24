@@ -3,16 +3,14 @@ const state = {
 };
 
 const getters = {
-  active: state => {
-    return state.active;
-  },
+  active: (state) => state.active,
 };
 
 const actions = {
-  setLoading: context => {
+  setLoading: (context) => {
     context.commit('setLoading');
   },
-  unsetLoading: context => {
+  unsetLoading: (context) => {
     context.commit('unsetLoading');
   },
 };

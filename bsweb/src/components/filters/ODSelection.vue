@@ -23,46 +23,37 @@
   </div>
 </template>
 
-<script>
-import { mapGetters, mapActions, mapMutations, mapState } from 'vuex';
+<script setup>
+import { computed, watch } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
-  components: {
+const props = defineProps({
+  mapkey: { type: String, required: true },
+});
+
+const store = useStore();
+
+const secondMapIsActive = computed(() => store.getters.secondMapIsActive);
+const odYear = computed(() => store.getters['flows/odYear']);
+
+const year = computed({
+  get() {
+    return odYear.value[props.mapkey];
   },
-  props: {
-    mapkey: { type: String, required: true },
-  },
-  computed: {
-    ...mapGetters('flows', ['odYear']),
-    ...mapGetters(['secondMapIsActive']),
-    year: {
-      get() {
-        return this.odYear[this.mapkey];
-      },
-      set(value) {
-        this.setOdYear({ year: value, mapkey: this.mapkey });
-      },
-    },
-  },
-  watch: {
-    year: function () {
-      this.resetMapResource({
-        mapkey: this.mapkey,
-        category: 'flows',
-        type: 'polyline',
-      });
-      this.resetFlows(this.mapkey);
-      this.filterData(this.mapkey);
-    },
-  },
-  methods: {
-    ...mapActions('flows', ['setOdYear', 'resetFlows']),
-    ...mapActions([
-      'resetMapResource',
-      'filterData',
-    ]),
-  },
-};
+  set(value) {
+    store.dispatch('flows/setOdYear', { year: value, mapkey: props.mapkey });
+  }
+});
+
+watch(year, () => {
+  store.dispatch('resetMapResource', {
+    mapkey: props.mapkey,
+    category: 'flows',
+    type: 'polyline',
+  });
+  store.dispatch('flows/resetFlows', props.mapkey);
+  store.dispatch('filterData', props.mapkey);
+});
 </script>
 
 <style scoped>
@@ -72,5 +63,4 @@ export default {
 .view-option {
   font-size: 12px;
 }
-
 </style>

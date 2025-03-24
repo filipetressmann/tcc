@@ -1,114 +1,108 @@
 <template>
   <div>
-    <age-form
-      v-if="filter.filter_key == 'age'"
+    <AgeForm
+      v-if="filter.filter_key === 'age'"
       :fid="filter.id"
       :filter="filter"
       :mapkey="mapkey"
     />
-    <time-form
-      v-if="filter.filter_key == 'horary'"
+    <TimeForm
+      v-if="filter.filter_key === 'horary'"
       :fid="filter.id"
       :filter="filter"
       :mapkey="mapkey"
     />
-    <start-time-form
-      v-if="filter.filter_key == 'start_time'"
+    <StartTimeForm
+      v-if="filter.filter_key === 'start_time'"
       :fid="filter.id"
       :filter="filter"
       :mapkey="mapkey"
     />
-    <finish-time-form
-      v-if="filter.filter_key == 'finish_time'"
+    <FinishTimeForm
+      v-if="filter.filter_key === 'finish_time'"
       :fid="filter.id"
       :filter="filter"
       :mapkey="mapkey"
     />
-    <weekday-form
-      v-if="filter.filter_key == 'weekday'"
+    <WeekdayForm
+      v-if="filter.filter_key === 'weekday'"
       :fid="filter.id"
       :filter="filter"
       :mapkey="mapkey"
     />
-    <month-form
-      v-if="filter.filter_key == 'months'"
+    <MonthForm
+      v-if="filter.filter_key === 'months'"
       :fid="filter.id"
       :filter="filter"
       :mapkey="mapkey"
     />
-    <duration-form
-      v-if="filter.filter_key == 'duration'"
+    <DurationForm
+      v-if="filter.filter_key === 'duration'"
       :fid="filter.id"
       :filter="filter"
       :mapkey="mapkey"
     />
-    <sex-form
-      v-if="filter.filter_key == 'sex'"
+    <SexForm
+      v-if="filter.filter_key === 'sex'"
       :fid="filter.id"
       :filter="filter"
       :mapkey="mapkey"
     />
-    <income-form
-      v-if="filter.filter_key == 'income'"
+    <IncomeForm
+      v-if="filter.filter_key === 'income'"
       :fid="filter.id"
       :filter="filter"
       :mapkey="mapkey"
     />
-    <distance-form
-      v-if="filter.filter_key == 'distance'"
+    <DistanceForm
+      v-if="filter.filter_key === 'distance'"
       :fid="filter.id"
       :filter="filter"
       :mapkey="mapkey"
     />
-    <attractor-form v-if="filter.filter_key == 'attractors_emitters'" :mapkey="mapkey" />
-    <speed-form
-      v-if="filter.filter_key == 'speed'"
+    <AttractorForm
+      v-if="filter.filter_key === 'attractors_emitters'"
+      :mapkey="mapkey"
+    />
+    <SpeedForm
+      v-if="filter.filter_key === 'speed'"
       :fid="filter.id"
       :filter="filter"
       :mapkey="mapkey"
     />
-    <reason-form
-      v-if="filter.filter_key == 'reason'"
+    <ReasonForm
+      v-if="filter.filter_key === 'reason'"
       :fid="filter.id"
       :filter="filter"
       :mapkey="mapkey"
     />
   </div>
 </template>
-<script>
-import AgeForm from './forms/AgeForm';
-import TimeForm from './forms/TimeForm';
-import StartTimeForm from './forms/StartTimeForm';
-import FinishTimeForm from './forms/FinishTimeForm';
-import WeekdayForm from './forms/WeekdayForm';
-import MonthForm from './forms/MonthForm';
-import DurationForm from './forms/DurationForm';
-import SexForm from './forms/SexForm';
-import IncomeForm from './forms/IncomeForm';
-import DistanceForm from './forms/DistanceForm';
-import AttractorForm from './forms/AttractorForm';
-import SpeedForm from './forms/SpeedForm';
-import ReasonForm from './forms/ReasonForm';
-  
-export default {
-  components: {
-    AgeForm,
-    TimeForm,
-    StartTimeForm,
-    FinishTimeForm,
-    WeekdayForm,
-    MonthForm,
-    DurationForm,
-    SexForm,
-    IncomeForm,
-    DistanceForm,
-    AttractorForm,
-    SpeedForm,
-    ReasonForm,
+
+<script setup>
+import { defineProps } from 'vue';
+import AgeForm from './forms/AgeForm.vue';
+import TimeForm from './forms/TimeForm.vue';
+import StartTimeForm from './forms/StartTimeForm.vue';
+import FinishTimeForm from './forms/FinishTimeForm.vue';
+import WeekdayForm from './forms/WeekdayForm.vue';
+import MonthForm from './forms/MonthForm.vue';
+import DurationForm from './forms/DurationForm.vue';
+import SexForm from './forms/SexForm.vue';
+import IncomeForm from './forms/IncomeForm.vue';
+import DistanceForm from './forms/DistanceForm.vue';
+import AttractorForm from './forms/AttractorForm.vue';
+import SpeedForm from './forms/SpeedForm.vue';
+import ReasonForm from './forms/ReasonForm.vue';
+
+defineProps({
+  filter: {
+    type: Object,
+    required: true
   },
-  props: {
-    filter: { type: Object, required: true },
-    mapkey: { type: String, required: true },
-  },
-};
+  mapkey: {
+    type: String,
+    required: true
+  }
+});
 </script>

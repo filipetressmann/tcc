@@ -1,80 +1,81 @@
 <template>
   <div v-show="count > 0">
     <b-checkbox v-model="isActive" :native-value="tier" type="is-info">
-      <span class="tier-option" :title="hover">{{ $t('tier') }} {{ tier+1 }} ({{ count }} {{ $tc('flow', count) }})</span>
+      <span class="tier-option" :title="hover">
+        {{ t('tier') }} {{ tier + 1 }} {{ count }} {{ t('flow', count) }}
+      </span>
     </b-checkbox>
   </div>
 </template>
 
-<script>
-import { mapGetters, mapActions } from 'vuex';
+<script setup>
+import { computed, watch } from 'vue';
+import { useStore } from 'vuex';
+import { useI18n } from 'vue-i18n';
 
-export default {
-  props: {
-    tier: { type: Number, required: true },
-    count: { type: Number, required: true },
-    mapkey: { type: String, required: true },
+const { t } = useI18n();
+
+const props = defineProps({
+  tier: { type: Number, required: true },
+  count: { type: Number, required: true },
+  mapkey: { type: String, required: true },
+});
+
+const store = useStore();
+
+const flows = computed(() => store.getters['flows/flows']);
+const selectors = computed(() => store.getters['flows/selectors']);
+const flowsLimits = computed(() => store.getters['flows/flowsLimits']);
+
+const flow = computed(() => flows.value[props.mapkey][props.tier]);
+
+const isActive = computed({
+  get() {
+    return selectors.value[props.mapkey][props.tier];
   },
-  computed: {
-    ...mapGetters('flows', ['flows', 'selectors', 'flowsLimits']),
-    flow() {
-      return this.flows[this.mapkey][this.tier];
-    },
-    isActive: {
-      get() {
-        return this.selectors[this.mapkey][this.tier];
-      },
-      set() {
-        this.toggleSelector({ mapkey: this.mapkey, tier: this.tier });
-      },
-    },
-    hover() {
-      if (this.flowsLimits[this.mapkey][this.tier]) {
-        const min = Math.round(this.flowsLimits[this.mapkey][this.tier].min);
-        const max = Math.round(this.flowsLimits[this.mapkey][this.tier].max);
-        return `${this.$t('tabs.flows.hoverText1')} ${min} ${this.$t('tabs.flows.hoverText2')} ${max} ${this.$t('tabs.flows.hoverText3')}`;
-        return `Fluxos contendo entre ${min} e ${max} viagens`;
-      }
-      return null;
-    },
+  set() {
+    store.dispatch('flows/toggleSelector', { mapkey: props.mapkey, tier: props.tier });
   },
-  watch: {
-    isActive(value) {
-      const data = {
-        mapkey: this.mapkey,
-        category: 'flows',
-        type: 'polyline',
-        key: this.tier,
-      };
-      if (value) {
-        this.addToMap(data);
-      } else {
-        this.removeFromMap(data);
-      }
-    },
-    flow() {
-      if (this.isActive) {
-        this.addToMap({
-          mapkey: this.mapkey,
-          category: 'flows',
-          type: 'polyline',
-          key: this.tier,
-        });
-      }
-    },
-  },
-  methods: {
-    ...mapActions([
-      'addToMap',
-      'removeFromMap',
-    ]),
-    ...mapActions('flows', ['toggleSelector']),
-  },
-};
+});
+
+const hover = computed(() => {
+  const limit = flowsLimits.value[props.mapkey][props.tier];
+  if (limit) {
+    const min = Math.round(limit.min);
+    const max = Math.round(limit.max);
+    return `${t('tabs.flows.hoverText1')} ${min} ${t('tabs.flows.hoverText2')} ${max} ${t('tabs.flows.hoverText3')}`;
+  }
+  return null;
+});
+
+watch(isActive, (value) => {
+  const data = {
+    mapkey: props.mapkey,
+    category: 'flows',
+    type: 'polyline',
+    key: props.tier,
+  };
+  if (value) {
+    store.dispatch('addToMap', data);
+  } else {
+    store.dispatch('removeFromMap', data);
+  }
+});
+
+watch(flow, () => {
+  if (isActive.value) {
+    store.dispatch('addToMap', {
+      mapkey: props.mapkey,
+      category: 'flows',
+      type: 'polyline',
+      key: props.tier,
+    });
+  }
+});
 </script>
 
 <style scoped>
-  .tier-option {
-    font-size: 12px;
-  }
+.tier-option {
+  font-size: 12px;
+}
 </style>

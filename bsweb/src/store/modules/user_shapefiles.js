@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Vue from 'vue';
 
 const api_url = process.env.VUE_APP_API_URL;
 
@@ -8,7 +7,7 @@ const state = {
 };
 
 const getters = {
-  uploadedLayers: state => state.layers,
+  uploadedLayers: () => state.layers,
 };
 
 const actions = {
@@ -52,25 +51,25 @@ const actions = {
 };
 
 const mutations = {
-  saveGeoJson: async (state, geojson) => {
+  saveGeoJson: (state, geojson) => {
     const newLayers = [...state.layers, geojson];
     localStorage.setItem('geojson', JSON.stringify(newLayers));
-    Vue.set(state, 'layers', newLayers);
+    state.layers = newLayers; 
   },
   loadSavedLayers: (state, customLayers) => {
-    state.layers = customLayers || [];
+    state.layers = customLayers || []; 
   },
   toggleCustomLayer: (state, { index, mapkey, value }) => {
-    Vue.set(state.layers[index].isActive, mapkey, value);
+    state.layers[index].isActive[mapkey] = value; 
   },
   removeCustomLayer: (state, index) => {
     state.layers.splice(index, 1);
   },
   editCustomLayer: (state, { index, name, style }) => {
-    state.layers[index].name = name;
-    state.layers[index].style = style;
+    state.layers[index].name = name; 
+    state.layers[index].style = style; 
   },
-  saveCustomLayerLocalStorage: state => {
+  saveCustomLayerLocalStorage: (state) => {
     localStorage.setItem('geojson', JSON.stringify(state.layers));
   },
 };

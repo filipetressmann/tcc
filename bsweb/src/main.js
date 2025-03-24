@@ -1,41 +1,19 @@
-import Vue from 'vue';
+import { createApp } from 'vue';
 import App from './App.vue';
-import VueResource from 'vue-resource';
 import 'leaflet/dist/leaflet.css';
 import Buefy from 'buefy';
 import './assets/styles/index.css';
 import 'buefy/dist/buefy.css';
 import 'vue-multiselect/dist/vue-multiselect.min.css';
-import VueI18n from 'vue-i18n';
+import { createI18n } from 'vue-i18n';
 import { messages } from './plugins/i18n';
 import { store } from './store/store.js';
 import LoadScript from 'vue-plugin-load-script';
 import UUID from 'vue-uuid';
 import { Icon } from 'leaflet';
-import VueToastr2 from 'vue-toastr-2';
-import 'vue-toastr-2/dist/vue-toastr-2.min.css';
-import Oruga from '@oruga-ui/oruga';
-import '@oruga-ui/oruga/dist/oruga.css';
-
-window.toastr = require('toastr');
-
-Vue.use(UUID);
-Vue.use(LoadScript);
-Vue.use(VueI18n);
-Vue.use(Buefy);
-Vue.use(VueResource);
-Vue.use(VueToastr2);
-Vue.use(Oruga);
-
-// Toastr
-toastr.options = {
-  closeButton: false,
-  progressBar: true,
-  showDuration: 300,
-  positionClass: 'toast-top-center',
-  preventDuplicates: false,
-};
-
+import ToastPlugin from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-bootstrap.css';
+import Oruga from '@oruga-ui/oruga-next';
 
 // Leaflet fix for missing marker icons
 delete Icon.Default.prototype._getIconUrl;
@@ -45,14 +23,21 @@ Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 });
 
-export const filterEvents = new Vue();
-export const i18n = new VueI18n({ locale: 'pt-br', fallbackLocale: 'en', messages });
-
-
-
-new Vue({
-  i18n,
-  el: '#app',
-  store,
-  render: h => h(App),
+export const i18n = createI18n({ 
+  locale: 'pt-br', 
+  allowComposition: true,
+  legacy: false, 
+  fallbackLocale: 'en', 
+  returnObjects: true, 
+  messages 
 });
+
+createApp(App)
+ .use(UUID)
+ .use(LoadScript)
+ .use(i18n)
+ .use(Buefy)
+ .use(ToastPlugin)
+ .use(Oruga)
+ .use(store)
+ .mount('#app');

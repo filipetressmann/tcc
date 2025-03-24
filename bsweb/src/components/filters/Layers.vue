@@ -15,24 +15,19 @@
   </div>
 </template>
 
-<script>
-import { mapGetters } from 'vuex';
-import LayerCategory from './LayerCategory';
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+import LayerCategory from './LayerCategory.vue';
 
-export default {
-  components: {
-    LayerCategory,
-  },
-  props: {
-    mapkey: { type: String, required: true },
-  },
-  computed: {
-    ...mapGetters([
-      'allLayers',
-      'allBikelineLayers',
-    ]),
-  },
-};
+const props = defineProps({
+  mapkey: { type: String, required: true },
+});
+
+const store = useStore();
+
+const allLayers = computed(() => store.getters.allLayers);
+const allBikelineLayers = computed(() => store.getters.allBikelineLayers);
 </script>
 
 <style scoped>

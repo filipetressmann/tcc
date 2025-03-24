@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { createStore } from 'vuex';
 import categories from './modules/categories';
 import filters from './modules/filters';
 import flows from './modules/flows';
@@ -10,9 +9,7 @@ import modals from './modules/modals';
 import user from './modules/user';
 import user_shapefiles from './modules/user_shapefiles';
 
-Vue.use(Vuex);
-
-export const store = new Vuex.Store({
+export const store = createStore({
   modules: {
     categories,
     filters,

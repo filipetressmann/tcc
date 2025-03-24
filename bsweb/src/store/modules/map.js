@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import tiles from '../helpers/tiles';
 
 const state = {
@@ -60,14 +59,14 @@ const state = {
 };
 
 const getters = {
-  developer_mode: state => state.developer_mode,
-  sharedControls: state => state.maps.sharedControls,
-  centerMain: state => state.maps.main.properties.center,
-  centerSecond: state => state.maps.second.properties.center,
-  zoomMain: state => state.maps.main.properties.zoom,
-  zoomSecond: state => state.maps.second.properties.zoom,
-  secondMapIsActive: state => state.secondMapIsActive,
-  mapControl: state => state.mapControl,
+  developer_mode: (state) => state.developer_mode,
+  sharedControls: (state) => state.maps.sharedControls,
+  centerMain: (state) => state.maps.main.properties.center,
+  centerSecond: (state) => state.maps.second.properties.center,
+  zoomMain: (state) => state.maps.main.properties.zoom,
+  zoomSecond: (state) => state.maps.second.properties.zoom,
+  secondMapIsActive: (state) => state.secondMapIsActive,
+  mapControl: (state) => state.mapControl,
 };
 
 const actions = {
@@ -80,72 +79,74 @@ const actions = {
   resetMapResource: (context, data) => {
     context.commit('resetMapResource', data);
   },
-  toggleDeveloperMode: ({ commit }) => {
+  toggleDeveloperMode: ({ commit }) => { 
     commit('toggleDeveloperMode');
   },
-  updateCenter: ({ commit }, { mapkey, center }) => {
+  updateCenter: ({ commit }, { mapkey, center }) => { 
     commit('updateCenter', { mapkey, center });
   },
-  updateZoom: ({ commit }, { mapkey, zoom }) => {
+  updateZoom: ({ commit }, { mapkey, zoom }) => { 
     commit('updateZoom', { mapkey, zoom });
   },
-  toggleSecondMap: ({ commit }) => {
+  toggleSecondMap: ({ commit }) => { 
     commit('toggleSecondMap');
   },
-  changeMapControl: ({ commit }, value) => {
+  changeMapControl: ({ commit }, value) => { 
     commit('changeMapControl', value);
   },
 };
 
 const mutations = {
   addToMap: (state, { mapkey, category, type, key, options }) => {
-    Vue.set(state.maps[mapkey].show[category][type], key, options);
+    state.maps[mapkey].show[category][type][key] = options; 
   },
   removeFromMap: (state, { mapkey, category, type, key }) => {
-    Vue.delete(state.maps[mapkey].show[category][type], key);
+    delete state.maps[mapkey].show[category][type][key]; 
   },
   resetMapResource: (state, { mapkey, category, type }) => {
-    Vue.set(state.maps[mapkey].show[category], type, {});
+    state.maps[mapkey].show[category][type] = {}; 
   },
   hideZones: (state, mapkey) => {
-    Vue.set(state.maps[mapkey].show, 'zones', false);
+    state.maps[mapkey].show.zones = false; 
   },
   hideGrid: (state, mapkey) => {
-    Vue.set(state.maps[mapkey].show, 'grid', false);
+    state.maps[mapkey].show.grid = false; 
   },
   showZones: (state, mapkey) => {
-    Vue.set(state.maps[mapkey].show, 'zones', true);
+    state.maps[mapkey].show.zones = true; 
   },
   showGrid: (state, mapkey) => {
-    Vue.set(state.maps[mapkey].show, 'grid', true);
+    state.maps[mapkey].show.grid = true; 
   },
   changeHeatmapVisibility: (state, { which, visible, mapkey }) => {
-    Vue.set(state.maps[mapkey].show, which, visible);
+    state.maps[mapkey].show[which] = visible; 
   },
-  toggleDeveloperMode: state => {
-    Vue.set(state, 'developer_mode', !state.developer_mode);
+  toggleDeveloperMode: (state) => {
+    state.developer_mode = !state.developer_mode; 
   },
   updateCenter: (state, { mapkey, center }) => {
-    if (state.mapControl === 'same')
+    if (state.mapControl === 'same') {
       if (mapkey === 'main') {
-        state.maps.second.properties.center = center;
+        state.maps.second.properties.center = center; 
       } else {
-        state.maps.main.properties.center = center;
+        state.maps.main.properties.center = center; 
       }
+    }
   },
   updateZoom: (state, { mapkey, zoom }) => {
-    if (state.mapControl == 'same')
+    if (state.mapControl == 'same') {
       if (mapkey === 'main') {
-        state.maps.second.properties.zoom = zoom;
+        state.maps.second.properties.zoom = zoom; 
       } else {
-        state.maps.main.properties.zoom = zoom;
+        state.maps.main.properties.zoom = zoom; 
       }
+    }
   },
-  toggleSecondMap: state => {
-    Vue.set(state, 'secondMapIsActive', !state.secondMapIsActive);
+  toggleSecondMap: (state) => {
+    state.secondMapIsActive = !state.secondMapIsActive; 
   },
   changeMapControl: (state, value) => {
-    Vue.set(state, 'mapControl', value);
+    state.mapControl = value; 
   },
 };
 

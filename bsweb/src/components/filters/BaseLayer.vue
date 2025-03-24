@@ -20,11 +20,11 @@
         <span class="view-option">{{ $t("zones") }}</span>
       </b-radio>
     </div>
-    <div v-if="od == 'grid'">
+    <div v-if="od === 'grid'">
       <div v-if="!gridEditMode">
         <Button
-          :text="this.$t('buttons.gridEditMode')"
-          :title="this.$t('onHover.gridEditMode')"
+          :text="$t('buttons.gridEditMode')"
+          :title="$t('onHover.gridEditMode')"
           :handle-click="() => setGridEditModeOn(mapkey)"
         />
       </div>
@@ -35,67 +35,45 @@
   </div>
 </template>
 
-<script>
-import { mapGetters, mapActions, mapMutations, mapState } from 'vuex';
-import GridForm from '@/components/filters/forms/GridForm';
+<script setup>
+import { ref, computed, watch } from 'vue';
+import { useStore } from 'vuex';
+import GridForm from '@/components/filters/forms/GridForm.vue';
 import Button from '@/components/buttons/Button.vue';
 
-export default {
-  components: {
-    GridForm,
-    Button,
-  },
-  props: {
-    mapkey: { type: String, required: true },
-  },
-  data() {
-    return {
-      od: 'grid',
-    };
-  },
-  computed: {
-    ...mapGetters({
-      filterParams: 'filters',
-    }),
-    ...mapGetters(['secondMapIsActive']),
-    ...mapGetters('flows', ['hideSecondMapFlowsControl']),
-    ...mapState({
-      gridEditMode(state) {
-        return state.filters[this.mapkey].gridEditMode;
-      },
-    }),
-  },
-  watch: {
-    od: function (value) {
-      this.updateOD({ value, mapkey: this.mapkey });
-      this.resetMapResource({
-        mapkey: this.mapkey,
-        category: 'flows',
-        type: 'polyline',
-      });
-      this.resetFlows(this.mapkey);
-      if (value == 'zones') {
-        this.showZones(this.mapkey);
-        this.hideGrid(this.mapkey);
-      } else if (value == 'grid') {
-        this.showGrid(this.mapkey);
-        this.hideZones(this.mapkey);
-      }
-      this.filterData(this.mapkey);
-    },
-  },
-  methods: {
-    ...mapActions([
-      'updateOD',
-      'resetMapResource',
-      'filterData',
-      'setGridEditModeOn',
-      'flows/resetFlows',
-    ]),
-    ...mapMutations(['showZones', 'hideZones', 'showGrid', 'hideGrid']),
-    ...mapActions('loading', ['setLoading', 'unsetLoading']),
-    ...mapActions('flows', ['resetFlows']),
-  },
+const props = defineProps({
+  mapkey: { type: String, required: true },
+});
+
+const store = useStore();
+const od = ref('grid');
+
+const secondMapIsActive = computed(() => store.getters.secondMapIsActive);
+const hideSecondMapFlowsControl = computed(() => store.getters['flows/hideSecondMapFlowsControl']);
+const gridEditMode = computed(() => store.state.filters[props.mapkey].gridEditMode);
+
+watch(od, (value) => {
+  store.dispatch('updateOD', { value, mapkey: props.mapkey });
+  store.dispatch('resetMapResource', {
+    mapkey: props.mapkey,
+    category: 'flows',
+    type: 'polyline',
+  });
+  store.dispatch('flows/resetFlows', props.mapkey);
+  
+  if (value === 'zones') {
+    store.commit('showZones', props.mapkey);
+    store.commit('hideZones', props.mapkey);
+  } else if (value === 'grid') {
+    store.commit('showGrid', props.mapkey);
+    store.commit('hideGrid', props.mapkey);
+  }
+  
+  store.dispatch('filterData', props.mapkey);
+});
+
+const setGridEditModeOn = (mapkey) => {
+  store.dispatch('setGridEditModeOn', mapkey);
 };
 </script>
 
@@ -106,5 +84,4 @@ export default {
 .view-option {
   font-size: 12px;
 }
-
 </style>

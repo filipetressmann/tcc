@@ -16,7 +16,6 @@
     <div v-if="secondMapIsActive" class="options">
       <b-checkbox
         v-model="mirrorControl"
-        :native-value="mirrorControl"
         type="is-info"
         size="is-small"
       >
@@ -24,7 +23,6 @@
       </b-checkbox>
       <b-checkbox
         v-model="hideSecondMapControl"
-        :native-value="hideSecondMapControl"
         type="is-info"
         size="is-small"
       >
@@ -35,44 +33,34 @@
   </div>
 </template>
 
-<script>
-import { mapActions, mapGetters } from 'vuex';
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 import Layers from '../filters/Layers.vue';
 import UserLayers from '@/components/user-layers/UserLayers.vue';
 import CopyLayers from '@/components/buttons/copy-settings/CopyLayers.vue';
 
-export default {
-  components: {
-    Layers,
-    CopyLayers,
-    UserLayers,
+const store = useStore();
+
+const secondMapIsActive = computed(() => store.getters.secondMapIsActive);
+
+const mirrorControl = computed({
+  get() {
+    return store.state.layers.mirrorControl;
   },
-  computed: {
-    ...mapGetters(['secondMapIsActive']),
-    mirrorControl: {
-      get() {
-        return this.$store.state.layers.mirrorControl;
-      },
-      set(value) {
-        this.toggleMirrorLayerControl();
-      },
-    },
-    hideSecondMapControl: {
-      get() {
-        return this.$store.state.layers.hideSecondMapControl;
-      },
-      set(value) {
-        this.setHideSecondMapLayerControl(value);
-      },
-    },
+  set(value) {
+    store.dispatch('toggleMirrorLayerControl');
+  }
+});
+
+const hideSecondMapControl = computed({
+  get() {
+    return store.state.layers.hideSecondMapControl;
   },
-  methods: {
-    ...mapActions([
-      'toggleMirrorLayerControl',
-      'setHideSecondMapLayerControl',
-    ]),
-  },
-};
+  set(value) {
+    store.dispatch('setHideSecondMapLayerControl', value);
+  }
+});
 </script>
 
 <style scoped>
@@ -85,6 +73,6 @@ export default {
   margin: 20px;
 }
 .options span {
-    font-size: 12px;
-  }
+  font-size: 12px;
+}
 </style>

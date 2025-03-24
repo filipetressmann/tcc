@@ -4,7 +4,7 @@ const api_url = process.env.VUE_APP_API_URL;
 
 const state = {
   layers: [],
-  bikelineLayers: [],
+  bikelineLayers: [], 
   filters: [],
 };
 
@@ -15,20 +15,30 @@ const getters = {
 };
 
 const actions = {
-  fetchCategories: ({ commit }) => {
-    commit('fetchCategories');
+  fetchCategories: async ({ commit }) => { 
+    try {
+      const response = await axios.get(`${api_url}/fetchfilters`);
+      commit('fetchCategories', response.data);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
   },
 };
 
 const mutations = {
-  fetchCategories: async ({ commit, getters }) => {
-    return await axios.get(`${api_url}/fetchfilters`)
-      .then(response => {
-        state.bikelineLayers = response.data.filter(item => item.category_name.includes('layers_bikelanes'));
-        const rest = response.data.filter(item => !item.category_name.includes('layers_bikelanes'));
-        state.layers = rest.filter(item => item.category_name.includes('layers'));
-        state.filters = rest.filter(item => !item.category_name.includes('layers'));
-      });
+  fetchCategories: (state, data) => {
+    state.bikelineLayers = data.filter(item => 
+      item.category_name.includes('layers_bikelanes')
+    );
+    const rest = data.filter(item => 
+      !item.category_name.includes('layers_bikelanes')
+    );
+    state.layers = rest.filter(item => 
+      item.category_name.includes('layers')
+    );
+    state.filters = rest.filter(item => 
+      !item.category_name.includes('layers')
+    );
   },
 };
 

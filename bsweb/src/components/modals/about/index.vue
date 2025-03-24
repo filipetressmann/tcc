@@ -8,22 +8,22 @@
         <ButtonAbout
           :text="$t('aboutPage.buttons.about')"
           :is-active="activeSection[0]"
-          @click.native="select(0)"
+          @click="select(0)"
         />
         <ButtonAbout
           :text="$t('aboutPage.buttons.features')"
           :is-active="activeSection[1]"
-          @click.native="select(1)"
+          @click="select(1)"
         />
         <ButtonAbout
           :text="$t('aboutPage.buttons.team')"
           :is-active="activeSection[2]"
-          @click.native="select(2)"
+          @click="select(2)"
         />
         <ButtonAbout
           :text="$t('aboutPage.buttons.guide')"
           :is-active="activeSection[3]"
-          @click.native="select(3)"
+          @click="select(3)"
         />
       </div>
       <div class="about-content">
@@ -36,63 +36,48 @@
   </Modal>
 </template>
 
-<script>
-import Modal from '../../Modal';
-import About from './components/About';
-import Features from './components/Features';
-import Team from './components/Team';
-import UserGuide from './components/UserGuide';
+<script setup>
+import { ref } from 'vue';
+import Modal from '../../Modal.vue';
+import About from './components/About.vue';
+import Features from './components/Features.vue';
+import Team from './components/Team.vue';
+import UserGuide from './components/UserGuide.vue';
 import ButtonAbout from '@/components/buttons/ButtonAbout.vue';
 
-export default {
-  components: {
-    Modal,
-    ButtonAbout,
-    About,
-    Features,
-    Team,
-    UserGuide,
-  },
-  data() {
-    return {
-      activeSection: [true, false, false, false],
-    };
-  },
-  methods: {
-    select(clickedIndex) {
-      if (this.activeSection[clickedIndex]) return;
-      this.activeSection = this.activeSection.map((v, index) => index === clickedIndex);
-    },
-  },
+const activeSection = ref([true, false, false, false]);
+
+const select = (clickedIndex) => {
+  if (activeSection.value[clickedIndex]) return;
+  activeSection.value = activeSection.value.map((_, index) => index === clickedIndex);
 };
 </script>
 
 <style scoped>
-  .about-container {
-    padding: 0 15%;
-    height: 97%;
-    overflow: scroll;
-  }
-  .bsw {
-    font-size: 36px;
-    color: #363636;
-    font-weight: 600;
-    line-height: 1.125;
-    margin-bottom: 40px;
-    text-align: center;
-  }
-  .about-selector {
-    display: flex;
-    justify-content: center;
-  }
-  .about-content {
-    margin: 40px 0;
-  }
+.about-container {
+  padding: 0 15%;
+  height: 97%;
+  overflow: scroll;
+}
+.bsw {
+  font-size: 36px;
+  color: #363636;
+  font-weight: 600;
+  line-height: 1.125;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.about-selector {
+  display: flex;
+  justify-content: center;
+}
+.about-content {
+  margin: 40px 0;
+}
 
-  @media only screen and (max-width: 768px) {
+@media only screen and (max-width: 768px) {
   .about-selector {
     flex-direction: column;
   }
 }
 </style>
-

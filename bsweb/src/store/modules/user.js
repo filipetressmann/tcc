@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import { computed } from 'vue';
 
 const state = {
   user: {
@@ -7,12 +7,12 @@ const state = {
 };
 
 const getters = {
-  user_token: state => state.user.token,
+  user_token: () => state.user.token,
 };
 
 const mutations = {
   set_user_token: (state, token) => {
-    Vue.set(state.user.token, token);
+    state.user.token = token;
   },
 };
 

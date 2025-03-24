@@ -1,5 +1,3 @@
-import Vue from 'vue';
-
 const state = {
   flows: {
     main: {
@@ -46,64 +44,48 @@ const getters = {
 };
 
 const actions = {
-  addFlows: ({ commit }, data) => {
-    commit('addFlows', data);
-  },
-  addTripsPerTier: ({ commit }, data) => {
-    commit('addTripsPerTier', data);
-  },
-  resetFlows: ({ commit }, mapkey) => {
-    commit('resetFlows', mapkey);
-  },
-  toggleMirrorFlowsControl: ({ commit }) => {
-    commit('toggleMirrorFlowsControl');
-  },
-  toggleSelector: ({ commit }, data) => {
-    commit('toggleSelector', data);
-  },
-  setHideSecondMapFlowsControl: ({ commit }, value) => {
-    commit('setHideSecondMapFlowsControl', value);
-  },
-  copySelectedFlowsTo: ({ commit }, mapkey) => {
-    commit('copySelectedFlowsTo', mapkey);
-  },
-  setLimits: ({ commit }, data) => {
-    commit('setLimits', data);
-  },
-  setOdYear: ({ commit }, data) => {
-    commit('setOdYear', data);
-  },
+  addFlows: ({ commit }, data) => commit('addFlows', data),
+  addTripsPerTier: ({ commit }, data) => commit('addTripsPerTier', data),
+  resetFlows: ({ commit }, mapkey) => commit('resetFlows', mapkey),
+  toggleMirrorFlowsControl: ({ commit }) => commit('toggleMirrorFlowsControl'),
+  toggleSelector: ({ commit }, data) => commit('toggleSelector', data),
+  setHideSecondMapFlowsControl: ({ commit }, value) =>
+    commit('setHideSecondMapFlowsControl', value),
+  copySelectedFlowsTo: ({ commit }, mapkey) => commit('copySelectedFlowsTo', mapkey),
+  setLimits: ({ commit }, data) => commit('setLimits', data),
+  setOdYear: ({ commit }, data) => commit('setOdYear', data),
 };
 
 const mutations = {
   addFlows: (state, { tier, flows, mapkey }) => {
-    Vue.set(state.flows[mapkey], tier, flows);
+    state.flows[mapkey][tier] = flows;
   },
   addTripsPerTier: (state, { tier, count, mapkey }) => {
-    Vue.set(state.tripsPerTier[mapkey], tier, count);
+    state.tripsPerTier[mapkey][tier] = count;
   },
   resetFlows: (state, mapkey) => {
-    Vue.set(state.flows, mapkey, { 0: [], 1: [], 2: [], 3: [] });
-    Vue.set(state.tripsPerTier, mapkey, [0, 0, 0, 0]);
+    state.flows[mapkey] = { 0: [], 1: [], 2: [], 3: [] };
+    state.tripsPerTier[mapkey] = [0, 0, 0, 0];
   },
   toggleSelector: (state, { mapkey, tier }) => {
     const newValue = !state.selectors[mapkey][tier];
     if (state.mirrorControl) {
-      Vue.set(state.selectors['main'], tier, newValue);
-      Vue.set(state.selectors['second'], tier, newValue);
+      state.selectors['main'][tier] = newValue;
+      state.selectors['second'][tier] = newValue;
     } else {
-      Vue.set(state.selectors[mapkey], tier, newValue);
+      state.selectors[mapkey][tier] = newValue;
     }
   },
   toggleMirrorFlowsControl: state => {
-    Vue.set(state, 'mirrorControl', !state.mirrorControl);
+    state.mirrorControl = !state.mirrorControl;
   },
   setHideSecondMapFlowsControl: (state, value) => {
-    Vue.set(state, 'hideSecondMapControl', value);
+    state.hideSecondMapControl = value;
   },
   copySelectedFlowsTo: (state, mapkey) => {
     const mapkeyFrom = mapkey === 'main' ? 'second' : 'main';
-    Vue.set(state.selectors, mapkey, { ...state.selectors[mapkeyFrom] });
+    // Use spread operator to copy the array
+    state.selectors[mapkey] = [...state.selectors[mapkeyFrom]];
   },
   setLimits: (state, { limits, mapkey }) => {
     state.limits[mapkey] = limits;

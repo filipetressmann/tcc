@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="$i18n.locale == 'pt-br'">
+    <div v-if="$i18n.locale === 'pt-br'">
       <h2>Sobre</h2>
       <p>
         A BikeScienceWeb é uma ferramenta desenvolvida pelo INCT da Internet do
@@ -18,7 +18,7 @@
         adicionar novas fontes de dados e tipos diferentes de análises.
       </p>
     </div>
-    <div v-else-if="$i18n.locale == 'en'">
+    <div v-else-if="$i18n.locale === 'en'">
       <h2>About</h2>
       <p>
         BikeScienceWeb is a tool developed by
@@ -44,20 +44,10 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import logoCapes from '@/assets/logos/capes.jpg';
 import logoCnpq from '@/assets/logos/cnpq.png';
 import logoFapesp from '@/assets/logos/fapesp.png';
-
-export default {
-  data() {
-    return {
-      logoCapes,
-      logoCnpq,
-      logoFapesp,
-    };
-  },
-};
 </script>
 
 <style scoped>

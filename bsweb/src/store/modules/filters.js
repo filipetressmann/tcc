@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Vue from 'vue';
+import { nextTick } from 'vue';
 import selectors, { copySelector } from '../helpers/default_selectors';
 
 const api_url = process.env.VUE_APP_API_URL;
@@ -64,21 +64,21 @@ const getters = {
   loading_filters: state => state.loading_filters,
   flowsNotFound: state => state.flows_not_found,
   gridEditMode: state => state.gridEditMode,
-  activeFiltersCount: state => state.main.activeFilters.length + state.second.activeFilters.length,
+  activeFiltersCount: state =>
+    state.main.activeFilters.length + state.second.activeFilters.length,
   mirrorFilterControl: state => state.mirrorControl,
   hideSecondMapFilterControl: state => state.hideSecondMapControl,
   selectors: state => state.selectors,
 };
 
 const actions = {
-  addFilter: ({ commit, getters }, filter) => {
+  addFilter: ({ commit }, filter) => {
     commit('addFilter', filter);
   },
   removeFilter: ({ commit }, data) => {
     commit('removeActiveFilter', data);
   },
   addActiveFilter: ({ commit, getters }, data) => {
-    // commit('loading_filters', true);
     commit('addActiveFilter', { ...data, bothMaps: getters.mirrorFilterControl });
   },
   removeActiveFilter: ({ commit, dispatch, getters }, data) => {
@@ -90,22 +90,18 @@ const actions = {
   },
   filterData: async ({ commit, dispatch, getters }, mapkey) => {
     commit('loading_filters', true);
-    let filters;
-    if (mapkey == 'main')
-      filters = getters.filters;
-    else filters = getters.filters2;
+    let filters = mapkey === 'main' ? getters.filters : getters.filters2;
     const year = getters['flows/odYear'][mapkey];
 
-    return await axios.post(`${api_url}/filter_data`, { ...filters, year })
-      .then(res => {
-        return res.data;
-      })
+    return await axios
+      .post(`${api_url}/filter_data`, { ...filters, year })
+      .then(res => res.data)
       .then(response => {
-        let flows = response['flows'];
-        let tiers = Object.keys(flows);
-        let flows_props = response['flow_props'];
+        const flows = response.flows;
+        const tiers = Object.keys(flows);
+        const flows_props = response.flow_props;
 
-        let limits = [];
+        const limits = [];
         for (let i = 0; i < 4; i++) {
           limits.push({
             min: flows_props.min[i],
@@ -117,7 +113,7 @@ const actions = {
         dispatch('flows/setLimits', { limits, mapkey }, { root: true });
 
         if (tiers.length > 0) {
-          tiers.map(tier => {
+          tiers.forEach(tier => {
             dispatch('flows/addTripsPerTier', { tier, count: flows[tier].length, mapkey }, { root: true });
             dispatch('flows/addFlows', { tier, flows: flows[tier], mapkey }, { root: true });
           });
@@ -130,8 +126,7 @@ const actions = {
       .then(() => commit('loading_filters', false));
   },
   updateFilterParams: ({ commit, dispatch, getters, state }, { filter, mapkey }) => {
-    const { freezeUpdates } = state;
-    if (freezeUpdates) return;
+    if (state.freezeUpdates) return;
     const bothMaps = getters.mirrorFilterControl;
     commit('updateFilterParams', { filter, mapkey, bothMaps });
     if (bothMaps) {
@@ -154,19 +149,13 @@ const actions = {
     commit('setToken', value);
   },
   updateGridOffset({ commit, getters }, { key, value, mapkey }) {
-    let gridOffset;
-    if (mapkey == 'main')
-      gridOffset = getters.gridOffset;
-    else gridOffset = getters.gridOffset2;
-
+    const gridOffset = mapkey === 'main' ? getters.gridOffset : getters.gridOffset2;
     if (gridOffset[key] !== value) {
-      let newGridOffset = { ...gridOffset };
-      newGridOffset[key] = value;
+      const newGridOffset = { ...gridOffset, [key]: value };
       commit('updateGridOffset', { gridOffset: newGridOffset, mapkey });
     }
   },
   setGridEditModeOn({ commit, dispatch }, mapkey) {
-    // commit('resetFlows', mapkey);
     dispatch('flows/resetFlows', mapkey, { root: true });
     commit('setGridEditMode', { value: true, mapkey });
   },
@@ -188,86 +177,87 @@ const actions = {
   copySelectedFiltersTo: ({ commit, dispatch }, mapkey) => {
     commit('freezeUpdates');
     commit('copySelectedFiltersTo', mapkey);
-    Vue.nextTick(() => {
+    nextTick(() => {
       commit('unfreezeUpdates');
       dispatch('filterData', mapkey);
-    }
-    );
+    });
   },
 };
 
 const mutations = {
   addActiveFilter: (state, { filter, mapkey, bothMaps }) => {
     if (bothMaps) {
-      state['main'].activeFilters.push(filter);
-      state['second'].activeFilters.push(filter);
+      state.main.activeFilters.push(filter);
+      state.second.activeFilters.push(filter);
     } else {
       state[mapkey].activeFilters.push(filter);
     }
-    // Vue.set(state, 'loading_filters', false);
   },
   setToken: (state, token) => {
-    Vue.set(state.filters, 'ut', token);
+    state.filters.ut = token;
   },
   removeActiveFilter: (state, { filter, mapkey }) => {
-    state[mapkey].activeFilters = state[mapkey].activeFilters.filter(activeFilter => filter.id !== activeFilter.id);
-    Vue.delete(state[mapkey].filters.params, filter.id);
+    state[mapkey].activeFilters = state[mapkey].activeFilters.filter(
+      activeFilter => filter.id !== activeFilter.id
+    );
+    delete state[mapkey].filters.params[filter.id];
   },
   addAttractors: (state, { attractors }) => {
-    Vue.set(state.heatmaps, 'attractors', attractors);
+    state.heatmaps = state.heatmaps || {};
+    state.heatmaps.attractors = attractors;
   },
   addEmitters: (state, { emitters }) => {
-    Vue.set(state.heatmaps, 'emitters', emitters);
+    state.heatmaps = state.heatmaps || {};
+    state.heatmaps.emitters = emitters;
   },
   addCharts: (state, { charts }) => {
-    Vue.set(state, 'charts', charts);
+    state.charts = charts;
   },
   updateFilterParams: (state, { filter: { id, params }, mapkey, bothMaps }) => {
     if (bothMaps) {
-      Vue.set(state['main'].filters.params, id, params);
-      Vue.set(state['second'].filters.params, id, params);
-
+      state.main.filters.params[id] = params;
+      state.second.filters.params[id] = params;
       const mapkey2 = mapkey === 'main' ? 'second' : 'main';
       state.selectors[mapkey2][id] = state.selectors[mapkey][id];
     } else {
-      Vue.set(state[mapkey].filters.params, id, params);
+      state[mapkey].filters.params[id] = params;
     }
   },
   updateOD: (state, { value, mapkey }) => {
-    Vue.set(state[mapkey].filters, 'baseLayer', value);
+    state[mapkey].filters.baseLayer = value;
   },
-  updateGridSize(state, { gridSize, mapkey }) {
-    Vue.set(state[mapkey].filters, 'gridSize', gridSize);
+  updateGridSize: (state, { gridSize, mapkey }) => {
+    state[mapkey].filters.gridSize = gridSize;
   },
-  updateGridOffset(state, { gridOffset, mapkey }) {
-    Vue.set(state[mapkey].filters, 'gridOffset', gridOffset);
+  updateGridOffset: (state, { gridOffset, mapkey }) => {
+    state[mapkey].filters.gridOffset = gridOffset;
   },
-  loading_filters(state, value) {
-    Vue.set(state, 'loading_filters', value);
+  loading_filters: (state, value) => {
+    state.loading_filters = value;
   },
-  setFlowsNotFound(state, value) {
-    Vue.set(state, 'flows_not_found', value);
+  setFlowsNotFound: (state, value) => {
+    state.flows_not_found = value;
   },
-  setGridEditMode(state, { value, mapkey }) {
-    Vue.set(state[mapkey], 'gridEditMode', value);
+  setGridEditMode: (state, { value, mapkey }) => {
+    state[mapkey].gridEditMode = value;
   },
   toggleMirrorFilterControl: state => {
-    Vue.set(state, 'mirrorControl', !state.mirrorControl);
+    state.mirrorControl = !state.mirrorControl;
   },
   setHideSecondMapFilterControl: (state, value) => {
-    Vue.set(state, 'hideSecondMapControl', value);
+    state.hideSecondMapControl = value;
   },
   freezeUpdates: state => {
-    Vue.set(state, 'freezeUpdates', true);
+    state.freezeUpdates = true;
   },
   unfreezeUpdates: state => {
-    Vue.set(state, 'freezeUpdates', false);
+    state.freezeUpdates = false;
   },
   copySelectedFiltersTo: (state, mapkey) => {
     const mapkeyFrom = mapkey === 'main' ? 'second' : 'main';
     const selectorsCopy = copySelector(state.selectors[mapkeyFrom]);
-    Vue.set(state.selectors, mapkey, selectorsCopy);
-    Vue.set(state[mapkey].filters, 'params', state[mapkeyFrom].filters.params);
+    state.selectors[mapkey] = selectorsCopy;
+    state[mapkey].filters.params = state[mapkeyFrom].filters.params;
   },
 };
 

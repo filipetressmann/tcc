@@ -1,7 +1,7 @@
 <template>
   <div>
     <FilterCategory
-      v-for="category in allFilters"
+      v-for="category in computedAllFilters"
       :key="category.id"
       :category="category"
       :mapkey="mapkey"
@@ -9,22 +9,19 @@
   </div>
 </template>
 
-<script>
-import { mapGetters } from 'vuex';
-import FilterCategory from './FilterCategory';
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+import FilterCategory from './FilterCategory.vue';
 
-export default {
-  components: {
-    FilterCategory,
-  },
-  props: {
-    mapkey: { type: String, required: true },
-  },
-  computed: {
-    ...mapGetters(['allFilters']),
-  },
-};
+const store = useStore();
+
+const props = defineProps({
+  mapkey: { type: String, required: true },
+});
+
+const computedAllFilters = computed(() => {
+  return store.getters.allFilters;
+});
+
 </script>
-
-<style scoped>
-</style>

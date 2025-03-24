@@ -14,7 +14,6 @@
     <div v-if="secondMapIsActive" class="options">
       <b-checkbox
         v-model="mirrorControl"
-        :native-value="mirrorControl"
         type="is-info"
         size="is-small"
       >
@@ -22,7 +21,6 @@
       </b-checkbox>
       <b-checkbox
         v-model="hideSecondMapControl"
-        :native-value="hideSecondMapControl"
         type="is-info"
         size="is-small"
       >
@@ -33,42 +31,27 @@
   </div>
 </template>
 
-<script>
-import { mapActions, mapGetters } from 'vuex';
+<script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
+import { useI18n } from 'vue-i18n';
 import Filters from '../filters/Filters.vue';
 import CopyFilters from '@/components/buttons/copy-settings/CopyFilters.vue';
 
-export default {
-  components: {
-    Filters,
-    CopyFilters,
-  },
-  computed: {
-    ...mapGetters(['secondMapIsActive']),
-    mirrorControl: {
-      get() {
-        return this.$store.state.filters.mirrorControl;
-      },
-      set(value) {
-        this.toggleMirrorFilterControl();
-      },
-    },
-    hideSecondMapControl: {
-      get() {
-        return this.$store.state.filters.hideSecondMapControl;
-      },
-      set(value) {
-        this.setHideSecondMapFilterControl(value);
-      },
-    },
-  },
-  methods: {
-    ...mapActions([
-      'toggleMirrorFilterControl',
-      'setHideSecondMapFilterControl',
-    ]),
-  },
-};
+const { t } = useI18n();
+const store = useStore();
+
+const secondMapIsActive = computed(() => store.getters.secondMapIsActive);
+
+const mirrorControl = computed({
+  get: () => store.state.filters.mirrorControl,
+  set: () => store.dispatch('toggleMirrorFilterControl')
+});
+
+const hideSecondMapControl = computed({
+  get: () => store.state.filters.hideSecondMapControl,
+  set: (value) => store.dispatch('setHideSecondMapFilterControl', value)
+});
 </script>
 
 <style scoped>
@@ -81,6 +64,6 @@ export default {
   margin: 20px;
 }
 .options span {
-    font-size: 12px;
-  }
+  font-size: 12px;
+}
 </style>

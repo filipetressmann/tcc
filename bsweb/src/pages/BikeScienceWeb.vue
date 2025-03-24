@@ -3,7 +3,7 @@
     <TwoMapsManager />
     <div id="main-content">
       <div id="columns-content" class="columns is-mobile">
-        <div v-show="true" class="column left manage">
+        <div class="column left manage">
           <Manage id="filter-container" />
         </div>
         <div id="main-column" class="column is-full is-flex">
@@ -24,7 +24,7 @@
     <AboutModal />
     <EditCustomLayerModal v-if="activeModal === 'editCustomLayer'" />
     <Loading :is-active="active || loading_filters" />
-    <o-modal :active.sync="isImageModalActive">
+    <o-modal v-model:active="isImageModalActive">
       <p style="text-align: center">
         <img src="https://avatars2.githubusercontent.com/u/66300512?s=200&v=4">
       </p>
@@ -32,63 +32,44 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import { useStore } from 'vuex';
+import { v4 as uuidv4 } from 'uuid';
 import Manage from '../components/Manage.vue';
 import Map from '../components/map/Map.vue';
-import { uuid } from 'vue-uuid';
-import { mapActions, mapGetters } from 'vuex';
-import Loading from '../components/Loading';
-import AboutModal from '../components/modals/about';
-import EditCustomLayerModal from '../components/modals/editCustomLayer';
+import Loading from '../components/Loading.vue';
+import AboutModal from '../components/modals/about/index.vue';
+import EditCustomLayerModal from '../components/modals/editCustomLayer/index.vue';
 import TwoMapsManager from '../components/twomapsmanager/TwoMapsManager.vue';
 
-export default {
-  components: {
-    Manage,
-    Map,
-    Loading,
-    AboutModal,
-    EditCustomLayerModal,
-    TwoMapsManager,
-  },
-  data() {
-    return {
-      isImageModalActive: false, // Temp para possível modal
-      open: false,
-    };
-  },
-  computed: {
-    ...mapGetters('loading', ['active']),
-    ...mapGetters('modals', ['activeModal']),
-    ...mapGetters(['loading_filters', 'secondMapIsActive', 'mapControl']),
-  },
-  created() {
-    if (localStorage.ut === undefined) {
-      localStorage.ut = this.$uuid.v4();
-    }
-    // this.setToken(localStorage.ut);
-    this.fetchCategories();
-    this.fetchCPTM_lines();
-    this.fetchSubway_lines();
-    this.fetchCPTM_stations();
-    this.fetchSubway_stations();
-    this.fetchBikelane();
-    this.fetchAccidents();
-  },
-  methods: {
-    ...mapActions([
-      'setToken',
-      'fetchCategories',
-      'fetchCPTM_lines',
-      'fetchSubway_lines',
-      'fetchCPTM_stations',
-      'fetchSubway_stations',
-      'fetchBikelane',
-      'fetchAccidents',
-    ]),
-    ...mapActions('user_shapefiles', ['loadSavedLayers']),
-  },
-};
+const store = useStore();
+const isImageModalActive = ref(false);
+
+const active = computed(() => store.getters['loading/active']);
+const activeModal = computed(() => store.getters['modals/activeModal']);
+const loading_filters = computed(() => store.getters.loading_filters);
+const secondMapIsActive = computed(() => store.getters.secondMapIsActive);
+const mapControl = computed(() => store.getters.mapControl);
+
+onMounted(() => {
+  if (!localStorage.ut) {
+    localStorage.ut = uuidv4();
+  }
+  
+  const actions = [
+    'fetchCategories',
+    'fetchCPTM_lines',
+    'fetchSubway_lines',
+    'fetchCPTM_stations',
+    'fetchSubway_stations',
+    'fetchBikelane',
+    'fetchAccidents'
+  ];
+
+  actions.forEach(action => store.dispatch(action));
+  store.dispatch('user_shapefiles/loadSavedLayers');
+});
 </script>
 
 <style scoped>

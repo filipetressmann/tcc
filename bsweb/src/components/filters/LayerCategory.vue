@@ -21,61 +21,51 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed } from 'vue';
+import { useStore } from 'vuex';
 import iconArrow from '@/assets/svg/icon-arrow-dropdown.svg';
-import { mapGetters } from 'vuex';
 import LayerController from './LayerController.vue';
 import BikelaneSlider from './bikelanes/BikelaneSlider.vue';
 
-export default {
-  components: {
-    LayerController,
-    BikelaneSlider,
-  },
-  props: {
-    category: { type: Object, required: true },
-    mapkey: { type: String, required: true },
-  },
-  data() {
-    return {
-      checkboxes: [],
-      isActive: false,
-      iconArrow,
-    };
-  },
-  computed: {
-    ...mapGetters(['allFilters']),
-  },
-  methods: {
-    toggleCategory() {
-      this.isActive = !this.isActive;
-    },
-  },
+const props = defineProps({
+  category: { type: Object, required: true },
+  mapkey: { type: String, required: true },
+});
+
+const store = useStore();
+const isActive = ref(false);
+const checkboxes = ref([]);
+
+const allFilters = computed(() => store.getters.allFilters);
+
+const toggleCategory = () => {
+  isActive.value = !isActive.value;
 };
 </script>
 
 <style scoped>
-  .category-name {
-    font-size: 12px;
-    font-weight: bold;
-  }
-  .category-wrapper{
-    margin-bottom: 10px;
-  }
-  .category-toggle {
-    cursor: pointer;
-    display: flex;
-  }
-  .category-options {
-    margin-left: 8px;
-  }
-  .arrow {
-    transition: all ease-in-out 0.2s;
-    transform: rotate(-90deg);
-    width: 12px;
-    margin-right: 4px;
-  }
-  .arrow.active {
-    transform: none
-  }
+.category-name {
+  font-size: 12px;
+  font-weight: bold;
+}
+.category-wrapper{
+  margin-bottom: 10px;
+}
+.category-toggle {
+  cursor: pointer;
+  display: flex;
+}
+.category-options {
+  margin-left: 8px;
+}
+.arrow {
+  transition: all ease-in-out 0.2s;
+  transform: rotate(-90deg);
+  width: 12px;
+  margin-right: 4px;
+}
+.arrow.active {
+  transform: none
+}
 </style>

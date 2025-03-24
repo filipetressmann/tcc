@@ -4,7 +4,7 @@
     <p class="text">
       {{ $t('tabs.upload.text') }}:
       <ul>
-        <li v-for="extension in $t('tabs.upload.extensions')" :key="extension">
+        <li v-for="extension in $tm('tabs.upload.extensions')" :key="extension">
           {{ extension }}
         </li>
       </ul>
@@ -15,7 +15,6 @@
           id="files"
           type="file"
           multiple
-          size="is-small"
           @change="onFileChange"
         >
       </div>
@@ -29,7 +28,6 @@
             v-model="name"
             type="text"
             class="input is-info is-small"
-            size="is-small"
           >
         </div>
       </div>
@@ -45,7 +43,6 @@
             class="input is-info is-small"
             min="0"
             step="0.1"
-            size="is-small"
           >
         </div>
       </div>
@@ -75,7 +72,6 @@
             v-model="color"
             type="text"
             class="input is-info is-small"
-            size="is-small"
           >
         </div>
       </div>
@@ -91,158 +87,152 @@
   </div>
 </template>
 
-<script>
-import { mapActions, mapGetters } from 'vuex';
+<script setup>
+import { ref, computed } from 'vue';
+import { useStore } from 'vuex';
 
-export default {
-  data() {
-    return {
-      type: 'layer',
-      name: '',
-      weight: 3,
-      opacity: 0.9,
-      color: '#ff0000',
-      files: null,
-      error: null,
-      fileType: null,
-    };
-  },
-  computed: {
-    ...mapGetters(['secondMapIsActive']),
-    mirrorControl: {
-      get() {
-        return this.$store.state.layers.mirrorControl;
-      },
-      set() {
-        this.toggleMirrorLayerControl();
-      },
+const store = useStore();
+
+const type = ref('layer');
+const name = ref('');
+const weight = ref(3);
+const opacity = ref(0.9);
+const color = ref('#ff0000');
+const files = ref(null);
+const error = ref(null);
+const fileType = ref(null);
+
+const secondMapIsActive = computed(() => store.getters['map/secondMapIsActive']);
+const mirrorControl = computed({
+  get: () => store.state.layers.mirrorControl,
+  set: () => toggleMirrorLayerControl(),
+});
+
+const toggleMirrorLayerControl = () => {
+  store.dispatch('layers/toggleMirrorLayerControl');
+};
+const setHideSecondMapLayerControl = () => {
+  store.dispatch('layers/setHideSecondMapLayerControl');
+};
+const shapefileToGeoJson = (payload) => {
+  store.dispatch('user_shapefiles/shapefileToGeoJson', payload);
+};
+
+const onFileChange = (e) => {
+  error.value = null;
+  const selectedFiles = e.target.files || e.dataTransfer.files;
+  if (selectedFiles && !selectedFiles.length) {
+    error.value = 'Você deve adicionar @@@';
+    // error.value = 'Você deve adicionar 4 arquivos de um shapefile: .cpg, .dbf, .shp e .shx';
+    return;
+  }
+  files.value = selectedFiles;
+  validateFiles();
+};
+
+const submitFiles = () => {
+  error.value = null;
+  const filesValidationResult = validateFiles();
+  const fieldsValidationResult = validateFields();
+  if (!filesValidationResult || !fieldsValidationResult) return;
+
+  const formData = new FormData();
+
+  if (fileType.value === 'shp') {
+    const cpg = [...files.value].filter(n => /.+\.cpg$/.test(n.name))[0];
+    const dbf = [...files.value].filter(n => /.+\.dbf$/.test(n.name))[0];
+    const shp = [...files.value].filter(n => /.+\.shp$/.test(n.name))[0];
+    const shx = [...files.value].filter(n => /.+\.shx$/.test(n.name))[0];
+    formData.append('cpg', cpg);
+    formData.append('dbf', dbf);
+    formData.append('shp', shp);
+    formData.append('shx', shx);
+  } else if (fileType.value === 'kmz') {
+    const kmz = files.value[0];
+    formData.append('kmz', kmz);
+  } else if (fileType.value === 'zip') {
+    const zip = files.value[0];
+    formData.append('zip', zip);
+  }
+
+  const props = {
+    style: {
+      opacity: opacity.value,
+      color: color.value,
+      weight: weight.value,
     },
-  },
-  methods: {
-    ...mapActions([
-      'toggleMirrorLayerControl',
-      'setHideSecondMapLayerControl',
-    ]),
-    ...mapActions('user_shapefiles', [
-      'shapefileToGeoJson',
-    ]),
-    onFileChange(e) {
-      this.error = null;
-      const files = e.target.files || e.dataTransfer.files;
-      if (files && !files.length) {
-        this.error = 'Você deve adicionar @@@';
-        // this.error = 'Você deve adicionar 4 arquivos de um shapefile: .cpg, .dbf, .shp e .shx';
-        return;
-      }
-      this.files = files;
-      this.validateFiles();
-    },
-    submitFiles () {
-      this.error = null;
-      const filesValidation = this.validateFiles();
-      const fieldsValidation = this.validateFields();
-      if (!filesValidation || !fieldsValidation) return;
+    name: name.value,
+  };
 
-      const formData = new FormData();
+  shapefileToGeoJson({ formData, props, fileType: fileType.value });
+};
 
-      if (this.fileType === 'shp') {
-        const cpg = [...this.files].filter(n => /.+\.cpg$/.test(n.name))[0];
-        const dbf = [...this.files].filter(n => /.+\.dbf$/.test(n.name))[0];
-        const shp = [...this.files].filter(n => /.+\.shp$/.test(n.name))[0];
-        const shx = [...this.files].filter(n => /.+\.shx$/.test(n.name))[0];
-        formData.append('cpg', cpg);
-        formData.append('dbf', dbf);
-        formData.append('shp', shp);
-        formData.append('shx', shx);
-      } else if (this.fileType === 'kmz') {
-        const kmz = this.files[0];
-        formData.append('kmz', kmz);
-      } else if (this.fileType === 'zip') {
-        const zip = this.files[0];
-        formData.append('zip', zip);
-      }
+const validateFiles = () => {
+  if (!files.value || ![1, 4].includes(files.value.length)) {
+    error.value = 'Você deve adicionar @@@';
+    // error.value = 'Você deve adicionar 4 arquivos de um shapefile: .cpg, .dbf, .shp e .shx.';
+    files.value = null;
+    return false;
+  }
 
-      const props = {
-        style: {
-          opacity: this.opacity,
-          color: this.color,
-          weight: this.weight,
-        },
-        name: this.name,
-      };
-
-      this.shapefileToGeoJson({ formData, props, fileType: this.fileType });
-    },
-    validateFiles () {
-      // Length validation
-      if (!this.files || ![1, 4].includes(this.files.length)) {
-        this.error = 'Você deve adicionar @@@';
-        // this.error = 'Você deve adicionar 4 arquivos de um shapefile: .cpg, .dbf, .shp e .shx.';
-        this.files = null;
+  if (files.value.length == 1) {
+    if (!['.kmz', '.zip'].some(n => files.value[0].name.includes(n))) {
+      error.value = 'Formato de arquivo inválido';
+      files.value = null;
+      return false;
+    }
+    if (files.value[0].name.includes('.kmz'))
+      fileType.value = 'kmz';
+    else fileType.value = 'zip';
+  } else { // Shapefile (cpg, dbf, shp, shx)
+    const fileName = files.value[0].name.match('(.*)\\.')[1];
+    [...files.value].forEach(file => {
+      const name = file.name.match('(.*)\\.')[1];
+      if (name !== fileName) {
+        error.value = 'Os arquivos de um shapefile devem ter o mesmo nome.';
+        files.value = null;
         return false;
       }
+    });
 
-      if (this.files.length == 1) {
-        if (!['.kmz', '.zip'].some(n => this.files[0].name.includes(n))) {
-          this.error = 'Formato de arquivo inválido';
-          this.files = null;
-          return false;
-        }
-        if (this.files[0].name.includes('.kmz'))
-          this.fileType = 'kmz';
-        else this.fileType = 'zip';
-      } else { // Shapefile (cpg, dbf, shp, shx)
-        // File name validation
-        const fileName = this.files[0].name.match('(.*)\\.')[1];
-        [...this.files].forEach(file => {
-          const name = file.name.match('(.*)\\.')[1];
-          if (name !== fileName) {
-            this.error = 'Os arquivos de um shapefile devem ter o mesmo nome.';
-            this.files = null;
-            return false;
-          }
-        });
+    const extensions = ['.cpg', '.dbf', '.shp', '.shx'];
+    for (const file of files.value) {
+      const found = extensions.some(ext => file.name.includes(ext));
+      if (!found) {
+        error.value = 'Você deve adicionar 4 arquivos de um shapefile: .cpg, .dbf, .shp e .shx.';
+        files.value = null;
+        return false;
+      }
+    }
+    fileType.value = 'shp';
+  }
 
-        // Missing extension validation
-        const extensions = ['.cpg', '.dbf', '.shp', '.shx'];
-        for (const file of this.files) {
-          const found = extensions.some(ext => file.name.includes(ext));
-          if (!found) {
-            this.error = 'Você deve adicionar 4 arquivos de um shapefile: .cpg, .dbf, .shp e .shx.';
-            this.files = null;
-            return false;
-          }
-        }
-        this.fileType = 'shp';
-      }
+  error.value = null;
+  return true;
+};
 
-      this.error = null;
-      return true;
-    },
-    validateFields() {
-      if (this.name.length === 0) {
-        this.error = 'Nome é obrigatório.';
-        return false;
-      }
-      if (this.weight.length === 0) {
-        this.error = 'Espessura é obrigatória.';
-        return false;
-      }
-      if (this.opacity.length === 0) {
-        this.error = 'Opacidade é obrigatória.';
-        return false;
-      }
-      if (this.color.length === 0) {
-        this.error = 'Cor é obrigatória.';
-        return false;
-      }
-      if (!/^#([0-9a-f]{3}|[0-9a-f]{6})$/gi.test(this.color)) {
-        this.error = 'Cor deve ser informada em hexadecimal, por exemplo #ffffff.';
-        return false;
-      }
-      return true;
-    },
-  },
+const validateFields = () => {
+  if (name.value.length === 0) {
+    error.value = 'Nome é obrigatório.';
+    return false;
+  }
+  if (weight.value.length === 0) {
+    error.value = 'Espessura é obrigatória.';
+    return false;
+  }
+  if (opacity.value.length === 0) {
+    error.value = 'Opacidade é obrigatória.';
+    return false;
+  }
+  if (color.value.length === 0) {
+    error.value = 'Cor é obrigatória.';
+    return false;
+  }
+  if (!/^#([0-9a-f]{3}|[0-9a-f]{6})$/gi.test(color.value)) {
+    error.value = 'Cor deve ser informada em hexadecimal, por exemplo #ffffff.';
+    return false;
+  }
+  return true;
 };
 </script>
 
