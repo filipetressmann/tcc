@@ -42,6 +42,27 @@ services:
         ports:
             - "80:80"
 
+    postgres:
+        build: ./server/bikesp/postgres
+        container_name: bikesp_dw
+        environment:
+            POSTGRES_DB: bikesp_science
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+        networks:
+            - bikescience_network
+        expose:
+            - 5432
+        volumes:
+            - pg_data:/var/lib/postgresql/data 
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres -d bikesp_science"]
+            interval: 5s
+            timeout: 5s
+            retries: 5
+
+volumes:
+  pg_data:
 
 networks:
     bikescience_network:

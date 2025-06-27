@@ -1,4 +1,4 @@
-FROM python:3.6-stretch as base
+FROM python:3.7 as base
 
 RUN mkdir /backend
 WORKDIR /backend

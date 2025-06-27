@@ -8,6 +8,7 @@ import map from './modules/map';
 import modals from './modules/modals';
 import user from './modules/user';
 import user_shapefiles from './modules/user_shapefiles';
+import bikesp from './modules/bikesp';
 
 export const store = createStore({
   modules: {
@@ -20,5 +21,6 @@ export const store = createStore({
     modals,
     user,
     user_shapefiles,
+    bikesp,
   },
 });

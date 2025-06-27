@@ -1,6 +1,7 @@
 import os
 import sys
 
+from flask_marshmallow import Marshmallow
 import pandas as pd
 from flask import Flask, jsonify, request, send_file, url_for
 from flask_cors import CORS
@@ -12,9 +13,9 @@ import filters as filters
 import helpers
 import layers as layers
 from charts import Charts
+from bikesp import bikesp, postgres
 
 sys.path.append(os.path.normpath("."))
-
 
 # configuration
 DEBUG = True
@@ -22,6 +23,9 @@ DEBUG = True
 # instantiate the app
 app = Flask(__name__)
 app.config.from_object(__name__)
+app.register_blueprint(bikesp.bikesp_bp)
+app.teardown_appcontext(postgres.close_db)
+
 # allow cross origin requests, from VueJS, in our case
 CORS(app, resources={r'/*': {'origins': '*'}})
 

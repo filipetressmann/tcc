@@ -14,6 +14,7 @@ import { Icon } from 'leaflet';
 import ToastPlugin from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-bootstrap.css';
 import Oruga from '@oruga-ui/oruga-next';
+import router from './router';
 
 // Leaflet fix for missing marker icons
 delete Icon.Default.prototype._getIconUrl;
@@ -40,4 +41,5 @@ createApp(App)
  .use(ToastPlugin)
  .use(Oruga)
  .use(store)
+ .use(router)
  .mount('#app');
