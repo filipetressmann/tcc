@@ -45,8 +45,8 @@ class Query():
         self.group_by_parts.append('payout')
 
     def aggregate_by_day_of_week(self):
-        self.select_parts.append('TO_CHAR(date, \'Day\') AS day_of_week_name')
-        self.group_by_parts.append('day_of_week_name')
+        self.select_parts.append('EXTRACT(DOW FROM date) AS day_of_week')
+        self.group_by_parts.append('day_of_week')
     
     def aggregate_by_month(self):
         self.select_parts.append('DATE_TRUNC(\'month\', date) AS month')

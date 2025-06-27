@@ -1,3 +1,4 @@
+from datetime import timedelta
 from decimal import Decimal
 from flask import Blueprint, request
 from bikesp import models, postgres
@@ -64,10 +65,11 @@ def marshmallow_validated(func):
 def convert(value: any):
     if type(value) is Decimal:
         return float(value)
-    print(value, type(value))
+    if type(value) is timedelta:
+        return float(value.seconds/60)
     return value
 
-@bikesp_bp.route('/trip_count', methods=['POST'])
+@bikesp_bp.route('/get_data', methods=['POST'])
 @marshmallow_validated
 def fetchTripDuration():
     req_data = get_data()

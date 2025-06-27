@@ -1,43 +1,45 @@
 <template>
-  <div>
-    <router-link to="/">Voltar</router-link>
-    <Chart
-    :size="{ width: 500, height: 400 }"
-    :data="chartData"
-    :margin="margin"
-    :direction="direction">
-      <template #layers>
-        <Grid strokeDasharray="2,2" />
-        <Line :dataKeys="['HOUR', 'value']" />
-      </template>
-    </Chart>
+  <div class="layout-container">
+    <BikeSPForm class="form-panel" />
+    <div class="chart-panel">
+      <BikeSPChart />
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
-import { useStore } from 'vuex';
-import { Chart, Grid, Line } from 'vue3-charts';
-
-const store = useStore();
-
-const chartData = computed(() => store.state.bikesp.data);
-
-const direction = ref('horizontal');
-const margin = ref({
-  left: 0,
-  top: 20,
-  right: 20,
-  bottom: 0
-});
-
-onMounted(() => {
-  store.dispatch('bikesp/updateData');
-});
+import BikeSPChart from '../components/charts/BikeSPChart.vue';
+import BikeSPForm from '../components/filters/bikesp/BikeSPForm.vue';
 </script>
 
 <style scoped>
-#app {
-  color: #2ecc71
+.layout-container {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  padding: 16px;
+  height: 80vh; /* or 100vh minus header etc */
+}
+
+.form-panel {
+  flex: 0 0 320px;
+  max-width: 320px;
+  overflow-y: auto;
+  height: 80vh;
+}
+
+.chart-panel {
+  flex: 1;
+  min-width: 0;
+  height: 80vh; /* match container height */
+  /* Make sure child uses full height */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Optional: make chart fill its container */
+.chart-panel > * {
+  flex-grow: 1;
+  width: 100%;
 }
 </style>

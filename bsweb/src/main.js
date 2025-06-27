@@ -33,7 +33,7 @@ export const i18n = createI18n({
   messages 
 });
 
-createApp(App)
+const app = createApp(App)
  .use(UUID)
  .use(LoadScript)
  .use(i18n)
