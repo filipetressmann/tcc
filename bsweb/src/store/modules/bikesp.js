@@ -1,32 +1,34 @@
-import axios from 'axios';
-
-const api_url = process.env.VUE_APP_API_URL;
+import { fetchBikeSPData, fetchGeographicBikeSPData } from '../../service/bikeSPService';
 
 const state = {
     data: [],
     filters: {
-        aggregation: 'HOUR',
         data_type: 'TRIP_COUNT'
     },
     activeFilters: {
-        aggregation: 'HOUR',
-        data_type: 'TRIP_COUNT'
+        data_type: 'TRIP_COUNT',
     },
+    zoom_level: 4,
+    map_center: { lat: -23.550164466, lng: -46.633664132 },
+    max_distance: 2000000,
+    visualization: 'CHART',
 }
 
 const getters = {
     getBikespLabels(state) {
-        return state.data.map(obj => obj[state.activeFilters.aggregation]);
+        return state.data.map(obj => obj['label']);
     },
     getBikespValues(state) {
         return state.data.map(obj => obj['value']);
+    },
+    isMapViewOn(state) {
+        return state.visualization === 'MAP'
     }
 }
 
 const mutations = {
     updateData(state, data) {
         state.data = data;
-        console.log(state.data);
     },
     updateDataType(state, data) {
         state.filters.data_type = data;
@@ -36,26 +38,39 @@ const mutations = {
     },
     updateActiveFilters(state, data) {
         state.activeFilters = structuredClone(data)
-    }
+    },
+    updateFilters(state, data) {
+        state.filters = {
+            ...state.filters, 
+            ...data
+        }
+    },
+    changeView(state, view) {
+        state.visualization = view;
+    },
+    updateZoomLevel(state, zoom_level) {
+        state.zoom_level = Math.floor(zoom_level/2)+1;
+    },
+    updateMapCenter(state, newCenter) {
+        state.map_center = newCenter;
+    },
+    updateMaxDistance(state, newDistance) {
+        state.max_distance = newDistance
+    } 
 }
 
 const actions = {
     async updateData({ commit, state }) {
-         try {
-            const response = await axios.post(`${api_url}/bikesp/get_data`, {
-                "aggregation": state.filters.aggregation,
-                "data_type": state.filters.data_type,
-            });
-
-            if (response.data.data) {
-                commit('updateData', response.data.data);
-                commit('updateActiveFilters', state.filters);
+        try {
+            let data;
+            if (state.visualization === 'MAP') {
+                data = await fetchGeographicBikeSPData(state);
             } else {
-                console.warn("API response did not contain 'data.data':", response.data);
-                commit('updateData', []);
+                data = await fetchBikeSPData(state.filters);
             }
+            commit('updateData', data);
+            commit('updateActiveFilters', state.filters);
         } catch (error) {
-            console.error("Error fetching data in Vuex action (bikesp/updateData):", error);
             commit('updateData', []);
         }
     }

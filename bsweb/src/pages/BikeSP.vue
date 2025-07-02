@@ -2,14 +2,21 @@
   <div class="layout-container">
     <BikeSPForm class="form-panel" />
     <div class="chart-panel">
-      <BikeSPChart />
+      <BikeSPChart v-if="!isMapView"/>
+      <BikeSPMap v-if="isMapView"/>
     </div>
   </div>
 </template>
 
 <script setup>
 import BikeSPChart from '../components/charts/BikeSPChart.vue';
-import BikeSPForm from '../components/filters/bikesp/BikeSPForm.vue';
+import BikeSPForm from '../components/bikesp/BikeSPForm.vue';
+import BikeSPMap from '../components/map/BikeSPMap.vue';
+import { useStore } from 'vuex';
+import { computed } from 'vue';
+
+const store = useStore();
+const isMapView = computed(() => store.getters['bikesp/isMapViewOn']);
 </script>
 
 <style scoped>

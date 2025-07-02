@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS postgis;
+
 DROP TABLE IF EXISTS PERSON CASCADE; 
 
 CREATE TABLE PERSON (
@@ -42,10 +44,12 @@ CREATE TABLE TRIP (
     idTarget integer,
     status varchar(30) NOT NULL CHECK (status in ('EmAnalise', 'Reprovado','Aprovado')),
     statusReason varchar(100) NOT NULL,
-    duration interval
+    duration interval,
+    payoutLevel double precision,
+    meanSpeed double precision
 );
 
-INSERT INTO TRIP (payout, idTrip, idPerson, date, distance, idOrigin, idTarget, status, statusReason)
+INSERT INTO TRIP (payout, idTrip, idPerson, date, distance, idOrigin, idTarget, status, statusReason, payoutLevel)
 SELECT
     COALESCE(remuneracao, '0.00'::money) AS remuneracao,
     idViagem,
@@ -55,7 +59,8 @@ SELECT
     idOrigem,
     idDestino,
     status,
-    motivoStatus
+    motivoStatus,
+    ROUND((COALESCE(remuneracao, '0.00'::money)::numeric / NULLIF(deslocamento / 1000.0, 0))::numeric, 2)
 FROM public.VIAGEM;
 
 DROP TABLE IF EXISTS LOCATIONS CASCADE;
@@ -102,6 +107,12 @@ FROM (
 ) AS sub
 WHERE
     TRIP.idTrip = sub.idTrip;
+
+UPDATE TRIP
+SET meanSpeed = ROUND(
+  ((distance / 1000.0) / NULLIF(EXTRACT(EPOCH FROM duration) / 3600.0, 0))::numeric,
+  2
+);
 
 SET search_path TO "$user";
 DROP SCHEMA public CASCADE;

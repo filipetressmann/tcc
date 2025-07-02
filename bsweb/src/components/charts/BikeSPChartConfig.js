@@ -1,7 +1,7 @@
 const config = {
         theme: '',
-        responsive: false,
-        customPalette: [],
+        responsive: true,
+        customPalette: ['1f77b4'],
         useCssAnimation: true,
         downsample: {
             threshold: 500
@@ -321,6 +321,36 @@ const config = {
         showTable: false
     }
 
+const aggregationConfig = {
+    WEEK: { 
+      chart: {
+        grid: {
+          labels: {
+            xAxisLabels: {
+              show: true,
+              modulo: 4,
+              showOnlyAtModulo: false,
+              fontSize: 12,
+              rotation: 15 
+            }
+          }
+        }
+      }
+    },
+    DAY_OF_WEEK: { 
+      chart: {
+        grid: {
+          labels: {
+            xAxisLabels: {
+              values:  ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb']
+            }
+          }
+        }
+      }
+    }
+}
+
 export {
-   config
+   config,
+   aggregationConfig
 }

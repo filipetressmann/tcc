@@ -1,54 +1,17 @@
-from datetime import timedelta
+from datetime import timedelta, datetime
 from decimal import Decimal
 from flask import Blueprint, request
-from bikesp import models, postgres
-from functools import wraps
+from bikesp import models, query_mapper
 from marshmallow import ValidationError
+from functools import wraps
 
 bikesp_bp = Blueprint('bikesp', __name__ , url_prefix='/bikesp')
 
-def get_data():
-   return models.bikesp_filter_schema.load(request.get_json())
+def load_bikesp_data_request():
+   return models.bikesp_data_request.load(request.get_json())
 
-def operation_adder(field_name):
-    def decorator(func):
-        @wraps(func)
-        def wrapper(query: postgres.Query, request: models.BikespDataRequest, *args, **kwargs):
-            field_value = request.get(field_name)
-
-            if field_value is None:
-                return
-            
-            operation_map = func(query, request)
-
-            operation_function = operation_map.get(field_value)
-            if operation_function:
-                operation_function()
-        return wrapper
-    return decorator
-
-@operation_adder('aggregation')
-def add_query_aggregation_operations(query: postgres.Query, request: models.BikespDataRequest):
-    return {
-        'WEEK': query.aggregate_by_week,
-        'HOUR': query.aggregate_by_hours,
-        'DAY_OF_WEEK': query.aggregate_by_day_of_week,
-        'GENDER': query.aggregate_by_gender,
-        'RACE': query.aggregate_by_race,
-        'PAYOUT': query.aggregate_by_payout
-    }
-
-@operation_adder('data_type')
-def add_query_data_type(query: postgres.Query, request: models.BikespDataRequest):
-    return {
-        'TRIP_COUNT': query.add_trip_count,
-        'TRIP_DURATION': query.add_trip_duration,
-        'TRIP_DISTANCE': query.add_trip_distance
-    }
-
-def add_query_operations(query: postgres.Query, request: models.BikespDataRequest):
-    add_query_data_type(query, request)
-    add_query_aggregation_operations(query, request)
+def load_bikesp_geo_data_request():
+   return models.bikesp_geo_data_request.load(request.get_json())
 
 def marshmallow_validated(func):
     @wraps(func)
@@ -67,15 +30,27 @@ def convert(value: any):
         return float(value)
     if type(value) is timedelta:
         return float(value.seconds/60)
+    print(type(value))
+    if type(value) is datetime:
+        return value.strftime("%d-%m-%Y")
     return value
 
-@bikesp_bp.route('/get_data', methods=['POST'])
+@bikesp_bp.route('/fetch_trip_data', methods=['POST'])
 @marshmallow_validated
-def fetchTripDuration():
-    req_data = get_data()
-    query = postgres.Query()
-    add_query_operations(query, req_data)
+def fetchTripData():
+    req_data = load_bikesp_data_request()
+    query = query_mapper.create_query(req_data)
     data = query.execute()
     return {
-        "data": [{req_data.get('aggregation'): convert(agg_value), "value": convert(value) } for (value, agg_value) in data]
+        "data": [{'label': convert(agg_value), "value": convert(value) } for (value, agg_value) in data]
+    }
+
+@bikesp_bp.route('/fetch_geographic_data', methods=['POST'])
+@marshmallow_validated
+def fetchLocationData():
+    req_data = load_bikesp_geo_data_request()
+    query = query_mapper.create_geo_query(req_data)
+    data = query.execute()
+    return {
+        "data": [[lat, lng, value] for (value, lat, lng, geohash) in data]
     }
